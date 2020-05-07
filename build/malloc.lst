@@ -1,0 +1,846 @@
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"malloc.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.my_mem_perused,"ax",%progbits
+  16              		.align	1
+  17              		.global	my_mem_perused
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	my_mem_perused:
+  24              	.LFB69:
+  25              		.file 1 "tools/malloc.c"
+   1:tools/malloc.c **** #include "malloc.h"
+   2:tools/malloc.c **** 
+   3:tools/malloc.c **** vu32 MemUsed = 0;
+   4:tools/malloc.c **** 
+   5:tools/malloc.c **** //内存池(32字节对齐)
+   6:tools/malloc.c **** __attribute__((aligned(8))) u8 mem1base[MEM1_MAX_SIZE];                          //内部SRAM内存
+   7:tools/malloc.c **** //内存管理表
+   8:tools/malloc.c **** u32 mem1mapbase[MEM1_ALLOC_TABLE_SIZE];                                        //内部SRAM内存�
+   9:tools/malloc.c **** //内存管理参数
+  10:tools/malloc.c **** const u32 memtblsize = MEM1_ALLOC_TABLE_SIZE;                                //内存表大小
+  11:tools/malloc.c **** const u32 memblksize = MEM1_BLOCK_SIZE;                                        //内存分块大小
+  12:tools/malloc.c **** const u32 memsize = MEM1_MAX_SIZE;                                                //内存总大小
+  13:tools/malloc.c **** 
+  14:tools/malloc.c **** //内存管理控制器
+  15:tools/malloc.c **** struct _m_mallco_dev mallco_dev =
+  16:tools/malloc.c ****         {
+  17:tools/malloc.c ****                 my_mem_init,                                                //内存初始化
+  18:tools/malloc.c ****                 my_mem_perused,                                                //内存使用率
+  19:tools/malloc.c ****                 mem1base,                                                        //内存池
+  20:tools/malloc.c ****                 mem1mapbase,                                                //内存管理状态表
+  21:tools/malloc.c ****                 0,                                                                //内存管理未
+  22:tools/malloc.c ****         };
+  23:tools/malloc.c **** 
+  24:tools/malloc.c **** //复制内存
+  25:tools/malloc.c **** //*des:目的地址
+  26:tools/malloc.c **** //*src:源地址
+  27:tools/malloc.c **** //n:需要复制的内存长度(字节为单位)
+  28:tools/malloc.c **** void mymemcpy(void *des, void *src, u32 n)
+  29:tools/malloc.c **** {
+  30:tools/malloc.c ****     u8 *xdes = des;
+  31:tools/malloc.c ****     u8 *xsrc = src;
+  32:tools/malloc.c ****     while (n--)*xdes++ = *xsrc++;
+  33:tools/malloc.c **** }
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 2
+
+
+  34:tools/malloc.c **** 
+  35:tools/malloc.c **** //设置内存
+  36:tools/malloc.c **** //*s:内存首地址
+  37:tools/malloc.c **** //c :要设置的值
+  38:tools/malloc.c **** //count:需要设置的内存大小(字节为单位)
+  39:tools/malloc.c **** void mymemset(void *s, u8 c, u32 count)
+  40:tools/malloc.c **** {
+  41:tools/malloc.c ****     u8 *xs = s;
+  42:tools/malloc.c ****     while (count--)*xs++ = c;
+  43:tools/malloc.c **** }
+  44:tools/malloc.c **** 
+  45:tools/malloc.c **** //内存管理初始化
+  46:tools/malloc.c **** //memx:所属内存块
+  47:tools/malloc.c **** void my_mem_init(void)
+  48:tools/malloc.c **** {
+  49:tools/malloc.c ****     mymemset(mallco_dev.memmap, 0, memtblsize << 2);                        //内存状态表数据
+  50:tools/malloc.c ****     mallco_dev.memrdy = 1;                                                                //内存�
+  51:tools/malloc.c **** }
+  52:tools/malloc.c **** 
+  53:tools/malloc.c **** //获取内存使用率
+  54:tools/malloc.c **** //memx:所属内存块
+  55:tools/malloc.c **** //返回值:使用率(扩大了10倍,0~1000,代表0.0%~100.0%)
+  56:tools/malloc.c **** u32 my_mem_perused(void)
+  57:tools/malloc.c **** {
+  26              		.loc 1 57 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  58:tools/malloc.c ****     return MemUsed;
+  31              		.loc 1 58 0
+  32 0000 014B     		ldr	r3, .L2
+  33 0002 1868     		ldr	r0, [r3]
+  59:tools/malloc.c **** }
+  34              		.loc 1 59 0
+  35 0004 7047     		bx	lr
+  36              	.L3:
+  37 0006 00BF     		.align	2
+  38              	.L2:
+  39 0008 00000000 		.word	.LANCHOR0
+  40              		.cfi_endproc
+  41              	.LFE69:
+  43              		.section	.text.mymemcpy,"ax",%progbits
+  44              		.align	1
+  45              		.global	mymemcpy
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu softvfp
+  51              	mymemcpy:
+  52              	.LFB66:
+  29:tools/malloc.c ****     u8 *xdes = des;
+  53              		.loc 1 29 0
+  54              		.cfi_startproc
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 0, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 3
+
+
+  58              	.LVL0:
+  32:tools/malloc.c **** }
+  59              		.loc 1 32 0
+  60 0000 04E0     		b	.L5
+  61              	.LVL1:
+  62              	.L6:
+  32:tools/malloc.c **** }
+  63              		.loc 1 32 0 is_stmt 0 discriminator 2
+  64 0002 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+  65 0004 0270     		strb	r2, [r0]
+  66 0006 0131     		adds	r1, r1, #1
+  67              	.LVL2:
+  68 0008 0130     		adds	r0, r0, #1
+  69              	.LVL3:
+  70 000a 1A46     		mov	r2, r3
+  71              	.LVL4:
+  72              	.L5:
+  32:tools/malloc.c **** }
+  73              		.loc 1 32 0 discriminator 1
+  74 000c 531E     		subs	r3, r2, #1
+  75              	.LVL5:
+  76 000e 002A     		cmp	r2, #0
+  77 0010 F7D1     		bne	.L6
+  33:tools/malloc.c **** 
+  78              		.loc 1 33 0 is_stmt 1
+  79 0012 7047     		bx	lr
+  80              		.cfi_endproc
+  81              	.LFE66:
+  83              		.section	.text.mymemset,"ax",%progbits
+  84              		.align	1
+  85              		.global	mymemset
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu softvfp
+  91              	mymemset:
+  92              	.LFB67:
+  40:tools/malloc.c ****     u8 *xs = s;
+  93              		.loc 1 40 0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97              		@ link register save eliminated.
+  98              	.LVL6:
+  42:tools/malloc.c **** }
+  99              		.loc 1 42 0
+ 100 0000 02E0     		b	.L8
+ 101              	.LVL7:
+ 102              	.L9:
+  42:tools/malloc.c **** }
+ 103              		.loc 1 42 0 is_stmt 0 discriminator 2
+ 104 0002 0170     		strb	r1, [r0]
+ 105 0004 0130     		adds	r0, r0, #1
+ 106              	.LVL8:
+ 107 0006 1A46     		mov	r2, r3
+ 108              	.LVL9:
+ 109              	.L8:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 4
+
+
+  42:tools/malloc.c **** }
+ 110              		.loc 1 42 0 discriminator 1
+ 111 0008 531E     		subs	r3, r2, #1
+ 112              	.LVL10:
+ 113 000a 002A     		cmp	r2, #0
+ 114 000c F9D1     		bne	.L9
+  43:tools/malloc.c **** 
+ 115              		.loc 1 43 0 is_stmt 1
+ 116 000e 7047     		bx	lr
+ 117              		.cfi_endproc
+ 118              	.LFE67:
+ 120              		.section	.text.my_mem_init,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	my_mem_init
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu softvfp
+ 128              	my_mem_init:
+ 129              	.LFB68:
+  48:tools/malloc.c ****     mymemset(mallco_dev.memmap, 0, memtblsize << 2);                        //内存状态表数据
+ 130              		.loc 1 48 0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134 0000 10B5     		push	{r4, lr}
+ 135              	.LCFI0:
+ 136              		.cfi_def_cfa_offset 8
+ 137              		.cfi_offset 4, -8
+ 138              		.cfi_offset 14, -4
+  49:tools/malloc.c ****     mallco_dev.memrdy = 1;                                                                //内存�
+ 139              		.loc 1 49 0
+ 140 0002 054C     		ldr	r4, .L12
+ 141 0004 4FF43462 		mov	r2, #2880
+ 142 0008 0021     		movs	r1, #0
+ 143 000a E068     		ldr	r0, [r4, #12]
+ 144 000c FFF7FEFF 		bl	mymemset
+ 145              	.LVL11:
+  50:tools/malloc.c **** }
+ 146              		.loc 1 50 0
+ 147 0010 0123     		movs	r3, #1
+ 148 0012 2374     		strb	r3, [r4, #16]
+  51:tools/malloc.c **** 
+ 149              		.loc 1 51 0
+ 150 0014 10BD     		pop	{r4, pc}
+ 151              	.L13:
+ 152 0016 00BF     		.align	2
+ 153              	.L12:
+ 154 0018 00000000 		.word	.LANCHOR1
+ 155              		.cfi_endproc
+ 156              	.LFE68:
+ 158              		.section	.text.my_mem_malloc,"ax",%progbits
+ 159              		.align	1
+ 160              		.global	my_mem_malloc
+ 161              		.syntax unified
+ 162              		.thumb
+ 163              		.thumb_func
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 5
+
+
+ 164              		.fpu softvfp
+ 166              	my_mem_malloc:
+ 167              	.LFB70:
+  60:tools/malloc.c **** 
+  61:tools/malloc.c **** //内存分配(内部调用)
+  62:tools/malloc.c **** //memx:所属内存块
+  63:tools/malloc.c **** //size:要分配的内存大小(字节)
+  64:tools/malloc.c **** //返回值:0XFFFFFFFF,代表错误;其他,内存偏移地址
+  65:tools/malloc.c **** u32 my_mem_malloc(u32 size)
+  66:tools/malloc.c **** {
+ 168              		.loc 1 66 0
+ 169              		.cfi_startproc
+ 170              		@ args = 0, pretend = 0, frame = 0
+ 171              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172              	.LVL12:
+ 173 0000 10B5     		push	{r4, lr}
+ 174              	.LCFI1:
+ 175              		.cfi_def_cfa_offset 8
+ 176              		.cfi_offset 4, -8
+ 177              		.cfi_offset 14, -4
+ 178 0002 0446     		mov	r4, r0
+ 179              	.LVL13:
+  67:tools/malloc.c ****     signed long offset = 0;
+  68:tools/malloc.c ****     u32 nmemb;        //需要的内存块数
+  69:tools/malloc.c ****     u32 cmemb = 0;//连续空内存块数
+  70:tools/malloc.c ****     u32 i;
+  71:tools/malloc.c ****     if (!mallco_dev.memrdy)mallco_dev.init();//未初始化,先执行初始化
+ 180              		.loc 1 71 0
+ 181 0004 1A4B     		ldr	r3, .L30
+ 182 0006 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
+ 183 0008 13B9     		cbnz	r3, .L15
+ 184              		.loc 1 71 0 is_stmt 0 discriminator 1
+ 185 000a 194B     		ldr	r3, .L30
+ 186 000c 1B68     		ldr	r3, [r3]
+ 187 000e 9847     		blx	r3
+ 188              	.LVL14:
+ 189              	.L15:
+  72:tools/malloc.c ****     if (size == 0)return 0xFFFFFFFF;//不需要分配
+ 190              		.loc 1 72 0 is_stmt 1
+ 191 0010 5CB3     		cbz	r4, .L24
+  73:tools/malloc.c ****     nmemb = size / memblksize;        //获取需要分配的连续内存块数
+ 192              		.loc 1 73 0
+ 193 0012 A109     		lsrs	r1, r4, #6
+ 194              	.LVL15:
+  74:tools/malloc.c ****     if (size % memblksize)nmemb++;
+ 195              		.loc 1 74 0
+ 196 0014 14F03F0F 		tst	r4, #63
+ 197 0018 00D0     		beq	.L17
+ 198              		.loc 1 74 0 is_stmt 0 discriminator 1
+ 199 001a 0131     		adds	r1, r1, #1
+ 200              	.LVL16:
+ 201              	.L17:
+  69:tools/malloc.c ****     u32 i;
+ 202              		.loc 1 69 0 is_stmt 1
+ 203 001c 0022     		movs	r2, #0
+  75:tools/malloc.c **** 
+  76:tools/malloc.c ****     for (offset = memtblsize - 1; offset >= 0; offset--)//搜索整个内存控制区
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 6
+
+
+ 204              		.loc 1 76 0
+ 205 001e 40F2CF23 		movw	r3, #719
+ 206 0022 03E0     		b	.L18
+ 207              	.LVL17:
+ 208              	.L25:
+  77:tools/malloc.c ****     {
+  78:tools/malloc.c ****         if (!mallco_dev.memmap[offset])cmemb++;//连续空内存块数增加
+  79:tools/malloc.c ****         else cmemb = 0;                                                                //连续内�
+ 209              		.loc 1 79 0
+ 210 0024 0022     		movs	r2, #0
+ 211              	.LVL18:
+ 212              	.L19:
+  80:tools/malloc.c ****         if (cmemb == nmemb)                                                        //找到了连�
+ 213              		.loc 1 80 0
+ 214 0026 9142     		cmp	r1, r2
+ 215 0028 0BD0     		beq	.L27
+  76:tools/malloc.c ****     {
+ 216              		.loc 1 76 0 discriminator 2
+ 217 002a 013B     		subs	r3, r3, #1
+ 218              	.LVL19:
+ 219              	.L18:
+  76:tools/malloc.c ****     {
+ 220              		.loc 1 76 0 is_stmt 0 discriminator 1
+ 221 002c 002B     		cmp	r3, #0
+ 222 002e 19DB     		blt	.L28
+  78:tools/malloc.c ****         else cmemb = 0;                                                                //连续内�
+ 223              		.loc 1 78 0 is_stmt 1
+ 224 0030 0F48     		ldr	r0, .L30
+ 225 0032 C468     		ldr	r4, [r0, #12]
+ 226 0034 1846     		mov	r0, r3
+ 227 0036 54F82340 		ldr	r4, [r4, r3, lsl #2]
+ 228 003a 002C     		cmp	r4, #0
+ 229 003c F2D1     		bne	.L25
+  78:tools/malloc.c ****         else cmemb = 0;                                                                //连续内�
+ 230              		.loc 1 78 0 is_stmt 0 discriminator 1
+ 231 003e 0132     		adds	r2, r2, #1
+ 232              	.LVL20:
+ 233 0040 F1E7     		b	.L19
+ 234              	.L27:
+  81:tools/malloc.c ****         {
+  82:tools/malloc.c ****             MemUsed += nmemb * MEM1_BLOCK_SIZE;
+ 235              		.loc 1 82 0 is_stmt 1
+ 236 0042 0C4A     		ldr	r2, .L30+4
+ 237              	.LVL21:
+ 238 0044 1368     		ldr	r3, [r2]
+ 239              	.LVL22:
+ 240 0046 03EB8113 		add	r3, r3, r1, lsl #6
+ 241 004a 1360     		str	r3, [r2]
+ 242              	.LVL23:
+  83:tools/malloc.c ****             for (i = 0; i < nmemb; i++)                                        //标注内存块非
+ 243              		.loc 1 83 0
+ 244 004c 0023     		movs	r3, #0
+ 245              	.LVL24:
+ 246              	.L21:
+ 247              		.loc 1 83 0 is_stmt 0 discriminator 1
+ 248 004e 9942     		cmp	r1, r3
+ 249 0050 06D9     		bls	.L29
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 7
+
+
+  84:tools/malloc.c ****                 mallco_dev.memmap[offset + i] = nmemb;
+ 250              		.loc 1 84 0 is_stmt 1 discriminator 3
+ 251 0052 074A     		ldr	r2, .L30
+ 252 0054 D268     		ldr	r2, [r2, #12]
+ 253 0056 C418     		adds	r4, r0, r3
+ 254 0058 42F82410 		str	r1, [r2, r4, lsl #2]
+  83:tools/malloc.c ****             for (i = 0; i < nmemb; i++)                                        //标注内存块非
+ 255              		.loc 1 83 0 discriminator 3
+ 256 005c 0133     		adds	r3, r3, #1
+ 257              	.LVL25:
+ 258 005e F6E7     		b	.L21
+ 259              	.L29:
+  85:tools/malloc.c ****             return (offset * memblksize);//返回偏移地址
+ 260              		.loc 1 85 0
+ 261 0060 8001     		lsls	r0, r0, #6
+ 262              	.LVL26:
+ 263              	.L14:
+  86:tools/malloc.c ****         }
+  87:tools/malloc.c ****     }
+  88:tools/malloc.c ****     return 0XFFFFFFFF;//未找到符合分配条件的内存块
+  89:tools/malloc.c **** }
+ 264              		.loc 1 89 0
+ 265 0062 10BD     		pop	{r4, pc}
+ 266              	.LVL27:
+ 267              	.L28:
+  88:tools/malloc.c **** }
+ 268              		.loc 1 88 0
+ 269 0064 4FF0FF30 		mov	r0, #-1
+ 270 0068 FBE7     		b	.L14
+ 271              	.LVL28:
+ 272              	.L24:
+  72:tools/malloc.c ****     nmemb = size / memblksize;        //获取需要分配的连续内存块数
+ 273              		.loc 1 72 0
+ 274 006a 4FF0FF30 		mov	r0, #-1
+ 275 006e F8E7     		b	.L14
+ 276              	.L31:
+ 277              		.align	2
+ 278              	.L30:
+ 279 0070 00000000 		.word	.LANCHOR1
+ 280 0074 00000000 		.word	.LANCHOR0
+ 281              		.cfi_endproc
+ 282              	.LFE70:
+ 284              		.section	.text.my_mem_free,"ax",%progbits
+ 285              		.align	1
+ 286              		.global	my_mem_free
+ 287              		.syntax unified
+ 288              		.thumb
+ 289              		.thumb_func
+ 290              		.fpu softvfp
+ 292              	my_mem_free:
+ 293              	.LFB71:
+  90:tools/malloc.c **** 
+  91:tools/malloc.c **** //释放内存(内部调用)
+  92:tools/malloc.c **** //memx:所属内存块
+  93:tools/malloc.c **** //offset:内存地址偏移
+  94:tools/malloc.c **** //返回值:0,释放成功;1,释放失败;
+  95:tools/malloc.c **** u8 my_mem_free(u32 offset)
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 8
+
+
+  96:tools/malloc.c **** {
+ 294              		.loc 1 96 0
+ 295              		.cfi_startproc
+ 296              		@ args = 0, pretend = 0, frame = 0
+ 297              		@ frame_needed = 0, uses_anonymous_args = 0
+ 298              	.LVL29:
+ 299 0000 38B5     		push	{r3, r4, r5, lr}
+ 300              	.LCFI2:
+ 301              		.cfi_def_cfa_offset 16
+ 302              		.cfi_offset 3, -16
+ 303              		.cfi_offset 4, -12
+ 304              		.cfi_offset 5, -8
+ 305              		.cfi_offset 14, -4
+  97:tools/malloc.c ****     int i;
+  98:tools/malloc.c ****     if (!mallco_dev.memrdy)//未初始化,先执行初始化
+ 306              		.loc 1 98 0
+ 307 0002 124B     		ldr	r3, .L39
+ 308 0004 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
+ 309 0006 23B9     		cbnz	r3, .L33
+  99:tools/malloc.c ****     {
+ 100:tools/malloc.c ****         mallco_dev.init();
+ 310              		.loc 1 100 0
+ 311 0008 104B     		ldr	r3, .L39
+ 312 000a 1B68     		ldr	r3, [r3]
+ 313 000c 9847     		blx	r3
+ 314              	.LVL30:
+ 101:tools/malloc.c ****         return 1;//未初始化
+ 315              		.loc 1 101 0
+ 316 000e 0120     		movs	r0, #1
+ 317              	.L34:
+ 102:tools/malloc.c ****     }
+ 103:tools/malloc.c ****     if (offset < memsize)//偏移在内存池内.
+ 104:tools/malloc.c ****     {
+ 105:tools/malloc.c ****         int index = offset / memblksize;                                //偏移所在内存块号�
+ 106:tools/malloc.c ****         int nmemb = mallco_dev.memmap[index];                        //内存块数量
+ 107:tools/malloc.c ****         MemUsed -= nmemb * MEM1_BLOCK_SIZE;
+ 108:tools/malloc.c ****         for (i = 0; i < nmemb; i++)                                                //内存块清�
+ 109:tools/malloc.c ****             mallco_dev.memmap[index + i] = 0;
+ 110:tools/malloc.c ****         return 0;
+ 111:tools/malloc.c ****     } else return 2;//偏移超区了.
+ 112:tools/malloc.c **** }
+ 318              		.loc 1 112 0
+ 319 0010 38BD     		pop	{r3, r4, r5, pc}
+ 320              	.LVL31:
+ 321              	.L33:
+ 103:tools/malloc.c ****     {
+ 322              		.loc 1 103 0
+ 323 0012 B0F5344F 		cmp	r0, #46080
+ 324 0016 16D2     		bcs	.L37
+ 325              	.LBB2:
+ 105:tools/malloc.c ****         int nmemb = mallco_dev.memmap[index];                        //内存块数量
+ 326              		.loc 1 105 0
+ 327 0018 8009     		lsrs	r0, r0, #6
+ 328              	.LVL32:
+ 106:tools/malloc.c ****         MemUsed -= nmemb * MEM1_BLOCK_SIZE;
+ 329              		.loc 1 106 0
+ 330 001a 0C4B     		ldr	r3, .L39
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 9
+
+
+ 331 001c DB68     		ldr	r3, [r3, #12]
+ 332 001e 53F82050 		ldr	r5, [r3, r0, lsl #2]
+ 333              	.LVL33:
+ 107:tools/malloc.c ****         for (i = 0; i < nmemb; i++)                                                //内存块清�
+ 334              		.loc 1 107 0
+ 335 0022 0B4A     		ldr	r2, .L39+4
+ 336 0024 1368     		ldr	r3, [r2]
+ 337 0026 A3EB8513 		sub	r3, r3, r5, lsl #6
+ 338 002a 1360     		str	r3, [r2]
+ 339              	.LVL34:
+ 108:tools/malloc.c ****             mallco_dev.memmap[index + i] = 0;
+ 340              		.loc 1 108 0
+ 341 002c 0023     		movs	r3, #0
+ 342 002e 06E0     		b	.L35
+ 343              	.LVL35:
+ 344              	.L36:
+ 109:tools/malloc.c ****         return 0;
+ 345              		.loc 1 109 0 discriminator 3
+ 346 0030 064A     		ldr	r2, .L39
+ 347 0032 D268     		ldr	r2, [r2, #12]
+ 348 0034 1918     		adds	r1, r3, r0
+ 349 0036 0024     		movs	r4, #0
+ 350 0038 42F82140 		str	r4, [r2, r1, lsl #2]
+ 108:tools/malloc.c ****             mallco_dev.memmap[index + i] = 0;
+ 351              		.loc 1 108 0 discriminator 3
+ 352 003c 0133     		adds	r3, r3, #1
+ 353              	.LVL36:
+ 354              	.L35:
+ 108:tools/malloc.c ****             mallco_dev.memmap[index + i] = 0;
+ 355              		.loc 1 108 0 is_stmt 0 discriminator 1
+ 356 003e AB42     		cmp	r3, r5
+ 357 0040 F6DB     		blt	.L36
+ 110:tools/malloc.c ****     } else return 2;//偏移超区了.
+ 358              		.loc 1 110 0 is_stmt 1
+ 359 0042 0020     		movs	r0, #0
+ 360              	.LVL37:
+ 361 0044 E4E7     		b	.L34
+ 362              	.LVL38:
+ 363              	.L37:
+ 364              	.LBE2:
+ 111:tools/malloc.c **** }
+ 365              		.loc 1 111 0
+ 366 0046 0220     		movs	r0, #2
+ 367              	.LVL39:
+ 368 0048 E2E7     		b	.L34
+ 369              	.L40:
+ 370 004a 00BF     		.align	2
+ 371              	.L39:
+ 372 004c 00000000 		.word	.LANCHOR1
+ 373 0050 00000000 		.word	.LANCHOR0
+ 374              		.cfi_endproc
+ 375              	.LFE71:
+ 377              		.section	.text.myfree,"ax",%progbits
+ 378              		.align	1
+ 379              		.global	myfree
+ 380              		.syntax unified
+ 381              		.thumb
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 10
+
+
+ 382              		.thumb_func
+ 383              		.fpu softvfp
+ 385              	myfree:
+ 386              	.LFB72:
+ 113:tools/malloc.c **** 
+ 114:tools/malloc.c **** //释放内存(外部调用)
+ 115:tools/malloc.c **** //memx:所属内存块
+ 116:tools/malloc.c **** //ptr:内存首地址
+ 117:tools/malloc.c **** void myfree(void *ptr)
+ 118:tools/malloc.c **** {
+ 387              		.loc 1 118 0
+ 388              		.cfi_startproc
+ 389              		@ args = 0, pretend = 0, frame = 0
+ 390              		@ frame_needed = 0, uses_anonymous_args = 0
+ 391              	.LVL40:
+ 119:tools/malloc.c ****     u32 offset;
+ 120:tools/malloc.c ****     if (ptr == NULL)return;//地址为0.
+ 392              		.loc 1 120 0
+ 393 0000 38B1     		cbz	r0, .L44
+ 118:tools/malloc.c ****     u32 offset;
+ 394              		.loc 1 118 0
+ 395 0002 08B5     		push	{r3, lr}
+ 396              	.LCFI3:
+ 397              		.cfi_def_cfa_offset 8
+ 398              		.cfi_offset 3, -8
+ 399              		.cfi_offset 14, -4
+ 400 0004 0346     		mov	r3, r0
+ 121:tools/malloc.c ****     offset = (u32) ptr - (u32) mallco_dev.membase;
+ 401              		.loc 1 121 0
+ 402 0006 034A     		ldr	r2, .L47
+ 403 0008 9068     		ldr	r0, [r2, #8]
+ 404              	.LVL41:
+ 122:tools/malloc.c ****     my_mem_free(offset);        //释放内存
+ 405              		.loc 1 122 0
+ 406 000a 181A     		subs	r0, r3, r0
+ 407              	.LVL42:
+ 408 000c FFF7FEFF 		bl	my_mem_free
+ 409              	.LVL43:
+ 123:tools/malloc.c ****     ptr = NULL;
+ 124:tools/malloc.c **** }
+ 410              		.loc 1 124 0
+ 411 0010 08BD     		pop	{r3, pc}
+ 412              	.LVL44:
+ 413              	.L44:
+ 414              	.LCFI4:
+ 415              		.cfi_def_cfa_offset 0
+ 416              		.cfi_restore 3
+ 417              		.cfi_restore 14
+ 418 0012 7047     		bx	lr
+ 419              	.L48:
+ 420              		.align	2
+ 421              	.L47:
+ 422 0014 00000000 		.word	.LANCHOR1
+ 423              		.cfi_endproc
+ 424              	.LFE72:
+ 426              		.section	.text.mymalloc,"ax",%progbits
+ 427              		.align	1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 11
+
+
+ 428              		.global	mymalloc
+ 429              		.syntax unified
+ 430              		.thumb
+ 431              		.thumb_func
+ 432              		.fpu softvfp
+ 434              	mymalloc:
+ 435              	.LFB73:
+ 125:tools/malloc.c **** 
+ 126:tools/malloc.c **** //分配内存(外部调用)
+ 127:tools/malloc.c **** //memx:所属内存块
+ 128:tools/malloc.c **** //size:内存大小(字节)
+ 129:tools/malloc.c **** //返回值:分配到的内存首地址.
+ 130:tools/malloc.c **** void *mymalloc(u32 size)
+ 131:tools/malloc.c **** {
+ 436              		.loc 1 131 0
+ 437              		.cfi_startproc
+ 438              		@ args = 0, pretend = 0, frame = 0
+ 439              		@ frame_needed = 0, uses_anonymous_args = 0
+ 440              	.LVL45:
+ 441 0000 08B5     		push	{r3, lr}
+ 442              	.LCFI5:
+ 443              		.cfi_def_cfa_offset 8
+ 444              		.cfi_offset 3, -8
+ 445              		.cfi_offset 14, -4
+ 132:tools/malloc.c ****     u32 offset;
+ 133:tools/malloc.c ****     offset = my_mem_malloc(size);
+ 446              		.loc 1 133 0
+ 447 0002 FFF7FEFF 		bl	my_mem_malloc
+ 448              	.LVL46:
+ 134:tools/malloc.c ****     if (offset == 0xFFFFFFFF)return NULL;
+ 449              		.loc 1 134 0
+ 450 0006 B0F1FF3F 		cmp	r0, #-1
+ 451 000a 03D0     		beq	.L51
+ 135:tools/malloc.c ****     else {
+ 136:tools/malloc.c ****         //mymemset((void*)((u32)mallco_dev.membase[memx]+offset),0,size);
+ 137:tools/malloc.c ****         return (void *) ((u32) mallco_dev.membase + offset);
+ 452              		.loc 1 137 0
+ 453 000c 024B     		ldr	r3, .L53
+ 454 000e 9B68     		ldr	r3, [r3, #8]
+ 455 0010 1844     		add	r0, r0, r3
+ 456              	.LVL47:
+ 457              	.L49:
+ 138:tools/malloc.c ****     }
+ 139:tools/malloc.c **** }
+ 458              		.loc 1 139 0
+ 459 0012 08BD     		pop	{r3, pc}
+ 460              	.LVL48:
+ 461              	.L51:
+ 134:tools/malloc.c ****     else {
+ 462              		.loc 1 134 0
+ 463 0014 0020     		movs	r0, #0
+ 464              	.LVL49:
+ 465 0016 FCE7     		b	.L49
+ 466              	.L54:
+ 467              		.align	2
+ 468              	.L53:
+ 469 0018 00000000 		.word	.LANCHOR1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 12
+
+
+ 470              		.cfi_endproc
+ 471              	.LFE73:
+ 473              		.section	.text.myrealloc,"ax",%progbits
+ 474              		.align	1
+ 475              		.global	myrealloc
+ 476              		.syntax unified
+ 477              		.thumb
+ 478              		.thumb_func
+ 479              		.fpu softvfp
+ 481              	myrealloc:
+ 482              	.LFB74:
+ 140:tools/malloc.c **** 
+ 141:tools/malloc.c **** //重新分配内存(外部调用)
+ 142:tools/malloc.c **** //memx:所属内存块
+ 143:tools/malloc.c **** //*ptr:旧内存首地址
+ 144:tools/malloc.c **** //size:要分配的内存大小(字节)
+ 145:tools/malloc.c **** //返回值:新分配到的内存首地址.
+ 146:tools/malloc.c **** void *myrealloc(void *ptr, u32 size)
+ 147:tools/malloc.c **** {
+ 483              		.loc 1 147 0
+ 484              		.cfi_startproc
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487              	.LVL50:
+ 488 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 489              	.LCFI6:
+ 490              		.cfi_def_cfa_offset 24
+ 491              		.cfi_offset 3, -24
+ 492              		.cfi_offset 4, -20
+ 493              		.cfi_offset 5, -16
+ 494              		.cfi_offset 6, -12
+ 495              		.cfi_offset 7, -8
+ 496              		.cfi_offset 14, -4
+ 497 0002 0646     		mov	r6, r0
+ 498 0004 0D46     		mov	r5, r1
+ 148:tools/malloc.c ****     u32 offset;
+ 149:tools/malloc.c ****     offset = my_mem_malloc(size);
+ 499              		.loc 1 149 0
+ 500 0006 0846     		mov	r0, r1
+ 501              	.LVL51:
+ 502 0008 FFF7FEFF 		bl	my_mem_malloc
+ 503              	.LVL52:
+ 150:tools/malloc.c ****     if (offset == 0XFFFFFFFF)return NULL;
+ 504              		.loc 1 150 0
+ 505 000c B0F1FF3F 		cmp	r0, #-1
+ 506 0010 0DD0     		beq	.L57
+ 507 0012 0446     		mov	r4, r0
+ 151:tools/malloc.c ****     else {
+ 152:tools/malloc.c ****         mymemcpy((void *) ((u32) mallco_dev.membase + offset), ptr, size);        //拷贝旧内存
+ 508              		.loc 1 152 0
+ 509 0014 074F     		ldr	r7, .L59
+ 510 0016 B868     		ldr	r0, [r7, #8]
+ 511              	.LVL53:
+ 512 0018 2A46     		mov	r2, r5
+ 513 001a 3146     		mov	r1, r6
+ 514 001c 2044     		add	r0, r0, r4
+ 515 001e FFF7FEFF 		bl	mymemcpy
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 13
+
+
+ 516              	.LVL54:
+ 153:tools/malloc.c ****         myfree(ptr);                                                                               
+ 517              		.loc 1 153 0
+ 518 0022 3046     		mov	r0, r6
+ 519 0024 FFF7FEFF 		bl	myfree
+ 520              	.LVL55:
+ 154:tools/malloc.c ****         return (void *) ((u32) mallco_dev.membase + offset);                                       
+ 521              		.loc 1 154 0
+ 522 0028 B868     		ldr	r0, [r7, #8]
+ 523 002a 2044     		add	r0, r0, r4
+ 524              	.LVL56:
+ 525              	.L55:
+ 155:tools/malloc.c ****     }
+ 156:tools/malloc.c **** }
+ 526              		.loc 1 156 0
+ 527 002c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 528              	.LVL57:
+ 529              	.L57:
+ 150:tools/malloc.c ****     else {
+ 530              		.loc 1 150 0
+ 531 002e 0020     		movs	r0, #0
+ 532              	.LVL58:
+ 533 0030 FCE7     		b	.L55
+ 534              	.L60:
+ 535 0032 00BF     		.align	2
+ 536              	.L59:
+ 537 0034 00000000 		.word	.LANCHOR1
+ 538              		.cfi_endproc
+ 539              	.LFE74:
+ 541              		.global	mallco_dev
+ 542              		.global	memsize
+ 543              		.global	memblksize
+ 544              		.global	memtblsize
+ 545              		.comm	mem1mapbase,2880,4
+ 546              		.comm	mem1base,46080,8
+ 547              		.global	MemUsed
+ 548              		.section	.bss.MemUsed,"aw",%nobits
+ 549              		.align	2
+ 550              		.set	.LANCHOR0,. + 0
+ 553              	MemUsed:
+ 554 0000 00000000 		.space	4
+ 555              		.section	.data.mallco_dev,"aw",%progbits
+ 556              		.align	2
+ 557              		.set	.LANCHOR1,. + 0
+ 560              	mallco_dev:
+ 561 0000 00000000 		.word	my_mem_init
+ 562 0004 00000000 		.word	my_mem_perused
+ 563 0008 00000000 		.word	mem1base
+ 564 000c 00000000 		.word	mem1mapbase
+ 565 0010 00       		.byte	0
+ 566 0011 000000   		.space	3
+ 567              		.section	.rodata.memblksize,"a",%progbits
+ 568              		.align	2
+ 571              	memblksize:
+ 572 0000 40000000 		.word	64
+ 573              		.section	.rodata.memsize,"a",%progbits
+ 574              		.align	2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 14
+
+
+ 577              	memsize:
+ 578 0000 00B40000 		.word	46080
+ 579              		.section	.rodata.memtblsize,"a",%progbits
+ 580              		.align	2
+ 583              	memtblsize:
+ 584 0000 D0020000 		.word	720
+ 585              		.text
+ 586              	.Letext0:
+ 587              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 588              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 589              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 590              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 591              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 592              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 593              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdlib.h"
+ 594              		.file 9 "Inc/core_cm3.h"
+ 595              		.file 10 "startup/inc/sys.h"
+ 596              		.file 11 "tools/inc/tskmanager.h"
+ 597              		.file 12 "tools/inc/malloc.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 malloc.c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:16     .text.my_mem_perused:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:23     .text.my_mem_perused:0000000000000000 my_mem_perused
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:39     .text.my_mem_perused:0000000000000008 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:44     .text.mymemcpy:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:51     .text.mymemcpy:0000000000000000 mymemcpy
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:84     .text.mymemset:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:91     .text.mymemset:0000000000000000 mymemset
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:121    .text.my_mem_init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:128    .text.my_mem_init:0000000000000000 my_mem_init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:154    .text.my_mem_init:0000000000000018 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:159    .text.my_mem_malloc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:166    .text.my_mem_malloc:0000000000000000 my_mem_malloc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:279    .text.my_mem_malloc:0000000000000070 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:285    .text.my_mem_free:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:292    .text.my_mem_free:0000000000000000 my_mem_free
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:372    .text.my_mem_free:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:378    .text.myfree:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:385    .text.myfree:0000000000000000 myfree
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:422    .text.myfree:0000000000000014 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:427    .text.mymalloc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:434    .text.mymalloc:0000000000000000 mymalloc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:469    .text.mymalloc:0000000000000018 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:474    .text.myrealloc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:481    .text.myrealloc:0000000000000000 myrealloc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:537    .text.myrealloc:0000000000000034 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:560    .data.mallco_dev:0000000000000000 mallco_dev
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:577    .rodata.memsize:0000000000000000 memsize
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:571    .rodata.memblksize:0000000000000000 memblksize
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:583    .rodata.memtblsize:0000000000000000 memtblsize
+                            *COM*:0000000000000b40 mem1mapbase
+                            *COM*:000000000000b400 mem1base
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:553    .bss.MemUsed:0000000000000000 MemUsed
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:549    .bss.MemUsed:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:556    .data.mallco_dev:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:568    .rodata.memblksize:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:574    .rodata.memsize:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:580    .rodata.memtblsize:0000000000000000 $d
+
+NO UNDEFINED SYMBOLS

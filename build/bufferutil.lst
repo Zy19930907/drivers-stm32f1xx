@@ -1,0 +1,386 @@
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"bufferutil.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.InitBuffer,"ax",%progbits
+  16              		.align	1
+  17              		.global	InitBuffer
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	InitBuffer:
+  24              	.LFB66:
+  25              		.file 1 "tools/bufferutil.c"
+   1:tools/bufferutil.c **** //
+   2:tools/bufferutil.c **** // Created by 周洋 on 2020/4/7.
+   3:tools/bufferutil.c **** //
+   4:tools/bufferutil.c **** 
+   5:tools/bufferutil.c **** #include "bufferutil.h"
+   6:tools/bufferutil.c **** void InitBuffer(_Buffer *buffer)
+   7:tools/bufferutil.c **** {
+  26              		.loc 1 7 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  36 0002 0446     		mov	r4, r0
+   8:tools/bufferutil.c **** 	buffer->r = 0;
+  37              		.loc 1 8 0
+  38 0004 0023     		movs	r3, #0
+  39 0006 8360     		str	r3, [r0, #8]
+   9:tools/bufferutil.c **** 	buffer->w = 0;
+  40              		.loc 1 9 0
+  41 0008 C360     		str	r3, [r0, #12]
+  10:tools/bufferutil.c **** 	buffer->buf = mymalloc(buffer->size);
+  42              		.loc 1 10 0
+  43 000a 0069     		ldr	r0, [r0, #16]
+  44              	.LVL1:
+  45 000c FFF7FEFF 		bl	mymalloc
+  46              	.LVL2:
+  47 0010 6061     		str	r0, [r4, #20]
+  11:tools/bufferutil.c **** }
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s 			page 2
+
+
+  48              		.loc 1 11 0
+  49 0012 10BD     		pop	{r4, pc}
+  50              		.cfi_endproc
+  51              	.LFE66:
+  53              		.section	.text.BufferReset,"ax",%progbits
+  54              		.align	1
+  55              		.global	BufferReset
+  56              		.syntax unified
+  57              		.thumb
+  58              		.thumb_func
+  59              		.fpu softvfp
+  61              	BufferReset:
+  62              	.LFB67:
+  12:tools/bufferutil.c **** 
+  13:tools/bufferutil.c **** void BufferReset(_Buffer *buffer)
+  14:tools/bufferutil.c **** {
+  63              		.loc 1 14 0
+  64              		.cfi_startproc
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              	.LVL3:
+  68 0000 08B5     		push	{r3, lr}
+  69              	.LCFI1:
+  70              		.cfi_def_cfa_offset 8
+  71              		.cfi_offset 3, -8
+  72              		.cfi_offset 14, -4
+  15:tools/bufferutil.c **** 	buffer->r = 0;
+  73              		.loc 1 15 0
+  74 0002 0021     		movs	r1, #0
+  75 0004 8160     		str	r1, [r0, #8]
+  16:tools/bufferutil.c **** 	buffer->w = 0;
+  76              		.loc 1 16 0
+  77 0006 C160     		str	r1, [r0, #12]
+  17:tools/bufferutil.c **** 	memset(buffer->buf,'\0',buffer->size);
+  78              		.loc 1 17 0
+  79 0008 0269     		ldr	r2, [r0, #16]
+  80 000a 4069     		ldr	r0, [r0, #20]
+  81              	.LVL4:
+  82 000c FFF7FEFF 		bl	memset
+  83              	.LVL5:
+  18:tools/bufferutil.c **** }
+  84              		.loc 1 18 0
+  85 0010 08BD     		pop	{r3, pc}
+  86              		.cfi_endproc
+  87              	.LFE67:
+  89              		.section	.text.GetPopBufferLen,"ax",%progbits
+  90              		.align	1
+  91              		.global	GetPopBufferLen
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu softvfp
+  97              	GetPopBufferLen:
+  98              	.LFB68:
+  19:tools/bufferutil.c **** 
+  20:tools/bufferutil.c **** s32 GetPopBufferLen(_Buffer *buffer)
+  21:tools/bufferutil.c **** {
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s 			page 3
+
+
+  99              		.loc 1 21 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 104              	.LVL6:
+  22:tools/bufferutil.c **** 	s32 temp=0;
+  23:tools/bufferutil.c **** 	temp = buffer->w - buffer->r;
+ 105              		.loc 1 23 0
+ 106 0000 C368     		ldr	r3, [r0, #12]
+ 107 0002 8268     		ldr	r2, [r0, #8]
+ 108              	.LVL7:
+  24:tools/bufferutil.c **** 	return (temp>=0 ? temp : temp+buffer->size);
+ 109              		.loc 1 24 0
+ 110 0004 9B1A     		subs	r3, r3, r2
+ 111              	.LVL8:
+ 112 0006 01D4     		bmi	.L7
+ 113              	.LVL9:
+ 114              	.L5:
+  25:tools/bufferutil.c **** }
+ 115              		.loc 1 25 0
+ 116 0008 1846     		mov	r0, r3
+ 117              	.LVL10:
+ 118 000a 7047     		bx	lr
+ 119              	.LVL11:
+ 120              	.L7:
+  24:tools/bufferutil.c **** 	return (temp>=0 ? temp : temp+buffer->size);
+ 121              		.loc 1 24 0 discriminator 1
+ 122 000c 0269     		ldr	r2, [r0, #16]
+ 123 000e 1344     		add	r3, r3, r2
+ 124              	.LVL12:
+ 125 0010 FAE7     		b	.L5
+ 126              		.cfi_endproc
+ 127              	.LFE68:
+ 129              		.section	.text.PushBuffer,"ax",%progbits
+ 130              		.align	1
+ 131              		.global	PushBuffer
+ 132              		.syntax unified
+ 133              		.thumb
+ 134              		.thumb_func
+ 135              		.fpu softvfp
+ 137              	PushBuffer:
+ 138              	.LFB69:
+  26:tools/bufferutil.c **** 
+  27:tools/bufferutil.c **** void PushBuffer(_Buffer *buffer,u8 *dat,u16 len)
+  28:tools/bufferutil.c **** {
+ 139              		.loc 1 28 0
+ 140              		.cfi_startproc
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 143              		@ link register save eliminated.
+ 144              	.LVL13:
+  29:tools/bufferutil.c **** 	if(len <=0)
+ 145              		.loc 1 29 0
+ 146 0000 1346     		mov	r3, r2
+ 147 0002 D2B1     		cbz	r2, .L13
+  28:tools/bufferutil.c **** 	if(len <=0)
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s 			page 4
+
+
+ 148              		.loc 1 28 0
+ 149 0004 70B4     		push	{r4, r5, r6}
+ 150              	.LCFI2:
+ 151              		.cfi_def_cfa_offset 12
+ 152              		.cfi_offset 4, -12
+ 153              		.cfi_offset 5, -8
+ 154              		.cfi_offset 6, -4
+ 155 0006 03E0     		b	.L11
+ 156              	.LVL14:
+ 157              	.L10:
+  30:tools/bufferutil.c **** 		return;
+  31:tools/bufferutil.c **** 	do
+  32:tools/bufferutil.c **** 	{
+  33:tools/bufferutil.c **** 		buffer->buf[buffer->w++] = *dat++;
+  34:tools/bufferutil.c **** 		if(buffer->w>=buffer->size)
+  35:tools/bufferutil.c **** 			buffer->w = 0;
+  36:tools/bufferutil.c **** 	}while (--len);
+ 158              		.loc 1 36 0
+ 159 0008 013B     		subs	r3, r3, #1
+ 160              	.LVL15:
+ 161 000a 9BB2     		uxth	r3, r3
+ 162              	.LVL16:
+  33:tools/bufferutil.c **** 		if(buffer->w>=buffer->size)
+ 163              		.loc 1 33 0
+ 164 000c 2146     		mov	r1, r4
+ 165              		.loc 1 36 0
+ 166 000e 6BB1     		cbz	r3, .L15
+ 167              	.LVL17:
+ 168              	.L11:
+  33:tools/bufferutil.c **** 		if(buffer->w>=buffer->size)
+ 169              		.loc 1 33 0
+ 170 0010 4C1C     		adds	r4, r1, #1
+ 171              	.LVL18:
+ 172 0012 4569     		ldr	r5, [r0, #20]
+ 173 0014 C268     		ldr	r2, [r0, #12]
+ 174 0016 561C     		adds	r6, r2, #1
+ 175 0018 C660     		str	r6, [r0, #12]
+ 176 001a 0978     		ldrb	r1, [r1]	@ zero_extendqisi2
+ 177 001c A954     		strb	r1, [r5, r2]
+  34:tools/bufferutil.c **** 			buffer->w = 0;
+ 178              		.loc 1 34 0
+ 179 001e C168     		ldr	r1, [r0, #12]
+ 180 0020 0269     		ldr	r2, [r0, #16]
+ 181 0022 9142     		cmp	r1, r2
+ 182 0024 F0DB     		blt	.L10
+  35:tools/bufferutil.c **** 	}while (--len);
+ 183              		.loc 1 35 0
+ 184 0026 0022     		movs	r2, #0
+ 185 0028 C260     		str	r2, [r0, #12]
+ 186 002a EDE7     		b	.L10
+ 187              	.LVL19:
+ 188              	.L15:
+  37:tools/bufferutil.c **** 	buffer->tick = TaskManger.tick;
+ 189              		.loc 1 37 0
+ 190 002c 034B     		ldr	r3, .L16
+ 191              	.LVL20:
+ 192 002e D3E90223 		ldrd	r2, [r3, #8]
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s 			page 5
+
+
+ 193 0032 C0E90023 		strd	r2, [r0]
+  38:tools/bufferutil.c **** }
+ 194              		.loc 1 38 0
+ 195 0036 70BC     		pop	{r4, r5, r6}
+ 196              	.LCFI3:
+ 197              		.cfi_restore 6
+ 198              		.cfi_restore 5
+ 199              		.cfi_restore 4
+ 200              		.cfi_def_cfa_offset 0
+ 201 0038 7047     		bx	lr
+ 202              	.LVL21:
+ 203              	.L13:
+ 204 003a 7047     		bx	lr
+ 205              	.L17:
+ 206              		.align	2
+ 207              	.L16:
+ 208 003c 00000000 		.word	TaskManger
+ 209              		.cfi_endproc
+ 210              	.LFE69:
+ 212              		.section	.text.PopBuffer,"ax",%progbits
+ 213              		.align	1
+ 214              		.global	PopBuffer
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.fpu softvfp
+ 220              	PopBuffer:
+ 221              	.LFB70:
+  39:tools/bufferutil.c **** 
+  40:tools/bufferutil.c **** void PopBuffer(_Buffer *buffer,u8 *dat,s32 len)
+  41:tools/bufferutil.c **** {
+ 222              		.loc 1 41 0
+ 223              		.cfi_startproc
+ 224              		@ args = 0, pretend = 0, frame = 0
+ 225              		@ frame_needed = 0, uses_anonymous_args = 0
+ 226              		@ link register save eliminated.
+ 227              	.LVL22:
+  42:tools/bufferutil.c **** 	if(len <= 0)
+ 228              		.loc 1 42 0
+ 229 0000 002A     		cmp	r2, #0
+ 230 0002 14DD     		ble	.L23
+  41:tools/bufferutil.c **** 	if(len <= 0)
+ 231              		.loc 1 41 0
+ 232 0004 30B4     		push	{r4, r5}
+ 233              	.LCFI4:
+ 234              		.cfi_def_cfa_offset 8
+ 235              		.cfi_offset 4, -8
+ 236              		.cfi_offset 5, -4
+ 237 0006 02E0     		b	.L21
+ 238              	.LVL23:
+ 239              	.L20:
+  43:tools/bufferutil.c **** 		return;
+  44:tools/bufferutil.c **** 	do
+  45:tools/bufferutil.c **** 	{
+  46:tools/bufferutil.c **** 		*dat++ = buffer->buf[buffer->r++];
+ 240              		.loc 1 46 0
+ 241 0008 2146     		mov	r1, r4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s 			page 6
+
+
+  47:tools/bufferutil.c **** 		if(buffer->r >= buffer->size)
+  48:tools/bufferutil.c **** 			buffer->r = 0;
+  49:tools/bufferutil.c **** 	}while (--len);
+ 242              		.loc 1 49 0
+ 243 000a 013A     		subs	r2, r2, #1
+ 244              	.LVL24:
+ 245 000c 0DD0     		beq	.L25
+ 246              	.LVL25:
+ 247              	.L21:
+  46:tools/bufferutil.c **** 		if(buffer->r >= buffer->size)
+ 248              		.loc 1 46 0
+ 249 000e 4569     		ldr	r5, [r0, #20]
+ 250 0010 8368     		ldr	r3, [r0, #8]
+ 251 0012 5C1C     		adds	r4, r3, #1
+ 252 0014 8460     		str	r4, [r0, #8]
+ 253 0016 4C1C     		adds	r4, r1, #1
+ 254              	.LVL26:
+ 255 0018 EB5C     		ldrb	r3, [r5, r3]	@ zero_extendqisi2
+ 256 001a 0B70     		strb	r3, [r1]
+  47:tools/bufferutil.c **** 		if(buffer->r >= buffer->size)
+ 257              		.loc 1 47 0
+ 258 001c 8168     		ldr	r1, [r0, #8]
+ 259 001e 0369     		ldr	r3, [r0, #16]
+ 260 0020 9942     		cmp	r1, r3
+ 261 0022 F1DB     		blt	.L20
+  48:tools/bufferutil.c **** 	}while (--len);
+ 262              		.loc 1 48 0
+ 263 0024 0023     		movs	r3, #0
+ 264 0026 8360     		str	r3, [r0, #8]
+ 265 0028 EEE7     		b	.L20
+ 266              	.LVL27:
+ 267              	.L25:
+  50:tools/bufferutil.c **** }
+ 268              		.loc 1 50 0
+ 269 002a 30BC     		pop	{r4, r5}
+ 270              	.LCFI5:
+ 271              		.cfi_restore 5
+ 272              		.cfi_restore 4
+ 273              		.cfi_def_cfa_offset 0
+ 274 002c 7047     		bx	lr
+ 275              	.L23:
+ 276 002e 7047     		bx	lr
+ 277              		.cfi_endproc
+ 278              	.LFE70:
+ 280              		.text
+ 281              	.Letext0:
+ 282              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 283              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 284              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 285              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 286              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 287              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 288              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdlib.h"
+ 289              		.file 9 "Inc/core_cm3.h"
+ 290              		.file 10 "startup/inc/sys.h"
+ 291              		.file 11 "tools/inc/malloc.h"
+ 292              		.file 12 "tools/inc/tskmanager.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s 			page 7
+
+
+ 293              		.file 13 "tools/inc/bufferutil.h"
+ 294              		.file 14 "<built-in>"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 bufferutil.c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:16     .text.InitBuffer:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:23     .text.InitBuffer:0000000000000000 InitBuffer
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:54     .text.BufferReset:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:61     .text.BufferReset:0000000000000000 BufferReset
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:90     .text.GetPopBufferLen:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:97     .text.GetPopBufferLen:0000000000000000 GetPopBufferLen
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:130    .text.PushBuffer:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:137    .text.PushBuffer:0000000000000000 PushBuffer
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:208    .text.PushBuffer:000000000000003c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:213    .text.PopBuffer:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccyseZrE.s:220    .text.PopBuffer:0000000000000000 PopBuffer
+
+UNDEFINED SYMBOLS
+mymalloc
+memset
+TaskManger

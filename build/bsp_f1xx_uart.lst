@@ -1,0 +1,1636 @@
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"bsp_f1xx_uart.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.global	__aeabi_ui2f
+  16              		.global	__aeabi_fdiv
+  17              		.global	__aeabi_f2uiz
+  18              		.global	__aeabi_i2f
+  19              		.global	__aeabi_fsub
+  20              		.global	__aeabi_fmul
+  21              		.section	.text.bsp_UartInit,"ax",%progbits
+  22              		.align	1
+  23              		.global	bsp_UartInit
+  24              		.syntax unified
+  25              		.thumb
+  26              		.thumb_func
+  27              		.fpu softvfp
+  29              	bsp_UartInit:
+  30              	.LFB70:
+  31              		.file 1 "drivers/bsp_f1xx_uart.c"
+   1:drivers/bsp_f1xx_uart.c **** //
+   2:drivers/bsp_f1xx_uart.c **** // Created by 周洋 on 2020/3/29.
+   3:drivers/bsp_f1xx_uart.c **** //
+   4:drivers/bsp_f1xx_uart.c **** 
+   5:drivers/bsp_f1xx_uart.c **** #include "bsp_f1xx_uart.h"
+   6:drivers/bsp_f1xx_uart.c **** #include "bsp_f1xx_dma.h"
+   7:drivers/bsp_f1xx_uart.c **** 
+   8:drivers/bsp_f1xx_uart.c **** void Com1SendData(u8 *dat,u16 len);
+   9:drivers/bsp_f1xx_uart.c **** void Com2SendData(u8 *dat,u16 len);
+  10:drivers/bsp_f1xx_uart.c **** 
+  11:drivers/bsp_f1xx_uart.c **** typedef void(*SendFunc)(u8 *dat,u16 len);
+  12:drivers/bsp_f1xx_uart.c **** SendFunc SendFuncs[] = {Com1SendData,Com2SendData};
+  13:drivers/bsp_f1xx_uart.c **** 
+  14:drivers/bsp_f1xx_uart.c **** _uart uartlist[] = {
+  15:drivers/bsp_f1xx_uart.c ****         {
+  16:drivers/bsp_f1xx_uart.c ****                 .pclk = 72000000,
+  17:drivers/bsp_f1xx_uart.c ****                 .irqn = USART1_IRQn,
+  18:drivers/bsp_f1xx_uart.c ****                 .uartclk = (vu32 *) &RCC->APB2ENR,
+  19:drivers/bsp_f1xx_uart.c ****                 .uartclkbit = BIT14,
+  20:drivers/bsp_f1xx_uart.c ****                 .uartx = USART1,
+  21:drivers/bsp_f1xx_uart.c **** 
+  22:drivers/bsp_f1xx_uart.c ****                 .rxch = DMA1_Channel5,
+  23:drivers/bsp_f1xx_uart.c ****                 .txch = DMA1_Channel4,
+  24:drivers/bsp_f1xx_uart.c ****                 .dmarxirqn = DMA1_Channel5_IRQn,
+  25:drivers/bsp_f1xx_uart.c ****                 .dmatxirqn = DMA1_Channel4_IRQn,
+  26:drivers/bsp_f1xx_uart.c **** 
+  27:drivers/bsp_f1xx_uart.c **** //                .rxio = {PA,10,IO_MODE_IN_FLOAT},
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 2
+
+
+  28:drivers/bsp_f1xx_uart.c **** //                .txio = {PA,9,IO_MODE_OUT_AF_PP_50MHZ},
+  29:drivers/bsp_f1xx_uart.c ****                 .rxio = {PB,7,IO_MODE_IN_FLOAT},
+  30:drivers/bsp_f1xx_uart.c ****                 .txio = {PB,6,IO_MODE_OUT_AF_PP_50MHZ},
+  31:drivers/bsp_f1xx_uart.c ****         },
+  32:drivers/bsp_f1xx_uart.c ****         {
+  33:drivers/bsp_f1xx_uart.c ****                 .pclk = 36000000,
+  34:drivers/bsp_f1xx_uart.c ****                 .irqn = USART2_IRQn,
+  35:drivers/bsp_f1xx_uart.c ****                 .uartclk = (vu32 *) &RCC->APB1ENR,
+  36:drivers/bsp_f1xx_uart.c ****                 .uartclkbit = BIT17,
+  37:drivers/bsp_f1xx_uart.c ****                 .uartx = USART2,
+  38:drivers/bsp_f1xx_uart.c **** 
+  39:drivers/bsp_f1xx_uart.c ****                 .rxch = DMA1_Channel6,
+  40:drivers/bsp_f1xx_uart.c ****                 .txch = DMA1_Channel7,
+  41:drivers/bsp_f1xx_uart.c ****                 .dmarxirqn = DMA1_Channel6_IRQn,
+  42:drivers/bsp_f1xx_uart.c ****                 .dmatxirqn = DMA1_Channel7_IRQn,
+  43:drivers/bsp_f1xx_uart.c **** 
+  44:drivers/bsp_f1xx_uart.c ****                 .rxio = {PA,3,IO_MODE_IN_FLOAT},
+  45:drivers/bsp_f1xx_uart.c ****                 .txio = {PA,2,IO_MODE_OUT_AF_PP_50MHZ},
+  46:drivers/bsp_f1xx_uart.c ****         },
+  47:drivers/bsp_f1xx_uart.c ****         {
+  48:drivers/bsp_f1xx_uart.c ****                 .pclk = 36000000,
+  49:drivers/bsp_f1xx_uart.c ****                 .irqn = USART3_IRQn,
+  50:drivers/bsp_f1xx_uart.c ****                 .uartclk = (vu32 *) &RCC->APB1ENR,
+  51:drivers/bsp_f1xx_uart.c ****                 .uartclkbit = BIT18,
+  52:drivers/bsp_f1xx_uart.c ****                 .uartx = USART3,
+  53:drivers/bsp_f1xx_uart.c **** 
+  54:drivers/bsp_f1xx_uart.c ****                 .rxch = DMA1_Channel3,
+  55:drivers/bsp_f1xx_uart.c ****                 .txch = DMA1_Channel2,
+  56:drivers/bsp_f1xx_uart.c ****                 .dmarxirqn = DMA1_Channel3_IRQn,
+  57:drivers/bsp_f1xx_uart.c ****                 .dmatxirqn = DMA1_Channel2_IRQn,
+  58:drivers/bsp_f1xx_uart.c **** 
+  59:drivers/bsp_f1xx_uart.c ****                 .rxio = {PB,11,IO_MODE_IN_FLOAT},
+  60:drivers/bsp_f1xx_uart.c ****                 .txio = {PB,10,IO_MODE_OUT_AF_PP_50MHZ},
+  61:drivers/bsp_f1xx_uart.c ****         }
+  62:drivers/bsp_f1xx_uart.c **** };
+  63:drivers/bsp_f1xx_uart.c **** 
+  64:drivers/bsp_f1xx_uart.c **** static inline void *uartmalloc(u32 size)
+  65:drivers/bsp_f1xx_uart.c **** {
+  66:drivers/bsp_f1xx_uart.c ****     return mymalloc(size);
+  67:drivers/bsp_f1xx_uart.c **** }
+  68:drivers/bsp_f1xx_uart.c **** 
+  69:drivers/bsp_f1xx_uart.c **** static inline void uartfree(void *buf)
+  70:drivers/bsp_f1xx_uart.c **** {
+  71:drivers/bsp_f1xx_uart.c ****     myfree(buf);
+  72:drivers/bsp_f1xx_uart.c **** }
+  73:drivers/bsp_f1xx_uart.c **** 
+  74:drivers/bsp_f1xx_uart.c **** static inline void InitComBuf(_uart *comx, u16 rxLen, u16 txLen)
+  75:drivers/bsp_f1xx_uart.c **** {
+  76:drivers/bsp_f1xx_uart.c ****     uartfree(comx->txbuf);
+  77:drivers/bsp_f1xx_uart.c ****     uartfree(comx->rxbuf1);
+  78:drivers/bsp_f1xx_uart.c ****     uartfree(comx->rxbuf2);
+  79:drivers/bsp_f1xx_uart.c **** 
+  80:drivers/bsp_f1xx_uart.c ****     comx->txbuf = uartmalloc(txLen);
+  81:drivers/bsp_f1xx_uart.c ****     comx->rxbuf1 = uartmalloc(rxLen);
+  82:drivers/bsp_f1xx_uart.c ****     comx->rxbuf2 = uartmalloc(rxLen);
+  83:drivers/bsp_f1xx_uart.c ****     comx->rxbufLen = rxLen;
+  84:drivers/bsp_f1xx_uart.c ****     comx->curbuf = comx->rxbuf1;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 3
+
+
+  85:drivers/bsp_f1xx_uart.c **** }
+  86:drivers/bsp_f1xx_uart.c **** 
+  87:drivers/bsp_f1xx_uart.c **** static inline u32 GetBaudDiv(u32 pclk, u32 baud)
+  88:drivers/bsp_f1xx_uart.c **** {
+  89:drivers/bsp_f1xx_uart.c ****     float temp;
+  90:drivers/bsp_f1xx_uart.c ****     u16 mantissa;
+  91:drivers/bsp_f1xx_uart.c ****     u16 fraction;
+  92:drivers/bsp_f1xx_uart.c ****     temp = ((float)(pclk)) / (baud << 4); //得到USARTDIV
+  93:drivers/bsp_f1xx_uart.c ****     mantissa = temp;		      //得到整数部分
+  94:drivers/bsp_f1xx_uart.c ****     fraction = (temp - mantissa) * 16;    //得到小数部分
+  95:drivers/bsp_f1xx_uart.c ****     mantissa <<= 4;
+  96:drivers/bsp_f1xx_uart.c ****     mantissa += fraction;
+  97:drivers/bsp_f1xx_uart.c ****     return mantissa;
+  98:drivers/bsp_f1xx_uart.c **** }
+  99:drivers/bsp_f1xx_uart.c **** 
+ 100:drivers/bsp_f1xx_uart.c **** _DataUtil* bsp_UartInit(_uartpara *para)
+ 101:drivers/bsp_f1xx_uart.c **** {
+  32              		.loc 1 101 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36              	.LVL0:
+  37 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 40
+  40              		.cfi_offset 3, -40
+  41              		.cfi_offset 4, -36
+  42              		.cfi_offset 5, -32
+  43              		.cfi_offset 6, -28
+  44              		.cfi_offset 7, -24
+  45              		.cfi_offset 8, -20
+  46              		.cfi_offset 9, -16
+  47              		.cfi_offset 10, -12
+  48              		.cfi_offset 11, -8
+  49              		.cfi_offset 14, -4
+  50 0004 0546     		mov	r5, r0
+ 102:drivers/bsp_f1xx_uart.c ****     _DataUtil *util;
+ 103:drivers/bsp_f1xx_uart.c ****     _uart *cfguart = &uartlist[para->comx-1];
+  51              		.loc 1 103 0
+  52 0006 0778     		ldrb	r7, [r0]	@ zero_extendqisi2
+  53 0008 07F1FF38 		add	r8, r7, #-1
+  54 000c 594E     		ldr	r6, .L3
+  55 000e 4FEA0817 		lsl	r7, r8, #4
+  56 0012 07EB0803 		add	r3, r7, r8
+  57 0016 4FEA8309 		lsl	r9, r3, #2
+  58 001a 06EB0904 		add	r4, r6, r9
+  59              	.LVL1:
+ 104:drivers/bsp_f1xx_uart.c **** 
+ 105:drivers/bsp_f1xx_uart.c ****     cfguart->onDataRecved = para->recver;
+  60              		.loc 1 105 0
+  61 001e C368     		ldr	r3, [r0, #12]
+  62 0020 2364     		str	r3, [r4, #64]
+ 106:drivers/bsp_f1xx_uart.c ****     InitComBuf(cfguart,para->rxbuflen,para->txbuflen);
+  63              		.loc 1 106 0
+  64 0022 B0F808A0 		ldrh	r10, [r0, #8]
+  65 0026 B0F80AB0 		ldrh	fp, [r0, #10]
+  66              	.LVL2:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 4
+
+
+  67              	.LBB44:
+  68              	.LBB45:
+  69              	.LBB46:
+  70              	.LBB47:
+  71:drivers/bsp_f1xx_uart.c **** }
+  71              		.loc 1 71 0
+  72 002a 6069     		ldr	r0, [r4, #20]
+  73              	.LVL3:
+  74 002c FFF7FEFF 		bl	myfree
+  75              	.LVL4:
+  76              	.LBE47:
+  77              	.LBE46:
+  78              	.LBB48:
+  79              	.LBB49:
+  80 0030 E068     		ldr	r0, [r4, #12]
+  81 0032 FFF7FEFF 		bl	myfree
+  82              	.LVL5:
+  83              	.LBE49:
+  84              	.LBE48:
+  85              	.LBB50:
+  86              	.LBB51:
+  87 0036 2069     		ldr	r0, [r4, #16]
+  88 0038 FFF7FEFF 		bl	myfree
+  89              	.LVL6:
+  90              	.LBE51:
+  91              	.LBE50:
+  92              	.LBB52:
+  93              	.LBB53:
+  66:drivers/bsp_f1xx_uart.c **** }
+  94              		.loc 1 66 0
+  95 003c 5846     		mov	r0, fp
+  96 003e FFF7FEFF 		bl	mymalloc
+  97              	.LVL7:
+  98              	.LBE53:
+  99              	.LBE52:
+  80:drivers/bsp_f1xx_uart.c ****     comx->rxbuf1 = uartmalloc(rxLen);
+ 100              		.loc 1 80 0
+ 101 0042 6061     		str	r0, [r4, #20]
+ 102              	.LVL8:
+ 103              	.LBB54:
+ 104              	.LBB55:
+  66:drivers/bsp_f1xx_uart.c **** }
+ 105              		.loc 1 66 0
+ 106 0044 5046     		mov	r0, r10
+ 107 0046 FFF7FEFF 		bl	mymalloc
+ 108              	.LVL9:
+ 109              	.LBE55:
+ 110              	.LBE54:
+  81:drivers/bsp_f1xx_uart.c ****     comx->rxbuf2 = uartmalloc(rxLen);
+ 111              		.loc 1 81 0
+ 112 004a E060     		str	r0, [r4, #12]
+ 113              	.LVL10:
+ 114              	.LBB56:
+ 115              	.LBB57:
+  66:drivers/bsp_f1xx_uart.c **** }
+ 116              		.loc 1 66 0
+ 117 004c 5046     		mov	r0, r10
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 5
+
+
+ 118 004e FFF7FEFF 		bl	mymalloc
+ 119              	.LVL11:
+ 120              	.LBE57:
+ 121              	.LBE56:
+  82:drivers/bsp_f1xx_uart.c ****     comx->rxbufLen = rxLen;
+ 122              		.loc 1 82 0
+ 123 0052 2061     		str	r0, [r4, #16]
+  83:drivers/bsp_f1xx_uart.c ****     comx->curbuf = comx->rxbuf1;
+ 124              		.loc 1 83 0
+ 125 0054 A4F806A0 		strh	r10, [r4, #6]	@ movhi
+  84:drivers/bsp_f1xx_uart.c **** }
+ 126              		.loc 1 84 0
+ 127 0058 E368     		ldr	r3, [r4, #12]
+ 128 005a A360     		str	r3, [r4, #8]
+ 129              	.LVL12:
+ 130              	.LBE45:
+ 131              	.LBE44:
+ 107:drivers/bsp_f1xx_uart.c **** 
+ 108:drivers/bsp_f1xx_uart.c ****     dmainit(cfguart->rxch,(u32)&cfguart->uartx->DR,(u32)&cfguart->rxbuf1[0],0);
+ 132              		.loc 1 108 0
+ 133 005c 216A     		ldr	r1, [r4, #32]
+ 134 005e 0023     		movs	r3, #0
+ 135 0060 E268     		ldr	r2, [r4, #12]
+ 136 0062 0431     		adds	r1, r1, #4
+ 137 0064 A06A     		ldr	r0, [r4, #40]
+ 138 0066 FFF7FEFF 		bl	dmainit
+ 139              	.LVL13:
+ 109:drivers/bsp_f1xx_uart.c ****     dmainit(cfguart->txch,(u32)&cfguart->uartx->DR,(u32)&cfguart->txbuf[0],1);
+ 140              		.loc 1 109 0
+ 141 006a 216A     		ldr	r1, [r4, #32]
+ 142 006c 0123     		movs	r3, #1
+ 143 006e 6269     		ldr	r2, [r4, #20]
+ 144 0070 0431     		adds	r1, r1, #4
+ 145 0072 E06A     		ldr	r0, [r4, #44]
+ 146 0074 FFF7FEFF 		bl	dmainit
+ 147              	.LVL14:
+ 110:drivers/bsp_f1xx_uart.c ****     bsp_IoInit(&cfguart->txio);
+ 148              		.loc 1 110 0
+ 149 0078 4846     		mov	r0, r9
+ 150 007a 3030     		adds	r0, r0, #48
+ 151 007c 3044     		add	r0, r0, r6
+ 152 007e FFF7FEFF 		bl	bsp_IoInit
+ 153              	.LVL15:
+ 111:drivers/bsp_f1xx_uart.c ****     bsp_IoInit(&cfguart->rxio);
+ 154              		.loc 1 111 0
+ 155 0082 4846     		mov	r0, r9
+ 156 0084 3830     		adds	r0, r0, #56
+ 157 0086 3044     		add	r0, r0, r6
+ 158 0088 FFF7FEFF 		bl	bsp_IoInit
+ 159              	.LVL16:
+ 112:drivers/bsp_f1xx_uart.c ****     RCC->APB2ENR |= BIT0; //AFIO时钟
+ 160              		.loc 1 112 0
+ 161 008c 3A4A     		ldr	r2, .L3+4
+ 162 008e 9369     		ldr	r3, [r2, #24]
+ 163 0090 43F00103 		orr	r3, r3, #1
+ 164 0094 9361     		str	r3, [r2, #24]
+ 113:drivers/bsp_f1xx_uart.c ****     AFIO->MAPR |= BIT2;   //串口1重映射到PB6、PB7
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 6
+
+
+ 165              		.loc 1 113 0
+ 166 0096 A2F58832 		sub	r2, r2, #69632
+ 167 009a 5368     		ldr	r3, [r2, #4]
+ 168 009c 43F00403 		orr	r3, r3, #4
+ 169 00a0 5360     		str	r3, [r2, #4]
+ 114:drivers/bsp_f1xx_uart.c **** 
+ 115:drivers/bsp_f1xx_uart.c ****     *cfguart->uartclk |= cfguart->uartclkbit;
+ 170              		.loc 1 115 0
+ 171 00a2 A269     		ldr	r2, [r4, #24]
+ 172 00a4 1368     		ldr	r3, [r2]
+ 173 00a6 E169     		ldr	r1, [r4, #28]
+ 174 00a8 0B43     		orrs	r3, r3, r1
+ 175 00aa 1360     		str	r3, [r2]
+ 116:drivers/bsp_f1xx_uart.c ****     delay_ms(100);
+ 176              		.loc 1 116 0
+ 177 00ac 6420     		movs	r0, #100
+ 178 00ae FFF7FEFF 		bl	delay_ms
+ 179              	.LVL17:
+ 117:drivers/bsp_f1xx_uart.c ****     cfguart->uartx->BRR = GetBaudDiv(cfguart->pclk, para->baud); // 波特率设置
+ 180              		.loc 1 117 0
+ 181 00b2 D5F804B0 		ldr	fp, [r5, #4]
+ 182 00b6 D4F820A0 		ldr	r10, [r4, #32]
+ 183              	.LVL18:
+ 184              	.LBB58:
+ 185              	.LBB59:
+  92:drivers/bsp_f1xx_uart.c ****     mantissa = temp;		      //得到整数部分
+ 186              		.loc 1 92 0
+ 187 00ba 56F80900 		ldr	r0, [r6, r9]
+ 188 00be FFF7FEFF 		bl	__aeabi_ui2f
+ 189              	.LVL19:
+ 190 00c2 8146     		mov	r9, r0
+ 191 00c4 4FEA0B10 		lsl	r0, fp, #4
+ 192 00c8 FFF7FEFF 		bl	__aeabi_ui2f
+ 193              	.LVL20:
+ 194 00cc 0146     		mov	r1, r0
+ 195 00ce 4846     		mov	r0, r9
+ 196 00d0 FFF7FEFF 		bl	__aeabi_fdiv
+ 197              	.LVL21:
+ 198 00d4 8346     		mov	fp, r0
+ 199              	.LVL22:
+  93:drivers/bsp_f1xx_uart.c ****     fraction = (temp - mantissa) * 16;    //得到小数部分
+ 200              		.loc 1 93 0
+ 201 00d6 FFF7FEFF 		bl	__aeabi_f2uiz
+ 202              	.LVL23:
+ 203 00da 1FFA80F9 		uxth	r9, r0
+ 204              	.LVL24:
+  94:drivers/bsp_f1xx_uart.c ****     mantissa <<= 4;
+ 205              		.loc 1 94 0
+ 206 00de 4846     		mov	r0, r9
+ 207 00e0 FFF7FEFF 		bl	__aeabi_i2f
+ 208              	.LVL25:
+ 209 00e4 0146     		mov	r1, r0
+ 210 00e6 5846     		mov	r0, fp
+ 211 00e8 FFF7FEFF 		bl	__aeabi_fsub
+ 212              	.LVL26:
+ 213 00ec 4FF08341 		mov	r1, #1098907648
+ 214 00f0 FFF7FEFF 		bl	__aeabi_fmul
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 7
+
+
+ 215              	.LVL27:
+ 216 00f4 FFF7FEFF 		bl	__aeabi_f2uiz
+ 217              	.LVL28:
+ 218 00f8 80B2     		uxth	r0, r0
+ 219              	.LVL29:
+  95:drivers/bsp_f1xx_uart.c ****     mantissa += fraction;
+ 220              		.loc 1 95 0
+ 221 00fa 4FEA0919 		lsl	r9, r9, #4
+ 222              	.LVL30:
+ 223 00fe 1FFA89F9 		uxth	r9, r9
+ 224              	.LVL31:
+  96:drivers/bsp_f1xx_uart.c ****     return mantissa;
+ 225              		.loc 1 96 0
+ 226 0102 8144     		add	r9, r9, r0
+ 227              	.LVL32:
+ 228 0104 1FFA89F0 		uxth	r0, r9
+ 229              	.LVL33:
+ 230              	.LBE59:
+ 231              	.LBE58:
+ 232              		.loc 1 117 0
+ 233 0108 CAF80800 		str	r0, [r10, #8]
+ 118:drivers/bsp_f1xx_uart.c ****     cfguart->uartx->CR3 |= 0xC0;
+ 234              		.loc 1 118 0
+ 235 010c 226A     		ldr	r2, [r4, #32]
+ 236 010e 5369     		ldr	r3, [r2, #20]
+ 237 0110 43F0C003 		orr	r3, r3, #192
+ 238 0114 5361     		str	r3, [r2, #20]
+ 119:drivers/bsp_f1xx_uart.c ****     cfguart->uartx->CR1 |= 0X200C; //1位停止,无校验位.
+ 239              		.loc 1 119 0
+ 240 0116 226A     		ldr	r2, [r4, #32]
+ 241 0118 D368     		ldr	r3, [r2, #12]
+ 242 011a 43F40053 		orr	r3, r3, #8192
+ 243 011e 43F00C03 		orr	r3, r3, #12
+ 244 0122 D360     		str	r3, [r2, #12]
+ 120:drivers/bsp_f1xx_uart.c ****     //使能空闲中断
+ 121:drivers/bsp_f1xx_uart.c ****     cfguart->uartx->CR1 |= BIT4;			   //idle中断
+ 245              		.loc 1 121 0
+ 246 0124 226A     		ldr	r2, [r4, #32]
+ 247 0126 D368     		ldr	r3, [r2, #12]
+ 248 0128 43F01003 		orr	r3, r3, #16
+ 249 012c D360     		str	r3, [r2, #12]
+ 122:drivers/bsp_f1xx_uart.c ****     MY_NVIC_Init(0,para->comx+2,cfguart->irqn,1);//组2，最低优先级
+ 250              		.loc 1 122 0
+ 251 012e 2978     		ldrb	r1, [r5]	@ zero_extendqisi2
+ 252 0130 0231     		adds	r1, r1, #2
+ 253 0132 0123     		movs	r3, #1
+ 254 0134 2279     		ldrb	r2, [r4, #4]	@ zero_extendqisi2
+ 255 0136 C9B2     		uxtb	r1, r1
+ 256 0138 0020     		movs	r0, #0
+ 257 013a FFF7FEFF 		bl	MY_NVIC_Init
+ 258              	.LVL34:
+ 123:drivers/bsp_f1xx_uart.c **** 	MY_NVIC_Init(0, para->comx - 1, cfguart->dmarxirqn, 1);
+ 259              		.loc 1 123 0
+ 260 013e 2978     		ldrb	r1, [r5]	@ zero_extendqisi2
+ 261 0140 0139     		subs	r1, r1, #1
+ 262 0142 0123     		movs	r3, #1
+ 263 0144 94F82420 		ldrb	r2, [r4, #36]	@ zero_extendqisi2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 8
+
+
+ 264 0148 C9B2     		uxtb	r1, r1
+ 265 014a 0020     		movs	r0, #0
+ 266 014c FFF7FEFF 		bl	MY_NVIC_Init
+ 267              	.LVL35:
+ 124:drivers/bsp_f1xx_uart.c ****     dma_stream_en(cfguart->rxch,cfguart->curbuf,cfguart->rxbufLen);
+ 268              		.loc 1 124 0
+ 269 0150 E288     		ldrh	r2, [r4, #6]
+ 270 0152 A168     		ldr	r1, [r4, #8]
+ 271 0154 A06A     		ldr	r0, [r4, #40]
+ 272 0156 FFF7FEFF 		bl	dma_stream_en
+ 273              	.LVL36:
+ 274              	.LBB60:
+ 275              	.LBB61:
+  66:drivers/bsp_f1xx_uart.c **** }
+ 276              		.loc 1 66 0
+ 277 015a 1020     		movs	r0, #16
+ 278 015c FFF7FEFF 		bl	mymalloc
+ 279              	.LVL37:
+ 280              	.LBE61:
+ 281              	.LBE60:
+ 125:drivers/bsp_f1xx_uart.c **** 
+ 126:drivers/bsp_f1xx_uart.c ****     util = uartmalloc(sizeof(_DataUtil));
+ 127:drivers/bsp_f1xx_uart.c ****     util->write = SendFuncs[para->comx-1];
+ 282              		.loc 1 127 0
+ 283 0160 2B78     		ldrb	r3, [r5]	@ zero_extendqisi2
+ 284 0162 013B     		subs	r3, r3, #1
+ 285 0164 0549     		ldr	r1, .L3+8
+ 286 0166 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 287 016a 4360     		str	r3, [r0, #4]
+ 128:drivers/bsp_f1xx_uart.c ****     util->para = para;
+ 288              		.loc 1 128 0
+ 289 016c 0560     		str	r5, [r0]
+ 129:drivers/bsp_f1xx_uart.c ****     return util;
+ 130:drivers/bsp_f1xx_uart.c **** }
+ 290              		.loc 1 130 0
+ 291 016e BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 292              	.LVL38:
+ 293              	.L4:
+ 294 0172 00BF     		.align	2
+ 295              	.L3:
+ 296 0174 00000000 		.word	.LANCHOR0
+ 297 0178 00100240 		.word	1073876992
+ 298 017c 00000000 		.word	.LANCHOR1
+ 299              		.cfi_endproc
+ 300              	.LFE70:
+ 302              		.section	.text.bsp_UartClose,"ax",%progbits
+ 303              		.align	1
+ 304              		.global	bsp_UartClose
+ 305              		.syntax unified
+ 306              		.thumb
+ 307              		.thumb_func
+ 308              		.fpu softvfp
+ 310              	bsp_UartClose:
+ 311              	.LFB71:
+ 131:drivers/bsp_f1xx_uart.c **** 
+ 132:drivers/bsp_f1xx_uart.c **** void bsp_UartClose(_DataUtil *util)
+ 133:drivers/bsp_f1xx_uart.c **** {
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 9
+
+
+ 312              		.loc 1 133 0
+ 313              		.cfi_startproc
+ 314              		@ args = 0, pretend = 0, frame = 0
+ 315              		@ frame_needed = 0, uses_anonymous_args = 0
+ 316              	.LVL39:
+ 317 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 318              	.LCFI1:
+ 319              		.cfi_def_cfa_offset 24
+ 320              		.cfi_offset 3, -24
+ 321              		.cfi_offset 4, -20
+ 322              		.cfi_offset 5, -16
+ 323              		.cfi_offset 6, -12
+ 324              		.cfi_offset 7, -8
+ 325              		.cfi_offset 14, -4
+ 134:drivers/bsp_f1xx_uart.c **** 	_uartpara *para = (_uartpara*)util->para;
+ 326              		.loc 1 134 0
+ 327 0002 0368     		ldr	r3, [r0]
+ 328              	.LVL40:
+ 135:drivers/bsp_f1xx_uart.c **** 	_uart *cfguart = &uartlist[para->comx-1];
+ 329              		.loc 1 135 0
+ 330 0004 1D78     		ldrb	r5, [r3]	@ zero_extendqisi2
+ 331 0006 6E1E     		subs	r6, r5, #1
+ 332              	.LVL41:
+ 136:drivers/bsp_f1xx_uart.c **** 	uartfree(cfguart->rxbuf1);
+ 333              		.loc 1 136 0
+ 334 0008 094F     		ldr	r7, .L7
+ 335 000a 3501     		lsls	r5, r6, #4
+ 336 000c AB19     		adds	r3, r5, r6
+ 337              	.LVL42:
+ 338 000e 9C00     		lsls	r4, r3, #2
+ 339 0010 3C44     		add	r4, r4, r7
+ 340              	.LVL43:
+ 341              	.LBB62:
+ 342              	.LBB63:
+  71:drivers/bsp_f1xx_uart.c **** }
+ 343              		.loc 1 71 0
+ 344 0012 E068     		ldr	r0, [r4, #12]
+ 345              	.LVL44:
+ 346 0014 FFF7FEFF 		bl	myfree
+ 347              	.LVL45:
+ 348              	.LBE63:
+ 349              	.LBE62:
+ 350              	.LBB64:
+ 351              	.LBB65:
+ 352 0018 2069     		ldr	r0, [r4, #16]
+ 353 001a FFF7FEFF 		bl	myfree
+ 354              	.LVL46:
+ 355              	.LBE65:
+ 356              	.LBE64:
+ 357              	.LBB66:
+ 358              	.LBB67:
+ 359 001e 6069     		ldr	r0, [r4, #20]
+ 360 0020 FFF7FEFF 		bl	myfree
+ 361              	.LVL47:
+ 362              	.LBE67:
+ 363              	.LBE66:
+ 137:drivers/bsp_f1xx_uart.c **** 	uartfree(cfguart->rxbuf2);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 10
+
+
+ 138:drivers/bsp_f1xx_uart.c **** 	uartfree(cfguart->txbuf);
+ 139:drivers/bsp_f1xx_uart.c **** 	cfguart->rxch->CCR &= ~0x01;
+ 364              		.loc 1 139 0
+ 365 0024 A26A     		ldr	r2, [r4, #40]
+ 366 0026 1368     		ldr	r3, [r2]
+ 367 0028 23F00103 		bic	r3, r3, #1
+ 368 002c 1360     		str	r3, [r2]
+ 140:drivers/bsp_f1xx_uart.c **** }
+ 369              		.loc 1 140 0
+ 370 002e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 371              	.LVL48:
+ 372              	.L8:
+ 373              		.align	2
+ 374              	.L7:
+ 375 0030 00000000 		.word	.LANCHOR0
+ 376              		.cfi_endproc
+ 377              	.LFE71:
+ 379              		.section	.text.USART1_IRQHandler,"ax",%progbits
+ 380              		.align	1
+ 381              		.global	USART1_IRQHandler
+ 382              		.syntax unified
+ 383              		.thumb
+ 384              		.thumb_func
+ 385              		.fpu softvfp
+ 387              	USART1_IRQHandler:
+ 388              	.LFB73:
+ 141:drivers/bsp_f1xx_uart.c **** 
+ 142:drivers/bsp_f1xx_uart.c **** static inline void OnComDataRecved(u8 comx,u8 isIdle)
+ 143:drivers/bsp_f1xx_uart.c **** {
+ 144:drivers/bsp_f1xx_uart.c ****     u8 *p = 0;
+ 145:drivers/bsp_f1xx_uart.c ****     u16 recvLen = 0;
+ 146:drivers/bsp_f1xx_uart.c ****     _uart *recvCom = &uartlist[comx - 1];
+ 147:drivers/bsp_f1xx_uart.c **** 
+ 148:drivers/bsp_f1xx_uart.c ****     if(isIdle)
+ 149:drivers/bsp_f1xx_uart.c ****         recvLen = recvCom->rxbufLen - recvCom->rxch->CNDTR;
+ 150:drivers/bsp_f1xx_uart.c ****     else
+ 151:drivers/bsp_f1xx_uart.c ****         recvLen = recvCom->rxbufLen;
+ 152:drivers/bsp_f1xx_uart.c ****     if(recvLen==0)
+ 153:drivers/bsp_f1xx_uart.c ****     {
+ 154:drivers/bsp_f1xx_uart.c ****         dma_clear_flag(recvCom->rxch);
+ 155:drivers/bsp_f1xx_uart.c ****         dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 156:drivers/bsp_f1xx_uart.c ****     }
+ 157:drivers/bsp_f1xx_uart.c **** 
+ 158:drivers/bsp_f1xx_uart.c ****     p = recvCom->curbuf;
+ 159:drivers/bsp_f1xx_uart.c ****     if(recvCom->curbuf == recvCom->rxbuf1)
+ 160:drivers/bsp_f1xx_uart.c ****     {
+ 161:drivers/bsp_f1xx_uart.c ****         recvCom->curbuf = recvCom->rxbuf2;
+ 162:drivers/bsp_f1xx_uart.c ****     }else{
+ 163:drivers/bsp_f1xx_uart.c ****         recvCom->curbuf = recvCom->rxbuf1;
+ 164:drivers/bsp_f1xx_uart.c ****     }
+ 165:drivers/bsp_f1xx_uart.c ****     dma_clear_flag(recvCom->rxch);
+ 166:drivers/bsp_f1xx_uart.c ****     dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 167:drivers/bsp_f1xx_uart.c ****     recvCom->onDataRecved(p, recvLen);
+ 168:drivers/bsp_f1xx_uart.c **** }
+ 169:drivers/bsp_f1xx_uart.c **** 
+ 170:drivers/bsp_f1xx_uart.c **** void USART1_IRQHandler(void)
+ 171:drivers/bsp_f1xx_uart.c **** {
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 11
+
+
+ 389              		.loc 1 171 0
+ 390              		.cfi_startproc
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172:drivers/bsp_f1xx_uart.c ****     u8 temp = USART1->SR;
+ 393              		.loc 1 172 0
+ 394 0000 194B     		ldr	r3, .L21
+ 395 0002 1B68     		ldr	r3, [r3]
+ 396              	.LVL49:
+ 173:drivers/bsp_f1xx_uart.c ****     if (temp & BIT4) //空闲中断
+ 397              		.loc 1 173 0
+ 398 0004 13F0100F 		tst	r3, #16
+ 399 0008 00D1     		bne	.L18
+ 400 000a 7047     		bx	lr
+ 401              	.L18:
+ 171:drivers/bsp_f1xx_uart.c ****     u8 temp = USART1->SR;
+ 402              		.loc 1 171 0
+ 403 000c 70B5     		push	{r4, r5, r6, lr}
+ 404              	.LCFI2:
+ 405              		.cfi_def_cfa_offset 16
+ 406              		.cfi_offset 4, -16
+ 407              		.cfi_offset 5, -12
+ 408              		.cfi_offset 6, -8
+ 409              		.cfi_offset 14, -4
+ 174:drivers/bsp_f1xx_uart.c ****     {
+ 175:drivers/bsp_f1xx_uart.c ****         temp = USART1->DR;
+ 410              		.loc 1 175 0
+ 411 000e 164B     		ldr	r3, .L21
+ 412              	.LVL50:
+ 413 0010 5B68     		ldr	r3, [r3, #4]
+ 414              	.LVL51:
+ 415              	.LBB70:
+ 416              	.LBB71:
+ 149:drivers/bsp_f1xx_uart.c ****     else
+ 417              		.loc 1 149 0
+ 418 0012 164B     		ldr	r3, .L21+4
+ 419 0014 DC88     		ldrh	r4, [r3, #6]
+ 420 0016 9B6A     		ldr	r3, [r3, #40]
+ 421 0018 5B68     		ldr	r3, [r3, #4]
+ 422 001a 9BB2     		uxth	r3, r3
+ 423 001c E41A     		subs	r4, r4, r3
+ 424 001e A4B2     		uxth	r4, r4
+ 425              	.LVL52:
+ 152:drivers/bsp_f1xx_uart.c ****     {
+ 426              		.loc 1 152 0
+ 427 0020 A4B1     		cbz	r4, .L19
+ 428              	.L11:
+ 158:drivers/bsp_f1xx_uart.c ****     if(recvCom->curbuf == recvCom->rxbuf1)
+ 429              		.loc 1 158 0
+ 430 0022 124B     		ldr	r3, .L21+4
+ 431 0024 9E68     		ldr	r6, [r3, #8]
+ 432              	.LVL53:
+ 159:drivers/bsp_f1xx_uart.c ****     {
+ 433              		.loc 1 159 0
+ 434 0026 DB68     		ldr	r3, [r3, #12]
+ 435 0028 9E42     		cmp	r6, r3
+ 436 002a 19D0     		beq	.L20
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 12
+
+
+ 163:drivers/bsp_f1xx_uart.c ****     }
+ 437              		.loc 1 163 0
+ 438 002c 0F4A     		ldr	r2, .L21+4
+ 439 002e 9360     		str	r3, [r2, #8]
+ 440              	.L13:
+ 165:drivers/bsp_f1xx_uart.c ****     dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 441              		.loc 1 165 0
+ 442 0030 0E4D     		ldr	r5, .L21+4
+ 443 0032 A86A     		ldr	r0, [r5, #40]
+ 444 0034 FFF7FEFF 		bl	dma_clear_flag
+ 445              	.LVL54:
+ 166:drivers/bsp_f1xx_uart.c ****     recvCom->onDataRecved(p, recvLen);
+ 446              		.loc 1 166 0
+ 447 0038 EA88     		ldrh	r2, [r5, #6]
+ 448 003a A968     		ldr	r1, [r5, #8]
+ 449 003c A86A     		ldr	r0, [r5, #40]
+ 450 003e FFF7FEFF 		bl	dma_stream_en
+ 451              	.LVL55:
+ 167:drivers/bsp_f1xx_uart.c **** }
+ 452              		.loc 1 167 0
+ 453 0042 2B6C     		ldr	r3, [r5, #64]
+ 454 0044 2146     		mov	r1, r4
+ 455 0046 3046     		mov	r0, r6
+ 456 0048 9847     		blx	r3
+ 457              	.LVL56:
+ 458              	.LBE71:
+ 459              	.LBE70:
+ 176:drivers/bsp_f1xx_uart.c ****         OnComDataRecved(COM1,1);
+ 177:drivers/bsp_f1xx_uart.c ****     }
+ 178:drivers/bsp_f1xx_uart.c **** }
+ 460              		.loc 1 178 0
+ 461 004a 70BD     		pop	{r4, r5, r6, pc}
+ 462              	.LVL57:
+ 463              	.L19:
+ 464              	.LBB73:
+ 465              	.LBB72:
+ 154:drivers/bsp_f1xx_uart.c ****         dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 466              		.loc 1 154 0
+ 467 004c 074D     		ldr	r5, .L21+4
+ 468 004e A86A     		ldr	r0, [r5, #40]
+ 469 0050 FFF7FEFF 		bl	dma_clear_flag
+ 470              	.LVL58:
+ 155:drivers/bsp_f1xx_uart.c ****     }
+ 471              		.loc 1 155 0
+ 472 0054 EA88     		ldrh	r2, [r5, #6]
+ 473 0056 A968     		ldr	r1, [r5, #8]
+ 474 0058 A86A     		ldr	r0, [r5, #40]
+ 475 005a FFF7FEFF 		bl	dma_stream_en
+ 476              	.LVL59:
+ 477 005e E0E7     		b	.L11
+ 478              	.LVL60:
+ 479              	.L20:
+ 161:drivers/bsp_f1xx_uart.c ****     }else{
+ 480              		.loc 1 161 0
+ 481 0060 024B     		ldr	r3, .L21+4
+ 482 0062 1A69     		ldr	r2, [r3, #16]
+ 483 0064 9A60     		str	r2, [r3, #8]
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 13
+
+
+ 484 0066 E3E7     		b	.L13
+ 485              	.L22:
+ 486              		.align	2
+ 487              	.L21:
+ 488 0068 00380140 		.word	1073821696
+ 489 006c 00000000 		.word	.LANCHOR0
+ 490              	.LBE72:
+ 491              	.LBE73:
+ 492              		.cfi_endproc
+ 493              	.LFE73:
+ 495              		.section	.text.USART2_IRQHandler,"ax",%progbits
+ 496              		.align	1
+ 497              		.global	USART2_IRQHandler
+ 498              		.syntax unified
+ 499              		.thumb
+ 500              		.thumb_func
+ 501              		.fpu softvfp
+ 503              	USART2_IRQHandler:
+ 504              	.LFB74:
+ 179:drivers/bsp_f1xx_uart.c **** 
+ 180:drivers/bsp_f1xx_uart.c **** void USART2_IRQHandler(void)
+ 181:drivers/bsp_f1xx_uart.c **** {
+ 505              		.loc 1 181 0
+ 506              		.cfi_startproc
+ 507              		@ args = 0, pretend = 0, frame = 0
+ 508              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182:drivers/bsp_f1xx_uart.c ****     u8 temp = USART2->SR;
+ 509              		.loc 1 182 0
+ 510 0000 1B4B     		ldr	r3, .L35
+ 511 0002 1B68     		ldr	r3, [r3]
+ 512              	.LVL61:
+ 183:drivers/bsp_f1xx_uart.c ****     if (temp & BIT4) //空闲中断
+ 513              		.loc 1 183 0
+ 514 0004 13F0100F 		tst	r3, #16
+ 515 0008 00D1     		bne	.L32
+ 516 000a 7047     		bx	lr
+ 517              	.L32:
+ 181:drivers/bsp_f1xx_uart.c ****     u8 temp = USART2->SR;
+ 518              		.loc 1 181 0
+ 519 000c 70B5     		push	{r4, r5, r6, lr}
+ 520              	.LCFI3:
+ 521              		.cfi_def_cfa_offset 16
+ 522              		.cfi_offset 4, -16
+ 523              		.cfi_offset 5, -12
+ 524              		.cfi_offset 6, -8
+ 525              		.cfi_offset 14, -4
+ 184:drivers/bsp_f1xx_uart.c ****     {
+ 185:drivers/bsp_f1xx_uart.c ****         temp = USART2->DR;
+ 526              		.loc 1 185 0
+ 527 000e 184B     		ldr	r3, .L35
+ 528              	.LVL62:
+ 529 0010 5B68     		ldr	r3, [r3, #4]
+ 530              	.LVL63:
+ 531              	.LBB76:
+ 532              	.LBB77:
+ 149:drivers/bsp_f1xx_uart.c ****     else
+ 533              		.loc 1 149 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 14
+
+
+ 534 0012 184B     		ldr	r3, .L35+4
+ 535 0014 B3F84A40 		ldrh	r4, [r3, #74]
+ 536 0018 DB6E     		ldr	r3, [r3, #108]
+ 537 001a 5B68     		ldr	r3, [r3, #4]
+ 538 001c 9BB2     		uxth	r3, r3
+ 539 001e E41A     		subs	r4, r4, r3
+ 540 0020 A4B2     		uxth	r4, r4
+ 541              	.LVL64:
+ 152:drivers/bsp_f1xx_uart.c ****     {
+ 542              		.loc 1 152 0
+ 543 0022 B4B1     		cbz	r4, .L33
+ 544              	.L25:
+ 158:drivers/bsp_f1xx_uart.c ****     if(recvCom->curbuf == recvCom->rxbuf1)
+ 545              		.loc 1 158 0
+ 546 0024 134B     		ldr	r3, .L35+4
+ 547 0026 DE6C     		ldr	r6, [r3, #76]
+ 548              	.LVL65:
+ 159:drivers/bsp_f1xx_uart.c ****     {
+ 549              		.loc 1 159 0
+ 550 0028 1B6D     		ldr	r3, [r3, #80]
+ 551 002a 9E42     		cmp	r6, r3
+ 552 002c 1CD0     		beq	.L34
+ 163:drivers/bsp_f1xx_uart.c ****     }
+ 553              		.loc 1 163 0
+ 554 002e 114A     		ldr	r2, .L35+4
+ 555 0030 D364     		str	r3, [r2, #76]
+ 556              	.L27:
+ 165:drivers/bsp_f1xx_uart.c ****     dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 557              		.loc 1 165 0
+ 558 0032 104D     		ldr	r5, .L35+4
+ 559 0034 E86E     		ldr	r0, [r5, #108]
+ 560 0036 FFF7FEFF 		bl	dma_clear_flag
+ 561              	.LVL66:
+ 166:drivers/bsp_f1xx_uart.c ****     recvCom->onDataRecved(p, recvLen);
+ 562              		.loc 1 166 0
+ 563 003a B5F84A20 		ldrh	r2, [r5, #74]
+ 564 003e E96C     		ldr	r1, [r5, #76]
+ 565 0040 E86E     		ldr	r0, [r5, #108]
+ 566 0042 FFF7FEFF 		bl	dma_stream_en
+ 567              	.LVL67:
+ 167:drivers/bsp_f1xx_uart.c **** }
+ 568              		.loc 1 167 0
+ 569 0046 D5F88430 		ldr	r3, [r5, #132]
+ 570 004a 2146     		mov	r1, r4
+ 571 004c 3046     		mov	r0, r6
+ 572 004e 9847     		blx	r3
+ 573              	.LVL68:
+ 574              	.LBE77:
+ 575              	.LBE76:
+ 186:drivers/bsp_f1xx_uart.c ****         OnComDataRecved(COM2,1);
+ 187:drivers/bsp_f1xx_uart.c ****     }
+ 188:drivers/bsp_f1xx_uart.c **** }
+ 576              		.loc 1 188 0
+ 577 0050 70BD     		pop	{r4, r5, r6, pc}
+ 578              	.LVL69:
+ 579              	.L33:
+ 580              	.LBB79:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 15
+
+
+ 581              	.LBB78:
+ 154:drivers/bsp_f1xx_uart.c ****         dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 582              		.loc 1 154 0
+ 583 0052 084D     		ldr	r5, .L35+4
+ 584 0054 E86E     		ldr	r0, [r5, #108]
+ 585 0056 FFF7FEFF 		bl	dma_clear_flag
+ 586              	.LVL70:
+ 155:drivers/bsp_f1xx_uart.c ****     }
+ 587              		.loc 1 155 0
+ 588 005a B5F84A20 		ldrh	r2, [r5, #74]
+ 589 005e E96C     		ldr	r1, [r5, #76]
+ 590 0060 E86E     		ldr	r0, [r5, #108]
+ 591 0062 FFF7FEFF 		bl	dma_stream_en
+ 592              	.LVL71:
+ 593 0066 DDE7     		b	.L25
+ 594              	.LVL72:
+ 595              	.L34:
+ 161:drivers/bsp_f1xx_uart.c ****     }else{
+ 596              		.loc 1 161 0
+ 597 0068 024B     		ldr	r3, .L35+4
+ 598 006a 5A6D     		ldr	r2, [r3, #84]
+ 599 006c DA64     		str	r2, [r3, #76]
+ 600 006e E0E7     		b	.L27
+ 601              	.L36:
+ 602              		.align	2
+ 603              	.L35:
+ 604 0070 00440040 		.word	1073759232
+ 605 0074 00000000 		.word	.LANCHOR0
+ 606              	.LBE78:
+ 607              	.LBE79:
+ 608              		.cfi_endproc
+ 609              	.LFE74:
+ 611              		.section	.text.ComxSendData,"ax",%progbits
+ 612              		.align	1
+ 613              		.global	ComxSendData
+ 614              		.syntax unified
+ 615              		.thumb
+ 616              		.thumb_func
+ 617              		.fpu softvfp
+ 619              	ComxSendData:
+ 620              	.LFB75:
+ 189:drivers/bsp_f1xx_uart.c **** 
+ 190:drivers/bsp_f1xx_uart.c **** void ComxSendData(u8 comx, u8 *buf, u16 len)
+ 191:drivers/bsp_f1xx_uart.c **** {
+ 621              		.loc 1 191 0
+ 622              		.cfi_startproc
+ 623              		@ args = 0, pretend = 0, frame = 0
+ 624              		@ frame_needed = 0, uses_anonymous_args = 0
+ 625              	.LVL73:
+ 192:drivers/bsp_f1xx_uart.c ****     u16 i;
+ 193:drivers/bsp_f1xx_uart.c **** 
+ 194:drivers/bsp_f1xx_uart.c ****     _uart *com = &uartlist[comx - 1];
+ 195:drivers/bsp_f1xx_uart.c ****     if(len == 0 )
+ 626              		.loc 1 195 0
+ 627 0000 42B3     		cbz	r2, .L43
+ 191:drivers/bsp_f1xx_uart.c ****     u16 i;
+ 628              		.loc 1 191 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 16
+
+
+ 629 0002 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 630              	.LCFI4:
+ 631              		.cfi_def_cfa_offset 24
+ 632              		.cfi_offset 4, -24
+ 633              		.cfi_offset 5, -20
+ 634              		.cfi_offset 6, -16
+ 635              		.cfi_offset 7, -12
+ 636              		.cfi_offset 8, -8
+ 637              		.cfi_offset 14, -4
+ 638 0006 441E     		subs	r4, r0, #1
+ 639              	.LVL74:
+ 640 0008 9046     		mov	r8, r2
+ 196:drivers/bsp_f1xx_uart.c ****         return;
+ 197:drivers/bsp_f1xx_uart.c ****     if (!com->txch->CNDTR)
+ 641              		.loc 1 197 0
+ 642 000a 04EB0413 		add	r3, r4, r4, lsl #4
+ 643 000e 9A00     		lsls	r2, r3, #2
+ 644              	.LVL75:
+ 645 0010 114B     		ldr	r3, .L46
+ 646 0012 1344     		add	r3, r3, r2
+ 647 0014 DB6A     		ldr	r3, [r3, #44]
+ 648 0016 5B68     		ldr	r3, [r3, #4]
+ 649 0018 D3B9     		cbnz	r3, .L37
+ 198:drivers/bsp_f1xx_uart.c ****     {
+ 199:drivers/bsp_f1xx_uart.c ****         for (i = 0; i < len; i++)
+ 650              		.loc 1 199 0
+ 651 001a 0023     		movs	r3, #0
+ 652 001c 09E0     		b	.L39
+ 653              	.LVL76:
+ 654              	.L40:
+ 200:drivers/bsp_f1xx_uart.c ****             com->txbuf[i] = buf[i];
+ 655              		.loc 1 200 0 discriminator 3
+ 656 001e 04EB0410 		add	r0, r4, r4, lsl #4
+ 657 0022 8500     		lsls	r5, r0, #2
+ 658 0024 0C48     		ldr	r0, .L46
+ 659 0026 2844     		add	r0, r0, r5
+ 660 0028 4269     		ldr	r2, [r0, #20]
+ 661 002a C85C     		ldrb	r0, [r1, r3]	@ zero_extendqisi2
+ 662 002c D054     		strb	r0, [r2, r3]
+ 199:drivers/bsp_f1xx_uart.c ****             com->txbuf[i] = buf[i];
+ 663              		.loc 1 199 0 discriminator 3
+ 664 002e 0133     		adds	r3, r3, #1
+ 665              	.LVL77:
+ 666 0030 9BB2     		uxth	r3, r3
+ 667              	.LVL78:
+ 668              	.L39:
+ 199:drivers/bsp_f1xx_uart.c ****             com->txbuf[i] = buf[i];
+ 669              		.loc 1 199 0 is_stmt 0 discriminator 1
+ 670 0032 4345     		cmp	r3, r8
+ 671 0034 F3D3     		bcc	.L40
+ 201:drivers/bsp_f1xx_uart.c ****         dma_clear_flag(com->txch);
+ 672              		.loc 1 201 0 is_stmt 1
+ 673 0036 084E     		ldr	r6, .L46
+ 674 0038 2701     		lsls	r7, r4, #4
+ 675 003a 3B19     		adds	r3, r7, r4
+ 676              	.LVL79:
+ 677 003c 9D00     		lsls	r5, r3, #2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 17
+
+
+ 678 003e 3544     		add	r5, r5, r6
+ 679 0040 E86A     		ldr	r0, [r5, #44]
+ 680 0042 FFF7FEFF 		bl	dma_clear_flag
+ 681              	.LVL80:
+ 202:drivers/bsp_f1xx_uart.c ****         dma_stream_en(com->txch,com->txbuf,len);
+ 682              		.loc 1 202 0
+ 683 0046 4246     		mov	r2, r8
+ 684 0048 6969     		ldr	r1, [r5, #20]
+ 685 004a E86A     		ldr	r0, [r5, #44]
+ 686 004c FFF7FEFF 		bl	dma_stream_en
+ 687              	.LVL81:
+ 688              	.L37:
+ 203:drivers/bsp_f1xx_uart.c ****     }
+ 204:drivers/bsp_f1xx_uart.c **** }
+ 689              		.loc 1 204 0
+ 690 0050 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 691              	.LVL82:
+ 692              	.L43:
+ 693              	.LCFI5:
+ 694              		.cfi_def_cfa_offset 0
+ 695              		.cfi_restore 4
+ 696              		.cfi_restore 5
+ 697              		.cfi_restore 6
+ 698              		.cfi_restore 7
+ 699              		.cfi_restore 8
+ 700              		.cfi_restore 14
+ 701 0054 7047     		bx	lr
+ 702              	.L47:
+ 703 0056 00BF     		.align	2
+ 704              	.L46:
+ 705 0058 00000000 		.word	.LANCHOR0
+ 706              		.cfi_endproc
+ 707              	.LFE75:
+ 709              		.section	.text.Com1SendData,"ax",%progbits
+ 710              		.align	1
+ 711              		.global	Com1SendData
+ 712              		.syntax unified
+ 713              		.thumb
+ 714              		.thumb_func
+ 715              		.fpu softvfp
+ 717              	Com1SendData:
+ 718              	.LFB79:
+ 205:drivers/bsp_f1xx_uart.c **** 
+ 206:drivers/bsp_f1xx_uart.c **** 
+ 207:drivers/bsp_f1xx_uart.c **** // 往PC传输,将串口收到的数据搬移到缓冲区中
+ 208:drivers/bsp_f1xx_uart.c **** void DMA1_Channel6_IRQHandler(void)
+ 209:drivers/bsp_f1xx_uart.c **** {
+ 210:drivers/bsp_f1xx_uart.c **** 	if ((DMA1->ISR) & BIT21) //缓冲区全满
+ 211:drivers/bsp_f1xx_uart.c **** 	{
+ 212:drivers/bsp_f1xx_uart.c **** 		DMA1->IFCR = 0x00F00000;
+ 213:drivers/bsp_f1xx_uart.c **** 		OnComDataRecved(COM2,0);
+ 214:drivers/bsp_f1xx_uart.c **** 	}
+ 215:drivers/bsp_f1xx_uart.c **** }
+ 216:drivers/bsp_f1xx_uart.c **** 
+ 217:drivers/bsp_f1xx_uart.c **** // 往PC传输,将串口收到的数据搬移到缓冲区中
+ 218:drivers/bsp_f1xx_uart.c **** void DMA1_Channel3_IRQHandler(void)
+ 219:drivers/bsp_f1xx_uart.c **** {
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 18
+
+
+ 220:drivers/bsp_f1xx_uart.c **** 	if ((DMA1->ISR) & BIT9) //缓冲区全满
+ 221:drivers/bsp_f1xx_uart.c **** 	{
+ 222:drivers/bsp_f1xx_uart.c **** 		DMA1->IFCR = 0x00000F00;
+ 223:drivers/bsp_f1xx_uart.c **** 		OnComDataRecved(COM3,0);
+ 224:drivers/bsp_f1xx_uart.c **** 	}
+ 225:drivers/bsp_f1xx_uart.c **** }
+ 226:drivers/bsp_f1xx_uart.c **** 
+ 227:drivers/bsp_f1xx_uart.c **** void ComxSetBaud(u8 comx,u32 baud)
+ 228:drivers/bsp_f1xx_uart.c **** {
+ 229:drivers/bsp_f1xx_uart.c ****     _uart *com = &uartlist[comx - 1];
+ 230:drivers/bsp_f1xx_uart.c ****     com->uartx->BRR = GetBaudDiv(com->pclk, baud); // 波特率设置
+ 231:drivers/bsp_f1xx_uart.c ****     delay_ms(10);
+ 232:drivers/bsp_f1xx_uart.c **** }
+ 233:drivers/bsp_f1xx_uart.c **** 
+ 234:drivers/bsp_f1xx_uart.c **** void Com1SendData(u8 *dat,u16 len)
+ 235:drivers/bsp_f1xx_uart.c **** {
+ 719              		.loc 1 235 0
+ 720              		.cfi_startproc
+ 721              		@ args = 0, pretend = 0, frame = 0
+ 722              		@ frame_needed = 0, uses_anonymous_args = 0
+ 723              	.LVL83:
+ 724 0000 08B5     		push	{r3, lr}
+ 725              	.LCFI6:
+ 726              		.cfi_def_cfa_offset 8
+ 727              		.cfi_offset 3, -8
+ 728              		.cfi_offset 14, -4
+ 236:drivers/bsp_f1xx_uart.c ****     ComxSendData(COM1,dat,len);
+ 729              		.loc 1 236 0
+ 730 0002 0A46     		mov	r2, r1
+ 731 0004 0146     		mov	r1, r0
+ 732              	.LVL84:
+ 733 0006 0120     		movs	r0, #1
+ 734              	.LVL85:
+ 735 0008 FFF7FEFF 		bl	ComxSendData
+ 736              	.LVL86:
+ 237:drivers/bsp_f1xx_uart.c **** }
+ 737              		.loc 1 237 0
+ 738 000c 08BD     		pop	{r3, pc}
+ 739              		.cfi_endproc
+ 740              	.LFE79:
+ 742              		.section	.text.Com2SendData,"ax",%progbits
+ 743              		.align	1
+ 744              		.global	Com2SendData
+ 745              		.syntax unified
+ 746              		.thumb
+ 747              		.thumb_func
+ 748              		.fpu softvfp
+ 750              	Com2SendData:
+ 751              	.LFB80:
+ 238:drivers/bsp_f1xx_uart.c **** 
+ 239:drivers/bsp_f1xx_uart.c **** void Com2SendData(u8 *dat,u16 len)
+ 240:drivers/bsp_f1xx_uart.c **** {
+ 752              		.loc 1 240 0
+ 753              		.cfi_startproc
+ 754              		@ args = 0, pretend = 0, frame = 0
+ 755              		@ frame_needed = 0, uses_anonymous_args = 0
+ 756              	.LVL87:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 19
+
+
+ 757 0000 08B5     		push	{r3, lr}
+ 758              	.LCFI7:
+ 759              		.cfi_def_cfa_offset 8
+ 760              		.cfi_offset 3, -8
+ 761              		.cfi_offset 14, -4
+ 241:drivers/bsp_f1xx_uart.c ****     ComxSendData(COM2,dat,len);
+ 762              		.loc 1 241 0
+ 763 0002 0A46     		mov	r2, r1
+ 764 0004 0146     		mov	r1, r0
+ 765              	.LVL88:
+ 766 0006 0220     		movs	r0, #2
+ 767              	.LVL89:
+ 768 0008 FFF7FEFF 		bl	ComxSendData
+ 769              	.LVL90:
+ 242:drivers/bsp_f1xx_uart.c **** }
+ 770              		.loc 1 242 0
+ 771 000c 08BD     		pop	{r3, pc}
+ 772              		.cfi_endproc
+ 773              	.LFE80:
+ 775              		.section	.text.DMA1_Channel6_IRQHandler,"ax",%progbits
+ 776              		.align	1
+ 777              		.global	DMA1_Channel6_IRQHandler
+ 778              		.syntax unified
+ 779              		.thumb
+ 780              		.thumb_func
+ 781              		.fpu softvfp
+ 783              	DMA1_Channel6_IRQHandler:
+ 784              	.LFB76:
+ 209:drivers/bsp_f1xx_uart.c **** 	if ((DMA1->ISR) & BIT21) //缓冲区全满
+ 785              		.loc 1 209 0
+ 786              		.cfi_startproc
+ 787              		@ args = 0, pretend = 0, frame = 0
+ 788              		@ frame_needed = 0, uses_anonymous_args = 0
+ 210:drivers/bsp_f1xx_uart.c **** 	{
+ 789              		.loc 1 210 0
+ 790 0000 1A4B     		ldr	r3, .L64
+ 791 0002 1B68     		ldr	r3, [r3]
+ 792 0004 13F4001F 		tst	r3, #2097152
+ 793 0008 00D1     		bne	.L61
+ 794 000a 7047     		bx	lr
+ 795              	.L61:
+ 209:drivers/bsp_f1xx_uart.c **** 	if ((DMA1->ISR) & BIT21) //缓冲区全满
+ 796              		.loc 1 209 0
+ 797 000c 70B5     		push	{r4, r5, r6, lr}
+ 798              	.LCFI8:
+ 799              		.cfi_def_cfa_offset 16
+ 800              		.cfi_offset 4, -16
+ 801              		.cfi_offset 5, -12
+ 802              		.cfi_offset 6, -8
+ 803              		.cfi_offset 14, -4
+ 212:drivers/bsp_f1xx_uart.c **** 		OnComDataRecved(COM2,0);
+ 804              		.loc 1 212 0
+ 805 000e 174B     		ldr	r3, .L64
+ 806 0010 4FF47002 		mov	r2, #15728640
+ 807 0014 5A60     		str	r2, [r3, #4]
+ 808              	.LVL91:
+ 809              	.LBB82:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 20
+
+
+ 810              	.LBB83:
+ 151:drivers/bsp_f1xx_uart.c ****     if(recvLen==0)
+ 811              		.loc 1 151 0
+ 812 0016 164B     		ldr	r3, .L64+4
+ 813 0018 B3F84A60 		ldrh	r6, [r3, #74]
+ 814              	.LVL92:
+ 152:drivers/bsp_f1xx_uart.c ****     {
+ 815              		.loc 1 152 0
+ 816 001c B6B1     		cbz	r6, .L62
+ 817              	.L54:
+ 158:drivers/bsp_f1xx_uart.c ****     if(recvCom->curbuf == recvCom->rxbuf1)
+ 818              		.loc 1 158 0
+ 819 001e 144B     		ldr	r3, .L64+4
+ 820 0020 DD6C     		ldr	r5, [r3, #76]
+ 821              	.LVL93:
+ 159:drivers/bsp_f1xx_uart.c ****     {
+ 822              		.loc 1 159 0
+ 823 0022 1B6D     		ldr	r3, [r3, #80]
+ 824 0024 9D42     		cmp	r5, r3
+ 825 0026 1CD0     		beq	.L63
+ 163:drivers/bsp_f1xx_uart.c ****     }
+ 826              		.loc 1 163 0
+ 827 0028 114A     		ldr	r2, .L64+4
+ 828 002a D364     		str	r3, [r2, #76]
+ 829              	.L56:
+ 165:drivers/bsp_f1xx_uart.c ****     dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 830              		.loc 1 165 0
+ 831 002c 104C     		ldr	r4, .L64+4
+ 832 002e E06E     		ldr	r0, [r4, #108]
+ 833 0030 FFF7FEFF 		bl	dma_clear_flag
+ 834              	.LVL94:
+ 166:drivers/bsp_f1xx_uart.c ****     recvCom->onDataRecved(p, recvLen);
+ 835              		.loc 1 166 0
+ 836 0034 B4F84A20 		ldrh	r2, [r4, #74]
+ 837 0038 E16C     		ldr	r1, [r4, #76]
+ 838 003a E06E     		ldr	r0, [r4, #108]
+ 839 003c FFF7FEFF 		bl	dma_stream_en
+ 840              	.LVL95:
+ 167:drivers/bsp_f1xx_uart.c **** }
+ 841              		.loc 1 167 0
+ 842 0040 D4F88430 		ldr	r3, [r4, #132]
+ 843 0044 3146     		mov	r1, r6
+ 844 0046 2846     		mov	r0, r5
+ 845 0048 9847     		blx	r3
+ 846              	.LVL96:
+ 847              	.LBE83:
+ 848              	.LBE82:
+ 215:drivers/bsp_f1xx_uart.c **** 
+ 849              		.loc 1 215 0
+ 850 004a 70BD     		pop	{r4, r5, r6, pc}
+ 851              	.LVL97:
+ 852              	.L62:
+ 853              	.LBB85:
+ 854              	.LBB84:
+ 154:drivers/bsp_f1xx_uart.c ****         dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 855              		.loc 1 154 0
+ 856 004c 1C46     		mov	r4, r3
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 21
+
+
+ 857 004e D86E     		ldr	r0, [r3, #108]
+ 858 0050 FFF7FEFF 		bl	dma_clear_flag
+ 859              	.LVL98:
+ 155:drivers/bsp_f1xx_uart.c ****     }
+ 860              		.loc 1 155 0
+ 861 0054 B4F84A20 		ldrh	r2, [r4, #74]
+ 862 0058 E16C     		ldr	r1, [r4, #76]
+ 863 005a E06E     		ldr	r0, [r4, #108]
+ 864 005c FFF7FEFF 		bl	dma_stream_en
+ 865              	.LVL99:
+ 866 0060 DDE7     		b	.L54
+ 867              	.LVL100:
+ 868              	.L63:
+ 161:drivers/bsp_f1xx_uart.c ****     }else{
+ 869              		.loc 1 161 0
+ 870 0062 034B     		ldr	r3, .L64+4
+ 871 0064 5A6D     		ldr	r2, [r3, #84]
+ 872 0066 DA64     		str	r2, [r3, #76]
+ 873 0068 E0E7     		b	.L56
+ 874              	.L65:
+ 875 006a 00BF     		.align	2
+ 876              	.L64:
+ 877 006c 00000240 		.word	1073872896
+ 878 0070 00000000 		.word	.LANCHOR0
+ 879              	.LBE84:
+ 880              	.LBE85:
+ 881              		.cfi_endproc
+ 882              	.LFE76:
+ 884              		.section	.text.DMA1_Channel3_IRQHandler,"ax",%progbits
+ 885              		.align	1
+ 886              		.global	DMA1_Channel3_IRQHandler
+ 887              		.syntax unified
+ 888              		.thumb
+ 889              		.thumb_func
+ 890              		.fpu softvfp
+ 892              	DMA1_Channel3_IRQHandler:
+ 893              	.LFB77:
+ 219:drivers/bsp_f1xx_uart.c **** 	if ((DMA1->ISR) & BIT9) //缓冲区全满
+ 894              		.loc 1 219 0
+ 895              		.cfi_startproc
+ 896              		@ args = 0, pretend = 0, frame = 0
+ 897              		@ frame_needed = 0, uses_anonymous_args = 0
+ 220:drivers/bsp_f1xx_uart.c **** 	{
+ 898              		.loc 1 220 0
+ 899 0000 1F4B     		ldr	r3, .L78
+ 900 0002 1B68     		ldr	r3, [r3]
+ 901 0004 13F4007F 		tst	r3, #512
+ 902 0008 00D1     		bne	.L75
+ 903 000a 7047     		bx	lr
+ 904              	.L75:
+ 219:drivers/bsp_f1xx_uart.c **** 	if ((DMA1->ISR) & BIT9) //缓冲区全满
+ 905              		.loc 1 219 0
+ 906 000c 70B5     		push	{r4, r5, r6, lr}
+ 907              	.LCFI9:
+ 908              		.cfi_def_cfa_offset 16
+ 909              		.cfi_offset 4, -16
+ 910              		.cfi_offset 5, -12
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 22
+
+
+ 911              		.cfi_offset 6, -8
+ 912              		.cfi_offset 14, -4
+ 222:drivers/bsp_f1xx_uart.c **** 		OnComDataRecved(COM3,0);
+ 913              		.loc 1 222 0
+ 914 000e 1C4B     		ldr	r3, .L78
+ 915 0010 4FF47062 		mov	r2, #3840
+ 916 0014 5A60     		str	r2, [r3, #4]
+ 917              	.LVL101:
+ 918              	.LBB88:
+ 919              	.LBB89:
+ 151:drivers/bsp_f1xx_uart.c ****     if(recvLen==0)
+ 920              		.loc 1 151 0
+ 921 0016 1B4B     		ldr	r3, .L78+4
+ 922 0018 B3F88E60 		ldrh	r6, [r3, #142]
+ 923              	.LVL102:
+ 152:drivers/bsp_f1xx_uart.c ****     {
+ 924              		.loc 1 152 0
+ 925 001c E6B1     		cbz	r6, .L76
+ 926              	.L68:
+ 158:drivers/bsp_f1xx_uart.c ****     if(recvCom->curbuf == recvCom->rxbuf1)
+ 927              		.loc 1 158 0
+ 928 001e 194B     		ldr	r3, .L78+4
+ 929 0020 D3F89050 		ldr	r5, [r3, #144]
+ 930              	.LVL103:
+ 159:drivers/bsp_f1xx_uart.c ****     {
+ 931              		.loc 1 159 0
+ 932 0024 D3F89430 		ldr	r3, [r3, #148]
+ 933 0028 9D42     		cmp	r5, r3
+ 934 002a 23D0     		beq	.L77
+ 163:drivers/bsp_f1xx_uart.c ****     }
+ 935              		.loc 1 163 0
+ 936 002c 154A     		ldr	r2, .L78+4
+ 937 002e C2F89030 		str	r3, [r2, #144]
+ 938              	.L70:
+ 165:drivers/bsp_f1xx_uart.c ****     dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 939              		.loc 1 165 0
+ 940 0032 144C     		ldr	r4, .L78+4
+ 941 0034 D4F8B000 		ldr	r0, [r4, #176]
+ 942 0038 FFF7FEFF 		bl	dma_clear_flag
+ 943              	.LVL104:
+ 166:drivers/bsp_f1xx_uart.c ****     recvCom->onDataRecved(p, recvLen);
+ 944              		.loc 1 166 0
+ 945 003c B4F88E20 		ldrh	r2, [r4, #142]
+ 946 0040 D4F89010 		ldr	r1, [r4, #144]
+ 947 0044 D4F8B000 		ldr	r0, [r4, #176]
+ 948 0048 FFF7FEFF 		bl	dma_stream_en
+ 949              	.LVL105:
+ 167:drivers/bsp_f1xx_uart.c **** }
+ 950              		.loc 1 167 0
+ 951 004c D4F8C830 		ldr	r3, [r4, #200]
+ 952 0050 3146     		mov	r1, r6
+ 953 0052 2846     		mov	r0, r5
+ 954 0054 9847     		blx	r3
+ 955              	.LVL106:
+ 956              	.LBE89:
+ 957              	.LBE88:
+ 225:drivers/bsp_f1xx_uart.c **** 
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 23
+
+
+ 958              		.loc 1 225 0
+ 959 0056 70BD     		pop	{r4, r5, r6, pc}
+ 960              	.LVL107:
+ 961              	.L76:
+ 962              	.LBB91:
+ 963              	.LBB90:
+ 154:drivers/bsp_f1xx_uart.c ****         dma_stream_en(recvCom->rxch,recvCom->curbuf,recvCom->rxbufLen);
+ 964              		.loc 1 154 0
+ 965 0058 1C46     		mov	r4, r3
+ 966 005a D3F8B000 		ldr	r0, [r3, #176]
+ 967 005e FFF7FEFF 		bl	dma_clear_flag
+ 968              	.LVL108:
+ 155:drivers/bsp_f1xx_uart.c ****     }
+ 969              		.loc 1 155 0
+ 970 0062 B4F88E20 		ldrh	r2, [r4, #142]
+ 971 0066 D4F89010 		ldr	r1, [r4, #144]
+ 972 006a D4F8B000 		ldr	r0, [r4, #176]
+ 973 006e FFF7FEFF 		bl	dma_stream_en
+ 974              	.LVL109:
+ 975 0072 D4E7     		b	.L68
+ 976              	.LVL110:
+ 977              	.L77:
+ 161:drivers/bsp_f1xx_uart.c ****     }else{
+ 978              		.loc 1 161 0
+ 979 0074 034B     		ldr	r3, .L78+4
+ 980 0076 D3F89820 		ldr	r2, [r3, #152]
+ 981 007a C3F89020 		str	r2, [r3, #144]
+ 982 007e D8E7     		b	.L70
+ 983              	.L79:
+ 984              		.align	2
+ 985              	.L78:
+ 986 0080 00000240 		.word	1073872896
+ 987 0084 00000000 		.word	.LANCHOR0
+ 988              	.LBE90:
+ 989              	.LBE91:
+ 990              		.cfi_endproc
+ 991              	.LFE77:
+ 993              		.section	.text.ComxSetBaud,"ax",%progbits
+ 994              		.align	1
+ 995              		.global	ComxSetBaud
+ 996              		.syntax unified
+ 997              		.thumb
+ 998              		.thumb_func
+ 999              		.fpu softvfp
+ 1001              	ComxSetBaud:
+ 1002              	.LFB78:
+ 228:drivers/bsp_f1xx_uart.c ****     _uart *com = &uartlist[comx - 1];
+ 1003              		.loc 1 228 0
+ 1004              		.cfi_startproc
+ 1005              		@ args = 0, pretend = 0, frame = 0
+ 1006              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1007              	.LVL111:
+ 1008 0000 70B5     		push	{r4, r5, r6, lr}
+ 1009              	.LCFI10:
+ 1010              		.cfi_def_cfa_offset 16
+ 1011              		.cfi_offset 4, -16
+ 1012              		.cfi_offset 5, -12
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 24
+
+
+ 1013              		.cfi_offset 6, -8
+ 1014              		.cfi_offset 14, -4
+ 1015 0002 0C46     		mov	r4, r1
+ 229:drivers/bsp_f1xx_uart.c ****     com->uartx->BRR = GetBaudDiv(com->pclk, baud); // 波特率设置
+ 1016              		.loc 1 229 0
+ 1017 0004 0138     		subs	r0, r0, #1
+ 1018              	.LVL112:
+ 230:drivers/bsp_f1xx_uart.c ****     delay_ms(10);
+ 1019              		.loc 1 230 0
+ 1020 0006 1649     		ldr	r1, .L82
+ 1021              	.LVL113:
+ 1022 0008 0301     		lsls	r3, r0, #4
+ 1023 000a 1D18     		adds	r5, r3, r0
+ 1024 000c AA00     		lsls	r2, r5, #2
+ 1025 000e 1346     		mov	r3, r2
+ 1026 0010 0B44     		add	r3, r3, r1
+ 1027 0012 1D6A     		ldr	r5, [r3, #32]
+ 1028              	.LVL114:
+ 1029              	.LBB92:
+ 1030              	.LBB93:
+  92:drivers/bsp_f1xx_uart.c ****     mantissa = temp;		      //得到整数部分
+ 1031              		.loc 1 92 0
+ 1032 0014 8858     		ldr	r0, [r1, r2]
+ 1033              	.LVL115:
+ 1034 0016 FFF7FEFF 		bl	__aeabi_ui2f
+ 1035              	.LVL116:
+ 1036 001a 0646     		mov	r6, r0
+ 1037 001c 2001     		lsls	r0, r4, #4
+ 1038 001e FFF7FEFF 		bl	__aeabi_ui2f
+ 1039              	.LVL117:
+ 1040 0022 0146     		mov	r1, r0
+ 1041 0024 3046     		mov	r0, r6
+ 1042 0026 FFF7FEFF 		bl	__aeabi_fdiv
+ 1043              	.LVL118:
+ 1044 002a 0646     		mov	r6, r0
+ 1045              	.LVL119:
+  93:drivers/bsp_f1xx_uart.c ****     fraction = (temp - mantissa) * 16;    //得到小数部分
+ 1046              		.loc 1 93 0
+ 1047 002c FFF7FEFF 		bl	__aeabi_f2uiz
+ 1048              	.LVL120:
+ 1049 0030 84B2     		uxth	r4, r0
+ 1050              	.LVL121:
+  94:drivers/bsp_f1xx_uart.c ****     mantissa <<= 4;
+ 1051              		.loc 1 94 0
+ 1052 0032 2046     		mov	r0, r4
+ 1053 0034 FFF7FEFF 		bl	__aeabi_i2f
+ 1054              	.LVL122:
+ 1055 0038 0146     		mov	r1, r0
+ 1056 003a 3046     		mov	r0, r6
+ 1057 003c FFF7FEFF 		bl	__aeabi_fsub
+ 1058              	.LVL123:
+ 1059 0040 4FF08341 		mov	r1, #1098907648
+ 1060 0044 FFF7FEFF 		bl	__aeabi_fmul
+ 1061              	.LVL124:
+ 1062 0048 FFF7FEFF 		bl	__aeabi_f2uiz
+ 1063              	.LVL125:
+ 1064 004c 80B2     		uxth	r0, r0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 25
+
+
+ 1065              	.LVL126:
+  95:drivers/bsp_f1xx_uart.c ****     mantissa += fraction;
+ 1066              		.loc 1 95 0
+ 1067 004e 2401     		lsls	r4, r4, #4
+ 1068              	.LVL127:
+ 1069 0050 A4B2     		uxth	r4, r4
+ 1070              	.LVL128:
+  96:drivers/bsp_f1xx_uart.c ****     return mantissa;
+ 1071              		.loc 1 96 0
+ 1072 0052 0444     		add	r4, r4, r0
+ 1073              	.LVL129:
+ 1074 0054 A4B2     		uxth	r4, r4
+ 1075              	.LVL130:
+ 1076              	.LBE93:
+ 1077              	.LBE92:
+ 230:drivers/bsp_f1xx_uart.c ****     delay_ms(10);
+ 1078              		.loc 1 230 0
+ 1079 0056 AC60     		str	r4, [r5, #8]
+ 231:drivers/bsp_f1xx_uart.c **** }
+ 1080              		.loc 1 231 0
+ 1081 0058 0A20     		movs	r0, #10
+ 1082 005a FFF7FEFF 		bl	delay_ms
+ 1083              	.LVL131:
+ 232:drivers/bsp_f1xx_uart.c **** 
+ 1084              		.loc 1 232 0
+ 1085 005e 70BD     		pop	{r4, r5, r6, pc}
+ 1086              	.L83:
+ 1087              		.align	2
+ 1088              	.L82:
+ 1089 0060 00000000 		.word	.LANCHOR0
+ 1090              		.cfi_endproc
+ 1091              	.LFE78:
+ 1093              		.global	uartlist
+ 1094              		.global	SendFuncs
+ 1095              		.section	.data.SendFuncs,"aw",%progbits
+ 1096              		.align	2
+ 1097              		.set	.LANCHOR1,. + 0
+ 1100              	SendFuncs:
+ 1101 0000 00000000 		.word	Com1SendData
+ 1102 0004 00000000 		.word	Com2SendData
+ 1103              		.section	.data.uartlist,"aw",%progbits
+ 1104              		.align	2
+ 1105              		.set	.LANCHOR0,. + 0
+ 1108              	uartlist:
+ 1109 0000 00A24A04 		.word	72000000
+ 1110 0004 25       		.byte	37
+ 1111 0005 00000000 		.space	19
+ 1111      00000000 
+ 1111      00000000 
+ 1111      00000000 
+ 1111      000000
+ 1112 0018 18100240 		.word	1073877016
+ 1113 001c 00400000 		.word	16384
+ 1114 0020 00380140 		.word	1073821696
+ 1115 0024 0F       		.byte	15
+ 1116 0025 0E       		.byte	14
+ 1117 0026 0000     		.space	2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 26
+
+
+ 1118 0028 58000240 		.word	1073872984
+ 1119 002c 44000240 		.word	1073872964
+ 1120 0030 000C0140 		.word	1073810432
+ 1121 0034 06       		.byte	6
+ 1122 0035 0B       		.byte	11
+ 1123 0036 0000     		.space	2
+ 1124 0038 000C0140 		.word	1073810432
+ 1125 003c 07       		.byte	7
+ 1126 003d 04       		.byte	4
+ 1127 003e 0000     		.space	2
+ 1128 0040 00000000 		.space	4
+ 1129 0044 00512502 		.word	36000000
+ 1130 0048 26       		.byte	38
+ 1131 0049 00000000 		.space	19
+ 1131      00000000 
+ 1131      00000000 
+ 1131      00000000 
+ 1131      000000
+ 1132 005c 1C100240 		.word	1073877020
+ 1133 0060 00000200 		.word	131072
+ 1134 0064 00440040 		.word	1073759232
+ 1135 0068 10       		.byte	16
+ 1136 0069 11       		.byte	17
+ 1137 006a 0000     		.space	2
+ 1138 006c 6C000240 		.word	1073873004
+ 1139 0070 80000240 		.word	1073873024
+ 1140 0074 00080140 		.word	1073809408
+ 1141 0078 02       		.byte	2
+ 1142 0079 0B       		.byte	11
+ 1143 007a 0000     		.space	2
+ 1144 007c 00080140 		.word	1073809408
+ 1145 0080 03       		.byte	3
+ 1146 0081 04       		.byte	4
+ 1147 0082 0000     		.space	2
+ 1148 0084 00000000 		.space	4
+ 1149 0088 00512502 		.word	36000000
+ 1150 008c 27       		.byte	39
+ 1151 008d 00000000 		.space	19
+ 1151      00000000 
+ 1151      00000000 
+ 1151      00000000 
+ 1151      000000
+ 1152 00a0 1C100240 		.word	1073877020
+ 1153 00a4 00000400 		.word	262144
+ 1154 00a8 00480040 		.word	1073760256
+ 1155 00ac 0D       		.byte	13
+ 1156 00ad 0C       		.byte	12
+ 1157 00ae 0000     		.space	2
+ 1158 00b0 30000240 		.word	1073872944
+ 1159 00b4 1C000240 		.word	1073872924
+ 1160 00b8 000C0140 		.word	1073810432
+ 1161 00bc 0A       		.byte	10
+ 1162 00bd 0B       		.byte	11
+ 1163 00be 0000     		.space	2
+ 1164 00c0 000C0140 		.word	1073810432
+ 1165 00c4 0B       		.byte	11
+ 1166 00c5 04       		.byte	4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 27
+
+
+ 1167 00c6 0000     		.space	2
+ 1168 00c8 00000000 		.space	4
+ 1169              		.text
+ 1170              	.Letext0:
+ 1171              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 1172              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 1173              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 1174              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 1175              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 1176              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 1177              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdlib.h"
+ 1178              		.file 9 "Inc/core_cm3.h"
+ 1179              		.file 10 "Inc/stm32f103xe.h"
+ 1180              		.file 11 "startup/inc/sys.h"
+ 1181              		.file 12 "tools/inc/malloc.h"
+ 1182              		.file 13 "tools/inc/tskmanager.h"
+ 1183              		.file 14 "drivers/inc/bsp_f1xx_io.h"
+ 1184              		.file 15 "drivers/inc/datautil.h"
+ 1185              		.file 16 "drivers/inc/bsp_f1xx_uart.h"
+ 1186              		.file 17 "drivers/inc/bsp_f1xx_dma.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s 			page 28
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 bsp_f1xx_uart.c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:22     .text.bsp_UartInit:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:29     .text.bsp_UartInit:0000000000000000 bsp_UartInit
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:296    .text.bsp_UartInit:0000000000000174 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:303    .text.bsp_UartClose:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:310    .text.bsp_UartClose:0000000000000000 bsp_UartClose
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:375    .text.bsp_UartClose:0000000000000030 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:380    .text.USART1_IRQHandler:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:387    .text.USART1_IRQHandler:0000000000000000 USART1_IRQHandler
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:488    .text.USART1_IRQHandler:0000000000000068 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:496    .text.USART2_IRQHandler:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:503    .text.USART2_IRQHandler:0000000000000000 USART2_IRQHandler
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:604    .text.USART2_IRQHandler:0000000000000070 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:612    .text.ComxSendData:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:619    .text.ComxSendData:0000000000000000 ComxSendData
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:705    .text.ComxSendData:0000000000000058 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:710    .text.Com1SendData:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:717    .text.Com1SendData:0000000000000000 Com1SendData
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:743    .text.Com2SendData:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:750    .text.Com2SendData:0000000000000000 Com2SendData
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:776    .text.DMA1_Channel6_IRQHandler:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:783    .text.DMA1_Channel6_IRQHandler:0000000000000000 DMA1_Channel6_IRQHandler
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:877    .text.DMA1_Channel6_IRQHandler:000000000000006c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:885    .text.DMA1_Channel3_IRQHandler:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:892    .text.DMA1_Channel3_IRQHandler:0000000000000000 DMA1_Channel3_IRQHandler
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:986    .text.DMA1_Channel3_IRQHandler:0000000000000080 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:994    .text.ComxSetBaud:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:1001   .text.ComxSetBaud:0000000000000000 ComxSetBaud
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:1089   .text.ComxSetBaud:0000000000000060 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:1108   .data.uartlist:0000000000000000 uartlist
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:1100   .data.SendFuncs:0000000000000000 SendFuncs
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:1096   .data.SendFuncs:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccKVeAoi.s:1104   .data.uartlist:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_ui2f
+__aeabi_fdiv
+__aeabi_f2uiz
+__aeabi_i2f
+__aeabi_fsub
+__aeabi_fmul
+myfree
+mymalloc
+dmainit
+bsp_IoInit
+delay_ms
+MY_NVIC_Init
+dma_stream_en
+dma_clear_flag

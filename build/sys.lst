@@ -1,0 +1,1635 @@
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"sys.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.MSR_MSP,"ax",%progbits
+  16              		.align	1
+  17              		.global	MSR_MSP
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	MSR_MSP:
+  24              	.LFB66:
+  25              		.file 1 "startup/sys.c"
+   1:startup/sys.c **** #include "sys.h"
+   2:startup/sys.c **** _sys sys;
+   3:startup/sys.c **** //THUMB指令不支持汇编内联
+   4:startup/sys.c **** //采用如下方法实现执行汇编指令WFI
+   5:startup/sys.c **** void MSR_MSP(u32 addr)
+   6:startup/sys.c **** {
+  26              		.loc 1 6 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
+  39              	.LVL1:
+  40              	.LBB10:
+  41              	.LBB11:
+  42              		.file 2 "Inc/cmsis_gcc.h"
+   1:Inc/cmsis_gcc.h **** /**************************************************************************//**
+   2:Inc/cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:Inc/cmsis_gcc.h ****  * @brief    CMSIS Cortex-M Core Function/Instruction Header File
+   4:Inc/cmsis_gcc.h ****  * @version  V4.30
+   5:Inc/cmsis_gcc.h ****  * @date     20. October 2015
+   6:Inc/cmsis_gcc.h ****  ******************************************************************************/
+   7:Inc/cmsis_gcc.h **** /* Copyright (c) 2009 - 2015 ARM LIMITED
+   8:Inc/cmsis_gcc.h **** 
+   9:Inc/cmsis_gcc.h ****    All rights reserved.
+  10:Inc/cmsis_gcc.h ****    Redistribution and use in source and binary forms, with or without
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 2
+
+
+  11:Inc/cmsis_gcc.h ****    modification, are permitted provided that the following conditions are met:
+  12:Inc/cmsis_gcc.h ****    - Redistributions of source code must retain the above copyright
+  13:Inc/cmsis_gcc.h ****      notice, this list of conditions and the following disclaimer.
+  14:Inc/cmsis_gcc.h ****    - Redistributions in binary form must reproduce the above copyright
+  15:Inc/cmsis_gcc.h ****      notice, this list of conditions and the following disclaimer in the
+  16:Inc/cmsis_gcc.h ****      documentation and/or other materials provided with the distribution.
+  17:Inc/cmsis_gcc.h ****    - Neither the name of ARM nor the names of its contributors may be used
+  18:Inc/cmsis_gcc.h ****      to endorse or promote products derived from this software without
+  19:Inc/cmsis_gcc.h ****      specific prior written permission.
+  20:Inc/cmsis_gcc.h ****    *
+  21:Inc/cmsis_gcc.h ****    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:Inc/cmsis_gcc.h ****    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:Inc/cmsis_gcc.h ****    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:Inc/cmsis_gcc.h ****    ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE
+  25:Inc/cmsis_gcc.h ****    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:Inc/cmsis_gcc.h ****    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:Inc/cmsis_gcc.h ****    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:Inc/cmsis_gcc.h ****    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:Inc/cmsis_gcc.h ****    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:Inc/cmsis_gcc.h ****    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:Inc/cmsis_gcc.h ****    POSSIBILITY OF SUCH DAMAGE.
+  32:Inc/cmsis_gcc.h ****    ---------------------------------------------------------------------------*/
+  33:Inc/cmsis_gcc.h **** 
+  34:Inc/cmsis_gcc.h **** 
+  35:Inc/cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  36:Inc/cmsis_gcc.h **** #define __CMSIS_GCC_H
+  37:Inc/cmsis_gcc.h **** 
+  38:Inc/cmsis_gcc.h **** /* ignore some GCC warnings */
+  39:Inc/cmsis_gcc.h **** #if defined ( __GNUC__ )
+  40:Inc/cmsis_gcc.h **** #pragma GCC diagnostic push
+  41:Inc/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  42:Inc/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  43:Inc/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  44:Inc/cmsis_gcc.h **** #endif
+  45:Inc/cmsis_gcc.h **** 
+  46:Inc/cmsis_gcc.h **** 
+  47:Inc/cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+  48:Inc/cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+  49:Inc/cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+  50:Inc/cmsis_gcc.h ****   @{
+  51:Inc/cmsis_gcc.h ****  */
+  52:Inc/cmsis_gcc.h **** 
+  53:Inc/cmsis_gcc.h **** /**
+  54:Inc/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+  55:Inc/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+  56:Inc/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+  57:Inc/cmsis_gcc.h ****  */
+  58:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_irq(void)
+  59:Inc/cmsis_gcc.h **** {
+  60:Inc/cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+  61:Inc/cmsis_gcc.h **** }
+  62:Inc/cmsis_gcc.h **** 
+  63:Inc/cmsis_gcc.h **** 
+  64:Inc/cmsis_gcc.h **** /**
+  65:Inc/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+  66:Inc/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+  67:Inc/cmsis_gcc.h ****   Can only be executed in Privileged modes.
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 3
+
+
+  68:Inc/cmsis_gcc.h ****  */
+  69:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __disable_irq(void)
+  70:Inc/cmsis_gcc.h **** {
+  71:Inc/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+  72:Inc/cmsis_gcc.h **** }
+  73:Inc/cmsis_gcc.h **** 
+  74:Inc/cmsis_gcc.h **** 
+  75:Inc/cmsis_gcc.h **** /**
+  76:Inc/cmsis_gcc.h ****   \brief   Get Control Register
+  77:Inc/cmsis_gcc.h ****   \details Returns the content of the Control Register.
+  78:Inc/cmsis_gcc.h ****   \return               Control Register value
+  79:Inc/cmsis_gcc.h ****  */
+  80:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_CONTROL(void)
+  81:Inc/cmsis_gcc.h **** {
+  82:Inc/cmsis_gcc.h ****   uint32_t result;
+  83:Inc/cmsis_gcc.h **** 
+  84:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, control" : "=r" (result) );
+  85:Inc/cmsis_gcc.h ****   return(result);
+  86:Inc/cmsis_gcc.h **** }
+  87:Inc/cmsis_gcc.h **** 
+  88:Inc/cmsis_gcc.h **** 
+  89:Inc/cmsis_gcc.h **** /**
+  90:Inc/cmsis_gcc.h ****   \brief   Set Control Register
+  91:Inc/cmsis_gcc.h ****   \details Writes the given value to the Control Register.
+  92:Inc/cmsis_gcc.h ****   \param [in]    control  Control Register value to set
+  93:Inc/cmsis_gcc.h ****  */
+  94:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_CONTROL(uint32_t control)
+  95:Inc/cmsis_gcc.h **** {
+  96:Inc/cmsis_gcc.h ****   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
+  97:Inc/cmsis_gcc.h **** }
+  98:Inc/cmsis_gcc.h **** 
+  99:Inc/cmsis_gcc.h **** 
+ 100:Inc/cmsis_gcc.h **** /**
+ 101:Inc/cmsis_gcc.h ****   \brief   Get IPSR Register
+ 102:Inc/cmsis_gcc.h ****   \details Returns the content of the IPSR Register.
+ 103:Inc/cmsis_gcc.h ****   \return               IPSR Register value
+ 104:Inc/cmsis_gcc.h ****  */
+ 105:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_IPSR(void)
+ 106:Inc/cmsis_gcc.h **** {
+ 107:Inc/cmsis_gcc.h ****   uint32_t result;
+ 108:Inc/cmsis_gcc.h **** 
+ 109:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
+ 110:Inc/cmsis_gcc.h ****   return(result);
+ 111:Inc/cmsis_gcc.h **** }
+ 112:Inc/cmsis_gcc.h **** 
+ 113:Inc/cmsis_gcc.h **** 
+ 114:Inc/cmsis_gcc.h **** /**
+ 115:Inc/cmsis_gcc.h ****   \brief   Get APSR Register
+ 116:Inc/cmsis_gcc.h ****   \details Returns the content of the APSR Register.
+ 117:Inc/cmsis_gcc.h ****   \return               APSR Register value
+ 118:Inc/cmsis_gcc.h ****  */
+ 119:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_APSR(void)
+ 120:Inc/cmsis_gcc.h **** {
+ 121:Inc/cmsis_gcc.h ****   uint32_t result;
+ 122:Inc/cmsis_gcc.h **** 
+ 123:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, apsr" : "=r" (result) );
+ 124:Inc/cmsis_gcc.h ****   return(result);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 4
+
+
+ 125:Inc/cmsis_gcc.h **** }
+ 126:Inc/cmsis_gcc.h **** 
+ 127:Inc/cmsis_gcc.h **** 
+ 128:Inc/cmsis_gcc.h **** /**
+ 129:Inc/cmsis_gcc.h ****   \brief   Get xPSR Register
+ 130:Inc/cmsis_gcc.h ****   \details Returns the content of the xPSR Register.
+ 131:Inc/cmsis_gcc.h **** 
+ 132:Inc/cmsis_gcc.h ****     \return               xPSR Register value
+ 133:Inc/cmsis_gcc.h ****  */
+ 134:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_xPSR(void)
+ 135:Inc/cmsis_gcc.h **** {
+ 136:Inc/cmsis_gcc.h ****   uint32_t result;
+ 137:Inc/cmsis_gcc.h **** 
+ 138:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, xpsr" : "=r" (result) );
+ 139:Inc/cmsis_gcc.h ****   return(result);
+ 140:Inc/cmsis_gcc.h **** }
+ 141:Inc/cmsis_gcc.h **** 
+ 142:Inc/cmsis_gcc.h **** 
+ 143:Inc/cmsis_gcc.h **** /**
+ 144:Inc/cmsis_gcc.h ****   \brief   Get Process Stack Pointer
+ 145:Inc/cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer (PSP).
+ 146:Inc/cmsis_gcc.h ****   \return               PSP Register value
+ 147:Inc/cmsis_gcc.h ****  */
+ 148:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_PSP(void)
+ 149:Inc/cmsis_gcc.h **** {
+ 150:Inc/cmsis_gcc.h ****   register uint32_t result;
+ 151:Inc/cmsis_gcc.h **** 
+ 152:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp\n"  : "=r" (result) );
+ 153:Inc/cmsis_gcc.h ****   return(result);
+ 154:Inc/cmsis_gcc.h **** }
+ 155:Inc/cmsis_gcc.h **** 
+ 156:Inc/cmsis_gcc.h **** 
+ 157:Inc/cmsis_gcc.h **** /**
+ 158:Inc/cmsis_gcc.h ****   \brief   Set Process Stack Pointer
+ 159:Inc/cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer (PSP).
+ 160:Inc/cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
+ 161:Inc/cmsis_gcc.h ****  */
+ 162:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_PSP(uint32_t topOfProcStack)
+ 163:Inc/cmsis_gcc.h **** {
+ 164:Inc/cmsis_gcc.h ****   __ASM volatile ("MSR psp, %0\n" : : "r" (topOfProcStack) : "sp");
+ 165:Inc/cmsis_gcc.h **** }
+ 166:Inc/cmsis_gcc.h **** 
+ 167:Inc/cmsis_gcc.h **** 
+ 168:Inc/cmsis_gcc.h **** /**
+ 169:Inc/cmsis_gcc.h ****   \brief   Get Main Stack Pointer
+ 170:Inc/cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer (MSP).
+ 171:Inc/cmsis_gcc.h ****   \return               MSP Register value
+ 172:Inc/cmsis_gcc.h ****  */
+ 173:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_MSP(void)
+ 174:Inc/cmsis_gcc.h **** {
+ 175:Inc/cmsis_gcc.h ****   register uint32_t result;
+ 176:Inc/cmsis_gcc.h **** 
+ 177:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp\n" : "=r" (result) );
+ 178:Inc/cmsis_gcc.h ****   return(result);
+ 179:Inc/cmsis_gcc.h **** }
+ 180:Inc/cmsis_gcc.h **** 
+ 181:Inc/cmsis_gcc.h **** 
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 5
+
+
+ 182:Inc/cmsis_gcc.h **** /**
+ 183:Inc/cmsis_gcc.h ****   \brief   Set Main Stack Pointer
+ 184:Inc/cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer (MSP).
+ 185:Inc/cmsis_gcc.h **** 
+ 186:Inc/cmsis_gcc.h ****     \param [in]    topOfMainStack  Main Stack Pointer value to set
+ 187:Inc/cmsis_gcc.h ****  */
+ 188:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_MSP(uint32_t topOfMainStack)
+ 189:Inc/cmsis_gcc.h **** {
+ 190:Inc/cmsis_gcc.h ****   __ASM volatile ("MSR msp, %0\n" : : "r" (topOfMainStack) : "sp");
+  43              		.loc 2 190 0
+  44              		.syntax unified
+  45              	@ 190 "Inc/cmsis_gcc.h" 1
+  46 0004 80F30888 		MSR msp, r0
+  47              	
+  48              	@ 0 "" 2
+  49              	.LVL2:
+  50              		.thumb
+  51              		.syntax unified
+  52              	.LBE11:
+  53              	.LBE10:
+   7:startup/sys.c **** 	__set_MSP(addr);
+   8:startup/sys.c **** }
+  54              		.loc 1 8 0
+  55 0008 BD46     		mov	sp, r7
+  56              	.LCFI2:
+  57              		.cfi_def_cfa_register 13
+  58              		@ sp needed
+  59 000a 80BC     		pop	{r7}
+  60              	.LCFI3:
+  61              		.cfi_restore 7
+  62              		.cfi_def_cfa_offset 0
+  63 000c 7047     		bx	lr
+  64              		.cfi_endproc
+  65              	.LFE66:
+  67              		.section	.text.WFI_SET,"ax",%progbits
+  68              		.align	1
+  69              		.global	WFI_SET
+  70              		.syntax unified
+  71              		.thumb
+  72              		.thumb_func
+  73              		.fpu softvfp
+  75              	WFI_SET:
+  76              	.LFB67:
+   9:startup/sys.c **** 
+  10:startup/sys.c **** void WFI_SET(void)
+  11:startup/sys.c **** {
+  77              		.loc 1 11 0
+  78              		.cfi_startproc
+  79              		@ args = 0, pretend = 0, frame = 0
+  80              		@ frame_needed = 0, uses_anonymous_args = 0
+  81              		@ link register save eliminated.
+  82              	.LBB12:
+  83              	.LBB13:
+ 191:Inc/cmsis_gcc.h **** }
+ 192:Inc/cmsis_gcc.h **** 
+ 193:Inc/cmsis_gcc.h **** 
+ 194:Inc/cmsis_gcc.h **** /**
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 6
+
+
+ 195:Inc/cmsis_gcc.h ****   \brief   Get Priority Mask
+ 196:Inc/cmsis_gcc.h ****   \details Returns the current state of the priority mask bit from the Priority Mask Register.
+ 197:Inc/cmsis_gcc.h ****   \return               Priority Mask value
+ 198:Inc/cmsis_gcc.h ****  */
+ 199:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_PRIMASK(void)
+ 200:Inc/cmsis_gcc.h **** {
+ 201:Inc/cmsis_gcc.h ****   uint32_t result;
+ 202:Inc/cmsis_gcc.h **** 
+ 203:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask" : "=r" (result) );
+ 204:Inc/cmsis_gcc.h ****   return(result);
+ 205:Inc/cmsis_gcc.h **** }
+ 206:Inc/cmsis_gcc.h **** 
+ 207:Inc/cmsis_gcc.h **** 
+ 208:Inc/cmsis_gcc.h **** /**
+ 209:Inc/cmsis_gcc.h ****   \brief   Set Priority Mask
+ 210:Inc/cmsis_gcc.h ****   \details Assigns the given value to the Priority Mask Register.
+ 211:Inc/cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
+ 212:Inc/cmsis_gcc.h ****  */
+ 213:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_PRIMASK(uint32_t priMask)
+ 214:Inc/cmsis_gcc.h **** {
+ 215:Inc/cmsis_gcc.h ****   __ASM volatile ("MSR primask, %0" : : "r" (priMask) : "memory");
+ 216:Inc/cmsis_gcc.h **** }
+ 217:Inc/cmsis_gcc.h **** 
+ 218:Inc/cmsis_gcc.h **** 
+ 219:Inc/cmsis_gcc.h **** #if       (__CORTEX_M >= 0x03U)
+ 220:Inc/cmsis_gcc.h **** 
+ 221:Inc/cmsis_gcc.h **** /**
+ 222:Inc/cmsis_gcc.h ****   \brief   Enable FIQ
+ 223:Inc/cmsis_gcc.h ****   \details Enables FIQ interrupts by clearing the F-bit in the CPSR.
+ 224:Inc/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 225:Inc/cmsis_gcc.h ****  */
+ 226:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_fault_irq(void)
+ 227:Inc/cmsis_gcc.h **** {
+ 228:Inc/cmsis_gcc.h ****   __ASM volatile ("cpsie f" : : : "memory");
+ 229:Inc/cmsis_gcc.h **** }
+ 230:Inc/cmsis_gcc.h **** 
+ 231:Inc/cmsis_gcc.h **** 
+ 232:Inc/cmsis_gcc.h **** /**
+ 233:Inc/cmsis_gcc.h ****   \brief   Disable FIQ
+ 234:Inc/cmsis_gcc.h ****   \details Disables FIQ interrupts by setting the F-bit in the CPSR.
+ 235:Inc/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 236:Inc/cmsis_gcc.h ****  */
+ 237:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __disable_fault_irq(void)
+ 238:Inc/cmsis_gcc.h **** {
+ 239:Inc/cmsis_gcc.h ****   __ASM volatile ("cpsid f" : : : "memory");
+ 240:Inc/cmsis_gcc.h **** }
+ 241:Inc/cmsis_gcc.h **** 
+ 242:Inc/cmsis_gcc.h **** 
+ 243:Inc/cmsis_gcc.h **** /**
+ 244:Inc/cmsis_gcc.h ****   \brief   Get Base Priority
+ 245:Inc/cmsis_gcc.h ****   \details Returns the current value of the Base Priority register.
+ 246:Inc/cmsis_gcc.h ****   \return               Base Priority register value
+ 247:Inc/cmsis_gcc.h ****  */
+ 248:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_BASEPRI(void)
+ 249:Inc/cmsis_gcc.h **** {
+ 250:Inc/cmsis_gcc.h ****   uint32_t result;
+ 251:Inc/cmsis_gcc.h **** 
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 7
+
+
+ 252:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri" : "=r" (result) );
+ 253:Inc/cmsis_gcc.h ****   return(result);
+ 254:Inc/cmsis_gcc.h **** }
+ 255:Inc/cmsis_gcc.h **** 
+ 256:Inc/cmsis_gcc.h **** 
+ 257:Inc/cmsis_gcc.h **** /**
+ 258:Inc/cmsis_gcc.h ****   \brief   Set Base Priority
+ 259:Inc/cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register.
+ 260:Inc/cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 261:Inc/cmsis_gcc.h ****  */
+ 262:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_BASEPRI(uint32_t value)
+ 263:Inc/cmsis_gcc.h **** {
+ 264:Inc/cmsis_gcc.h ****   __ASM volatile ("MSR basepri, %0" : : "r" (value) : "memory");
+ 265:Inc/cmsis_gcc.h **** }
+ 266:Inc/cmsis_gcc.h **** 
+ 267:Inc/cmsis_gcc.h **** 
+ 268:Inc/cmsis_gcc.h **** /**
+ 269:Inc/cmsis_gcc.h ****   \brief   Set Base Priority with condition
+ 270:Inc/cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register only if BASEPRI masking is disable
+ 271:Inc/cmsis_gcc.h ****            or the new value increases the BASEPRI priority level.
+ 272:Inc/cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 273:Inc/cmsis_gcc.h ****  */
+ 274:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_BASEPRI_MAX(uint32_t value)
+ 275:Inc/cmsis_gcc.h **** {
+ 276:Inc/cmsis_gcc.h ****   __ASM volatile ("MSR basepri_max, %0" : : "r" (value) : "memory");
+ 277:Inc/cmsis_gcc.h **** }
+ 278:Inc/cmsis_gcc.h **** 
+ 279:Inc/cmsis_gcc.h **** 
+ 280:Inc/cmsis_gcc.h **** /**
+ 281:Inc/cmsis_gcc.h ****   \brief   Get Fault Mask
+ 282:Inc/cmsis_gcc.h ****   \details Returns the current value of the Fault Mask register.
+ 283:Inc/cmsis_gcc.h ****   \return               Fault Mask register value
+ 284:Inc/cmsis_gcc.h ****  */
+ 285:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_FAULTMASK(void)
+ 286:Inc/cmsis_gcc.h **** {
+ 287:Inc/cmsis_gcc.h ****   uint32_t result;
+ 288:Inc/cmsis_gcc.h **** 
+ 289:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask" : "=r" (result) );
+ 290:Inc/cmsis_gcc.h ****   return(result);
+ 291:Inc/cmsis_gcc.h **** }
+ 292:Inc/cmsis_gcc.h **** 
+ 293:Inc/cmsis_gcc.h **** 
+ 294:Inc/cmsis_gcc.h **** /**
+ 295:Inc/cmsis_gcc.h ****   \brief   Set Fault Mask
+ 296:Inc/cmsis_gcc.h ****   \details Assigns the given value to the Fault Mask register.
+ 297:Inc/cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
+ 298:Inc/cmsis_gcc.h ****  */
+ 299:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_FAULTMASK(uint32_t faultMask)
+ 300:Inc/cmsis_gcc.h **** {
+ 301:Inc/cmsis_gcc.h ****   __ASM volatile ("MSR faultmask, %0" : : "r" (faultMask) : "memory");
+ 302:Inc/cmsis_gcc.h **** }
+ 303:Inc/cmsis_gcc.h **** 
+ 304:Inc/cmsis_gcc.h **** #endif /* (__CORTEX_M >= 0x03U) */
+ 305:Inc/cmsis_gcc.h **** 
+ 306:Inc/cmsis_gcc.h **** 
+ 307:Inc/cmsis_gcc.h **** #if       (__CORTEX_M == 0x04U) || (__CORTEX_M == 0x07U)
+ 308:Inc/cmsis_gcc.h **** 
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 8
+
+
+ 309:Inc/cmsis_gcc.h **** /**
+ 310:Inc/cmsis_gcc.h ****   \brief   Get FPSCR
+ 311:Inc/cmsis_gcc.h ****   \details Returns the current value of the Floating Point Status/Control register.
+ 312:Inc/cmsis_gcc.h ****   \return               Floating Point Status/Control register value
+ 313:Inc/cmsis_gcc.h ****  */
+ 314:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_FPSCR(void)
+ 315:Inc/cmsis_gcc.h **** {
+ 316:Inc/cmsis_gcc.h **** #if (__FPU_PRESENT == 1U) && (__FPU_USED == 1U)
+ 317:Inc/cmsis_gcc.h ****   uint32_t result;
+ 318:Inc/cmsis_gcc.h **** 
+ 319:Inc/cmsis_gcc.h ****   /* Empty asm statement works as a scheduling barrier */
+ 320:Inc/cmsis_gcc.h ****   __ASM volatile ("");
+ 321:Inc/cmsis_gcc.h ****   __ASM volatile ("VMRS %0, fpscr" : "=r" (result) );
+ 322:Inc/cmsis_gcc.h ****   __ASM volatile ("");
+ 323:Inc/cmsis_gcc.h ****   return(result);
+ 324:Inc/cmsis_gcc.h **** #else
+ 325:Inc/cmsis_gcc.h ****    return(0);
+ 326:Inc/cmsis_gcc.h **** #endif
+ 327:Inc/cmsis_gcc.h **** }
+ 328:Inc/cmsis_gcc.h **** 
+ 329:Inc/cmsis_gcc.h **** 
+ 330:Inc/cmsis_gcc.h **** /**
+ 331:Inc/cmsis_gcc.h ****   \brief   Set FPSCR
+ 332:Inc/cmsis_gcc.h ****   \details Assigns the given value to the Floating Point Status/Control register.
+ 333:Inc/cmsis_gcc.h ****   \param [in]    fpscr  Floating Point Status/Control value to set
+ 334:Inc/cmsis_gcc.h ****  */
+ 335:Inc/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_FPSCR(uint32_t fpscr)
+ 336:Inc/cmsis_gcc.h **** {
+ 337:Inc/cmsis_gcc.h **** #if (__FPU_PRESENT == 1U) && (__FPU_USED == 1U)
+ 338:Inc/cmsis_gcc.h ****   /* Empty asm statement works as a scheduling barrier */
+ 339:Inc/cmsis_gcc.h ****   __ASM volatile ("");
+ 340:Inc/cmsis_gcc.h ****   __ASM volatile ("VMSR fpscr, %0" : : "r" (fpscr) : "vfpcc");
+ 341:Inc/cmsis_gcc.h ****   __ASM volatile ("");
+ 342:Inc/cmsis_gcc.h **** #endif
+ 343:Inc/cmsis_gcc.h **** }
+ 344:Inc/cmsis_gcc.h **** 
+ 345:Inc/cmsis_gcc.h **** #endif /* (__CORTEX_M == 0x04U) || (__CORTEX_M == 0x07U) */
+ 346:Inc/cmsis_gcc.h **** 
+ 347:Inc/cmsis_gcc.h **** 
+ 348:Inc/cmsis_gcc.h **** 
+ 349:Inc/cmsis_gcc.h **** /*@} end of CMSIS_Core_RegAccFunctions */
+ 350:Inc/cmsis_gcc.h **** 
+ 351:Inc/cmsis_gcc.h **** 
+ 352:Inc/cmsis_gcc.h **** /* ##########################  Core Instruction Access  ######################### */
+ 353:Inc/cmsis_gcc.h **** /** \defgroup CMSIS_Core_InstructionInterface CMSIS Core Instruction Interface
+ 354:Inc/cmsis_gcc.h ****   Access to dedicated instructions
+ 355:Inc/cmsis_gcc.h ****   @{
+ 356:Inc/cmsis_gcc.h **** */
+ 357:Inc/cmsis_gcc.h **** 
+ 358:Inc/cmsis_gcc.h **** /* Define macros for porting to both thumb1 and thumb2.
+ 359:Inc/cmsis_gcc.h ****  * For thumb1, use low register (r0-r7), specified by constraint "l"
+ 360:Inc/cmsis_gcc.h ****  * Otherwise, use general registers, specified by constraint "r" */
+ 361:Inc/cmsis_gcc.h **** #if defined (__thumb__) && !defined (__thumb2__)
+ 362:Inc/cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=l" (r)
+ 363:Inc/cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "l" (r)
+ 364:Inc/cmsis_gcc.h **** #else
+ 365:Inc/cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=r" (r)
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 9
+
+
+ 366:Inc/cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "r" (r)
+ 367:Inc/cmsis_gcc.h **** #endif
+ 368:Inc/cmsis_gcc.h **** 
+ 369:Inc/cmsis_gcc.h **** /**
+ 370:Inc/cmsis_gcc.h ****   \brief   No Operation
+ 371:Inc/cmsis_gcc.h ****   \details No Operation does nothing. This instruction can be used for code alignment purposes.
+ 372:Inc/cmsis_gcc.h ****  */
+ 373:Inc/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __NOP(void)
+ 374:Inc/cmsis_gcc.h **** {
+ 375:Inc/cmsis_gcc.h ****   __ASM volatile ("nop");
+ 376:Inc/cmsis_gcc.h **** }
+ 377:Inc/cmsis_gcc.h **** 
+ 378:Inc/cmsis_gcc.h **** 
+ 379:Inc/cmsis_gcc.h **** /**
+ 380:Inc/cmsis_gcc.h ****   \brief   Wait For Interrupt
+ 381:Inc/cmsis_gcc.h ****   \details Wait For Interrupt is a hint instruction that suspends execution until one of a number o
+ 382:Inc/cmsis_gcc.h ****  */
+ 383:Inc/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __WFI(void)
+ 384:Inc/cmsis_gcc.h **** {
+ 385:Inc/cmsis_gcc.h ****   __ASM volatile ("wfi");
+  84              		.loc 2 385 0
+  85              		.syntax unified
+  86              	@ 385 "Inc/cmsis_gcc.h" 1
+  87 0000 30BF     		wfi
+  88              	@ 0 "" 2
+  89              		.thumb
+  90              		.syntax unified
+  91              	.LBE13:
+  92              	.LBE12:
+  12:startup/sys.c **** 	__WFI();
+  13:startup/sys.c **** }
+  93              		.loc 1 13 0
+  94 0002 7047     		bx	lr
+  95              		.cfi_endproc
+  96              	.LFE67:
+  98              		.section	.text.INTX_DISABLE,"ax",%progbits
+  99              		.align	1
+ 100              		.global	INTX_DISABLE
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu softvfp
+ 106              	INTX_DISABLE:
+ 107              	.LFB68:
+  14:startup/sys.c **** 
+  15:startup/sys.c **** //关闭所有中断
+  16:startup/sys.c **** void INTX_DISABLE(void)
+  17:startup/sys.c **** {
+ 108              		.loc 1 17 0
+ 109              		.cfi_startproc
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 112              		@ link register save eliminated.
+ 113              	.LBB14:
+ 114              	.LBB15:
+  71:Inc/cmsis_gcc.h **** }
+ 115              		.loc 2 71 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 10
+
+
+ 116              		.syntax unified
+ 117              	@ 71 "Inc/cmsis_gcc.h" 1
+ 118 0000 72B6     		cpsid i
+ 119              	@ 0 "" 2
+ 120              		.thumb
+ 121              		.syntax unified
+ 122              	.LBE15:
+ 123              	.LBE14:
+  18:startup/sys.c **** 	__disable_irq();
+  19:startup/sys.c **** }
+ 124              		.loc 1 19 0
+ 125 0002 7047     		bx	lr
+ 126              		.cfi_endproc
+ 127              	.LFE68:
+ 129              		.section	.text.INTX_ENABLE,"ax",%progbits
+ 130              		.align	1
+ 131              		.global	INTX_ENABLE
+ 132              		.syntax unified
+ 133              		.thumb
+ 134              		.thumb_func
+ 135              		.fpu softvfp
+ 137              	INTX_ENABLE:
+ 138              	.LFB69:
+  20:startup/sys.c **** 
+  21:startup/sys.c **** //开启所有中断
+  22:startup/sys.c **** void INTX_ENABLE(void)
+  23:startup/sys.c **** {
+ 139              		.loc 1 23 0
+ 140              		.cfi_startproc
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 143              		@ link register save eliminated.
+ 144              	.LBB16:
+ 145              	.LBB17:
+  60:Inc/cmsis_gcc.h **** }
+ 146              		.loc 2 60 0
+ 147              		.syntax unified
+ 148              	@ 60 "Inc/cmsis_gcc.h" 1
+ 149 0000 62B6     		cpsie i
+ 150              	@ 0 "" 2
+ 151              		.thumb
+ 152              		.syntax unified
+ 153              	.LBE17:
+ 154              	.LBE16:
+  24:startup/sys.c **** 	__enable_irq();
+  25:startup/sys.c **** }
+ 155              		.loc 1 25 0
+ 156 0002 7047     		bx	lr
+ 157              		.cfi_endproc
+ 158              	.LFE69:
+ 160              		.section	.text.MY_NVIC_SetVectorTable,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	MY_NVIC_SetVectorTable
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu softvfp
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 11
+
+
+ 168              	MY_NVIC_SetVectorTable:
+ 169              	.LFB70:
+  26:startup/sys.c **** 
+  27:startup/sys.c **** //设置向量表偏移地址
+  28:startup/sys.c **** //NVIC_VectTab:基址
+  29:startup/sys.c **** //Offset:偏移量
+  30:startup/sys.c **** void MY_NVIC_SetVectorTable(u32 NVIC_VectTab, u32 Offset)
+  31:startup/sys.c **** {
+ 170              		.loc 1 31 0
+ 171              		.cfi_startproc
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174              		@ link register save eliminated.
+ 175              	.LVL3:
+  32:startup/sys.c **** 	SCB->VTOR = NVIC_VectTab | (Offset & (u32)0x1FFFFF80); //设置NVIC的向量表偏移寄存器//�
+ 176              		.loc 1 32 0
+ 177 0000 21F06041 		bic	r1, r1, #-536870912
+ 178              	.LVL4:
+ 179 0004 21F07F01 		bic	r1, r1, #127
+ 180 0008 0143     		orrs	r1, r1, r0
+ 181 000a 014B     		ldr	r3, .L7
+ 182 000c 9960     		str	r1, [r3, #8]
+  33:startup/sys.c **** }
+ 183              		.loc 1 33 0
+ 184 000e 7047     		bx	lr
+ 185              	.L8:
+ 186              		.align	2
+ 187              	.L7:
+ 188 0010 00ED00E0 		.word	-536810240
+ 189              		.cfi_endproc
+ 190              	.LFE70:
+ 192              		.section	.text.MY_NVIC_PriorityGroupConfig,"ax",%progbits
+ 193              		.align	1
+ 194              		.global	MY_NVIC_PriorityGroupConfig
+ 195              		.syntax unified
+ 196              		.thumb
+ 197              		.thumb_func
+ 198              		.fpu softvfp
+ 200              	MY_NVIC_PriorityGroupConfig:
+ 201              	.LFB71:
+  34:startup/sys.c **** 
+  35:startup/sys.c **** //设置NVIC分组
+  36:startup/sys.c **** //NVIC_Group:NVIC分组 0~4 总共5组
+  37:startup/sys.c **** void MY_NVIC_PriorityGroupConfig(u8 NVIC_Group)
+  38:startup/sys.c **** {
+ 202              		.loc 1 38 0
+ 203              		.cfi_startproc
+ 204              		@ args = 0, pretend = 0, frame = 0
+ 205              		@ frame_needed = 0, uses_anonymous_args = 0
+ 206              		@ link register save eliminated.
+ 207              	.LVL5:
+  39:startup/sys.c **** 	u32 temp, temp1;
+  40:startup/sys.c **** 	temp1 = (~NVIC_Group) & 0x07; //取后三位
+ 208              		.loc 1 40 0
+ 209 0000 C043     		mvns	r0, r0
+ 210              	.LVL6:
+  41:startup/sys.c **** 	temp1 <<= 8;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 12
+
+
+ 211              		.loc 1 41 0
+ 212 0002 0002     		lsls	r0, r0, #8
+ 213              	.LVL7:
+ 214 0004 00F4E060 		and	r0, r0, #1792
+ 215              	.LVL8:
+  42:startup/sys.c **** 	temp = SCB->AIRCR;  //读取先前的设置
+ 216              		.loc 1 42 0
+ 217 0008 064A     		ldr	r2, .L10
+ 218 000a D368     		ldr	r3, [r2, #12]
+ 219              	.LVL9:
+  43:startup/sys.c **** 	temp &= 0X0000F8FF; //清空先前分组
+ 220              		.loc 1 43 0
+ 221 000c 23F4E063 		bic	r3, r3, #1792
+ 222              	.LVL10:
+ 223 0010 1B04     		lsls	r3, r3, #16
+ 224 0012 1B0C     		lsrs	r3, r3, #16
+ 225              	.LVL11:
+  44:startup/sys.c **** 	temp |= 0X05FA0000; //写入钥匙
+ 226              		.loc 1 44 0
+ 227 0014 43F0BF63 		orr	r3, r3, #100139008
+ 228              	.LVL12:
+ 229 0018 43F40033 		orr	r3, r3, #131072
+ 230              	.LVL13:
+  45:startup/sys.c **** 	temp |= temp1;
+ 231              		.loc 1 45 0
+ 232 001c 1843     		orrs	r0, r0, r3
+ 233              	.LVL14:
+  46:startup/sys.c **** 	SCB->AIRCR = temp; //设置分组
+ 234              		.loc 1 46 0
+ 235 001e D060     		str	r0, [r2, #12]
+  47:startup/sys.c **** }
+ 236              		.loc 1 47 0
+ 237 0020 7047     		bx	lr
+ 238              	.L11:
+ 239 0022 00BF     		.align	2
+ 240              	.L10:
+ 241 0024 00ED00E0 		.word	-536810240
+ 242              		.cfi_endproc
+ 243              	.LFE71:
+ 245              		.section	.text.MY_NVIC_Init,"ax",%progbits
+ 246              		.align	1
+ 247              		.global	MY_NVIC_Init
+ 248              		.syntax unified
+ 249              		.thumb
+ 250              		.thumb_func
+ 251              		.fpu softvfp
+ 253              	MY_NVIC_Init:
+ 254              	.LFB72:
+  48:startup/sys.c **** 
+  49:startup/sys.c **** //设置NVIC
+  50:startup/sys.c **** //NVIC_PreemptionPriority:抢占优先级
+  51:startup/sys.c **** //NVIC_SubPriority       :响应优先级
+  52:startup/sys.c **** //NVIC_Channel           :中断编号
+  53:startup/sys.c **** //NVIC_Group             :中断分组 0~4
+  54:startup/sys.c **** //注意优先级不能超过设定的组的范围!否则会有意想不到的错误
+  55:startup/sys.c **** //组划分:
+  56:startup/sys.c **** //组0:0位抢占优先级,4位响应优先级
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 13
+
+
+  57:startup/sys.c **** //组1:1位抢占优先级,3位响应优先级
+  58:startup/sys.c **** //组2:2位抢占优先级,2位响应优先级
+  59:startup/sys.c **** //组3:3位抢占优先级,1位响应优先级
+  60:startup/sys.c **** //组4:4位抢占优先级,0位响应优先级
+  61:startup/sys.c **** //NVIC_SubPriority和NVIC_PreemptionPriority的原则是,数值越小,越优先
+  62:startup/sys.c **** void MY_NVIC_Init(u8 NVIC_PreemptionPriority, u8 NVIC_SubPriority, u8 NVIC_Channel, u8 NVIC_Group)
+  63:startup/sys.c **** {
+ 255              		.loc 1 63 0
+ 256              		.cfi_startproc
+ 257              		@ args = 0, pretend = 0, frame = 0
+ 258              		@ frame_needed = 0, uses_anonymous_args = 0
+ 259              	.LVL15:
+ 260 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 261              	.LCFI4:
+ 262              		.cfi_def_cfa_offset 24
+ 263              		.cfi_offset 3, -24
+ 264              		.cfi_offset 4, -20
+ 265              		.cfi_offset 5, -16
+ 266              		.cfi_offset 6, -12
+ 267              		.cfi_offset 7, -8
+ 268              		.cfi_offset 14, -4
+ 269 0002 0646     		mov	r6, r0
+ 270 0004 0C46     		mov	r4, r1
+ 271 0006 1546     		mov	r5, r2
+ 272 0008 1F46     		mov	r7, r3
+  64:startup/sys.c **** 	u32 temp;
+  65:startup/sys.c **** 	MY_NVIC_PriorityGroupConfig(NVIC_Group); //设置分组
+ 273              		.loc 1 65 0
+ 274 000a 1846     		mov	r0, r3
+ 275              	.LVL16:
+ 276 000c FFF7FEFF 		bl	MY_NVIC_PriorityGroupConfig
+ 277              	.LVL17:
+  66:startup/sys.c **** 	temp = NVIC_PreemptionPriority << (4 - NVIC_Group);
+ 278              		.loc 1 66 0
+ 279 0010 C7F10403 		rsb	r3, r7, #4
+ 280 0014 9E40     		lsls	r6, r6, r3
+ 281              	.LVL18:
+  67:startup/sys.c **** 	temp |= NVIC_SubPriority & (0x0f >> NVIC_Group);
+ 282              		.loc 1 67 0
+ 283 0016 0F23     		movs	r3, #15
+ 284 0018 3B41     		asrs	r3, r3, r7
+ 285 001a 1C40     		ands	r4, r4, r3
+ 286 001c 3443     		orrs	r4, r4, r6
+ 287              	.LVL19:
+  68:startup/sys.c **** 	temp &= 0xf;											   //取低四位
+ 288              		.loc 1 68 0
+ 289 001e 04F00F04 		and	r4, r4, #15
+ 290              	.LVL20:
+  69:startup/sys.c **** 	NVIC->ISER[NVIC_Channel / 32] |= (1 << NVIC_Channel % 32); //使能中断位(要清除的话,相�
+ 291              		.loc 1 69 0
+ 292 0022 6809     		lsrs	r0, r5, #5
+ 293 0024 084A     		ldr	r2, .L14
+ 294 0026 52F82030 		ldr	r3, [r2, r0, lsl #2]
+ 295 002a 05F01F06 		and	r6, r5, #31
+ 296 002e 0121     		movs	r1, #1
+ 297 0030 B140     		lsls	r1, r1, r6
+ 298 0032 0B43     		orrs	r3, r3, r1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 14
+
+
+ 299 0034 42F82030 		str	r3, [r2, r0, lsl #2]
+  70:startup/sys.c **** 	NVIC->IP[NVIC_Channel] |= temp << 4;					   //设置响应优先级和抢断优先级
+ 300              		.loc 1 70 0
+ 301 0038 2A44     		add	r2, r2, r5
+ 302 003a 92F80033 		ldrb	r3, [r2, #768]	@ zero_extendqisi2
+ 303 003e 43EA0414 		orr	r4, r3, r4, lsl #4
+ 304              	.LVL21:
+ 305 0042 82F80043 		strb	r4, [r2, #768]
+  71:startup/sys.c **** }
+ 306              		.loc 1 71 0
+ 307 0046 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 308              	.L15:
+ 309              		.align	2
+ 310              	.L14:
+ 311 0048 00E100E0 		.word	-536813312
+ 312              		.cfi_endproc
+ 313              	.LFE72:
+ 315              		.section	.text.Ex_NVIC_Config,"ax",%progbits
+ 316              		.align	1
+ 317              		.global	Ex_NVIC_Config
+ 318              		.syntax unified
+ 319              		.thumb
+ 320              		.thumb_func
+ 321              		.fpu softvfp
+ 323              	Ex_NVIC_Config:
+ 324              	.LFB73:
+  72:startup/sys.c **** 
+  73:startup/sys.c **** //外部中断配置函数
+  74:startup/sys.c **** //只针对GPIOA~G;不包括PVD,RTC和USB唤醒这三个
+  75:startup/sys.c **** //参数:
+  76:startup/sys.c **** //GPIOx:0~6,代表GPIOA~G
+  77:startup/sys.c **** //BITx:需要使能的位;
+  78:startup/sys.c **** //TRIM:触发模式,1,下升沿;2,上降沿;3，任意电平触发
+  79:startup/sys.c **** //该函数一次只能配置1个IO口,多个IO口,需多次调用
+  80:startup/sys.c **** //该函数会自动开启对应中断,以及屏蔽线
+  81:startup/sys.c **** void Ex_NVIC_Config(u8 GPIOx, u8 BITx, u8 TRIM)
+  82:startup/sys.c **** {
+ 325              		.loc 1 82 0
+ 326              		.cfi_startproc
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329              		@ link register save eliminated.
+ 330              	.LVL22:
+ 331 0000 F0B4     		push	{r4, r5, r6, r7}
+ 332              	.LCFI5:
+ 333              		.cfi_def_cfa_offset 16
+ 334              		.cfi_offset 4, -16
+ 335              		.cfi_offset 5, -12
+ 336              		.cfi_offset 6, -8
+ 337              		.cfi_offset 7, -4
+  83:startup/sys.c **** 	u8 EXTADDR;
+  84:startup/sys.c **** 	u8 EXTOFFSET;
+  85:startup/sys.c **** 	EXTADDR = BITx / 4; //得到中断寄存器组的编号
+ 338              		.loc 1 85 0
+ 339 0002 8B08     		lsrs	r3, r1, #2
+ 340              	.LVL23:
+  86:startup/sys.c **** 	EXTOFFSET = (BITx % 4) * 4;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 15
+
+
+ 341              		.loc 1 86 0
+ 342 0004 01F00304 		and	r4, r1, #3
+ 343 0008 A400     		lsls	r4, r4, #2
+ 344              	.LVL24:
+  87:startup/sys.c **** 	RCC->APB2ENR |= 0x01;							 //使能io复用时钟
+ 345              		.loc 1 87 0
+ 346 000a 154E     		ldr	r6, .L20
+ 347 000c B569     		ldr	r5, [r6, #24]
+ 348 000e 45F00105 		orr	r5, r5, #1
+ 349 0012 B561     		str	r5, [r6, #24]
+  88:startup/sys.c **** 	AFIO->EXTICR[EXTADDR] &= ~(0x000F << EXTOFFSET); //清除原来设置！！！
+ 350              		.loc 1 88 0
+ 351 0014 134D     		ldr	r5, .L20+4
+ 352 0016 0233     		adds	r3, r3, #2
+ 353              	.LVL25:
+ 354 0018 55F82360 		ldr	r6, [r5, r3, lsl #2]
+ 355 001c 0F27     		movs	r7, #15
+ 356 001e A740     		lsls	r7, r7, r4
+ 357 0020 26EA0706 		bic	r6, r6, r7
+ 358 0024 45F82360 		str	r6, [r5, r3, lsl #2]
+  89:startup/sys.c **** 	AFIO->EXTICR[EXTADDR] |= GPIOx << EXTOFFSET;	 //EXTI.BITx映射到GPIOx.BITx
+ 359              		.loc 1 89 0
+ 360 0028 55F82360 		ldr	r6, [r5, r3, lsl #2]
+ 361 002c A040     		lsls	r0, r0, r4
+ 362              	.LVL26:
+ 363 002e 3043     		orrs	r0, r0, r6
+ 364 0030 45F82300 		str	r0, [r5, r3, lsl #2]
+  90:startup/sys.c **** 	//自动设置
+  91:startup/sys.c **** 	EXTI->IMR |= 1 << BITx; //  开启line BITx上的中断
+ 365              		.loc 1 91 0
+ 366 0034 0C4C     		ldr	r4, .L20+8
+ 367              	.LVL27:
+ 368 0036 2068     		ldr	r0, [r4]
+ 369 0038 0123     		movs	r3, #1
+ 370              	.LVL28:
+ 371 003a 03FA01F1 		lsl	r1, r3, r1
+ 372              	.LVL29:
+ 373 003e 0843     		orrs	r0, r0, r1
+ 374 0040 2060     		str	r0, [r4]
+  92:startup/sys.c **** 	//EXTI->EMR|=1<<BITx;//不屏蔽line BITx上的事件 (如果不屏蔽这句,在硬件上是可以
+  93:startup/sys.c **** 	if (TRIM & 0x01)
+ 375              		.loc 1 93 0
+ 376 0042 12F0010F 		tst	r2, #1
+ 377 0046 02D0     		beq	.L17
+  94:startup/sys.c **** 		EXTI->FTSR |= 1 << BITx; //line BITx上事件下降沿触发
+ 378              		.loc 1 94 0
+ 379 0048 E368     		ldr	r3, [r4, #12]
+ 380 004a 0B43     		orrs	r3, r3, r1
+ 381 004c E360     		str	r3, [r4, #12]
+ 382              	.L17:
+  95:startup/sys.c **** 	if (TRIM & 0x02)
+ 383              		.loc 1 95 0
+ 384 004e 12F0020F 		tst	r2, #2
+ 385 0052 03D0     		beq	.L16
+  96:startup/sys.c **** 		EXTI->RTSR |= 1 << BITx; //line BITx上事件上升降沿触发
+ 386              		.loc 1 96 0
+ 387 0054 044B     		ldr	r3, .L20+8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 16
+
+
+ 388 0056 9A68     		ldr	r2, [r3, #8]
+ 389              	.LVL30:
+ 390 0058 1143     		orrs	r1, r1, r2
+ 391 005a 9960     		str	r1, [r3, #8]
+ 392              	.L16:
+  97:startup/sys.c **** }
+ 393              		.loc 1 97 0
+ 394 005c F0BC     		pop	{r4, r5, r6, r7}
+ 395              	.LCFI6:
+ 396              		.cfi_restore 7
+ 397              		.cfi_restore 6
+ 398              		.cfi_restore 5
+ 399              		.cfi_restore 4
+ 400              		.cfi_def_cfa_offset 0
+ 401 005e 7047     		bx	lr
+ 402              	.L21:
+ 403              		.align	2
+ 404              	.L20:
+ 405 0060 00100240 		.word	1073876992
+ 406 0064 00000140 		.word	1073807360
+ 407 0068 00040140 		.word	1073808384
+ 408              		.cfi_endproc
+ 409              	.LFE73:
+ 411              		.section	.text.MYRCC_DeInit,"ax",%progbits
+ 412              		.align	1
+ 413              		.global	MYRCC_DeInit
+ 414              		.syntax unified
+ 415              		.thumb
+ 416              		.thumb_func
+ 417              		.fpu softvfp
+ 419              	MYRCC_DeInit:
+ 420              	.LFB74:
+  98:startup/sys.c **** 
+  99:startup/sys.c **** //不能在这里执行所有外设复位!否则至少引起串口不工作.
+ 100:startup/sys.c **** //把所有时钟寄存器复位
+ 101:startup/sys.c **** void MYRCC_DeInit(void)
+ 102:startup/sys.c **** {
+ 421              		.loc 1 102 0
+ 422              		.cfi_startproc
+ 423              		@ args = 0, pretend = 0, frame = 0
+ 424              		@ frame_needed = 0, uses_anonymous_args = 0
+ 425 0000 08B5     		push	{r3, lr}
+ 426              	.LCFI7:
+ 427              		.cfi_def_cfa_offset 8
+ 428              		.cfi_offset 3, -8
+ 429              		.cfi_offset 14, -4
+ 103:startup/sys.c **** 	RCC->APB1RSTR = 0x00000000; //复位结束
+ 430              		.loc 1 103 0
+ 431 0002 124B     		ldr	r3, .L24
+ 432 0004 0021     		movs	r1, #0
+ 433 0006 1961     		str	r1, [r3, #16]
+ 104:startup/sys.c **** 	RCC->APB2RSTR = 0x00000000;
+ 434              		.loc 1 104 0
+ 435 0008 D960     		str	r1, [r3, #12]
+ 105:startup/sys.c **** 
+ 106:startup/sys.c **** 	RCC->AHBENR = 0x00000014;  //睡眠模式闪存和SRAM时钟使能.其他关闭.
+ 436              		.loc 1 106 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 17
+
+
+ 437 000a 1422     		movs	r2, #20
+ 438 000c 5A61     		str	r2, [r3, #20]
+ 107:startup/sys.c **** 	RCC->APB2ENR = 0x00000000; //外设时钟关闭.
+ 439              		.loc 1 107 0
+ 440 000e 9961     		str	r1, [r3, #24]
+ 108:startup/sys.c **** 	RCC->APB1ENR = 0x00000000;
+ 441              		.loc 1 108 0
+ 442 0010 D961     		str	r1, [r3, #28]
+ 109:startup/sys.c **** 	RCC->CR |= 0x00000001;   //使能内部高速时钟HSION
+ 443              		.loc 1 109 0
+ 444 0012 1A68     		ldr	r2, [r3]
+ 445 0014 42F00102 		orr	r2, r2, #1
+ 446 0018 1A60     		str	r2, [r3]
+ 110:startup/sys.c **** 	RCC->CFGR &= 0xF8FF0000; //复位SW[1:0],HPRE[3:0],PPRE1[2:0],PPRE2[2:0],ADCPRE[1:0],MCO[2:0]
+ 447              		.loc 1 110 0
+ 448 001a 5868     		ldr	r0, [r3, #4]
+ 449 001c 0C4A     		ldr	r2, .L24+4
+ 450 001e 0240     		ands	r2, r2, r0
+ 451 0020 5A60     		str	r2, [r3, #4]
+ 111:startup/sys.c **** 	RCC->CR &= 0xFEF6FFFF;   //复位HSEON,CSSON,PLLON
+ 452              		.loc 1 111 0
+ 453 0022 1A68     		ldr	r2, [r3]
+ 454 0024 22F08472 		bic	r2, r2, #17301504
+ 455 0028 22F48032 		bic	r2, r2, #65536
+ 456 002c 1A60     		str	r2, [r3]
+ 112:startup/sys.c **** 	RCC->CR &= 0xFFFBFFFF;   //复位HSEBYP
+ 457              		.loc 1 112 0
+ 458 002e 1A68     		ldr	r2, [r3]
+ 459 0030 22F48022 		bic	r2, r2, #262144
+ 460 0034 1A60     		str	r2, [r3]
+ 113:startup/sys.c **** 	RCC->CFGR &= 0xFF80FFFF; //复位PLLSRC, PLLXTPRE, PLLMUL[3:0] and USBPRE
+ 461              		.loc 1 113 0
+ 462 0036 5A68     		ldr	r2, [r3, #4]
+ 463 0038 22F4FE02 		bic	r2, r2, #8323072
+ 464 003c 5A60     		str	r2, [r3, #4]
+ 114:startup/sys.c **** 	RCC->CIR = 0x00000000;   //关闭所有中断
+ 465              		.loc 1 114 0
+ 466 003e 9960     		str	r1, [r3, #8]
+ 115:startup/sys.c **** 							 //配置向量表
+ 116:startup/sys.c **** #ifdef VECT_TAB_RAM
+ 117:startup/sys.c **** 	MY_NVIC_SetVectorTable(0x20000000, 0x0);
+ 118:startup/sys.c **** #else
+ 119:startup/sys.c **** 	MY_NVIC_SetVectorTable(0x08000000, 0x0);
+ 467              		.loc 1 119 0
+ 468 0040 4FF00060 		mov	r0, #134217728
+ 469 0044 FFF7FEFF 		bl	MY_NVIC_SetVectorTable
+ 470              	.LVL31:
+ 120:startup/sys.c **** #endif
+ 121:startup/sys.c **** }
+ 471              		.loc 1 121 0
+ 472 0048 08BD     		pop	{r3, pc}
+ 473              	.L25:
+ 474 004a 00BF     		.align	2
+ 475              	.L24:
+ 476 004c 00100240 		.word	1073876992
+ 477 0050 0000FFF8 		.word	-117506048
+ 478              		.cfi_endproc
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 18
+
+
+ 479              	.LFE74:
+ 481              		.section	.text.Sys_Standby,"ax",%progbits
+ 482              		.align	1
+ 483              		.global	Sys_Standby
+ 484              		.syntax unified
+ 485              		.thumb
+ 486              		.thumb_func
+ 487              		.fpu softvfp
+ 489              	Sys_Standby:
+ 490              	.LFB75:
+ 122:startup/sys.c **** 
+ 123:startup/sys.c **** //进入待机模式
+ 124:startup/sys.c **** void Sys_Standby(void)
+ 125:startup/sys.c **** {
+ 491              		.loc 1 125 0
+ 492              		.cfi_startproc
+ 493              		@ args = 0, pretend = 0, frame = 0
+ 494              		@ frame_needed = 0, uses_anonymous_args = 0
+ 495 0000 08B5     		push	{r3, lr}
+ 496              	.LCFI8:
+ 497              		.cfi_def_cfa_offset 8
+ 498              		.cfi_offset 3, -8
+ 499              		.cfi_offset 14, -4
+ 126:startup/sys.c **** 	SCB->SCR |= 1 << 2;		 //使能SLEEPDEEP位 (SYS->CTRL)
+ 500              		.loc 1 126 0
+ 501 0002 0D4A     		ldr	r2, .L28
+ 502 0004 1369     		ldr	r3, [r2, #16]
+ 503 0006 43F00403 		orr	r3, r3, #4
+ 504 000a 1361     		str	r3, [r2, #16]
+ 127:startup/sys.c **** 	RCC->APB1ENR |= 1 << 28; //使能电源时钟
+ 505              		.loc 1 127 0
+ 506 000c 0B4A     		ldr	r2, .L28+4
+ 507 000e D369     		ldr	r3, [r2, #28]
+ 508 0010 43F08053 		orr	r3, r3, #268435456
+ 509 0014 D361     		str	r3, [r2, #28]
+ 128:startup/sys.c **** 	PWR->CSR |= 1 << 8;		 //设置WKUP用于唤醒
+ 510              		.loc 1 128 0
+ 511 0016 0A4B     		ldr	r3, .L28+8
+ 512 0018 5A68     		ldr	r2, [r3, #4]
+ 513 001a 42F48072 		orr	r2, r2, #256
+ 514 001e 5A60     		str	r2, [r3, #4]
+ 129:startup/sys.c **** 	PWR->CR |= 1 << 2;		 //清除Wake-up 标志
+ 515              		.loc 1 129 0
+ 516 0020 1A68     		ldr	r2, [r3]
+ 517 0022 42F00402 		orr	r2, r2, #4
+ 518 0026 1A60     		str	r2, [r3]
+ 130:startup/sys.c **** 	PWR->CR |= 1 << 1;		 //PDDS置位
+ 519              		.loc 1 130 0
+ 520 0028 1A68     		ldr	r2, [r3]
+ 521 002a 42F00202 		orr	r2, r2, #2
+ 522 002e 1A60     		str	r2, [r3]
+ 131:startup/sys.c **** 	WFI_SET();				 //执行WFI指令
+ 523              		.loc 1 131 0
+ 524 0030 FFF7FEFF 		bl	WFI_SET
+ 525              	.LVL32:
+ 132:startup/sys.c **** }
+ 526              		.loc 1 132 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 19
+
+
+ 527 0034 08BD     		pop	{r3, pc}
+ 528              	.L29:
+ 529 0036 00BF     		.align	2
+ 530              	.L28:
+ 531 0038 00ED00E0 		.word	-536810240
+ 532 003c 00100240 		.word	1073876992
+ 533 0040 00700040 		.word	1073770496
+ 534              		.cfi_endproc
+ 535              	.LFE75:
+ 537              		.section	.text.Sys_Soft_Reset,"ax",%progbits
+ 538              		.align	1
+ 539              		.global	Sys_Soft_Reset
+ 540              		.syntax unified
+ 541              		.thumb
+ 542              		.thumb_func
+ 543              		.fpu softvfp
+ 545              	Sys_Soft_Reset:
+ 546              	.LFB76:
+ 133:startup/sys.c **** 
+ 134:startup/sys.c **** //系统软复位
+ 135:startup/sys.c **** void Sys_Soft_Reset(void)
+ 136:startup/sys.c **** {
+ 547              		.loc 1 136 0
+ 548              		.cfi_startproc
+ 549              		@ args = 0, pretend = 0, frame = 0
+ 550              		@ frame_needed = 0, uses_anonymous_args = 0
+ 551              		@ link register save eliminated.
+ 137:startup/sys.c **** 	SCB->AIRCR = 0X05FA0000 | (u32)0x04;
+ 552              		.loc 1 137 0
+ 553 0000 014B     		ldr	r3, .L31
+ 554 0002 024A     		ldr	r2, .L31+4
+ 555 0004 DA60     		str	r2, [r3, #12]
+ 138:startup/sys.c **** }
+ 556              		.loc 1 138 0
+ 557 0006 7047     		bx	lr
+ 558              	.L32:
+ 559              		.align	2
+ 560              	.L31:
+ 561 0008 00ED00E0 		.word	-536810240
+ 562 000c 0400FA05 		.word	100270084
+ 563              		.cfi_endproc
+ 564              	.LFE76:
+ 566              		.section	.text.JTAG_Set,"ax",%progbits
+ 567              		.align	1
+ 568              		.global	JTAG_Set
+ 569              		.syntax unified
+ 570              		.thumb
+ 571              		.thumb_func
+ 572              		.fpu softvfp
+ 574              	JTAG_Set:
+ 575              	.LFB77:
+ 139:startup/sys.c **** 
+ 140:startup/sys.c **** //JTAG模式设置,用于设置JTAG的模式
+ 141:startup/sys.c **** //mode:jtag,swd模式设置;00,全使能;01,使能SWD;10,全关闭;
+ 142:startup/sys.c **** //#define JTAG_SWD_DISABLE   0X02
+ 143:startup/sys.c **** //#define SWD_ENABLE         0X01
+ 144:startup/sys.c **** //#define JTAG_SWD_ENABLE    0X00
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 20
+
+
+ 145:startup/sys.c **** void JTAG_Set(u8 mode)
+ 146:startup/sys.c **** {
+ 576              		.loc 1 146 0
+ 577              		.cfi_startproc
+ 578              		@ args = 0, pretend = 0, frame = 0
+ 579              		@ frame_needed = 0, uses_anonymous_args = 0
+ 580              		@ link register save eliminated.
+ 581              	.LVL33:
+ 147:startup/sys.c **** 	u32 temp;
+ 148:startup/sys.c **** 	temp = mode;
+ 149:startup/sys.c **** 	temp <<= 25;
+ 150:startup/sys.c **** 	RCC->APB2ENR |= 1 << 0;   //开启辅助时钟
+ 582              		.loc 1 150 0
+ 583 0000 074A     		ldr	r2, .L34
+ 584 0002 9369     		ldr	r3, [r2, #24]
+ 585 0004 43F00103 		orr	r3, r3, #1
+ 586 0008 9361     		str	r3, [r2, #24]
+ 151:startup/sys.c **** 	AFIO->MAPR &= 0XF8FFFFFF; //清除MAPR的[26:24]
+ 587              		.loc 1 151 0
+ 588 000a 064B     		ldr	r3, .L34+4
+ 589 000c 5A68     		ldr	r2, [r3, #4]
+ 590 000e 22F0E062 		bic	r2, r2, #117440512
+ 591 0012 5A60     		str	r2, [r3, #4]
+ 152:startup/sys.c **** 	AFIO->MAPR |= temp;		  //设置jtag模式
+ 592              		.loc 1 152 0
+ 593 0014 5A68     		ldr	r2, [r3, #4]
+ 594 0016 42EA4060 		orr	r0, r2, r0, lsl #25
+ 595              	.LVL34:
+ 596 001a 5860     		str	r0, [r3, #4]
+ 153:startup/sys.c **** }
+ 597              		.loc 1 153 0
+ 598 001c 7047     		bx	lr
+ 599              	.L35:
+ 600 001e 00BF     		.align	2
+ 601              	.L34:
+ 602 0020 00100240 		.word	1073876992
+ 603 0024 00000140 		.word	1073807360
+ 604              		.cfi_endproc
+ 605              	.LFE77:
+ 607              		.section	.text.Stm32_Clock_Init,"ax",%progbits
+ 608              		.align	1
+ 609              		.global	Stm32_Clock_Init
+ 610              		.syntax unified
+ 611              		.thumb
+ 612              		.thumb_func
+ 613              		.fpu softvfp
+ 615              	Stm32_Clock_Init:
+ 616              	.LFB78:
+ 154:startup/sys.c **** 
+ 155:startup/sys.c **** //系统时钟初始化函数
+ 156:startup/sys.c **** //pll:选择的倍频数，从2开始，最大值为16
+ 157:startup/sys.c **** void Stm32_Clock_Init(u8 PLL)
+ 158:startup/sys.c **** {
+ 617              		.loc 1 158 0
+ 618              		.cfi_startproc
+ 619              		@ args = 0, pretend = 0, frame = 0
+ 620              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 21
+
+
+ 621              	.LVL35:
+ 622 0000 10B5     		push	{r4, lr}
+ 623              	.LCFI9:
+ 624              		.cfi_def_cfa_offset 8
+ 625              		.cfi_offset 4, -8
+ 626              		.cfi_offset 14, -4
+ 627 0002 0446     		mov	r4, r0
+ 628              	.LVL36:
+ 159:startup/sys.c **** 	unsigned char temp = 0;
+ 160:startup/sys.c **** 	MYRCC_DeInit();		   //复位并配置向量表
+ 629              		.loc 1 160 0
+ 630 0004 FFF7FEFF 		bl	MYRCC_DeInit
+ 631              	.LVL37:
+ 161:startup/sys.c **** 	RCC->CR |= 0x00010000; //外部高速时钟使能HSEON
+ 632              		.loc 1 161 0
+ 633 0008 184A     		ldr	r2, .L42
+ 634 000a 1368     		ldr	r3, [r2]
+ 635 000c 43F48033 		orr	r3, r3, #65536
+ 636 0010 1360     		str	r3, [r2]
+ 637              	.L37:
+ 162:startup/sys.c **** 	while (!(RCC->CR >> 17))
+ 638              		.loc 1 162 0 discriminator 1
+ 639 0012 164B     		ldr	r3, .L42
+ 640 0014 1B68     		ldr	r3, [r3]
+ 641 0016 5B0C     		lsrs	r3, r3, #17
+ 642 0018 FBD0     		beq	.L37
+ 163:startup/sys.c **** 		;					//等待外部时钟就绪
+ 164:startup/sys.c **** 	RCC->CFGR = 0X00000400; //APB1=DIV2;APB2=DIV1;AHB=DIV1;
+ 643              		.loc 1 164 0
+ 644 001a 144B     		ldr	r3, .L42
+ 645 001c 4FF48062 		mov	r2, #1024
+ 646 0020 5A60     		str	r2, [r3, #4]
+ 165:startup/sys.c **** 	PLL -= 2;				//抵消2个单位（因为是从2开始的，设置0就是2）
+ 647              		.loc 1 165 0
+ 648 0022 023C     		subs	r4, r4, #2
+ 649 0024 E4B2     		uxtb	r4, r4
+ 650              	.LVL38:
+ 166:startup/sys.c **** 	RCC->CFGR |= PLL << 18; //设置PLL值 2~16
+ 651              		.loc 1 166 0
+ 652 0026 5A68     		ldr	r2, [r3, #4]
+ 653 0028 42EA8444 		orr	r4, r2, r4, lsl #18
+ 654              	.LVL39:
+ 655 002c 5C60     		str	r4, [r3, #4]
+ 167:startup/sys.c **** 	RCC->CFGR |= 1 << 16;   //PLLSRC ON
+ 656              		.loc 1 167 0
+ 657 002e 5A68     		ldr	r2, [r3, #4]
+ 658 0030 42F48032 		orr	r2, r2, #65536
+ 659 0034 5A60     		str	r2, [r3, #4]
+ 168:startup/sys.c **** 	FLASH->ACR |= 0x32;		//FLASH 2个延时周期
+ 660              		.loc 1 168 0
+ 661 0036 0E49     		ldr	r1, .L42+4
+ 662 0038 0A68     		ldr	r2, [r1]
+ 663 003a 42F03202 		orr	r2, r2, #50
+ 664 003e 0A60     		str	r2, [r1]
+ 169:startup/sys.c **** 	RCC->CR |= 0x01000000;  //PLLON
+ 665              		.loc 1 169 0
+ 666 0040 1A68     		ldr	r2, [r3]
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 22
+
+
+ 667 0042 42F08072 		orr	r2, r2, #16777216
+ 668 0046 1A60     		str	r2, [r3]
+ 669              	.L38:
+ 170:startup/sys.c **** 	while (!(RCC->CR >> 25))
+ 670              		.loc 1 170 0 discriminator 1
+ 671 0048 084B     		ldr	r3, .L42
+ 672 004a 1B68     		ldr	r3, [r3]
+ 673 004c 5B0E     		lsrs	r3, r3, #25
+ 674 004e FBD0     		beq	.L38
+ 171:startup/sys.c **** 		;					 //等待PLL锁定
+ 172:startup/sys.c **** 	RCC->CFGR |= 0x00000002; //PLL作为系统时钟
+ 675              		.loc 1 172 0
+ 676 0050 064A     		ldr	r2, .L42
+ 677 0052 5368     		ldr	r3, [r2, #4]
+ 678 0054 43F00203 		orr	r3, r3, #2
+ 679 0058 5360     		str	r3, [r2, #4]
+ 159:startup/sys.c **** 	MYRCC_DeInit();		   //复位并配置向量表
+ 680              		.loc 1 159 0
+ 681 005a 0023     		movs	r3, #0
+ 173:startup/sys.c **** 	while (temp != 0x02)	 //等待PLL作为系统时钟设置成功
+ 682              		.loc 1 173 0
+ 683 005c 03E0     		b	.L39
+ 684              	.LVL40:
+ 685              	.L40:
+ 174:startup/sys.c **** 	{
+ 175:startup/sys.c **** 		temp = RCC->CFGR >> 2;
+ 686              		.loc 1 175 0
+ 687 005e 034B     		ldr	r3, .L42
+ 688              	.LVL41:
+ 689 0060 5B68     		ldr	r3, [r3, #4]
+ 690              	.LVL42:
+ 176:startup/sys.c **** 		temp &= 0x03;
+ 691              		.loc 1 176 0
+ 692 0062 C3F38103 		ubfx	r3, r3, #2, #2
+ 693              	.LVL43:
+ 694              	.L39:
+ 173:startup/sys.c **** 	while (temp != 0x02)	 //等待PLL作为系统时钟设置成功
+ 695              		.loc 1 173 0
+ 696 0066 022B     		cmp	r3, #2
+ 697 0068 F9D1     		bne	.L40
+ 177:startup/sys.c **** 	}
+ 178:startup/sys.c **** }
+ 698              		.loc 1 178 0
+ 699 006a 10BD     		pop	{r4, pc}
+ 700              	.L43:
+ 701              		.align	2
+ 702              	.L42:
+ 703 006c 00100240 		.word	1073876992
+ 704 0070 00200240 		.word	1073881088
+ 705              		.cfi_endproc
+ 706              	.LFE78:
+ 708              		.section	.text.Stm32_Hsi_Init,"ax",%progbits
+ 709              		.align	1
+ 710              		.global	Stm32_Hsi_Init
+ 711              		.syntax unified
+ 712              		.thumb
+ 713              		.thumb_func
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 23
+
+
+ 714              		.fpu softvfp
+ 716              	Stm32_Hsi_Init:
+ 717              	.LFB79:
+ 179:startup/sys.c **** 
+ 180:startup/sys.c **** void Stm32_Hsi_Init(u8 pll)
+ 181:startup/sys.c **** {
+ 718              		.loc 1 181 0
+ 719              		.cfi_startproc
+ 720              		@ args = 0, pretend = 0, frame = 0
+ 721              		@ frame_needed = 0, uses_anonymous_args = 0
+ 722              	.LVL44:
+ 723 0000 10B5     		push	{r4, lr}
+ 724              	.LCFI10:
+ 725              		.cfi_def_cfa_offset 8
+ 726              		.cfi_offset 4, -8
+ 727              		.cfi_offset 14, -4
+ 728 0002 0446     		mov	r4, r0
+ 729              	.LVL45:
+ 182:startup/sys.c **** 	unsigned char temp = 0;
+ 183:startup/sys.c **** 	MYRCC_DeInit();
+ 730              		.loc 1 183 0
+ 731 0004 FFF7FEFF 		bl	MYRCC_DeInit
+ 732              	.LVL46:
+ 184:startup/sys.c **** 	RCC->CR |= BIT0;
+ 733              		.loc 1 184 0
+ 734 0008 174A     		ldr	r2, .L50
+ 735 000a 1368     		ldr	r3, [r2]
+ 736 000c 43F00103 		orr	r3, r3, #1
+ 737 0010 1360     		str	r3, [r2]
+ 738              	.L45:
+ 185:startup/sys.c **** 	while (!(RCC->CR & BIT1)){}
+ 739              		.loc 1 185 0 discriminator 1
+ 740 0012 154B     		ldr	r3, .L50
+ 741 0014 1B68     		ldr	r3, [r3]
+ 742 0016 13F0020F 		tst	r3, #2
+ 743 001a FAD0     		beq	.L45
+ 186:startup/sys.c **** 	pll -= 2;
+ 744              		.loc 1 186 0
+ 745 001c 023C     		subs	r4, r4, #2
+ 746 001e E4B2     		uxtb	r4, r4
+ 747              	.LVL47:
+ 187:startup/sys.c **** 	RCC->CFGR = 0X00000400; //APB1=DIV2;APB2=DIV1;AHB=DIV1;
+ 748              		.loc 1 187 0
+ 749 0020 114B     		ldr	r3, .L50
+ 750 0022 4FF48062 		mov	r2, #1024
+ 751 0026 5A60     		str	r2, [r3, #4]
+ 188:startup/sys.c **** 	RCC->CFGR |= pll << 18; //设置PLL值 2~16
+ 752              		.loc 1 188 0
+ 753 0028 5A68     		ldr	r2, [r3, #4]
+ 754 002a 42EA8444 		orr	r4, r2, r4, lsl #18
+ 755              	.LVL48:
+ 756 002e 5C60     		str	r4, [r3, #4]
+ 189:startup/sys.c **** 	FLASH->ACR |= 0x32;		//FLASH 2个延时周期
+ 757              		.loc 1 189 0
+ 758 0030 0E49     		ldr	r1, .L50+4
+ 759 0032 0A68     		ldr	r2, [r1]
+ 760 0034 42F03202 		orr	r2, r2, #50
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 24
+
+
+ 761 0038 0A60     		str	r2, [r1]
+ 190:startup/sys.c **** 	RCC->CR |= BIT24;		//PLLON
+ 762              		.loc 1 190 0
+ 763 003a 1A68     		ldr	r2, [r3]
+ 764 003c 42F08072 		orr	r2, r2, #16777216
+ 765 0040 1A60     		str	r2, [r3]
+ 766              	.L46:
+ 191:startup/sys.c **** 	while (!(RCC->CR & BIT25)){}				 //等待PLL锁定
+ 767              		.loc 1 191 0 discriminator 1
+ 768 0042 094B     		ldr	r3, .L50
+ 769 0044 1B68     		ldr	r3, [r3]
+ 770 0046 13F0007F 		tst	r3, #33554432
+ 771 004a FAD0     		beq	.L46
+ 192:startup/sys.c **** 	RCC->CFGR |= 0x00000002; //PLL作为系统时钟
+ 772              		.loc 1 192 0
+ 773 004c 064A     		ldr	r2, .L50
+ 774 004e 5368     		ldr	r3, [r2, #4]
+ 775 0050 43F00203 		orr	r3, r3, #2
+ 776 0054 5360     		str	r3, [r2, #4]
+ 182:startup/sys.c **** 	MYRCC_DeInit();
+ 777              		.loc 1 182 0
+ 778 0056 0023     		movs	r3, #0
+ 193:startup/sys.c **** 	while (temp != 0x02)	 //等待PLL作为系统时钟设置成功
+ 779              		.loc 1 193 0
+ 780 0058 03E0     		b	.L47
+ 781              	.LVL49:
+ 782              	.L48:
+ 194:startup/sys.c **** 	{
+ 195:startup/sys.c **** 		temp = RCC->CFGR >> 2;
+ 783              		.loc 1 195 0
+ 784 005a 034B     		ldr	r3, .L50
+ 785              	.LVL50:
+ 786 005c 5B68     		ldr	r3, [r3, #4]
+ 787              	.LVL51:
+ 196:startup/sys.c **** 		temp &= 0x03;
+ 788              		.loc 1 196 0
+ 789 005e C3F38103 		ubfx	r3, r3, #2, #2
+ 790              	.LVL52:
+ 791              	.L47:
+ 193:startup/sys.c **** 	while (temp != 0x02)	 //等待PLL作为系统时钟设置成功
+ 792              		.loc 1 193 0
+ 793 0062 022B     		cmp	r3, #2
+ 794 0064 F9D1     		bne	.L48
+ 197:startup/sys.c **** 	}
+ 198:startup/sys.c **** }
+ 795              		.loc 1 198 0
+ 796 0066 10BD     		pop	{r4, pc}
+ 797              	.L51:
+ 798              		.align	2
+ 799              	.L50:
+ 800 0068 00100240 		.word	1073876992
+ 801 006c 00200240 		.word	1073881088
+ 802              		.cfi_endproc
+ 803              	.LFE79:
+ 805              		.section	.text.delay_init,"ax",%progbits
+ 806              		.align	1
+ 807              		.global	delay_init
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 25
+
+
+ 808              		.syntax unified
+ 809              		.thumb
+ 810              		.thumb_func
+ 811              		.fpu softvfp
+ 813              	delay_init:
+ 814              	.LFB80:
+ 199:startup/sys.c **** 
+ 200:startup/sys.c **** static u8 fac_us = 0;  //us延时倍乘数
+ 201:startup/sys.c **** static u16 fac_ms = 0; //ms延时倍乘数,在ucos下,代表每个节拍的ms数
+ 202:startup/sys.c **** //初始化延迟函数
+ 203:startup/sys.c **** //当使用OS的时候,此函数会初始化OS的时钟节拍
+ 204:startup/sys.c **** //SYSTICK的时钟固定为HCLK时钟的1/8
+ 205:startup/sys.c **** //SYSCLK:系统时钟
+ 206:startup/sys.c **** void delay_init(u8 SYSCLK)
+ 207:startup/sys.c **** {
+ 815              		.loc 1 207 0
+ 816              		.cfi_startproc
+ 817              		@ args = 0, pretend = 0, frame = 0
+ 818              		@ frame_needed = 0, uses_anonymous_args = 0
+ 819              		@ link register save eliminated.
+ 820              	.LVL53:
+ 208:startup/sys.c **** 	SysTick->CTRL &= ~(1 << 2);  //SYSTICK使用外部时钟源
+ 821              		.loc 1 208 0
+ 822 0000 064A     		ldr	r2, .L53
+ 823 0002 1368     		ldr	r3, [r2]
+ 824 0004 23F00403 		bic	r3, r3, #4
+ 825 0008 1360     		str	r3, [r2]
+ 209:startup/sys.c **** 	fac_us = SYSCLK / 8;		 //不论是否使用OS,fac_us都需要使用
+ 826              		.loc 1 209 0
+ 827 000a C008     		lsrs	r0, r0, #3
+ 828              	.LVL54:
+ 210:startup/sys.c **** 	fac_ms = (u16)fac_us * 1000; //非OS下,代表每个ms需要的systick时钟数
+ 829              		.loc 1 210 0
+ 830 000c C0EB4013 		rsb	r3, r0, r0, lsl #5
+ 831 0010 00EB8300 		add	r0, r0, r3, lsl #2
+ 832 0014 C300     		lsls	r3, r0, #3
+ 833 0016 024A     		ldr	r2, .L53+4
+ 834 0018 1380     		strh	r3, [r2]	@ movhi
+ 211:startup/sys.c **** }
+ 835              		.loc 1 211 0
+ 836 001a 7047     		bx	lr
+ 837              	.L54:
+ 838              		.align	2
+ 839              	.L53:
+ 840 001c 10E000E0 		.word	-536813552
+ 841 0020 00000000 		.word	.LANCHOR0
+ 842              		.cfi_endproc
+ 843              	.LFE80:
+ 845              		.section	.text.delay_ms,"ax",%progbits
+ 846              		.align	1
+ 847              		.global	delay_ms
+ 848              		.syntax unified
+ 849              		.thumb
+ 850              		.thumb_func
+ 851              		.fpu softvfp
+ 853              	delay_ms:
+ 854              	.LFB81:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 26
+
+
+ 212:startup/sys.c **** 
+ 213:startup/sys.c **** void delay_ms(u16 nms)
+ 214:startup/sys.c **** {
+ 855              		.loc 1 214 0
+ 856              		.cfi_startproc
+ 857              		@ args = 0, pretend = 0, frame = 0
+ 858              		@ frame_needed = 0, uses_anonymous_args = 0
+ 859              		@ link register save eliminated.
+ 860              	.LVL55:
+ 215:startup/sys.c **** 	u32 temp;
+ 216:startup/sys.c **** 	SysTick->LOAD = (u32)nms * fac_ms; //时间加载(SysTick->LOAD为24bit)
+ 861              		.loc 1 216 0
+ 862 0000 0A4B     		ldr	r3, .L57
+ 863 0002 1B88     		ldrh	r3, [r3]
+ 864 0004 00FB03F0 		mul	r0, r0, r3
+ 865              	.LVL56:
+ 866 0008 094B     		ldr	r3, .L57+4
+ 867 000a 5860     		str	r0, [r3, #4]
+ 217:startup/sys.c **** 	SysTick->VAL = 0x00;			   //清空计数器
+ 868              		.loc 1 217 0
+ 869 000c 0022     		movs	r2, #0
+ 870 000e 9A60     		str	r2, [r3, #8]
+ 218:startup/sys.c **** 	SysTick->CTRL = 0x01;			   //开始倒数
+ 871              		.loc 1 218 0
+ 872 0010 0122     		movs	r2, #1
+ 873 0012 1A60     		str	r2, [r3]
+ 874              	.L56:
+ 219:startup/sys.c **** 	do
+ 220:startup/sys.c **** 	{
+ 221:startup/sys.c **** 		temp = SysTick->CTRL;
+ 875              		.loc 1 221 0 discriminator 1
+ 876 0014 064B     		ldr	r3, .L57+4
+ 877 0016 1B68     		ldr	r3, [r3]
+ 878              	.LVL57:
+ 222:startup/sys.c **** 	} while ((temp & 0x01) && !(temp & (1 << 16))); //等待时间到达
+ 879              		.loc 1 222 0 discriminator 1
+ 880 0018 03F00113 		and	r3, r3, #65537
+ 881              	.LVL58:
+ 882 001c 012B     		cmp	r3, #1
+ 883 001e F9D0     		beq	.L56
+ 223:startup/sys.c **** 	SysTick->CTRL = 0x00;							//关闭计数器
+ 884              		.loc 1 223 0
+ 885 0020 034B     		ldr	r3, .L57+4
+ 886 0022 0022     		movs	r2, #0
+ 887 0024 1A60     		str	r2, [r3]
+ 224:startup/sys.c **** 	SysTick->VAL = 0X00;							//清空计数器
+ 888              		.loc 1 224 0
+ 889 0026 9A60     		str	r2, [r3, #8]
+ 225:startup/sys.c **** }
+ 890              		.loc 1 225 0
+ 891 0028 7047     		bx	lr
+ 892              	.L58:
+ 893 002a 00BF     		.align	2
+ 894              	.L57:
+ 895 002c 00000000 		.word	.LANCHOR0
+ 896 0030 10E000E0 		.word	-536813552
+ 897              		.cfi_endproc
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 27
+
+
+ 898              	.LFE81:
+ 900              		.comm	sys,8,4
+ 901              		.section	.bss.fac_ms,"aw",%nobits
+ 902              		.align	1
+ 903              		.set	.LANCHOR0,. + 0
+ 906              	fac_ms:
+ 907 0000 0000     		.space	2
+ 908              		.text
+ 909              	.Letext0:
+ 910              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 911              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 912              		.file 5 "Inc/core_cm3.h"
+ 913              		.file 6 "Inc/stm32f103xe.h"
+ 914              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 915              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 916              		.file 9 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 917              		.file 10 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reen
+ 918              		.file 11 "startup/inc/sys.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s 			page 28
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 sys.c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:16     .text.MSR_MSP:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:23     .text.MSR_MSP:0000000000000000 MSR_MSP
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:68     .text.WFI_SET:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:75     .text.WFI_SET:0000000000000000 WFI_SET
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:99     .text.INTX_DISABLE:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:106    .text.INTX_DISABLE:0000000000000000 INTX_DISABLE
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:130    .text.INTX_ENABLE:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:137    .text.INTX_ENABLE:0000000000000000 INTX_ENABLE
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:161    .text.MY_NVIC_SetVectorTable:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:168    .text.MY_NVIC_SetVectorTable:0000000000000000 MY_NVIC_SetVectorTable
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:188    .text.MY_NVIC_SetVectorTable:0000000000000010 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:193    .text.MY_NVIC_PriorityGroupConfig:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:200    .text.MY_NVIC_PriorityGroupConfig:0000000000000000 MY_NVIC_PriorityGroupConfig
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:241    .text.MY_NVIC_PriorityGroupConfig:0000000000000024 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:246    .text.MY_NVIC_Init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:253    .text.MY_NVIC_Init:0000000000000000 MY_NVIC_Init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:311    .text.MY_NVIC_Init:0000000000000048 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:316    .text.Ex_NVIC_Config:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:323    .text.Ex_NVIC_Config:0000000000000000 Ex_NVIC_Config
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:405    .text.Ex_NVIC_Config:0000000000000060 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:412    .text.MYRCC_DeInit:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:419    .text.MYRCC_DeInit:0000000000000000 MYRCC_DeInit
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:476    .text.MYRCC_DeInit:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:482    .text.Sys_Standby:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:489    .text.Sys_Standby:0000000000000000 Sys_Standby
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:531    .text.Sys_Standby:0000000000000038 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:538    .text.Sys_Soft_Reset:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:545    .text.Sys_Soft_Reset:0000000000000000 Sys_Soft_Reset
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:561    .text.Sys_Soft_Reset:0000000000000008 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:567    .text.JTAG_Set:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:574    .text.JTAG_Set:0000000000000000 JTAG_Set
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:602    .text.JTAG_Set:0000000000000020 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:608    .text.Stm32_Clock_Init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:615    .text.Stm32_Clock_Init:0000000000000000 Stm32_Clock_Init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:703    .text.Stm32_Clock_Init:000000000000006c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:709    .text.Stm32_Hsi_Init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:716    .text.Stm32_Hsi_Init:0000000000000000 Stm32_Hsi_Init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:800    .text.Stm32_Hsi_Init:0000000000000068 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:806    .text.delay_init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:813    .text.delay_init:0000000000000000 delay_init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:840    .text.delay_init:000000000000001c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:846    .text.delay_ms:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:853    .text.delay_ms:0000000000000000 delay_ms
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:895    .text.delay_ms:000000000000002c $d
+                            *COM*:0000000000000008 sys
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:902    .bss.fac_ms:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccs2lKkD.s:906    .bss.fac_ms:0000000000000000 fac_ms
+
+NO UNDEFINED SYMBOLS

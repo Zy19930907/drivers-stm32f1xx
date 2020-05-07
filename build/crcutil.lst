@@ -1,0 +1,284 @@
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"crcutil.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.CalCrc16,"ax",%progbits
+  16              		.align	1
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	CalCrc16:
+  23              	.LFB66:
+  24              		.file 1 "tools/crcutil.c"
+   1:tools/crcutil.c **** //
+   2:tools/crcutil.c **** // Created by 周洋 on 2020/4/9.
+   3:tools/crcutil.c **** //
+   4:tools/crcutil.c **** 
+   5:tools/crcutil.c **** #include "crcutil.h"
+   6:tools/crcutil.c **** 
+   7:tools/crcutil.c **** #define CRCGENP   0xA001
+   8:tools/crcutil.c **** 
+   9:tools/crcutil.c **** static void SetCrc(u8 *dat,u16 len);
+  10:tools/crcutil.c **** static u8 CheckCrc(u8 *dat,u16 len);
+  11:tools/crcutil.c **** 
+  12:tools/crcutil.c **** _CrcUtil CrcUtil = {
+  13:tools/crcutil.c **** 		.SetCrc = SetCrc,
+  14:tools/crcutil.c **** 		.CheckCrc = CheckCrc,
+  15:tools/crcutil.c **** };
+  16:tools/crcutil.c **** //计算数据CRC校验值
+  17:tools/crcutil.c **** static u16 CalCrc16(u8 *read_buf,u16 len)
+  18:tools/crcutil.c **** {
+  25              		.loc 1 18 0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              		@ link register save eliminated.
+  30              	.LVL0:
+  31 0000 30B4     		push	{r4, r5}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 5, -4
+  36              	.LVL1:
+  19:tools/crcutil.c **** 	u16 i,Crc16 = 0xFFFF;
+  37              		.loc 1 19 0
+  38 0002 4FF6FF73 		movw	r3, #65535
+  20:tools/crcutil.c **** 	u8 j,k ;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s 			page 2
+
+
+  21:tools/crcutil.c **** 	for(i=0;i<len;i++)
+  39              		.loc 1 21 0
+  40 0006 0025     		movs	r5, #0
+  41 0008 10E0     		b	.L2
+  42              	.LVL2:
+  43              	.L4:
+  22:tools/crcutil.c **** 	{
+  23:tools/crcutil.c **** 		k = 0;
+  24:tools/crcutil.c **** 		Crc16 ^= *(read_buf + i);
+  25:tools/crcutil.c **** 		for(j=0;j<8;j++)
+  44              		.loc 1 25 0 discriminator 2
+  45 000a 0132     		adds	r2, r2, #1
+  46              	.LVL3:
+  47 000c D2B2     		uxtb	r2, r2
+  48              	.LVL4:
+  49              	.L3:
+  50              		.loc 1 25 0 is_stmt 0 discriminator 1
+  51 000e 072A     		cmp	r2, #7
+  52 0010 0AD8     		bhi	.L8
+  26:tools/crcutil.c **** 		{
+  27:tools/crcutil.c **** 			k = (Crc16 & 0x0001);
+  53              		.loc 1 27 0 is_stmt 1
+  54 0012 03F00104 		and	r4, r3, #1
+  55              	.LVL5:
+  28:tools/crcutil.c **** 			Crc16 >>= 1;
+  56              		.loc 1 28 0
+  57 0016 5B08     		lsrs	r3, r3, #1
+  58              	.LVL6:
+  29:tools/crcutil.c **** 			Crc16 &= 0x7FFF;
+  30:tools/crcutil.c **** 			if(k)
+  59              		.loc 1 30 0
+  60 0018 002C     		cmp	r4, #0
+  61 001a F6D0     		beq	.L4
+  31:tools/crcutil.c **** 				Crc16 ^= CRCGENP;
+  62              		.loc 1 31 0
+  63 001c 83F42043 		eor	r3, r3, #40960
+  64              	.LVL7:
+  65 0020 83F00103 		eor	r3, r3, #1
+  66              	.LVL8:
+  67 0024 9BB2     		uxth	r3, r3
+  68              	.LVL9:
+  69 0026 F0E7     		b	.L4
+  70              	.LVL10:
+  71              	.L8:
+  21:tools/crcutil.c **** 	{
+  72              		.loc 1 21 0 discriminator 2
+  73 0028 0135     		adds	r5, r5, #1
+  74              	.LVL11:
+  75 002a ADB2     		uxth	r5, r5
+  76              	.LVL12:
+  77              	.L2:
+  21:tools/crcutil.c **** 	{
+  78              		.loc 1 21 0 is_stmt 0 discriminator 1
+  79 002c 8D42     		cmp	r5, r1
+  80 002e 03D2     		bcs	.L9
+  81              	.LVL13:
+  24:tools/crcutil.c **** 		for(j=0;j<8;j++)
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s 			page 3
+
+
+  82              		.loc 1 24 0 is_stmt 1
+  83 0030 425D     		ldrb	r2, [r0, r5]	@ zero_extendqisi2
+  84 0032 5340     		eors	r3, r3, r2
+  85              	.LVL14:
+  25:tools/crcutil.c **** 		{
+  86              		.loc 1 25 0
+  87 0034 0022     		movs	r2, #0
+  88 0036 EAE7     		b	.L3
+  89              	.LVL15:
+  90              	.L9:
+  32:tools/crcutil.c **** 		}
+  33:tools/crcutil.c **** 	}
+  34:tools/crcutil.c **** 	return Crc16;
+  35:tools/crcutil.c **** }
+  91              		.loc 1 35 0
+  92 0038 1846     		mov	r0, r3
+  93              	.LVL16:
+  94 003a 30BC     		pop	{r4, r5}
+  95              	.LCFI1:
+  96              		.cfi_restore 5
+  97              		.cfi_restore 4
+  98              		.cfi_def_cfa_offset 0
+  99              	.LVL17:
+ 100 003c 7047     		bx	lr
+ 101              		.cfi_endproc
+ 102              	.LFE66:
+ 104              		.section	.text.SetCrc,"ax",%progbits
+ 105              		.align	1
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.fpu softvfp
+ 111              	SetCrc:
+ 112              	.LFB67:
+  36:tools/crcutil.c **** 
+  37:tools/crcutil.c **** static void SetCrc(u8 *dat,u16 len)
+  38:tools/crcutil.c **** {
+ 113              		.loc 1 38 0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117              	.LVL18:
+ 118 0000 38B5     		push	{r3, r4, r5, lr}
+ 119              	.LCFI2:
+ 120              		.cfi_def_cfa_offset 16
+ 121              		.cfi_offset 3, -16
+ 122              		.cfi_offset 4, -12
+ 123              		.cfi_offset 5, -8
+ 124              		.cfi_offset 14, -4
+ 125 0002 0546     		mov	r5, r0
+  39:tools/crcutil.c **** 	u16 Crc16 = CalCrc16(dat,len-2);
+ 126              		.loc 1 39 0
+ 127 0004 8C1E     		subs	r4, r1, #2
+ 128 0006 A1B2     		uxth	r1, r4
+ 129              	.LVL19:
+ 130 0008 FFF7FEFF 		bl	CalCrc16
+ 131              	.LVL20:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s 			page 4
+
+
+  40:tools/crcutil.c **** 	*(u16*)&dat[len-2] =  Crc16;
+ 132              		.loc 1 40 0
+ 133 000c 2853     		strh	r0, [r5, r4]	@ movhi
+  41:tools/crcutil.c **** }
+ 134              		.loc 1 41 0
+ 135 000e 38BD     		pop	{r3, r4, r5, pc}
+ 136              		.cfi_endproc
+ 137              	.LFE67:
+ 139              		.section	.text.CheckCrc,"ax",%progbits
+ 140              		.align	1
+ 141              		.syntax unified
+ 142              		.thumb
+ 143              		.thumb_func
+ 144              		.fpu softvfp
+ 146              	CheckCrc:
+ 147              	.LFB68:
+  42:tools/crcutil.c **** 
+  43:tools/crcutil.c **** static u8 CheckCrc(u8 *dat,u16 len)
+  44:tools/crcutil.c **** {
+ 148              		.loc 1 44 0
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152              	.LVL21:
+ 153 0000 38B5     		push	{r3, r4, r5, lr}
+ 154              	.LCFI3:
+ 155              		.cfi_def_cfa_offset 16
+ 156              		.cfi_offset 3, -16
+ 157              		.cfi_offset 4, -12
+ 158              		.cfi_offset 5, -8
+ 159              		.cfi_offset 14, -4
+ 160 0002 0546     		mov	r5, r0
+  45:tools/crcutil.c **** 	u16 Crc16 = CalCrc16(dat,len-2);
+ 161              		.loc 1 45 0
+ 162 0004 8C1E     		subs	r4, r1, #2
+ 163 0006 A1B2     		uxth	r1, r4
+ 164              	.LVL22:
+ 165 0008 FFF7FEFF 		bl	CalCrc16
+ 166              	.LVL23:
+  46:tools/crcutil.c **** 	if(Crc16 == *(u16*)&dat[len-2])
+ 167              		.loc 1 46 0
+ 168 000c 2B5B     		ldrh	r3, [r5, r4]
+ 169 000e 8342     		cmp	r3, r0
+ 170 0010 01D0     		beq	.L16
+  47:tools/crcutil.c **** 		return 1;
+  48:tools/crcutil.c **** 	else
+  49:tools/crcutil.c **** 		return 0;
+ 171              		.loc 1 49 0
+ 172 0012 0020     		movs	r0, #0
+ 173              	.LVL24:
+ 174              	.L13:
+  50:tools/crcutil.c **** }
+ 175              		.loc 1 50 0
+ 176 0014 38BD     		pop	{r3, r4, r5, pc}
+ 177              	.LVL25:
+ 178              	.L16:
+  47:tools/crcutil.c **** 		return 1;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s 			page 5
+
+
+ 179              		.loc 1 47 0
+ 180 0016 0120     		movs	r0, #1
+ 181              	.LVL26:
+ 182 0018 FCE7     		b	.L13
+ 183              		.cfi_endproc
+ 184              	.LFE68:
+ 186              		.global	CrcUtil
+ 187              		.section	.data.CrcUtil,"aw",%progbits
+ 188              		.align	2
+ 191              	CrcUtil:
+ 192 0000 00000000 		.word	SetCrc
+ 193 0004 00000000 		.word	CheckCrc
+ 194              		.text
+ 195              	.Letext0:
+ 196              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 197              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 198              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 199              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 200              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 201              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 202              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdlib.h"
+ 203              		.file 9 "Inc/core_cm3.h"
+ 204              		.file 10 "startup/inc/sys.h"
+ 205              		.file 11 "tools/inc/malloc.h"
+ 206              		.file 12 "tools/inc/tskmanager.h"
+ 207              		.file 13 "tools/inc/crcutil.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 crcutil.c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s:16     .text.CalCrc16:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s:22     .text.CalCrc16:0000000000000000 CalCrc16
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s:105    .text.SetCrc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s:111    .text.SetCrc:0000000000000000 SetCrc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s:140    .text.CheckCrc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s:146    .text.CheckCrc:0000000000000000 CheckCrc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s:191    .data.CrcUtil:0000000000000000 CrcUtil
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc23DNc9.s:188    .data.CrcUtil:0000000000000000 $d
+
+NO UNDEFINED SYMBOLS

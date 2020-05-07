@@ -1,0 +1,222 @@
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"runled.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.runledfunc,"ax",%progbits
+  16              		.align	1
+  17              		.global	runledfunc
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	runledfunc:
+  24              	.LFB66:
+  25              		.file 1 "app/runled.c"
+   1:app/runled.c  **** //
+   2:app/runled.c  **** // Created by 周洋 on 2020/3/29.
+   3:app/runled.c  **** //
+   4:app/runled.c  **** 
+   5:app/runled.c  **** #include "runled.h"
+   6:app/runled.c  **** #include "tskmanager.h"
+   7:app/runled.c  **** #include "bsp_f1xx_led.h"
+   8:app/runled.c  **** 
+   9:app/runled.c  **** 
+  10:app/runled.c  **** void runledfunc(void *args);
+  11:app/runled.c  **** _led runled = {
+  12:app/runled.c  ****         .io = {PB,12,IO_MODE_OUT_PP_50MHZ,},
+  13:app/runled.c  ****         .lightlevel = 0,
+  14:app/runled.c  **** };
+  15:app/runled.c  **** 
+  16:app/runled.c  **** _Task runledtsk={
+  17:app/runled.c  ****         .ms = 30,
+  18:app/runled.c  ****         .func = runledfunc,
+  19:app/runled.c  **** };
+  20:app/runled.c  **** 
+  21:app/runled.c  **** void runledfunc(void *args)
+  22:app/runled.c  **** {
+  26              		.loc 1 22 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  23:app/runled.c  **** 	ledinit(&runled);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s 			page 2
+
+
+  36              		.loc 1 23 0
+  37 0002 044C     		ldr	r4, .L3
+  38 0004 2046     		mov	r0, r4
+  39              	.LVL1:
+  40 0006 FFF7FEFF 		bl	ledinit
+  41              	.LVL2:
+  24:app/runled.c  ****     ledfilp(&runled);
+  42              		.loc 1 24 0
+  43 000a 2046     		mov	r0, r4
+  44 000c FFF7FEFF 		bl	ledfilp
+  45              	.LVL3:
+  25:app/runled.c  **** }
+  46              		.loc 1 25 0
+  47 0010 10BD     		pop	{r4, pc}
+  48              	.L4:
+  49 0012 00BF     		.align	2
+  50              	.L3:
+  51 0014 00000000 		.word	.LANCHOR0
+  52              		.cfi_endproc
+  53              	.LFE66:
+  55              		.section	.text.runledinit,"ax",%progbits
+  56              		.align	1
+  57              		.global	runledinit
+  58              		.syntax unified
+  59              		.thumb
+  60              		.thumb_func
+  61              		.fpu softvfp
+  63              	runledinit:
+  64              	.LFB67:
+  26:app/runled.c  **** 
+  27:app/runled.c  **** void runledinit(void)
+  28:app/runled.c  **** {
+  65              		.loc 1 28 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69 0000 08B5     		push	{r3, lr}
+  70              	.LCFI1:
+  71              		.cfi_def_cfa_offset 8
+  72              		.cfi_offset 3, -8
+  73              		.cfi_offset 14, -4
+  29:app/runled.c  ****     CreateTask(&runledtsk);
+  74              		.loc 1 29 0
+  75 0002 0248     		ldr	r0, .L7
+  76 0004 FFF7FEFF 		bl	CreateTask
+  77              	.LVL4:
+  30:app/runled.c  **** }
+  78              		.loc 1 30 0
+  79 0008 08BD     		pop	{r3, pc}
+  80              	.L8:
+  81 000a 00BF     		.align	2
+  82              	.L7:
+  83 000c 00000000 		.word	.LANCHOR1
+  84              		.cfi_endproc
+  85              	.LFE67:
+  87              		.section	.text.SetRunledTime,"ax",%progbits
+  88              		.align	1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s 			page 3
+
+
+  89              		.global	SetRunledTime
+  90              		.syntax unified
+  91              		.thumb
+  92              		.thumb_func
+  93              		.fpu softvfp
+  95              	SetRunledTime:
+  96              	.LFB68:
+  31:app/runled.c  **** 
+  32:app/runled.c  **** void SetRunledTime(u32 ms)
+  33:app/runled.c  **** {
+  97              		.loc 1 33 0
+  98              		.cfi_startproc
+  99              		@ args = 0, pretend = 0, frame = 0
+ 100              		@ frame_needed = 0, uses_anonymous_args = 0
+ 101              		@ link register save eliminated.
+ 102              	.LVL5:
+  34:app/runled.c  **** 	runledtsk.period = ms;
+ 103              		.loc 1 34 0
+ 104 0000 024B     		ldr	r3, .L10
+ 105 0002 9860     		str	r0, [r3, #8]
+ 106 0004 0022     		movs	r2, #0
+ 107 0006 DA60     		str	r2, [r3, #12]
+  35:app/runled.c  **** }
+ 108              		.loc 1 35 0
+ 109 0008 7047     		bx	lr
+ 110              	.L11:
+ 111 000a 00BF     		.align	2
+ 112              	.L10:
+ 113 000c 00000000 		.word	.LANCHOR1
+ 114              		.cfi_endproc
+ 115              	.LFE68:
+ 117              		.global	runledtsk
+ 118              		.global	runled
+ 119              		.section	.data.runled,"aw",%progbits
+ 120              		.align	2
+ 121              		.set	.LANCHOR0,. + 0
+ 124              	runled:
+ 125 0000 000C0140 		.word	1073810432
+ 126 0004 0C       		.byte	12
+ 127 0005 03       		.byte	3
+ 128 0006 0000     		.space	2
+ 129 0008 00       		.byte	0
+ 130 0009 000000   		.space	3
+ 131              		.section	.data.runledtsk,"aw",%progbits
+ 132              		.align	3
+ 133              		.set	.LANCHOR1,. + 0
+ 136              	runledtsk:
+ 137 0000 00000000 		.space	48
+ 137      00000000 
+ 137      00000000 
+ 137      00000000 
+ 137      00000000 
+ 138 0030 1E000000 		.word	30
+ 139 0034 00000000 		.word	0
+ 140 0038 00000000 		.space	4
+ 141 003c 00000000 		.word	runledfunc
+ 142 0040 00000000 		.space	8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s 			page 4
+
+
+ 142      00000000 
+ 143              		.text
+ 144              	.Letext0:
+ 145              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 146              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 147              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 148              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 149              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 150              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 151              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdlib.h"
+ 152              		.file 9 "Inc/core_cm3.h"
+ 153              		.file 10 "startup/inc/sys.h"
+ 154              		.file 11 "tools/inc/malloc.h"
+ 155              		.file 12 "tools/inc/tskmanager.h"
+ 156              		.file 13 "drivers/inc/bsp_f1xx_io.h"
+ 157              		.file 14 "drivers/inc/bsp_f1xx_led.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 runled.c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:16     .text.runledfunc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:23     .text.runledfunc:0000000000000000 runledfunc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:51     .text.runledfunc:0000000000000014 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:56     .text.runledinit:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:63     .text.runledinit:0000000000000000 runledinit
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:83     .text.runledinit:000000000000000c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:88     .text.SetRunledTime:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:95     .text.SetRunledTime:0000000000000000 SetRunledTime
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:113    .text.SetRunledTime:000000000000000c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:136    .data.runledtsk:0000000000000000 runledtsk
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:124    .data.runled:0000000000000000 runled
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:120    .data.runled:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc0U5UQH.s:132    .data.runledtsk:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+ledinit
+ledfilp
+CreateTask
