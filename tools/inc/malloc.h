@@ -10,7 +10,7 @@
 
 //mem1内存参数设定.mem1完全处于内部SRAM里面.
 #define MEM1_BLOCK_SIZE              			64                                                        //内存块大小为64字节
-#define MEM1_MAX_SIZE                			(45<<10)                                                //最大管理内存32K
+#define MEM1_MAX_SIZE                			(32<<10)                                                //最大管理内存32K
 #define MEM1_ALLOC_TABLE_SIZE        			MEM1_MAX_SIZE/MEM1_BLOCK_SIZE        //内存表大小
 
 

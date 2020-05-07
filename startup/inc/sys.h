@@ -2,9 +2,9 @@
 #define __SYS_H
 
 #include "stm32f103xe.h"
-#include "string.h"
-#include "stdint.h"
-#include "stdio.h"
+#include <string.h>
+#include <stdint.h>
+#include <stdio.h>
 
 typedef unsigned char u8;
 typedef volatile u8 vu8;
@@ -12,7 +12,7 @@ typedef unsigned short u16;
 typedef volatile u16 vu16;
 typedef signed short s16;
 typedef unsigned long u32;
-typedef signed long  s32;
+typedef signed long s32;
 typedef volatile u32 vu32;
 typedef unsigned long long u64;
 typedef volatile u64 vu64;

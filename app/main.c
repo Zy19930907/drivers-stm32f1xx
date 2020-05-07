@@ -27,13 +27,13 @@ _uartpara uartpara={
 		.recver = OnMsgRecv,
 };
 
-double test = 23.324;
+float test = 234.123;
 u8 *msg;
 
 void UploadTsk(void *args)
 {
-	sprintf((char*)msg,"test:%f",test);
-	util->write(msg,strlen(msg));
+	sprintf((char*)msg,"test:%.3f\r\n",test);
+	util->write(msg,strlen((char*)msg));
 }
 
 _Task uploadTsk = {

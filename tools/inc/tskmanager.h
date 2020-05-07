@@ -35,7 +35,7 @@ extern void CreateTask(_Task *tsk);
 extern void SetTaskPeriod(u64 day, u64 hour, u64 min, u64 sec, u64 ms, _Task *Task);
 extern void DelTask(_Task *delTask);
 
-_Noreturn extern void ExecTask(void);
+extern void ExecTask(void);
 void TskTickHandler(void);
 
 #endif

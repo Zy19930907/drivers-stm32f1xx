@@ -92,7 +92,7 @@ void TskTickHandler(void)
     TaskManger.tick++;
 }
 
-_Noreturn //循环执行任务链表中的任务
+//循环执行任务链表中的任务
 void ExecTask(void)
 {
 	_Task *RunTask = &sTask;

@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
   31:tools/malloc.c ****     u8 *xsrc = src;
   32:tools/malloc.c ****     while (n--)*xdes++ = *xsrc++;
   33:tools/malloc.c **** }
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 2
 
 
   34:tools/malloc.c **** 
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
   55              		@ args = 0, pretend = 0, frame = 0
   56              		@ frame_needed = 0, uses_anonymous_args = 0
   57              		@ link register save eliminated.
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 3
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 3
 
 
   58              	.LVL0:
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  107 0006 1A46     		mov	r2, r3
  108              	.LVL9:
  109              	.L8:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 4
 
 
   42:tools/malloc.c **** }
@@ -214,7 +214,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
   49:tools/malloc.c ****     mallco_dev.memrdy = 1;                                                                //内存�
  139              		.loc 1 49 0
  140 0002 054C     		ldr	r4, .L12
- 141 0004 4FF43462 		mov	r2, #2880
+ 141 0004 4FF40062 		mov	r2, #2048
  142 0008 0021     		movs	r1, #0
  143 000a E068     		ldr	r0, [r4, #12]
  144 000c FFF7FEFF 		bl	mymemset
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  161              		.syntax unified
  162              		.thumb
  163              		.thumb_func
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 5
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 5
 
 
  164              		.fpu softvfp
@@ -298,11 +298,11 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  203 001c 0022     		movs	r2, #0
   75:tools/malloc.c **** 
   76:tools/malloc.c ****     for (offset = memtblsize - 1; offset >= 0; offset--)//搜索整个内存控制区
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 6
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 6
 
 
  204              		.loc 1 76 0
- 205 001e 40F2CF23 		movw	r3, #719
+ 205 001e 40F2FF13 		movw	r3, #511
  206 0022 03E0     		b	.L18
  207              	.LVL17:
  208              	.L25:
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  247              		.loc 1 83 0 is_stmt 0 discriminator 1
  248 004e 9942     		cmp	r1, r3
  249 0050 06D9     		bls	.L29
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 7
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 7
 
 
   84:tools/malloc.c ****                 mallco_dev.memmap[offset + i] = nmemb;
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
   93:tools/malloc.c **** //offset:内存地址偏移
   94:tools/malloc.c **** //返回值:0,释放成功;1,释放失败;
   95:tools/malloc.c **** u8 my_mem_free(u32 offset)
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 8
 
 
   96:tools/malloc.c **** {
@@ -468,7 +468,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  321              	.L33:
  103:tools/malloc.c ****     {
  322              		.loc 1 103 0
- 323 0012 B0F5344F 		cmp	r0, #46080
+ 323 0012 B0F5004F 		cmp	r0, #32768
  324 0016 16D2     		bcs	.L37
  325              	.LBB2:
  105:tools/malloc.c ****         int nmemb = mallco_dev.memmap[index];                        //内存块数量
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  106:tools/malloc.c ****         MemUsed -= nmemb * MEM1_BLOCK_SIZE;
  329              		.loc 1 106 0
  330 001a 0C4B     		ldr	r3, .L39
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 9
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 9
 
 
  331 001c DB68     		ldr	r3, [r3, #12]
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  379              		.global	myfree
  380              		.syntax unified
  381              		.thumb
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 10
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 10
 
 
  382              		.thumb_func
@@ -598,7 +598,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  424              	.LFE72:
  426              		.section	.text.mymalloc,"ax",%progbits
  427              		.align	1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 11
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 11
 
 
  428              		.global	mymalloc
@@ -658,7 +658,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  467              		.align	2
  468              	.L53:
  469 0018 00000000 		.word	.LANCHOR1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 12
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 12
 
 
  470              		.cfi_endproc
@@ -718,7 +718,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  513 001a 3146     		mov	r1, r6
  514 001c 2044     		add	r0, r0, r4
  515 001e FFF7FEFF 		bl	mymemcpy
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 13
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 13
 
 
  516              	.LVL54:
@@ -754,8 +754,8 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  542              		.global	memsize
  543              		.global	memblksize
  544              		.global	memtblsize
- 545              		.comm	mem1mapbase,2880,4
- 546              		.comm	mem1base,46080,8
+ 545              		.comm	mem1mapbase,2048,4
+ 546              		.comm	mem1base,32768,8
  547              		.global	MemUsed
  548              		.section	.bss.MemUsed,"aw",%nobits
  549              		.align	2
@@ -778,69 +778,68 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 1
  572 0000 40000000 		.word	64
  573              		.section	.rodata.memsize,"a",%progbits
  574              		.align	2
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 14
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 14
 
 
  577              	memsize:
- 578 0000 00B40000 		.word	46080
+ 578 0000 00800000 		.word	32768
  579              		.section	.rodata.memtblsize,"a",%progbits
  580              		.align	2
  583              	memtblsize:
- 584 0000 D0020000 		.word	720
+ 584 0000 00020000 		.word	512
  585              		.text
  586              	.Letext0:
  587              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
- 588              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
- 589              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
- 590              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
- 591              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
- 592              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
- 593              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdlib.h"
- 594              		.file 9 "Inc/core_cm3.h"
- 595              		.file 10 "startup/inc/sys.h"
- 596              		.file 11 "tools/inc/tskmanager.h"
- 597              		.file 12 "tools/inc/malloc.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s 			page 15
+ 588              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 589              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 590              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 591              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 592              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 593              		.file 8 "Inc/core_cm3.h"
+ 594              		.file 9 "startup/inc/sys.h"
+ 595              		.file 10 "tools/inc/tskmanager.h"
+ 596              		.file 11 "tools/inc/malloc.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 malloc.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:16     .text.my_mem_perused:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:23     .text.my_mem_perused:0000000000000000 my_mem_perused
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:39     .text.my_mem_perused:0000000000000008 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:44     .text.mymemcpy:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:51     .text.mymemcpy:0000000000000000 mymemcpy
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:84     .text.mymemset:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:91     .text.mymemset:0000000000000000 mymemset
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:121    .text.my_mem_init:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:128    .text.my_mem_init:0000000000000000 my_mem_init
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:154    .text.my_mem_init:0000000000000018 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:159    .text.my_mem_malloc:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:166    .text.my_mem_malloc:0000000000000000 my_mem_malloc
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:279    .text.my_mem_malloc:0000000000000070 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:285    .text.my_mem_free:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:292    .text.my_mem_free:0000000000000000 my_mem_free
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:372    .text.my_mem_free:000000000000004c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:378    .text.myfree:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:385    .text.myfree:0000000000000000 myfree
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:422    .text.myfree:0000000000000014 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:427    .text.mymalloc:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:434    .text.mymalloc:0000000000000000 mymalloc
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:469    .text.mymalloc:0000000000000018 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:474    .text.myrealloc:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:481    .text.myrealloc:0000000000000000 myrealloc
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:537    .text.myrealloc:0000000000000034 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:560    .data.mallco_dev:0000000000000000 mallco_dev
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:577    .rodata.memsize:0000000000000000 memsize
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:571    .rodata.memblksize:0000000000000000 memblksize
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:583    .rodata.memtblsize:0000000000000000 memtblsize
-                            *COM*:0000000000000b40 mem1mapbase
-                            *COM*:000000000000b400 mem1base
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:553    .bss.MemUsed:0000000000000000 MemUsed
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:549    .bss.MemUsed:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:556    .data.mallco_dev:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:568    .rodata.memblksize:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:574    .rodata.memsize:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccvo2t32.s:580    .rodata.memtblsize:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:16     .text.my_mem_perused:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:23     .text.my_mem_perused:0000000000000000 my_mem_perused
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:39     .text.my_mem_perused:0000000000000008 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:44     .text.mymemcpy:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:51     .text.mymemcpy:0000000000000000 mymemcpy
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:84     .text.mymemset:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:91     .text.mymemset:0000000000000000 mymemset
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:121    .text.my_mem_init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:128    .text.my_mem_init:0000000000000000 my_mem_init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:154    .text.my_mem_init:0000000000000018 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:159    .text.my_mem_malloc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:166    .text.my_mem_malloc:0000000000000000 my_mem_malloc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:279    .text.my_mem_malloc:0000000000000070 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:285    .text.my_mem_free:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:292    .text.my_mem_free:0000000000000000 my_mem_free
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:372    .text.my_mem_free:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:378    .text.myfree:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:385    .text.myfree:0000000000000000 myfree
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:422    .text.myfree:0000000000000014 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:427    .text.mymalloc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:434    .text.mymalloc:0000000000000000 mymalloc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:469    .text.mymalloc:0000000000000018 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:474    .text.myrealloc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:481    .text.myrealloc:0000000000000000 myrealloc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:537    .text.myrealloc:0000000000000034 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:560    .data.mallco_dev:0000000000000000 mallco_dev
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:577    .rodata.memsize:0000000000000000 memsize
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:571    .rodata.memblksize:0000000000000000 memblksize
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:583    .rodata.memtblsize:0000000000000000 memtblsize
+                            *COM*:0000000000000800 mem1mapbase
+                            *COM*:0000000000008000 mem1base
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:553    .bss.MemUsed:0000000000000000 MemUsed
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:549    .bss.MemUsed:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:556    .data.mallco_dev:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:568    .rodata.memblksize:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:574    .rodata.memsize:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccI5CxUC.s:580    .rodata.memtblsize:0000000000000000 $d
 
 NO UNDEFINED SYMBOLS
