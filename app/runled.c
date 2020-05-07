@@ -14,7 +14,7 @@ _led runled = {
 };
 
 _Task runledtsk={
-        .ms = 30,
+        .ms = 100,
         .func = runledfunc,
 };
 

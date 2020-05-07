@@ -54,6 +54,7 @@ typedef struct
 void bsp_IoInit(_io *io);
 void bsp_IoSet(_io *io);
 void bsp_IoClr(_io *io);
+u8 bsp_IoRead(_io *io);
 
 #endif //STM32F1XX_BSP_F1XX_IO_H
 

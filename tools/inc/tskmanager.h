@@ -20,7 +20,6 @@ typedef struct _task
 
 typedef struct
 {
-	u64 exeTime;
 	volatile u64 tick;
 	_Task *curTask;
 	_Task *firTask;
@@ -35,7 +34,7 @@ extern void CreateTask(_Task *tsk);
 extern void SetTaskPeriod(u64 day, u64 hour, u64 min, u64 sec, u64 ms, _Task *Task);
 extern void DelTask(_Task *delTask);
 
-extern void ExecTask(void);
+_Noreturn extern void ExecTask(void);
 void TskTickHandler(void);
 
 #endif

@@ -94,6 +94,7 @@ void MSR_MSP(u32 addr);        //设置堆栈地址
 u32 GetTimeRemain(void);
 void TimeOutInit(u16 nms);
 void delay_ms(u16 nms);
+void delay_us(u32 nus);
 void delay_init(u8 SYSCLK);
 void EnFlashReadProtect(void);
 

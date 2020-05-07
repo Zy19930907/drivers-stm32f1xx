@@ -3,8 +3,9 @@
 //
 #include "public.h"
 #include "bsp_f1xx_timer.h"
-#include "runled.h"
 #include "bsp_f1xx_uart.h"
+#include "runled.h"
+#include "mod_mpu6050.h"
 
 _timer tiktimer = {
 		.timx = TIM2,
@@ -52,5 +53,7 @@ int main(void)
 	msg = mymalloc(100);
 	util = CreateDataUtil(DataUtil_UART,&uartpara);
 	CreateTask(&uploadTsk);
+	mod_Mpu6050Init();
+
 	ExecTask();
 }

@@ -228,6 +228,7 @@ C_INCLUDES =  \
 -Iapp/inc \
 -Istartup/inc \
 -Idrivers/inc \
+-IModules/mpu6050/inc \
 -Itools/inc \
 -IFatfs/inc \
 -Iublox/inc \
@@ -247,8 +248,10 @@ drivers/bsp_f1xx_dma.c \
 drivers/bsp_f1xx_uart.c \
 drivers/bsp_f1xx_sdio.c \
 drivers/bsp_f1xx_rtc.c \
+drivers/bsp_soft_i2c.c \
 drivers/datautil.c \
 drivers/bsp_f1xx_flash.c \
+Modules/mpu6050/mod_mpu6050.c \
 tools/malloc.c \
 tools/tskmanager.c \
 tools/bufferutil.c \

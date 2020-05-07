@@ -1,0 +1,820 @@
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"mod_mpu6050.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.MPU_Set_Gyro_Fsr,"ax",%progbits
+  16              		.align	1
+  17              		.global	MPU_Set_Gyro_Fsr
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	MPU_Set_Gyro_Fsr:
+  24              	.LFB66:
+  25              		.file 1 "Modules/mpu6050/mod_mpu6050.c"
+   1:Modules/mpu6050/mod_mpu6050.c **** //
+   2:Modules/mpu6050/mod_mpu6050.c **** // Created by 周洋 on 2020/5/7.
+   3:Modules/mpu6050/mod_mpu6050.c **** //
+   4:Modules/mpu6050/mod_mpu6050.c **** 
+   5:Modules/mpu6050/mod_mpu6050.c **** #include "mod_mpu6050.h"
+   6:Modules/mpu6050/mod_mpu6050.c **** 
+   7:Modules/mpu6050/mod_mpu6050.c **** _I2C i2c = {
+   8:Modules/mpu6050/mod_mpu6050.c **** 		{PA, 11, IO_MODE_OUT_PP_50MHZ},
+   9:Modules/mpu6050/mod_mpu6050.c **** 		{PA, 12, IO_MODE_OUT_PP_50MHZ},
+  10:Modules/mpu6050/mod_mpu6050.c **** };
+  11:Modules/mpu6050/mod_mpu6050.c **** 
+  12:Modules/mpu6050/mod_mpu6050.c **** //设置MPU6050陀螺仪传感器满量程范围
+  13:Modules/mpu6050/mod_mpu6050.c **** //fsr:0,±250dps;1,±500dps;2,±1000dps;3,±2000dps
+  14:Modules/mpu6050/mod_mpu6050.c **** //返回值:0,设置成功
+  15:Modules/mpu6050/mod_mpu6050.c **** //    其他,设置失败
+  16:Modules/mpu6050/mod_mpu6050.c **** u8 MPU_Set_Gyro_Fsr(u8 fsr)
+  17:Modules/mpu6050/mod_mpu6050.c **** {
+  26              		.loc 1 17 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 08B5     		push	{r3, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  18:Modules/mpu6050/mod_mpu6050.c **** 	return bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_GYRO_CFG_REG,fsr<<3);//设置陀螺仪满量程范围
+  36              		.loc 1 18 0
+  37 0002 C300     		lsls	r3, r0, #3
+  38 0004 03F0F803 		and	r3, r3, #248
+  39 0008 1B22     		movs	r2, #27
+  40 000a 6821     		movs	r1, #104
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 2
+
+
+  41 000c 0248     		ldr	r0, .L3
+  42              	.LVL1:
+  43 000e FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+  44              	.LVL2:
+  19:Modules/mpu6050/mod_mpu6050.c **** }
+  45              		.loc 1 19 0
+  46 0012 C0B2     		uxtb	r0, r0
+  47 0014 08BD     		pop	{r3, pc}
+  48              	.L4:
+  49 0016 00BF     		.align	2
+  50              	.L3:
+  51 0018 00000000 		.word	.LANCHOR0
+  52              		.cfi_endproc
+  53              	.LFE66:
+  55              		.section	.text.MPU_Set_Accel_Fsr,"ax",%progbits
+  56              		.align	1
+  57              		.global	MPU_Set_Accel_Fsr
+  58              		.syntax unified
+  59              		.thumb
+  60              		.thumb_func
+  61              		.fpu softvfp
+  63              	MPU_Set_Accel_Fsr:
+  64              	.LFB67:
+  20:Modules/mpu6050/mod_mpu6050.c **** 
+  21:Modules/mpu6050/mod_mpu6050.c **** //设置MPU6050加速度传感器满量程范围
+  22:Modules/mpu6050/mod_mpu6050.c **** //fsr:0,±2g;1,±4g;2,±8g;3,±16g
+  23:Modules/mpu6050/mod_mpu6050.c **** //返回值:0,设置成功
+  24:Modules/mpu6050/mod_mpu6050.c **** //    其他,设置失败
+  25:Modules/mpu6050/mod_mpu6050.c **** u8 MPU_Set_Accel_Fsr(u8 fsr)
+  26:Modules/mpu6050/mod_mpu6050.c **** {
+  65              		.loc 1 26 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              	.LVL3:
+  70 0000 08B5     		push	{r3, lr}
+  71              	.LCFI1:
+  72              		.cfi_def_cfa_offset 8
+  73              		.cfi_offset 3, -8
+  74              		.cfi_offset 14, -4
+  27:Modules/mpu6050/mod_mpu6050.c **** 	return bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_ACCEL_CFG_REG,fsr<<3);//设置加速度传感器满�
+  75              		.loc 1 27 0
+  76 0002 C300     		lsls	r3, r0, #3
+  77 0004 03F0F803 		and	r3, r3, #248
+  78 0008 1C22     		movs	r2, #28
+  79 000a 6821     		movs	r1, #104
+  80 000c 0248     		ldr	r0, .L7
+  81              	.LVL4:
+  82 000e FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+  83              	.LVL5:
+  28:Modules/mpu6050/mod_mpu6050.c **** }
+  84              		.loc 1 28 0
+  85 0012 C0B2     		uxtb	r0, r0
+  86 0014 08BD     		pop	{r3, pc}
+  87              	.L8:
+  88 0016 00BF     		.align	2
+  89              	.L7:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 3
+
+
+  90 0018 00000000 		.word	.LANCHOR0
+  91              		.cfi_endproc
+  92              	.LFE67:
+  94              		.section	.text.MPU_Set_LPF,"ax",%progbits
+  95              		.align	1
+  96              		.global	MPU_Set_LPF
+  97              		.syntax unified
+  98              		.thumb
+  99              		.thumb_func
+ 100              		.fpu softvfp
+ 102              	MPU_Set_LPF:
+ 103              	.LFB68:
+  29:Modules/mpu6050/mod_mpu6050.c **** 
+  30:Modules/mpu6050/mod_mpu6050.c **** //设置MPU6050的数字低通滤波器
+  31:Modules/mpu6050/mod_mpu6050.c **** //lpf:数字低通滤波频率(Hz)
+  32:Modules/mpu6050/mod_mpu6050.c **** //返回值:0,设置成功
+  33:Modules/mpu6050/mod_mpu6050.c **** //    其他,设置失败
+  34:Modules/mpu6050/mod_mpu6050.c **** u8 MPU_Set_LPF(u16 lpf)
+  35:Modules/mpu6050/mod_mpu6050.c **** {
+ 104              		.loc 1 35 0
+ 105              		.cfi_startproc
+ 106              		@ args = 0, pretend = 0, frame = 0
+ 107              		@ frame_needed = 0, uses_anonymous_args = 0
+ 108              	.LVL6:
+ 109 0000 08B5     		push	{r3, lr}
+ 110              	.LCFI2:
+ 111              		.cfi_def_cfa_offset 8
+ 112              		.cfi_offset 3, -8
+ 113              		.cfi_offset 14, -4
+ 114              	.LVL7:
+  36:Modules/mpu6050/mod_mpu6050.c **** 	u8 data=0;
+  37:Modules/mpu6050/mod_mpu6050.c **** 	if(lpf>=188)data=1;
+ 115              		.loc 1 37 0
+ 116 0002 BB28     		cmp	r0, #187
+ 117 0004 0BD8     		bhi	.L11
+  38:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=98)data=2;
+ 118              		.loc 1 38 0
+ 119 0006 6128     		cmp	r0, #97
+ 120 0008 11D8     		bhi	.L12
+  39:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=42)data=3;
+ 121              		.loc 1 39 0
+ 122 000a 2928     		cmp	r0, #41
+ 123 000c 11D8     		bhi	.L13
+  40:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=20)data=4;
+ 124              		.loc 1 40 0
+ 125 000e 1328     		cmp	r0, #19
+ 126 0010 11D8     		bhi	.L14
+  41:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=10)data=5;
+ 127              		.loc 1 41 0
+ 128 0012 0928     		cmp	r0, #9
+ 129 0014 01D8     		bhi	.L17
+  42:Modules/mpu6050/mod_mpu6050.c **** 	else data=6;
+ 130              		.loc 1 42 0
+ 131 0016 0623     		movs	r3, #6
+ 132 0018 02E0     		b	.L10
+ 133              	.L17:
+  41:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=10)data=5;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 4
+
+
+ 134              		.loc 1 41 0
+ 135 001a 0523     		movs	r3, #5
+ 136 001c 00E0     		b	.L10
+ 137              	.L11:
+  37:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=98)data=2;
+ 138              		.loc 1 37 0
+ 139 001e 0123     		movs	r3, #1
+ 140              	.L10:
+ 141              	.LVL8:
+  43:Modules/mpu6050/mod_mpu6050.c **** 	return bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_CFG_REG,data);//设置数字低通滤波器
+ 142              		.loc 1 43 0
+ 143 0020 1A22     		movs	r2, #26
+ 144 0022 6821     		movs	r1, #104
+ 145 0024 0548     		ldr	r0, .L18
+ 146              	.LVL9:
+ 147 0026 FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 148              	.LVL10:
+  44:Modules/mpu6050/mod_mpu6050.c **** }
+ 149              		.loc 1 44 0
+ 150 002a C0B2     		uxtb	r0, r0
+ 151 002c 08BD     		pop	{r3, pc}
+ 152              	.LVL11:
+ 153              	.L12:
+  38:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=42)data=3;
+ 154              		.loc 1 38 0
+ 155 002e 0223     		movs	r3, #2
+ 156 0030 F6E7     		b	.L10
+ 157              	.L13:
+  39:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=20)data=4;
+ 158              		.loc 1 39 0
+ 159 0032 0323     		movs	r3, #3
+ 160 0034 F4E7     		b	.L10
+ 161              	.L14:
+  40:Modules/mpu6050/mod_mpu6050.c **** 	else if(lpf>=10)data=5;
+ 162              		.loc 1 40 0
+ 163 0036 0423     		movs	r3, #4
+ 164 0038 F2E7     		b	.L10
+ 165              	.L19:
+ 166 003a 00BF     		.align	2
+ 167              	.L18:
+ 168 003c 00000000 		.word	.LANCHOR0
+ 169              		.cfi_endproc
+ 170              	.LFE68:
+ 172              		.section	.text.MPU_Set_Rate,"ax",%progbits
+ 173              		.align	1
+ 174              		.global	MPU_Set_Rate
+ 175              		.syntax unified
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.fpu softvfp
+ 180              	MPU_Set_Rate:
+ 181              	.LFB69:
+  45:Modules/mpu6050/mod_mpu6050.c **** //设置MPU6050的采样率(假定Fs=1KHz)
+  46:Modules/mpu6050/mod_mpu6050.c **** //rate:4~1000(Hz)
+  47:Modules/mpu6050/mod_mpu6050.c **** //返回值:0,设置成功
+  48:Modules/mpu6050/mod_mpu6050.c **** //    其他,设置失败
+  49:Modules/mpu6050/mod_mpu6050.c **** u8 MPU_Set_Rate(u16 rate)
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 5
+
+
+  50:Modules/mpu6050/mod_mpu6050.c **** {
+ 182              		.loc 1 50 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              	.LVL12:
+ 187 0000 10B5     		push	{r4, lr}
+ 188              	.LCFI3:
+ 189              		.cfi_def_cfa_offset 8
+ 190              		.cfi_offset 4, -8
+ 191              		.cfi_offset 14, -4
+  51:Modules/mpu6050/mod_mpu6050.c **** 	u8 data;
+  52:Modules/mpu6050/mod_mpu6050.c **** 	if(rate>1000)rate=1000;
+ 192              		.loc 1 52 0
+ 193 0002 B0F57A7F 		cmp	r0, #1000
+ 194 0006 04D8     		bhi	.L22
+ 195 0008 0446     		mov	r4, r0
+  53:Modules/mpu6050/mod_mpu6050.c **** 	if(rate<4)rate=4;
+ 196              		.loc 1 53 0
+ 197 000a 0328     		cmp	r0, #3
+ 198 000c 03D8     		bhi	.L21
+ 199 000e 0424     		movs	r4, #4
+ 200 0010 01E0     		b	.L21
+ 201              	.L22:
+  52:Modules/mpu6050/mod_mpu6050.c **** 	if(rate<4)rate=4;
+ 202              		.loc 1 52 0
+ 203 0012 4FF47A74 		mov	r4, #1000
+ 204              	.L21:
+ 205              	.LVL13:
+  54:Modules/mpu6050/mod_mpu6050.c **** 	data=1000/rate-1;
+ 206              		.loc 1 54 0
+ 207 0016 4FF47A73 		mov	r3, #1000
+ 208 001a 93FBF4F3 		sdiv	r3, r3, r4
+ 209 001e DBB2     		uxtb	r3, r3
+ 210 0020 013B     		subs	r3, r3, #1
+ 211              	.LVL14:
+  55:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_SAMPLE_RATE_REG,data);	//设置数字低通滤波器
+ 212              		.loc 1 55 0
+ 213 0022 DBB2     		uxtb	r3, r3
+ 214 0024 1922     		movs	r2, #25
+ 215 0026 6821     		movs	r1, #104
+ 216 0028 0348     		ldr	r0, .L25
+ 217 002a FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 218              	.LVL15:
+  56:Modules/mpu6050/mod_mpu6050.c **** 	return MPU_Set_LPF(rate/2);	//自动设置LPF为采样率的一半
+ 219              		.loc 1 56 0
+ 220 002e 6008     		lsrs	r0, r4, #1
+ 221 0030 FFF7FEFF 		bl	MPU_Set_LPF
+ 222              	.LVL16:
+  57:Modules/mpu6050/mod_mpu6050.c **** }
+ 223              		.loc 1 57 0
+ 224 0034 10BD     		pop	{r4, pc}
+ 225              	.LVL17:
+ 226              	.L26:
+ 227 0036 00BF     		.align	2
+ 228              	.L25:
+ 229 0038 00000000 		.word	.LANCHOR0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 6
+
+
+ 230              		.cfi_endproc
+ 231              	.LFE69:
+ 233              		.global	__aeabi_i2d
+ 234              		.global	__aeabi_ddiv
+ 235              		.global	__aeabi_dadd
+ 236              		.global	__aeabi_d2f
+ 237              		.global	__aeabi_fmul
+ 238              		.global	__aeabi_f2iz
+ 239              		.section	.text.MPU_Get_Temperature,"ax",%progbits
+ 240              		.align	1
+ 241              		.global	MPU_Get_Temperature
+ 242              		.syntax unified
+ 243              		.thumb
+ 244              		.thumb_func
+ 245              		.fpu softvfp
+ 247              	MPU_Get_Temperature:
+ 248              	.LFB70:
+  58:Modules/mpu6050/mod_mpu6050.c **** 
+  59:Modules/mpu6050/mod_mpu6050.c **** //得到温度值
+  60:Modules/mpu6050/mod_mpu6050.c **** //返回值:温度值(扩大了100倍)
+  61:Modules/mpu6050/mod_mpu6050.c **** short MPU_Get_Temperature(void)
+  62:Modules/mpu6050/mod_mpu6050.c **** {
+ 249              		.loc 1 62 0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 8
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253 0000 00B5     		push	{lr}
+ 254              	.LCFI4:
+ 255              		.cfi_def_cfa_offset 4
+ 256              		.cfi_offset 14, -4
+ 257 0002 85B0     		sub	sp, sp, #20
+ 258              	.LCFI5:
+ 259              		.cfi_def_cfa_offset 24
+  63:Modules/mpu6050/mod_mpu6050.c **** 	u8 buf[2];
+  64:Modules/mpu6050/mod_mpu6050.c **** 	short raw;
+  65:Modules/mpu6050/mod_mpu6050.c **** 	float temp;
+  66:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CRead(&i2c,MPU_ADDR,MPU_TEMP_OUTH_REG,buf,2);
+ 260              		.loc 1 66 0
+ 261 0004 0223     		movs	r3, #2
+ 262 0006 0093     		str	r3, [sp]
+ 263 0008 03AB     		add	r3, sp, #12
+ 264 000a 4122     		movs	r2, #65
+ 265 000c 6821     		movs	r1, #104
+ 266 000e 1248     		ldr	r0, .L29+8
+ 267 0010 FFF7FEFF 		bl	bsp_SoftI2CRead
+ 268              	.LVL18:
+  67:Modules/mpu6050/mod_mpu6050.c **** 	raw=((u16)buf[0]<<8)|buf[1];
+ 269              		.loc 1 67 0
+ 270 0014 9DF80C30 		ldrb	r3, [sp, #12]	@ zero_extendqisi2
+ 271 0018 1B02     		lsls	r3, r3, #8
+ 272 001a 1BB2     		sxth	r3, r3
+ 273 001c 9DF80D00 		ldrb	r0, [sp, #13]	@ zero_extendqisi2
+ 274              	.LVL19:
+  68:Modules/mpu6050/mod_mpu6050.c **** 	temp=36.53+((double)raw)/340;
+ 275              		.loc 1 68 0
+ 276 0020 1843     		orrs	r0, r0, r3
+ 277              	.LVL20:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 7
+
+
+ 278 0022 FFF7FEFF 		bl	__aeabi_i2d
+ 279              	.LVL21:
+ 280 0026 0022     		movs	r2, #0
+ 281 0028 0C4B     		ldr	r3, .L29+12
+ 282 002a FFF7FEFF 		bl	__aeabi_ddiv
+ 283              	.LVL22:
+ 284 002e 08A3     		adr	r3, .L29
+ 285 0030 D3E90023 		ldrd	r2, [r3]
+ 286 0034 FFF7FEFF 		bl	__aeabi_dadd
+ 287              	.LVL23:
+ 288 0038 FFF7FEFF 		bl	__aeabi_d2f
+ 289              	.LVL24:
+  69:Modules/mpu6050/mod_mpu6050.c **** 	return temp*100;;
+ 290              		.loc 1 69 0
+ 291 003c 0849     		ldr	r1, .L29+16
+ 292 003e FFF7FEFF 		bl	__aeabi_fmul
+ 293              	.LVL25:
+ 294 0042 FFF7FEFF 		bl	__aeabi_f2iz
+ 295              	.LVL26:
+  70:Modules/mpu6050/mod_mpu6050.c **** }
+ 296              		.loc 1 70 0
+ 297 0046 00B2     		sxth	r0, r0
+ 298 0048 05B0     		add	sp, sp, #20
+ 299              	.LCFI6:
+ 300              		.cfi_def_cfa_offset 4
+ 301              		@ sp needed
+ 302 004a 5DF804FB 		ldr	pc, [sp], #4
+ 303              	.L30:
+ 304 004e 00BF     		.align	3
+ 305              	.L29:
+ 306 0050 A4703D0A 		.word	171798692
+ 307 0054 D7434240 		.word	1078084567
+ 308 0058 00000000 		.word	.LANCHOR0
+ 309 005c 00407540 		.word	1081425920
+ 310 0060 0000C842 		.word	1120403456
+ 311              		.cfi_endproc
+ 312              	.LFE70:
+ 314              		.section	.text.MPU_Get_Gyroscope,"ax",%progbits
+ 315              		.align	1
+ 316              		.global	MPU_Get_Gyroscope
+ 317              		.syntax unified
+ 318              		.thumb
+ 319              		.thumb_func
+ 320              		.fpu softvfp
+ 322              	MPU_Get_Gyroscope:
+ 323              	.LFB71:
+  71:Modules/mpu6050/mod_mpu6050.c **** //得到陀螺仪值(原始值)
+  72:Modules/mpu6050/mod_mpu6050.c **** //gx,gy,gz:陀螺仪x,y,z轴的原始读数(带符号)
+  73:Modules/mpu6050/mod_mpu6050.c **** //返回值:0,成功
+  74:Modules/mpu6050/mod_mpu6050.c **** //    其他,错误代码
+  75:Modules/mpu6050/mod_mpu6050.c **** u8 MPU_Get_Gyroscope(short *gx,short *gy,short *gz)
+  76:Modules/mpu6050/mod_mpu6050.c **** {
+ 324              		.loc 1 76 0
+ 325              		.cfi_startproc
+ 326              		@ args = 0, pretend = 0, frame = 8
+ 327              		@ frame_needed = 0, uses_anonymous_args = 0
+ 328              	.LVL27:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 8
+
+
+ 329 0000 70B5     		push	{r4, r5, r6, lr}
+ 330              	.LCFI7:
+ 331              		.cfi_def_cfa_offset 16
+ 332              		.cfi_offset 4, -16
+ 333              		.cfi_offset 5, -12
+ 334              		.cfi_offset 6, -8
+ 335              		.cfi_offset 14, -4
+ 336 0002 84B0     		sub	sp, sp, #16
+ 337              	.LCFI8:
+ 338              		.cfi_def_cfa_offset 32
+ 339 0004 0646     		mov	r6, r0
+ 340 0006 0D46     		mov	r5, r1
+ 341 0008 1446     		mov	r4, r2
+  77:Modules/mpu6050/mod_mpu6050.c **** 	u8 buf[6],res;
+  78:Modules/mpu6050/mod_mpu6050.c **** 	res=bsp_SoftI2CRead(&i2c,MPU_ADDR,MPU_GYRO_XOUTH_REG,buf,6);
+ 342              		.loc 1 78 0
+ 343 000a 0623     		movs	r3, #6
+ 344 000c 0093     		str	r3, [sp]
+ 345 000e 02AB     		add	r3, sp, #8
+ 346 0010 4322     		movs	r2, #67
+ 347              	.LVL28:
+ 348 0012 6821     		movs	r1, #104
+ 349              	.LVL29:
+ 350 0014 0D48     		ldr	r0, .L34
+ 351              	.LVL30:
+ 352 0016 FFF7FEFF 		bl	bsp_SoftI2CRead
+ 353              	.LVL31:
+ 354 001a C0B2     		uxtb	r0, r0
+ 355              	.LVL32:
+  79:Modules/mpu6050/mod_mpu6050.c **** 	if(res==0)
+ 356              		.loc 1 79 0
+ 357 001c A0B9     		cbnz	r0, .L32
+  80:Modules/mpu6050/mod_mpu6050.c **** 	{
+  81:Modules/mpu6050/mod_mpu6050.c **** 		*gx=((u16)buf[0]<<8)|buf[1];
+ 358              		.loc 1 81 0
+ 359 001e 9DF80820 		ldrb	r2, [sp, #8]	@ zero_extendqisi2
+ 360 0022 9DF80930 		ldrb	r3, [sp, #9]	@ zero_extendqisi2
+ 361 0026 43EA0223 		orr	r3, r3, r2, lsl #8
+ 362 002a 3380     		strh	r3, [r6]	@ movhi
+  82:Modules/mpu6050/mod_mpu6050.c **** 		*gy=((u16)buf[2]<<8)|buf[3];
+ 363              		.loc 1 82 0
+ 364 002c 9DF80A20 		ldrb	r2, [sp, #10]	@ zero_extendqisi2
+ 365 0030 9DF80B30 		ldrb	r3, [sp, #11]	@ zero_extendqisi2
+ 366 0034 43EA0223 		orr	r3, r3, r2, lsl #8
+ 367 0038 2B80     		strh	r3, [r5]	@ movhi
+  83:Modules/mpu6050/mod_mpu6050.c **** 		*gz=((u16)buf[4]<<8)|buf[5];
+ 368              		.loc 1 83 0
+ 369 003a 9DF80C20 		ldrb	r2, [sp, #12]	@ zero_extendqisi2
+ 370 003e 9DF80D30 		ldrb	r3, [sp, #13]	@ zero_extendqisi2
+ 371 0042 43EA0223 		orr	r3, r3, r2, lsl #8
+ 372 0046 2380     		strh	r3, [r4]	@ movhi
+ 373              	.L32:
+  84:Modules/mpu6050/mod_mpu6050.c **** 	}
+  85:Modules/mpu6050/mod_mpu6050.c **** 	return res;;
+  86:Modules/mpu6050/mod_mpu6050.c **** }
+ 374              		.loc 1 86 0
+ 375 0048 04B0     		add	sp, sp, #16
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 9
+
+
+ 376              	.LCFI9:
+ 377              		.cfi_def_cfa_offset 16
+ 378              		@ sp needed
+ 379 004a 70BD     		pop	{r4, r5, r6, pc}
+ 380              	.LVL33:
+ 381              	.L35:
+ 382              		.align	2
+ 383              	.L34:
+ 384 004c 00000000 		.word	.LANCHOR0
+ 385              		.cfi_endproc
+ 386              	.LFE71:
+ 388              		.section	.text.MPU_Get_Accelerometer,"ax",%progbits
+ 389              		.align	1
+ 390              		.global	MPU_Get_Accelerometer
+ 391              		.syntax unified
+ 392              		.thumb
+ 393              		.thumb_func
+ 394              		.fpu softvfp
+ 396              	MPU_Get_Accelerometer:
+ 397              	.LFB72:
+  87:Modules/mpu6050/mod_mpu6050.c **** //得到加速度值(原始值)
+  88:Modules/mpu6050/mod_mpu6050.c **** //gx,gy,gz:陀螺仪x,y,z轴的原始读数(带符号)
+  89:Modules/mpu6050/mod_mpu6050.c **** //返回值:0,成功
+  90:Modules/mpu6050/mod_mpu6050.c **** //    其他,错误代码
+  91:Modules/mpu6050/mod_mpu6050.c **** u8 MPU_Get_Accelerometer(short *ax,short *ay,short *az)
+  92:Modules/mpu6050/mod_mpu6050.c **** {
+ 398              		.loc 1 92 0
+ 399              		.cfi_startproc
+ 400              		@ args = 0, pretend = 0, frame = 8
+ 401              		@ frame_needed = 0, uses_anonymous_args = 0
+ 402              	.LVL34:
+ 403 0000 70B5     		push	{r4, r5, r6, lr}
+ 404              	.LCFI10:
+ 405              		.cfi_def_cfa_offset 16
+ 406              		.cfi_offset 4, -16
+ 407              		.cfi_offset 5, -12
+ 408              		.cfi_offset 6, -8
+ 409              		.cfi_offset 14, -4
+ 410 0002 84B0     		sub	sp, sp, #16
+ 411              	.LCFI11:
+ 412              		.cfi_def_cfa_offset 32
+ 413 0004 0646     		mov	r6, r0
+ 414 0006 0D46     		mov	r5, r1
+ 415 0008 1446     		mov	r4, r2
+  93:Modules/mpu6050/mod_mpu6050.c **** 	u8 buf[6],res;
+  94:Modules/mpu6050/mod_mpu6050.c **** 	res=bsp_SoftI2CRead(&i2c,MPU_ADDR,MPU_ACCEL_XOUTH_REG,buf,6);
+ 416              		.loc 1 94 0
+ 417 000a 0623     		movs	r3, #6
+ 418 000c 0093     		str	r3, [sp]
+ 419 000e 02AB     		add	r3, sp, #8
+ 420 0010 3B22     		movs	r2, #59
+ 421              	.LVL35:
+ 422 0012 6821     		movs	r1, #104
+ 423              	.LVL36:
+ 424 0014 0D48     		ldr	r0, .L39
+ 425              	.LVL37:
+ 426 0016 FFF7FEFF 		bl	bsp_SoftI2CRead
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 10
+
+
+ 427              	.LVL38:
+ 428 001a C0B2     		uxtb	r0, r0
+ 429              	.LVL39:
+  95:Modules/mpu6050/mod_mpu6050.c **** 	if(res==0)
+ 430              		.loc 1 95 0
+ 431 001c A0B9     		cbnz	r0, .L37
+  96:Modules/mpu6050/mod_mpu6050.c **** 	{
+  97:Modules/mpu6050/mod_mpu6050.c **** 		*ax=((u16)buf[0]<<8)|buf[1];
+ 432              		.loc 1 97 0
+ 433 001e 9DF80820 		ldrb	r2, [sp, #8]	@ zero_extendqisi2
+ 434 0022 9DF80930 		ldrb	r3, [sp, #9]	@ zero_extendqisi2
+ 435 0026 43EA0223 		orr	r3, r3, r2, lsl #8
+ 436 002a 3380     		strh	r3, [r6]	@ movhi
+  98:Modules/mpu6050/mod_mpu6050.c **** 		*ay=((u16)buf[2]<<8)|buf[3];
+ 437              		.loc 1 98 0
+ 438 002c 9DF80A20 		ldrb	r2, [sp, #10]	@ zero_extendqisi2
+ 439 0030 9DF80B30 		ldrb	r3, [sp, #11]	@ zero_extendqisi2
+ 440 0034 43EA0223 		orr	r3, r3, r2, lsl #8
+ 441 0038 2B80     		strh	r3, [r5]	@ movhi
+  99:Modules/mpu6050/mod_mpu6050.c **** 		*az=((u16)buf[4]<<8)|buf[5];
+ 442              		.loc 1 99 0
+ 443 003a 9DF80C20 		ldrb	r2, [sp, #12]	@ zero_extendqisi2
+ 444 003e 9DF80D30 		ldrb	r3, [sp, #13]	@ zero_extendqisi2
+ 445 0042 43EA0223 		orr	r3, r3, r2, lsl #8
+ 446 0046 2380     		strh	r3, [r4]	@ movhi
+ 447              	.L37:
+ 100:Modules/mpu6050/mod_mpu6050.c **** 	}
+ 101:Modules/mpu6050/mod_mpu6050.c **** 	return res;;
+ 102:Modules/mpu6050/mod_mpu6050.c **** }
+ 448              		.loc 1 102 0
+ 449 0048 04B0     		add	sp, sp, #16
+ 450              	.LCFI12:
+ 451              		.cfi_def_cfa_offset 16
+ 452              		@ sp needed
+ 453 004a 70BD     		pop	{r4, r5, r6, pc}
+ 454              	.LVL40:
+ 455              	.L40:
+ 456              		.align	2
+ 457              	.L39:
+ 458 004c 00000000 		.word	.LANCHOR0
+ 459              		.cfi_endproc
+ 460              	.LFE72:
+ 462              		.section	.text.mod_Mpu6050Init,"ax",%progbits
+ 463              		.align	1
+ 464              		.global	mod_Mpu6050Init
+ 465              		.syntax unified
+ 466              		.thumb
+ 467              		.thumb_func
+ 468              		.fpu softvfp
+ 470              	mod_Mpu6050Init:
+ 471              	.LFB73:
+ 103:Modules/mpu6050/mod_mpu6050.c **** 
+ 104:Modules/mpu6050/mod_mpu6050.c **** u8 mod_Mpu6050Init(void)
+ 105:Modules/mpu6050/mod_mpu6050.c **** {
+ 472              		.loc 1 105 0
+ 473              		.cfi_startproc
+ 474              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 11
+
+
+ 475              		@ frame_needed = 0, uses_anonymous_args = 0
+ 476 0000 10B5     		push	{r4, lr}
+ 477              	.LCFI13:
+ 478              		.cfi_def_cfa_offset 8
+ 479              		.cfi_offset 4, -8
+ 480              		.cfi_offset 14, -4
+ 106:Modules/mpu6050/mod_mpu6050.c **** 	u8 res;
+ 107:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CInit(&i2c);//初始化IIC总线
+ 481              		.loc 1 107 0
+ 482 0002 274C     		ldr	r4, .L46
+ 483 0004 2046     		mov	r0, r4
+ 484 0006 FFF7FEFF 		bl	bsp_SoftI2CInit
+ 485              	.LVL41:
+ 108:Modules/mpu6050/mod_mpu6050.c **** 
+ 109:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_PWR_MGMT1_REG,0X80);	//复位MPU6050
+ 486              		.loc 1 109 0
+ 487 000a 8023     		movs	r3, #128
+ 488 000c 6B22     		movs	r2, #107
+ 489 000e 6821     		movs	r1, #104
+ 490 0010 2046     		mov	r0, r4
+ 491 0012 FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 492              	.LVL42:
+ 110:Modules/mpu6050/mod_mpu6050.c **** 	delay_ms(100);
+ 493              		.loc 1 110 0
+ 494 0016 6420     		movs	r0, #100
+ 495 0018 FFF7FEFF 		bl	delay_ms
+ 496              	.LVL43:
+ 111:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_PWR_MGMT1_REG,0X00);	//唤醒MPU6050
+ 497              		.loc 1 111 0
+ 498 001c 0023     		movs	r3, #0
+ 499 001e 6B22     		movs	r2, #107
+ 500 0020 6821     		movs	r1, #104
+ 501 0022 2046     		mov	r0, r4
+ 502 0024 FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 503              	.LVL44:
+ 112:Modules/mpu6050/mod_mpu6050.c **** 	MPU_Set_Gyro_Fsr(3);					//陀螺仪传感器,±2000dps
+ 504              		.loc 1 112 0
+ 505 0028 0320     		movs	r0, #3
+ 506 002a FFF7FEFF 		bl	MPU_Set_Gyro_Fsr
+ 507              	.LVL45:
+ 113:Modules/mpu6050/mod_mpu6050.c **** 	MPU_Set_Accel_Fsr(0);					//加速度传感器,±2g
+ 508              		.loc 1 113 0
+ 509 002e 0020     		movs	r0, #0
+ 510 0030 FFF7FEFF 		bl	MPU_Set_Accel_Fsr
+ 511              	.LVL46:
+ 114:Modules/mpu6050/mod_mpu6050.c **** 	MPU_Set_Rate(50);						//设置采样率50Hz
+ 512              		.loc 1 114 0
+ 513 0034 3220     		movs	r0, #50
+ 514 0036 FFF7FEFF 		bl	MPU_Set_Rate
+ 515              	.LVL47:
+ 115:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_INT_EN_REG,0X00);	//关闭所有中断
+ 516              		.loc 1 115 0
+ 517 003a 0023     		movs	r3, #0
+ 518 003c 3822     		movs	r2, #56
+ 519 003e 6821     		movs	r1, #104
+ 520 0040 2046     		mov	r0, r4
+ 521 0042 FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 12
+
+
+ 522              	.LVL48:
+ 116:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_USER_CTRL_REG,0X00);	//I2C主模式关闭
+ 523              		.loc 1 116 0
+ 524 0046 0023     		movs	r3, #0
+ 525 0048 6A22     		movs	r2, #106
+ 526 004a 6821     		movs	r1, #104
+ 527 004c 2046     		mov	r0, r4
+ 528 004e FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 529              	.LVL49:
+ 117:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_FIFO_EN_REG,0X00);	//关闭FIFO
+ 530              		.loc 1 117 0
+ 531 0052 0023     		movs	r3, #0
+ 532 0054 2322     		movs	r2, #35
+ 533 0056 6821     		movs	r1, #104
+ 534 0058 2046     		mov	r0, r4
+ 535 005a FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 536              	.LVL50:
+ 118:Modules/mpu6050/mod_mpu6050.c **** 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_INTBP_CFG_REG,0X80);	//INT引脚低电平有效
+ 537              		.loc 1 118 0
+ 538 005e 8023     		movs	r3, #128
+ 539 0060 3722     		movs	r2, #55
+ 540 0062 6821     		movs	r1, #104
+ 541 0064 2046     		mov	r0, r4
+ 542 0066 FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 543              	.LVL51:
+ 119:Modules/mpu6050/mod_mpu6050.c **** 	res=bsp_SoftI2CReadReg(&i2c,MPU_ADDR,MPU_DEVICE_ID_REG);
+ 544              		.loc 1 119 0
+ 545 006a 7522     		movs	r2, #117
+ 546 006c 6821     		movs	r1, #104
+ 547 006e 2046     		mov	r0, r4
+ 548 0070 FFF7FEFF 		bl	bsp_SoftI2CReadReg
+ 549              	.LVL52:
+ 120:Modules/mpu6050/mod_mpu6050.c **** 	if(res==MPU_ADDR)//器件ID正确
+ 550              		.loc 1 120 0
+ 551 0074 6828     		cmp	r0, #104
+ 552 0076 01D0     		beq	.L45
+ 121:Modules/mpu6050/mod_mpu6050.c **** 	{
+ 122:Modules/mpu6050/mod_mpu6050.c **** 		bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_PWR_MGMT1_REG,0X01);	//设置CLKSEL,PLL X轴为参考
+ 123:Modules/mpu6050/mod_mpu6050.c **** 		bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_PWR_MGMT2_REG,0X00);	//加速度与陀螺仪都工作
+ 124:Modules/mpu6050/mod_mpu6050.c **** 		MPU_Set_Rate(50);						//设置采样率为50Hz
+ 125:Modules/mpu6050/mod_mpu6050.c **** 	}else return 1;
+ 553              		.loc 1 125 0
+ 554 0078 0120     		movs	r0, #1
+ 555              	.LVL53:
+ 556              	.L42:
+ 126:Modules/mpu6050/mod_mpu6050.c **** 	return 0;
+ 127:Modules/mpu6050/mod_mpu6050.c **** }
+ 557              		.loc 1 127 0
+ 558 007a 10BD     		pop	{r4, pc}
+ 559              	.LVL54:
+ 560              	.L45:
+ 122:Modules/mpu6050/mod_mpu6050.c **** 		bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_PWR_MGMT2_REG,0X00);	//加速度与陀螺仪都工作
+ 561              		.loc 1 122 0
+ 562 007c 0123     		movs	r3, #1
+ 563 007e 6B22     		movs	r2, #107
+ 564 0080 6821     		movs	r1, #104
+ 565 0082 2046     		mov	r0, r4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 13
+
+
+ 566              	.LVL55:
+ 567 0084 FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 568              	.LVL56:
+ 123:Modules/mpu6050/mod_mpu6050.c **** 		MPU_Set_Rate(50);						//设置采样率为50Hz
+ 569              		.loc 1 123 0
+ 570 0088 0023     		movs	r3, #0
+ 571 008a 6C22     		movs	r2, #108
+ 572 008c 6821     		movs	r1, #104
+ 573 008e 2046     		mov	r0, r4
+ 574 0090 FFF7FEFF 		bl	bsp_SoftI2CWriteReg
+ 575              	.LVL57:
+ 124:Modules/mpu6050/mod_mpu6050.c **** 	}else return 1;
+ 576              		.loc 1 124 0
+ 577 0094 3220     		movs	r0, #50
+ 578 0096 FFF7FEFF 		bl	MPU_Set_Rate
+ 579              	.LVL58:
+ 126:Modules/mpu6050/mod_mpu6050.c **** }
+ 580              		.loc 1 126 0
+ 581 009a 0020     		movs	r0, #0
+ 582 009c EDE7     		b	.L42
+ 583              	.L47:
+ 584 009e 00BF     		.align	2
+ 585              	.L46:
+ 586 00a0 00000000 		.word	.LANCHOR0
+ 587              		.cfi_endproc
+ 588              	.LFE73:
+ 590              		.global	i2c
+ 591              		.section	.data.i2c,"aw",%progbits
+ 592              		.align	2
+ 593              		.set	.LANCHOR0,. + 0
+ 596              	i2c:
+ 597 0000 00080140 		.word	1073809408
+ 598 0004 0B       		.byte	11
+ 599 0005 03       		.byte	3
+ 600 0006 0000     		.space	2
+ 601 0008 00080140 		.word	1073809408
+ 602 000c 0C       		.byte	12
+ 603 000d 03       		.byte	3
+ 604 000e 0000     		.space	2
+ 605              		.text
+ 606              	.Letext0:
+ 607              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 608              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 609              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 610              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 611              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 612              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 613              		.file 8 "Inc/core_cm3.h"
+ 614              		.file 9 "startup/inc/sys.h"
+ 615              		.file 10 "tools/inc/malloc.h"
+ 616              		.file 11 "tools/inc/tskmanager.h"
+ 617              		.file 12 "drivers/inc/bsp_f1xx_io.h"
+ 618              		.file 13 "drivers/inc/bsp_soft_i2c.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 mod_mpu6050.c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:16     .text.MPU_Set_Gyro_Fsr:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:23     .text.MPU_Set_Gyro_Fsr:0000000000000000 MPU_Set_Gyro_Fsr
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:51     .text.MPU_Set_Gyro_Fsr:0000000000000018 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:56     .text.MPU_Set_Accel_Fsr:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:63     .text.MPU_Set_Accel_Fsr:0000000000000000 MPU_Set_Accel_Fsr
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:90     .text.MPU_Set_Accel_Fsr:0000000000000018 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:95     .text.MPU_Set_LPF:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:102    .text.MPU_Set_LPF:0000000000000000 MPU_Set_LPF
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:168    .text.MPU_Set_LPF:000000000000003c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:173    .text.MPU_Set_Rate:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:180    .text.MPU_Set_Rate:0000000000000000 MPU_Set_Rate
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:229    .text.MPU_Set_Rate:0000000000000038 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:240    .text.MPU_Get_Temperature:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:247    .text.MPU_Get_Temperature:0000000000000000 MPU_Get_Temperature
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:306    .text.MPU_Get_Temperature:0000000000000050 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:315    .text.MPU_Get_Gyroscope:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:322    .text.MPU_Get_Gyroscope:0000000000000000 MPU_Get_Gyroscope
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:384    .text.MPU_Get_Gyroscope:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:389    .text.MPU_Get_Accelerometer:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:396    .text.MPU_Get_Accelerometer:0000000000000000 MPU_Get_Accelerometer
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:458    .text.MPU_Get_Accelerometer:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:463    .text.mod_Mpu6050Init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:470    .text.mod_Mpu6050Init:0000000000000000 mod_Mpu6050Init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:586    .text.mod_Mpu6050Init:00000000000000a0 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:596    .data.i2c:0000000000000000 i2c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccVV0ouA.s:592    .data.i2c:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+bsp_SoftI2CWriteReg
+__aeabi_i2d
+__aeabi_ddiv
+__aeabi_dadd
+__aeabi_d2f
+__aeabi_fmul
+__aeabi_f2iz
+bsp_SoftI2CRead
+bsp_SoftI2CInit
+delay_ms
+bsp_SoftI2CReadReg

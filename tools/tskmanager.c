@@ -29,7 +29,7 @@ _Task eTask = {
 	.next = &sTask,
 };
 
-_TaskManger TaskManger = {0, 0, &sTask, &sTask, &eTask, TaskTickDiff, DelayMs};
+_TaskManger TaskManger = {0, &sTask, &sTask, &eTask, TaskTickDiff, DelayMs};
 
 //计算任务执行时钟
 u64 TaskTickDiff(u64 tick)

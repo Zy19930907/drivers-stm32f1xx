@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -30,59 +30,60 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 1
    3:app/main.c    **** //
    4:app/main.c    **** #include "public.h"
    5:app/main.c    **** #include "bsp_f1xx_timer.h"
-   6:app/main.c    **** #include "runled.h"
-   7:app/main.c    **** #include "bsp_f1xx_uart.h"
-   8:app/main.c    **** 
-   9:app/main.c    **** _timer tiktimer = {
-  10:app/main.c    **** 		.timx = TIM2,
-  11:app/main.c    **** 		.sec = 0,
-  12:app/main.c    **** 		.ms = 1,
-  13:app/main.c    **** 		.ontimout = TskTickHandler,
-  14:app/main.c    **** };
-  15:app/main.c    **** 
-  16:app/main.c    **** void OnMsgRecv(u8 *msg,u16 len)
-  17:app/main.c    **** {
-  26              		.loc 1 17 0
+   6:app/main.c    **** #include "bsp_f1xx_uart.h"
+   7:app/main.c    **** #include "runled.h"
+   8:app/main.c    **** #include "mod_mpu6050.h"
+   9:app/main.c    **** 
+  10:app/main.c    **** _timer tiktimer = {
+  11:app/main.c    **** 		.timx = TIM2,
+  12:app/main.c    **** 		.sec = 0,
+  13:app/main.c    **** 		.ms = 1,
+  14:app/main.c    **** 		.ontimout = TskTickHandler,
+  15:app/main.c    **** };
+  16:app/main.c    **** 
+  17:app/main.c    **** void OnMsgRecv(u8 *msg,u16 len)
+  18:app/main.c    **** {
+  26              		.loc 1 18 0
   27              		.cfi_startproc
   28              		@ args = 0, pretend = 0, frame = 0
   29              		@ frame_needed = 0, uses_anonymous_args = 0
   30              		@ link register save eliminated.
   31              	.LVL0:
-  18:app/main.c    **** 
-  19:app/main.c    **** }
-  32              		.loc 1 19 0
+  19:app/main.c    **** 
+  20:app/main.c    **** }
+  32              		.loc 1 20 0
   33 0000 7047     		bx	lr
   34              		.cfi_endproc
   35              	.LFE66:
   37              		.global	__aeabi_f2d
   38              		.section	.text.UploadTsk,"ax",%progbits
   39              		.align	1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s 			page 2
+
+
   40              		.global	UploadTsk
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 2
-
-
   41              		.syntax unified
   42              		.thumb
   43              		.thumb_func
   44              		.fpu softvfp
   46              	UploadTsk:
   47              	.LFB67:
-  20:app/main.c    **** 
-  21:app/main.c    **** _DataUtil *util;
-  22:app/main.c    **** _uartpara uartpara={
-  23:app/main.c    **** 		.comx = COM2,
-  24:app/main.c    **** 		.baud = 115200,
-  25:app/main.c    **** 		.rxbuflen = 1024,
-  26:app/main.c    **** 		.txbuflen = 1024,
-  27:app/main.c    **** 		.recver = OnMsgRecv,
-  28:app/main.c    **** };
-  29:app/main.c    **** 
-  30:app/main.c    **** float test = 234.123;
-  31:app/main.c    **** u8 *msg;
-  32:app/main.c    **** 
-  33:app/main.c    **** void UploadTsk(void *args)
-  34:app/main.c    **** {
-  48              		.loc 1 34 0
+  21:app/main.c    **** 
+  22:app/main.c    **** _DataUtil *util;
+  23:app/main.c    **** _uartpara uartpara={
+  24:app/main.c    **** 		.comx = COM2,
+  25:app/main.c    **** 		.baud = 115200,
+  26:app/main.c    **** 		.rxbuflen = 1024,
+  27:app/main.c    **** 		.txbuflen = 1024,
+  28:app/main.c    **** 		.recver = OnMsgRecv,
+  29:app/main.c    **** };
+  30:app/main.c    **** 
+  31:app/main.c    **** float test = 234.123;
+  32:app/main.c    **** u8 *msg;
+  33:app/main.c    **** 
+  34:app/main.c    **** void UploadTsk(void *args)
+  35:app/main.c    **** {
+  48              		.loc 1 35 0
   49              		.cfi_startproc
   50              		@ args = 0, pretend = 0, frame = 0
   51              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -94,8 +95,8 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 1
   57              		.cfi_offset 4, -12
   58              		.cfi_offset 5, -8
   59              		.cfi_offset 14, -4
-  35:app/main.c    **** 	sprintf((char*)msg,"test:%.3f\r\n",test);
-  60              		.loc 1 35 0
+  36:app/main.c    **** 	sprintf((char*)msg,"test:%.3f\r\n",test);
+  60              		.loc 1 36 0
   61 0002 0B4B     		ldr	r3, .L4
   62 0004 1868     		ldr	r0, [r3]	@ float
   63              	.LVL2:
@@ -108,8 +109,8 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 1
   70 0012 2068     		ldr	r0, [r4]
   71 0014 FFF7FEFF 		bl	sprintf
   72              	.LVL4:
-  36:app/main.c    **** 	util->write(msg,strlen((char*)msg));
-  73              		.loc 1 36 0
+  37:app/main.c    **** 	util->write(msg,strlen((char*)msg));
+  73              		.loc 1 37 0
   74 0018 084B     		ldr	r3, .L4+12
   75 001a 1B68     		ldr	r3, [r3]
   76 001c 5D68     		ldr	r5, [r3, #4]
@@ -117,15 +118,15 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 1
   78 0020 2046     		mov	r0, r4
   79 0022 FFF7FEFF 		bl	strlen
   80              	.LVL5:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s 			page 3
+
+
   81 0026 81B2     		uxth	r1, r0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 3
-
-
   82 0028 2046     		mov	r0, r4
   83 002a A847     		blx	r5
   84              	.LVL6:
-  37:app/main.c    **** }
-  85              		.loc 1 37 0
+  38:app/main.c    **** }
+  85              		.loc 1 38 0
   86 002c 38BD     		pop	{r3, r4, r5, pc}
   87              	.L5:
   88 002e 00BF     		.align	2
@@ -145,187 +146,190 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 1
  103              		.fpu softvfp
  105              	main:
  106              	.LFB68:
-  38:app/main.c    **** 
-  39:app/main.c    **** _Task uploadTsk = {
-  40:app/main.c    **** 		.ms = 1000,
-  41:app/main.c    **** 		.func = UploadTsk,
-  42:app/main.c    **** };
-  43:app/main.c    **** 
-  44:app/main.c    **** int main(void)
-  45:app/main.c    **** {
- 107              		.loc 1 45 0
+  39:app/main.c    **** 
+  40:app/main.c    **** _Task uploadTsk = {
+  41:app/main.c    **** 		.ms = 1000,
+  42:app/main.c    **** 		.func = UploadTsk,
+  43:app/main.c    **** };
+  44:app/main.c    **** 
+  45:app/main.c    **** int main(void)
+  46:app/main.c    **** {
+ 107              		.loc 1 46 0
  108              		.cfi_startproc
- 109              		@ args = 0, pretend = 0, frame = 0
- 110              		@ frame_needed = 0, uses_anonymous_args = 0
- 111 0000 08B5     		push	{r3, lr}
- 112              	.LCFI1:
- 113              		.cfi_def_cfa_offset 8
- 114              		.cfi_offset 3, -8
- 115              		.cfi_offset 14, -4
-  46:app/main.c    **** 	Stm32_Clock_Init(9);
- 116              		.loc 1 46 0
- 117 0002 0920     		movs	r0, #9
- 118 0004 FFF7FEFF 		bl	Stm32_Clock_Init
- 119              	.LVL7:
-  47:app/main.c    **** 	delay_init(72);
- 120              		.loc 1 47 0
- 121 0008 4820     		movs	r0, #72
- 122 000a FFF7FEFF 		bl	delay_init
- 123              	.LVL8:
-  48:app/main.c    **** 	my_mem_init();
- 124              		.loc 1 48 0
- 125 000e FFF7FEFF 		bl	my_mem_init
- 126              	.LVL9:
-  49:app/main.c    **** 	bsp_TimerInit(&tiktimer);
- 127              		.loc 1 49 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 4
+ 109              		@ Volatile: function does not return.
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 112 0000 08B5     		push	{r3, lr}
+ 113              	.LCFI1:
+ 114              		.cfi_def_cfa_offset 8
+ 115              		.cfi_offset 3, -8
+ 116              		.cfi_offset 14, -4
+  47:app/main.c    **** 	Stm32_Clock_Init(9);
+ 117              		.loc 1 47 0
+ 118 0002 0920     		movs	r0, #9
+ 119 0004 FFF7FEFF 		bl	Stm32_Clock_Init
+ 120              	.LVL7:
+  48:app/main.c    **** 	delay_init(72);
+ 121              		.loc 1 48 0
+ 122 0008 4820     		movs	r0, #72
+ 123 000a FFF7FEFF 		bl	delay_init
+ 124              	.LVL8:
+  49:app/main.c    **** 	my_mem_init();
+ 125              		.loc 1 49 0
+ 126 000e FFF7FEFF 		bl	my_mem_init
+ 127              	.LVL9:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s 			page 4
 
 
- 128 0012 0B48     		ldr	r0, .L8
- 129 0014 FFF7FEFF 		bl	bsp_TimerInit
- 130              	.LVL10:
-  50:app/main.c    **** 
-  51:app/main.c    **** 	runledinit();
- 131              		.loc 1 51 0
- 132 0018 FFF7FEFF 		bl	runledinit
- 133              	.LVL11:
-  52:app/main.c    **** 	msg = mymalloc(100);
- 134              		.loc 1 52 0
- 135 001c 6420     		movs	r0, #100
- 136 001e FFF7FEFF 		bl	mymalloc
- 137              	.LVL12:
- 138 0022 084B     		ldr	r3, .L8+4
- 139 0024 1860     		str	r0, [r3]
-  53:app/main.c    **** 	util = CreateDataUtil(DataUtil_UART,&uartpara);
- 140              		.loc 1 53 0
- 141 0026 0849     		ldr	r1, .L8+8
- 142 0028 0020     		movs	r0, #0
- 143 002a FFF7FEFF 		bl	CreateDataUtil
- 144              	.LVL13:
- 145 002e 074B     		ldr	r3, .L8+12
- 146 0030 1860     		str	r0, [r3]
-  54:app/main.c    **** 	CreateTask(&uploadTsk);
- 147              		.loc 1 54 0
- 148 0032 0748     		ldr	r0, .L8+16
- 149 0034 FFF7FEFF 		bl	CreateTask
- 150              	.LVL14:
-  55:app/main.c    **** 	ExecTask();
- 151              		.loc 1 55 0
- 152 0038 FFF7FEFF 		bl	ExecTask
- 153              	.LVL15:
-  56:app/main.c    **** }
- 154              		.loc 1 56 0
- 155 003c 0020     		movs	r0, #0
- 156 003e 08BD     		pop	{r3, pc}
- 157              	.L9:
- 158              		.align	2
- 159              	.L8:
- 160 0040 00000000 		.word	.LANCHOR1
- 161 0044 00000000 		.word	msg
- 162 0048 00000000 		.word	.LANCHOR2
- 163 004c 00000000 		.word	util
- 164 0050 00000000 		.word	.LANCHOR3
- 165              		.cfi_endproc
- 166              	.LFE68:
- 168              		.global	uploadTsk
- 169              		.comm	msg,4,4
- 170              		.global	test
- 171              		.global	uartpara
- 172              		.comm	util,4,4
- 173              		.global	tiktimer
- 174              		.section	.data.test,"aw",%progbits
- 175              		.align	2
- 176              		.set	.LANCHOR0,. + 0
- 179              	test:
- 180 0000 7D1F6A43 		.word	1131028349
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 5
+  50:app/main.c    **** 	bsp_TimerInit(&tiktimer);
+ 128              		.loc 1 50 0
+ 129 0012 0B48     		ldr	r0, .L8
+ 130 0014 FFF7FEFF 		bl	bsp_TimerInit
+ 131              	.LVL10:
+  51:app/main.c    **** 
+  52:app/main.c    **** 	runledinit();
+ 132              		.loc 1 52 0
+ 133 0018 FFF7FEFF 		bl	runledinit
+ 134              	.LVL11:
+  53:app/main.c    **** 	msg = mymalloc(100);
+ 135              		.loc 1 53 0
+ 136 001c 6420     		movs	r0, #100
+ 137 001e FFF7FEFF 		bl	mymalloc
+ 138              	.LVL12:
+ 139 0022 084B     		ldr	r3, .L8+4
+ 140 0024 1860     		str	r0, [r3]
+  54:app/main.c    **** 	util = CreateDataUtil(DataUtil_UART,&uartpara);
+ 141              		.loc 1 54 0
+ 142 0026 0849     		ldr	r1, .L8+8
+ 143 0028 0020     		movs	r0, #0
+ 144 002a FFF7FEFF 		bl	CreateDataUtil
+ 145              	.LVL13:
+ 146 002e 074B     		ldr	r3, .L8+12
+ 147 0030 1860     		str	r0, [r3]
+  55:app/main.c    **** 	CreateTask(&uploadTsk);
+ 148              		.loc 1 55 0
+ 149 0032 0748     		ldr	r0, .L8+16
+ 150 0034 FFF7FEFF 		bl	CreateTask
+ 151              	.LVL14:
+  56:app/main.c    **** 	mod_Mpu6050Init();
+ 152              		.loc 1 56 0
+ 153 0038 FFF7FEFF 		bl	mod_Mpu6050Init
+ 154              	.LVL15:
+  57:app/main.c    **** 
+  58:app/main.c    **** 	ExecTask();
+ 155              		.loc 1 58 0
+ 156 003c FFF7FEFF 		bl	ExecTask
+ 157              	.LVL16:
+ 158              	.L9:
+ 159              		.align	2
+ 160              	.L8:
+ 161 0040 00000000 		.word	.LANCHOR1
+ 162 0044 00000000 		.word	msg
+ 163 0048 00000000 		.word	.LANCHOR2
+ 164 004c 00000000 		.word	util
+ 165 0050 00000000 		.word	.LANCHOR3
+ 166              		.cfi_endproc
+ 167              	.LFE68:
+ 169              		.global	uploadTsk
+ 170              		.comm	msg,4,4
+ 171              		.global	test
+ 172              		.global	uartpara
+ 173              		.comm	util,4,4
+ 174              		.global	tiktimer
+ 175              		.section	.data.test,"aw",%progbits
+ 176              		.align	2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s 			page 5
 
 
- 181              		.section	.data.tiktimer,"aw",%progbits
- 182              		.align	2
- 183              		.set	.LANCHOR1,. + 0
- 186              	tiktimer:
- 187 0000 00000040 		.word	1073741824
- 188 0004 00       		.byte	0
- 189 0005 00       		.space	1
- 190 0006 0100     		.short	1
- 191 0008 00000000 		.word	TskTickHandler
- 192              		.section	.data.uartpara,"aw",%progbits
- 193              		.align	2
- 194              		.set	.LANCHOR2,. + 0
- 197              	uartpara:
- 198 0000 02       		.byte	2
- 199 0001 000000   		.space	3
- 200 0004 00C20100 		.word	115200
- 201 0008 0004     		.short	1024
- 202 000a 0004     		.short	1024
- 203 000c 00000000 		.word	OnMsgRecv
- 204              		.section	.data.uploadTsk,"aw",%progbits
- 205              		.align	3
- 206              		.set	.LANCHOR3,. + 0
- 209              	uploadTsk:
- 210 0000 00000000 		.space	48
- 210      00000000 
- 210      00000000 
- 210      00000000 
- 210      00000000 
- 211 0030 E8030000 		.word	1000
- 212 0034 00000000 		.word	0
- 213 0038 00000000 		.space	4
- 214 003c 00000000 		.word	UploadTsk
- 215 0040 00000000 		.space	8
- 215      00000000 
- 216              		.section	.rodata.UploadTsk.str1.4,"aMS",%progbits,1
- 217              		.align	2
- 218              	.LC0:
- 219 0000 74657374 		.ascii	"test:%.3f\015\012\000"
- 219      3A252E33 
- 219      660D0A00 
- 220              		.text
- 221              	.Letext0:
- 222              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
- 223              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
- 224              		.file 4 "Inc/stm32f103xe.h"
- 225              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
- 226              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
- 227              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
- 228              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
- 229              		.file 9 "Inc/core_cm3.h"
- 230              		.file 10 "startup/inc/sys.h"
- 231              		.file 11 "tools/inc/malloc.h"
- 232              		.file 12 "tools/inc/tskmanager.h"
- 233              		.file 13 "drivers/inc/bsp_f1xx_timer.h"
- 234              		.file 14 "drivers/inc/datautil.h"
- 235              		.file 15 "app/inc/runled.h"
- 236              		.file 16 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdio.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 6
+ 177              		.set	.LANCHOR0,. + 0
+ 180              	test:
+ 181 0000 7D1F6A43 		.word	1131028349
+ 182              		.section	.data.tiktimer,"aw",%progbits
+ 183              		.align	2
+ 184              		.set	.LANCHOR1,. + 0
+ 187              	tiktimer:
+ 188 0000 00000040 		.word	1073741824
+ 189 0004 00       		.byte	0
+ 190 0005 00       		.space	1
+ 191 0006 0100     		.short	1
+ 192 0008 00000000 		.word	TskTickHandler
+ 193              		.section	.data.uartpara,"aw",%progbits
+ 194              		.align	2
+ 195              		.set	.LANCHOR2,. + 0
+ 198              	uartpara:
+ 199 0000 02       		.byte	2
+ 200 0001 000000   		.space	3
+ 201 0004 00C20100 		.word	115200
+ 202 0008 0004     		.short	1024
+ 203 000a 0004     		.short	1024
+ 204 000c 00000000 		.word	OnMsgRecv
+ 205              		.section	.data.uploadTsk,"aw",%progbits
+ 206              		.align	3
+ 207              		.set	.LANCHOR3,. + 0
+ 210              	uploadTsk:
+ 211 0000 00000000 		.space	48
+ 211      00000000 
+ 211      00000000 
+ 211      00000000 
+ 211      00000000 
+ 212 0030 E8030000 		.word	1000
+ 213 0034 00000000 		.word	0
+ 214 0038 00000000 		.space	4
+ 215 003c 00000000 		.word	UploadTsk
+ 216 0040 00000000 		.space	8
+ 216      00000000 
+ 217              		.section	.rodata.UploadTsk.str1.4,"aMS",%progbits,1
+ 218              		.align	2
+ 219              	.LC0:
+ 220 0000 74657374 		.ascii	"test:%.3f\015\012\000"
+ 220      3A252E33 
+ 220      660D0A00 
+ 221              		.text
+ 222              	.Letext0:
+ 223              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 224              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 225              		.file 4 "Inc/stm32f103xe.h"
+ 226              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 227              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 228              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 229              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 230              		.file 9 "Inc/core_cm3.h"
+ 231              		.file 10 "startup/inc/sys.h"
+ 232              		.file 11 "tools/inc/malloc.h"
+ 233              		.file 12 "tools/inc/tskmanager.h"
+ 234              		.file 13 "drivers/inc/bsp_f1xx_timer.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s 			page 6
 
 
- 237              		.file 17 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/string.h
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s 			page 7
+ 235              		.file 14 "drivers/inc/datautil.h"
+ 236              		.file 15 "app/inc/runled.h"
+ 237              		.file 16 "Modules/mpu6050/inc/mod_mpu6050.h"
+ 238              		.file 17 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdio.h"
+ 239              		.file 18 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/string.h
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:16     .text.OnMsgRecv:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:23     .text.OnMsgRecv:0000000000000000 OnMsgRecv
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:39     .text.UploadTsk:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:46     .text.UploadTsk:0000000000000000 UploadTsk
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:90     .text.UploadTsk:0000000000000030 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:16     .text.OnMsgRecv:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:23     .text.OnMsgRecv:0000000000000000 OnMsgRecv
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:39     .text.UploadTsk:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:46     .text.UploadTsk:0000000000000000 UploadTsk
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:90     .text.UploadTsk:0000000000000030 $d
                             *COM*:0000000000000004 msg
                             *COM*:0000000000000004 util
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:98     .text.main:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:105    .text.main:0000000000000000 main
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:160    .text.main:0000000000000040 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:209    .data.uploadTsk:0000000000000000 uploadTsk
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:179    .data.test:0000000000000000 test
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:197    .data.uartpara:0000000000000000 uartpara
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:186    .data.tiktimer:0000000000000000 tiktimer
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:175    .data.test:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:182    .data.tiktimer:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:193    .data.uartpara:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:205    .data.uploadTsk:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRnX5zG.s:217    .rodata.UploadTsk.str1.4:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:98     .text.main:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:105    .text.main:0000000000000000 main
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:161    .text.main:0000000000000040 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:210    .data.uploadTsk:0000000000000000 uploadTsk
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:180    .data.test:0000000000000000 test
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:198    .data.uartpara:0000000000000000 uartpara
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:187    .data.tiktimer:0000000000000000 tiktimer
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:176    .data.test:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:183    .data.tiktimer:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:194    .data.uartpara:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:206    .data.uploadTsk:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccRk2S6C.s:218    .rodata.UploadTsk.str1.4:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 __aeabi_f2d
@@ -339,5 +343,6 @@ runledinit
 mymalloc
 CreateDataUtil
 CreateTask
+mod_Mpu6050Init
 ExecTask
 TskTickHandler

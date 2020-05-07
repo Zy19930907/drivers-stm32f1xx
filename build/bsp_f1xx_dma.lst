@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 1
   10:drivers/bsp_f1xx_dma.c **** 		return DMA2;
   43              		.loc 1 10 0
   44 000a 0348     		ldr	r0, .L5+8
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s 			page 2
 
 
   45              	.LVL3:
@@ -103,22 +103,22 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 1
   76              		.cfi_offset 5, -4
   24:drivers/bsp_f1xx_dma.c **** 	if (DMA_CHx >= DMA2_Channel1) {
   77              		.loc 1 24 0
-  78 0002 1A4C     		ldr	r4, .L13
+  78 0002 154C     		ldr	r4, .L13
   79 0004 A042     		cmp	r0, r4
-  80 0006 25D9     		bls	.L8
+  80 0006 1BD9     		bls	.L8
   25:drivers/bsp_f1xx_dma.c **** 		RCC->AHBENR |= 0x02;
   81              		.loc 1 25 0
-  82 0008 194D     		ldr	r5, .L13+4
+  82 0008 144D     		ldr	r5, .L13+4
   83 000a 6C69     		ldr	r4, [r5, #20]
   84 000c 44F00204 		orr	r4, r4, #2
   85 0010 6C61     		str	r4, [r5, #20]
   86              	.L9:
   26:drivers/bsp_f1xx_dma.c **** 		while (!(RCC->AHBENR & 0x02));
   87              		.loc 1 26 0 discriminator 1
-  88 0012 174C     		ldr	r4, .L13+4
+  88 0012 124C     		ldr	r4, .L13+4
   89 0014 6469     		ldr	r4, [r4, #20]
   90 0016 14F0020F 		tst	r4, #2
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 3
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s 			page 3
 
 
   91 001a FAD0     		beq	.L9
@@ -146,219 +146,199 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 1
  104 0026 42EA0313 		orr	r3, r2, r3, lsl #4
  105              	.LVL7:
  106 002a 0360     		str	r3, [r0]
-  36:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 0 << 5;    //普通模式
+  36:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 1 << 7;    //存储器增量模式
  107              		.loc 1 36 0
  108 002c 0368     		ldr	r3, [r0]
- 109 002e 0360     		str	r3, [r0]
-  37:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 0 << 6;    //外设地址非增量模式
- 110              		.loc 1 37 0
- 111 0030 0368     		ldr	r3, [r0]
- 112 0032 0360     		str	r3, [r0]
-  38:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 1 << 7;    //存储器增量模式
- 113              		.loc 1 38 0
- 114 0034 0368     		ldr	r3, [r0]
- 115 0036 43F08003 		orr	r3, r3, #128
- 116 003a 0360     		str	r3, [r0]
-  39:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 0 << 8;    //外设数据宽度为8位
- 117              		.loc 1 39 0
- 118 003c 0368     		ldr	r3, [r0]
- 119 003e 0360     		str	r3, [r0]
-  40:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 0 << 10;   //存储器数据宽度8位
- 120              		.loc 1 40 0
- 121 0040 0368     		ldr	r3, [r0]
- 122 0042 0360     		str	r3, [r0]
-  41:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 1 << 12;   //中等优先级
- 123              		.loc 1 41 0
- 124 0044 0368     		ldr	r3, [r0]
- 125 0046 43F48053 		orr	r3, r3, #4096
- 126 004a 0360     		str	r3, [r0]
-  42:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 0 << 14;   //非存储器到存储器模式
- 127              		.loc 1 42 0
- 128 004c 0368     		ldr	r3, [r0]
- 129 004e 0360     		str	r3, [r0]
-  43:drivers/bsp_f1xx_dma.c **** }
- 130              		.loc 1 43 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 4
-
-
- 131 0050 30BC     		pop	{r4, r5}
- 132              	.LCFI1:
- 133              		.cfi_remember_state
- 134              		.cfi_restore 5
- 135              		.cfi_restore 4
- 136              		.cfi_def_cfa_offset 0
- 137 0052 7047     		bx	lr
- 138              	.LVL8:
- 139              	.L8:
- 140              	.LCFI2:
- 141              		.cfi_restore_state
+ 109 002e 43F08003 		orr	r3, r3, #128
+ 110 0032 0360     		str	r3, [r0]
+  37:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 1 << 12;   //中等优先级
+ 111              		.loc 1 37 0
+ 112 0034 0368     		ldr	r3, [r0]
+ 113 0036 43F48053 		orr	r3, r3, #4096
+ 114 003a 0360     		str	r3, [r0]
+  38:drivers/bsp_f1xx_dma.c **** }
+ 115              		.loc 1 38 0
+ 116 003c 30BC     		pop	{r4, r5}
+ 117              	.LCFI1:
+ 118              		.cfi_remember_state
+ 119              		.cfi_restore 5
+ 120              		.cfi_restore 4
+ 121              		.cfi_def_cfa_offset 0
+ 122 003e 7047     		bx	lr
+ 123              	.LVL8:
+ 124              	.L8:
+ 125              	.LCFI2:
+ 126              		.cfi_restore_state
   28:drivers/bsp_f1xx_dma.c **** 		while (!(RCC->AHBENR & 0x01));
- 142              		.loc 1 28 0
- 143 0054 064D     		ldr	r5, .L13+4
- 144 0056 6C69     		ldr	r4, [r5, #20]
- 145 0058 44F00104 		orr	r4, r4, #1
- 146 005c 6C61     		str	r4, [r5, #20]
- 147              	.L11:
+ 127              		.loc 1 28 0
+ 128 0040 064D     		ldr	r5, .L13+4
+ 129 0042 6C69     		ldr	r4, [r5, #20]
+ 130 0044 44F00104 		orr	r4, r4, #1
+ 131 0048 6C61     		str	r4, [r5, #20]
+ 132              	.L11:
   29:drivers/bsp_f1xx_dma.c **** 	}
- 148              		.loc 1 29 0 discriminator 1
- 149 005e 044C     		ldr	r4, .L13+4
- 150 0060 6469     		ldr	r4, [r4, #20]
- 151 0062 14F0010F 		tst	r4, #1
- 152 0066 FAD0     		beq	.L11
- 153 0068 D8E7     		b	.L10
- 154              	.L14:
- 155 006a 00BF     		.align	2
- 156              	.L13:
- 157 006c 07040240 		.word	1073873927
- 158 0070 00100240 		.word	1073876992
- 159              		.cfi_endproc
- 160              	.LFE67:
- 162              		.section	.text.dma_stream_en,"ax",%progbits
- 163              		.align	1
- 164              		.global	dma_stream_en
- 165              		.syntax unified
- 166              		.thumb
- 167              		.thumb_func
- 168              		.fpu softvfp
- 170              	dma_stream_en:
- 171              	.LFB68:
-  44:drivers/bsp_f1xx_dma.c **** 
-  45:drivers/bsp_f1xx_dma.c **** //开启一次DMA传输
-  46:drivers/bsp_f1xx_dma.c **** void dma_stream_en(DMA_Channel_TypeDef *chx, u8 *buf, u16 len)
-  47:drivers/bsp_f1xx_dma.c **** {
- 172              		.loc 1 47 0
- 173              		.cfi_startproc
- 174              		@ args = 0, pretend = 0, frame = 0
- 175              		@ frame_needed = 0, uses_anonymous_args = 0
- 176              		@ link register save eliminated.
- 177              	.LVL9:
-  48:drivers/bsp_f1xx_dma.c **** 	chx->CCR &= ~(1 << 0);     //关闭DMA传输
- 178              		.loc 1 48 0
- 179 0000 0368     		ldr	r3, [r0]
- 180 0002 23F00103 		bic	r3, r3, #1
- 181 0006 0360     		str	r3, [r0]
-  49:drivers/bsp_f1xx_dma.c **** 	chx->CMAR = (u32) &buf[0];
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 5
+ 133              		.loc 1 29 0 discriminator 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s 			page 4
 
 
- 182              		.loc 1 49 0
- 183 0008 C160     		str	r1, [r0, #12]
-  50:drivers/bsp_f1xx_dma.c **** 	chx->CNDTR = len;
- 184              		.loc 1 50 0
- 185 000a 4260     		str	r2, [r0, #4]
-  51:drivers/bsp_f1xx_dma.c **** 	chx->CCR |= 1 << 0;           //开启DMA传输
- 186              		.loc 1 51 0
- 187 000c 0368     		ldr	r3, [r0]
- 188 000e 43F00103 		orr	r3, r3, #1
- 189 0012 0360     		str	r3, [r0]
-  52:drivers/bsp_f1xx_dma.c **** }
- 190              		.loc 1 52 0
- 191 0014 7047     		bx	lr
- 192              		.cfi_endproc
- 193              	.LFE68:
- 195              		.section	.text.dma_clear_flag,"ax",%progbits
- 196              		.align	1
- 197              		.global	dma_clear_flag
- 198              		.syntax unified
- 199              		.thumb
- 200              		.thumb_func
- 201              		.fpu softvfp
- 203              	dma_clear_flag:
- 204              	.LFB69:
-  53:drivers/bsp_f1xx_dma.c **** 
-  54:drivers/bsp_f1xx_dma.c **** void dma_clear_flag(DMA_Channel_TypeDef *chx)
-  55:drivers/bsp_f1xx_dma.c **** {
- 205              		.loc 1 55 0
- 206              		.cfi_startproc
- 207              		@ args = 0, pretend = 0, frame = 0
- 208              		@ frame_needed = 0, uses_anonymous_args = 0
- 209              	.LVL10:
- 210 0000 10B5     		push	{r4, lr}
- 211              	.LCFI3:
- 212              		.cfi_def_cfa_offset 8
- 213              		.cfi_offset 4, -8
- 214              		.cfi_offset 14, -4
- 215 0002 0446     		mov	r4, r0
-  56:drivers/bsp_f1xx_dma.c **** 	DMA_TypeDef *dmax = getdmax(chx);
- 216              		.loc 1 56 0
- 217 0004 FFF7FEFF 		bl	getdmax
- 218              	.LVL11:
-  57:drivers/bsp_f1xx_dma.c **** 	if (dmax == DMA1)
- 219              		.loc 1 57 0
- 220 0008 0D4B     		ldr	r3, .L21
- 221 000a 9842     		cmp	r0, r3
- 222 000c 0BD0     		beq	.L20
-  58:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA1_Channel1_BASE) / 0x14) << 2);
-  59:drivers/bsp_f1xx_dma.c **** 	else
-  60:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA2_Channel1_BASE) / 0x14) << 2);
- 223              		.loc 1 60 0
- 224 000e 0D4B     		ldr	r3, .L21+4
- 225 0010 2344     		add	r3, r3, r4
- 226 0012 0D4A     		ldr	r2, .L21+8
- 227 0014 A2FB0323 		umull	r2, r3, r2, r3
- 228 0018 1B09     		lsrs	r3, r3, #4
- 229 001a 9B00     		lsls	r3, r3, #2
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 6
+ 134 004a 044C     		ldr	r4, .L13+4
+ 135 004c 6469     		ldr	r4, [r4, #20]
+ 136 004e 14F0010F 		tst	r4, #1
+ 137 0052 FAD0     		beq	.L11
+ 138 0054 E2E7     		b	.L10
+ 139              	.L14:
+ 140 0056 00BF     		.align	2
+ 141              	.L13:
+ 142 0058 07040240 		.word	1073873927
+ 143 005c 00100240 		.word	1073876992
+ 144              		.cfi_endproc
+ 145              	.LFE67:
+ 147              		.section	.text.dma_stream_en,"ax",%progbits
+ 148              		.align	1
+ 149              		.global	dma_stream_en
+ 150              		.syntax unified
+ 151              		.thumb
+ 152              		.thumb_func
+ 153              		.fpu softvfp
+ 155              	dma_stream_en:
+ 156              	.LFB68:
+  39:drivers/bsp_f1xx_dma.c **** 
+  40:drivers/bsp_f1xx_dma.c **** //开启一次DMA传输
+  41:drivers/bsp_f1xx_dma.c **** void dma_stream_en(DMA_Channel_TypeDef *chx, u8 *buf, u16 len)
+  42:drivers/bsp_f1xx_dma.c **** {
+ 157              		.loc 1 42 0
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161              		@ link register save eliminated.
+ 162              	.LVL9:
+  43:drivers/bsp_f1xx_dma.c **** 	chx->CCR &= ~(1 << 0);     //关闭DMA传输
+ 163              		.loc 1 43 0
+ 164 0000 0368     		ldr	r3, [r0]
+ 165 0002 23F00103 		bic	r3, r3, #1
+ 166 0006 0360     		str	r3, [r0]
+  44:drivers/bsp_f1xx_dma.c **** 	chx->CMAR = (u32) &buf[0];
+ 167              		.loc 1 44 0
+ 168 0008 C160     		str	r1, [r0, #12]
+  45:drivers/bsp_f1xx_dma.c **** 	chx->CNDTR = len;
+ 169              		.loc 1 45 0
+ 170 000a 4260     		str	r2, [r0, #4]
+  46:drivers/bsp_f1xx_dma.c **** 	chx->CCR |= 1 << 0;           //开启DMA传输
+ 171              		.loc 1 46 0
+ 172 000c 0368     		ldr	r3, [r0]
+ 173 000e 43F00103 		orr	r3, r3, #1
+ 174 0012 0360     		str	r3, [r0]
+  47:drivers/bsp_f1xx_dma.c **** }
+ 175              		.loc 1 47 0
+ 176 0014 7047     		bx	lr
+ 177              		.cfi_endproc
+ 178              	.LFE68:
+ 180              		.section	.text.dma_clear_flag,"ax",%progbits
+ 181              		.align	1
+ 182              		.global	dma_clear_flag
+ 183              		.syntax unified
+ 184              		.thumb
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s 			page 5
 
 
- 230 001c 0F22     		movs	r2, #15
- 231 001e 02FA03F3 		lsl	r3, r2, r3
- 232 0022 4360     		str	r3, [r0, #4]
- 233              	.L16:
-  61:drivers/bsp_f1xx_dma.c **** }
- 234              		.loc 1 61 0
- 235 0024 10BD     		pop	{r4, pc}
- 236              	.LVL12:
- 237              	.L20:
-  58:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA1_Channel1_BASE) / 0x14) << 2);
- 238              		.loc 1 58 0
- 239 0026 094B     		ldr	r3, .L21+12
- 240 0028 2344     		add	r3, r3, r4
- 241 002a 074A     		ldr	r2, .L21+8
- 242 002c A2FB0323 		umull	r2, r3, r2, r3
- 243 0030 1B09     		lsrs	r3, r3, #4
- 244 0032 9B00     		lsls	r3, r3, #2
- 245 0034 0F22     		movs	r2, #15
- 246 0036 02FA03F3 		lsl	r3, r2, r3
- 247 003a 4360     		str	r3, [r0, #4]
- 248 003c F2E7     		b	.L16
- 249              	.L22:
- 250 003e 00BF     		.align	2
- 251              	.L21:
- 252 0040 00000240 		.word	1073872896
- 253 0044 F8FBFDBF 		.word	-1073873928
- 254 0048 CDCCCCCC 		.word	-858993459
- 255 004c F8FFFDBF 		.word	-1073872904
- 256              		.cfi_endproc
- 257              	.LFE69:
- 259              		.text
- 260              	.Letext0:
- 261              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
- 262              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
- 263              		.file 4 "Inc/stm32f103xe.h"
- 264              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
- 265              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
- 266              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
- 267              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
- 268              		.file 9 "Inc/core_cm3.h"
- 269              		.file 10 "startup/inc/sys.h"
- 270              		.file 11 "tools/inc/malloc.h"
- 271              		.file 12 "tools/inc/tskmanager.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s 			page 7
+ 185              		.thumb_func
+ 186              		.fpu softvfp
+ 188              	dma_clear_flag:
+ 189              	.LFB69:
+  48:drivers/bsp_f1xx_dma.c **** 
+  49:drivers/bsp_f1xx_dma.c **** void dma_clear_flag(DMA_Channel_TypeDef *chx)
+  50:drivers/bsp_f1xx_dma.c **** {
+ 190              		.loc 1 50 0
+ 191              		.cfi_startproc
+ 192              		@ args = 0, pretend = 0, frame = 0
+ 193              		@ frame_needed = 0, uses_anonymous_args = 0
+ 194              	.LVL10:
+ 195 0000 10B5     		push	{r4, lr}
+ 196              	.LCFI3:
+ 197              		.cfi_def_cfa_offset 8
+ 198              		.cfi_offset 4, -8
+ 199              		.cfi_offset 14, -4
+ 200 0002 0446     		mov	r4, r0
+  51:drivers/bsp_f1xx_dma.c **** 	DMA_TypeDef *dmax = getdmax(chx);
+ 201              		.loc 1 51 0
+ 202 0004 FFF7FEFF 		bl	getdmax
+ 203              	.LVL11:
+  52:drivers/bsp_f1xx_dma.c **** 	if (dmax == DMA1)
+ 204              		.loc 1 52 0
+ 205 0008 0D4B     		ldr	r3, .L21
+ 206 000a 9842     		cmp	r0, r3
+ 207 000c 0BD0     		beq	.L20
+  53:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA1_Channel1_BASE) / 0x14) << 2);
+  54:drivers/bsp_f1xx_dma.c **** 	else
+  55:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA2_Channel1_BASE) / 0x14) << 2);
+ 208              		.loc 1 55 0
+ 209 000e 0D4B     		ldr	r3, .L21+4
+ 210 0010 2344     		add	r3, r3, r4
+ 211 0012 0D4A     		ldr	r2, .L21+8
+ 212 0014 A2FB0323 		umull	r2, r3, r2, r3
+ 213 0018 1B09     		lsrs	r3, r3, #4
+ 214 001a 9B00     		lsls	r3, r3, #2
+ 215 001c 0F22     		movs	r2, #15
+ 216 001e 02FA03F3 		lsl	r3, r2, r3
+ 217 0022 4360     		str	r3, [r0, #4]
+ 218              	.L16:
+  56:drivers/bsp_f1xx_dma.c **** }
+ 219              		.loc 1 56 0
+ 220 0024 10BD     		pop	{r4, pc}
+ 221              	.LVL12:
+ 222              	.L20:
+  53:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA1_Channel1_BASE) / 0x14) << 2);
+ 223              		.loc 1 53 0
+ 224 0026 094B     		ldr	r3, .L21+12
+ 225 0028 2344     		add	r3, r3, r4
+ 226 002a 074A     		ldr	r2, .L21+8
+ 227 002c A2FB0323 		umull	r2, r3, r2, r3
+ 228 0030 1B09     		lsrs	r3, r3, #4
+ 229 0032 9B00     		lsls	r3, r3, #2
+ 230 0034 0F22     		movs	r2, #15
+ 231 0036 02FA03F3 		lsl	r3, r2, r3
+ 232 003a 4360     		str	r3, [r0, #4]
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s 			page 6
+
+
+ 233 003c F2E7     		b	.L16
+ 234              	.L22:
+ 235 003e 00BF     		.align	2
+ 236              	.L21:
+ 237 0040 00000240 		.word	1073872896
+ 238 0044 F8FBFDBF 		.word	-1073873928
+ 239 0048 CDCCCCCC 		.word	-858993459
+ 240 004c F8FFFDBF 		.word	-1073872904
+ 241              		.cfi_endproc
+ 242              	.LFE69:
+ 244              		.text
+ 245              	.Letext0:
+ 246              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 247              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 248              		.file 4 "Inc/stm32f103xe.h"
+ 249              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 250              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 251              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 252              		.file 8 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 253              		.file 9 "Inc/core_cm3.h"
+ 254              		.file 10 "startup/inc/sys.h"
+ 255              		.file 11 "tools/inc/malloc.h"
+ 256              		.file 12 "tools/inc/tskmanager.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 bsp_f1xx_dma.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:16     .text.getdmax:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:23     .text.getdmax:0000000000000000 getdmax
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:50     .text.getdmax:0000000000000010 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:57     .text.dmainit:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:64     .text.dmainit:0000000000000000 dmainit
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:157    .text.dmainit:000000000000006c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:163    .text.dma_stream_en:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:170    .text.dma_stream_en:0000000000000000 dma_stream_en
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:196    .text.dma_clear_flag:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:203    .text.dma_clear_flag:0000000000000000 dma_clear_flag
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccSxDKDL.s:252    .text.dma_clear_flag:0000000000000040 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:16     .text.getdmax:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:23     .text.getdmax:0000000000000000 getdmax
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:50     .text.getdmax:0000000000000010 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:57     .text.dmainit:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:64     .text.dmainit:0000000000000000 dmainit
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:142    .text.dmainit:0000000000000058 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:148    .text.dma_stream_en:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:155    .text.dma_stream_en:0000000000000000 dma_stream_en
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:181    .text.dma_clear_flag:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:188    .text.dma_clear_flag:0000000000000000 dma_clear_flag
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccLoe8KG.s:237    .text.dma_clear_flag:0000000000000040 $d
 
 NO UNDEFINED SYMBOLS

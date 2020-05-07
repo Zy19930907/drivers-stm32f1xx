@@ -41,11 +41,17 @@ Archive member included to satisfy reference by file (symbol)
 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(_exit.o)
                               /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-exit.o) (_exit)
 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
-                              build/main.o (__aeabi_f2d)
+                              build/mod_mpu6050.o (__aeabi_dadd)
+/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
+                              build/mod_mpu6050.o (__aeabi_ddiv)
+/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_truncdfsf2.o)
+                              build/mod_mpu6050.o (__aeabi_d2f)
 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
                               build/bsp_f1xx_uart.o (__aeabi_fsub)
 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
                               build/bsp_f1xx_uart.o (__aeabi_fmul)
+/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixsfsi.o)
+                              build/mod_mpu6050.o (__aeabi_f2iz)
 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
                               build/bsp_f1xx_uart.o (__aeabi_f2uiz)
 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_aeabi_uldivmod.o)
@@ -113,10 +119,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 build/bsp_f1xx_io.o
  .data          0x0000000000000000        0x0 build/bsp_f1xx_io.o
  .bss           0x0000000000000000        0x0 build/bsp_f1xx_io.o
- .text.bsp_IoSet
-                0x0000000000000000        0xc build/bsp_f1xx_io.o
- .text.bsp_IoClr
-                0x0000000000000000        0xc build/bsp_f1xx_io.o
  .text          0x0000000000000000        0x0 build/bsp_f1xx_timer.o
  .data          0x0000000000000000        0x0 build/bsp_f1xx_timer.o
  .bss           0x0000000000000000        0x0 build/bsp_f1xx_timer.o
@@ -208,6 +210,13 @@ Discarded input sections
                 0x0000000000000000       0x5c build/bsp_f1xx_rtc.o
  .text.bsp_RTC_Init
                 0x0000000000000000       0xc8 build/bsp_f1xx_rtc.o
+ .text          0x0000000000000000        0x0 build/bsp_soft_i2c.o
+ .data          0x0000000000000000        0x0 build/bsp_soft_i2c.o
+ .bss           0x0000000000000000        0x0 build/bsp_soft_i2c.o
+ .text.bsp_SoftI2CWrite
+                0x0000000000000000      0x31c build/bsp_soft_i2c.o
+ .text.bsp_SoftI2CRead
+                0x0000000000000000      0x45a build/bsp_soft_i2c.o
  .text          0x0000000000000000        0x0 build/datautil.o
  .data          0x0000000000000000        0x0 build/datautil.o
  .bss           0x0000000000000000        0x0 build/datautil.o
@@ -222,18 +231,27 @@ Discarded input sections
                 0x0000000000000000       0x5c build/bsp_f1xx_flash.o
  .text.bsp_ReadFlash
                 0x0000000000000000       0x14 build/bsp_f1xx_flash.o
- .debug_info    0x0000000000000000      0xda4 build/bsp_f1xx_flash.o
+ .debug_info    0x0000000000000000      0xd96 build/bsp_f1xx_flash.o
  .debug_abbrev  0x0000000000000000      0x229 build/bsp_f1xx_flash.o
  .debug_loc     0x0000000000000000      0x1b5 build/bsp_f1xx_flash.o
  .debug_aranges
                 0x0000000000000000       0x30 build/bsp_f1xx_flash.o
  .debug_ranges  0x0000000000000000       0x20 build/bsp_f1xx_flash.o
  .debug_line    0x0000000000000000      0x257 build/bsp_f1xx_flash.o
- .debug_str     0x0000000000000000      0x6b6 build/bsp_f1xx_flash.o
+ .debug_str     0x0000000000000000      0x6ae build/bsp_f1xx_flash.o
  .comment       0x0000000000000000       0x7f build/bsp_f1xx_flash.o
  .debug_frame   0x0000000000000000       0x50 build/bsp_f1xx_flash.o
  .ARM.attributes
                 0x0000000000000000       0x33 build/bsp_f1xx_flash.o
+ .text          0x0000000000000000        0x0 build/mod_mpu6050.o
+ .data          0x0000000000000000        0x0 build/mod_mpu6050.o
+ .bss           0x0000000000000000        0x0 build/mod_mpu6050.o
+ .text.MPU_Get_Temperature
+                0x0000000000000000       0x64 build/mod_mpu6050.o
+ .text.MPU_Get_Gyroscope
+                0x0000000000000000       0x50 build/mod_mpu6050.o
+ .text.MPU_Get_Accelerometer
+                0x0000000000000000       0x50 build/mod_mpu6050.o
  .text          0x0000000000000000        0x0 build/malloc.o
  .data          0x0000000000000000        0x0 build/malloc.o
  .bss           0x0000000000000000        0x0 build/malloc.o
@@ -266,14 +284,14 @@ Discarded input sections
                 0x0000000000000000       0x40 build/bufferutil.o
  .text.PopBuffer
                 0x0000000000000000       0x30 build/bufferutil.o
- .debug_info    0x0000000000000000      0xdba build/bufferutil.o
+ .debug_info    0x0000000000000000      0xdac build/bufferutil.o
  .debug_abbrev  0x0000000000000000      0x25c build/bufferutil.o
  .debug_loc     0x0000000000000000      0x256 build/bufferutil.o
  .debug_aranges
                 0x0000000000000000       0x40 build/bufferutil.o
  .debug_ranges  0x0000000000000000       0x30 build/bufferutil.o
  .debug_line    0x0000000000000000      0x261 build/bufferutil.o
- .debug_str     0x0000000000000000      0x6ac build/bufferutil.o
+ .debug_str     0x0000000000000000      0x6a4 build/bufferutil.o
  .comment       0x0000000000000000       0x7f build/bufferutil.o
  .debug_frame   0x0000000000000000       0xa0 build/bufferutil.o
  .ARM.attributes
@@ -287,14 +305,14 @@ Discarded input sections
  .text.CheckCrc
                 0x0000000000000000       0x1a build/crcutil.o
  .data.CrcUtil  0x0000000000000000        0x8 build/crcutil.o
- .debug_info    0x0000000000000000      0xda5 build/crcutil.o
+ .debug_info    0x0000000000000000      0xd97 build/crcutil.o
  .debug_abbrev  0x0000000000000000      0x269 build/crcutil.o
  .debug_loc     0x0000000000000000      0x1f4 build/crcutil.o
  .debug_aranges
                 0x0000000000000000       0x30 build/crcutil.o
  .debug_ranges  0x0000000000000000       0x20 build/crcutil.o
  .debug_line    0x0000000000000000      0x23c build/crcutil.o
- .debug_str     0x0000000000000000      0x66c build/crcutil.o
+ .debug_str     0x0000000000000000      0x664 build/crcutil.o
  .comment       0x0000000000000000       0x7f build/crcutil.o
  .debug_frame   0x0000000000000000       0x70 build/crcutil.o
  .ARM.attributes
@@ -385,10 +403,28 @@ Discarded input sections
                 0x0000000000000000       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(_exit.o)
  .data          0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
  .bss           0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
+ .text          0x0000000000000000      0x424 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
+ .data          0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
+ .bss           0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
+ .debug_frame   0x0000000000000000       0x50 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
+ .ARM.attributes
+                0x0000000000000000       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
+ .text          0x0000000000000000       0xa0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_truncdfsf2.o)
+ .data          0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_truncdfsf2.o)
+ .bss           0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_truncdfsf2.o)
+ .debug_frame   0x0000000000000000       0x24 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_truncdfsf2.o)
+ .ARM.attributes
+                0x0000000000000000       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_truncdfsf2.o)
  .data          0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
  .bss           0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
  .data          0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
  .bss           0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
+ .text          0x0000000000000000       0x4c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixsfsi.o)
+ .data          0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixsfsi.o)
+ .bss           0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixsfsi.o)
+ .debug_frame   0x0000000000000000       0x24 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixsfsi.o)
+ .ARM.attributes
+                0x0000000000000000       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixsfsi.o)
  .data          0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
  .bss           0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
  .data          0x0000000000000000        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_aeabi_uldivmod.o)
@@ -430,8 +466,10 @@ LOAD build/bsp_f1xx_dma.o
 LOAD build/bsp_f1xx_uart.o
 LOAD build/bsp_f1xx_sdio.o
 LOAD build/bsp_f1xx_rtc.o
+LOAD build/bsp_soft_i2c.o
 LOAD build/datautil.o
 LOAD build/bsp_f1xx_flash.o
+LOAD build/mod_mpu6050.o
 LOAD build/malloc.o
 LOAD build/tskmanager.o
 LOAD build/bufferutil.o
@@ -461,7 +499,7 @@ LOAD /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/ar
                 0x0000000008000000                g_pfnVectors
                 0x00000000080001e4                . = ALIGN (0x4)
 
-.text           0x00000000080001e4     0x252c
+.text           0x00000000080001e4     0x2d68
                 0x00000000080001e4                . = ALIGN (0x4)
  *(.text)
  .text          0x00000000080001e4       0x40 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
@@ -544,326 +582,362 @@ LOAD /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/ar
                 0x0000000008000f48       0x74 build/sys.o
                 0x0000000008000f48                Stm32_Clock_Init
  .text.delay_init
-                0x0000000008000fbc       0x24 build/sys.o
+                0x0000000008000fbc       0x2c build/sys.o
                 0x0000000008000fbc                delay_init
  .text.delay_ms
-                0x0000000008000fe0       0x34 build/sys.o
-                0x0000000008000fe0                delay_ms
+                0x0000000008000fe8       0x34 build/sys.o
+                0x0000000008000fe8                delay_ms
+ .text.delay_us
+                0x000000000800101c       0x34 build/sys.o
+                0x000000000800101c                delay_us
  .text.bsp_IoInit
-                0x0000000008001014       0x80 build/bsp_f1xx_io.o
-                0x0000000008001014                bsp_IoInit
+                0x0000000008001050       0x80 build/bsp_f1xx_io.o
+                0x0000000008001050                bsp_IoInit
+ .text.bsp_IoSet
+                0x00000000080010d0        0xc build/bsp_f1xx_io.o
+                0x00000000080010d0                bsp_IoSet
+ .text.bsp_IoClr
+                0x00000000080010dc        0xc build/bsp_f1xx_io.o
+                0x00000000080010dc                bsp_IoClr
+ .text.bsp_IoRead
+                0x00000000080010e8       0x10 build/bsp_f1xx_io.o
+                0x00000000080010e8                bsp_IoRead
  .text.bsp_TimerInit
-                0x0000000008001094      0x13c build/bsp_f1xx_timer.o
-                0x0000000008001094                bsp_TimerInit
+                0x00000000080010f8      0x13c build/bsp_f1xx_timer.o
+                0x00000000080010f8                bsp_TimerInit
  .text.TIM2_IRQHandler
-                0x00000000080011d0       0x28 build/bsp_f1xx_timer.o
-                0x00000000080011d0                TIM2_IRQHandler
+                0x0000000008001234       0x28 build/bsp_f1xx_timer.o
+                0x0000000008001234                TIM2_IRQHandler
  .text.TIM3_IRQHandler
-                0x00000000080011f8       0x28 build/bsp_f1xx_timer.o
-                0x00000000080011f8                TIM3_IRQHandler
+                0x000000000800125c       0x28 build/bsp_f1xx_timer.o
+                0x000000000800125c                TIM3_IRQHandler
  .text.TIM4_IRQHandler
-                0x0000000008001220       0x28 build/bsp_f1xx_timer.o
-                0x0000000008001220                TIM4_IRQHandler
+                0x0000000008001284       0x28 build/bsp_f1xx_timer.o
+                0x0000000008001284                TIM4_IRQHandler
  .text.TIM5_IRQHandler
-                0x0000000008001248       0x28 build/bsp_f1xx_timer.o
-                0x0000000008001248                TIM5_IRQHandler
+                0x00000000080012ac       0x28 build/bsp_f1xx_timer.o
+                0x00000000080012ac                TIM5_IRQHandler
  .text.TIM6_IRQHandler
-                0x0000000008001270       0x2c build/bsp_f1xx_timer.o
-                0x0000000008001270                TIM6_IRQHandler
+                0x00000000080012d4       0x2c build/bsp_f1xx_timer.o
+                0x00000000080012d4                TIM6_IRQHandler
  .text.TIM7_IRQHandler
-                0x000000000800129c       0x28 build/bsp_f1xx_timer.o
-                0x000000000800129c                TIM7_IRQHandler
- .text.ledinit  0x00000000080012c4        0x8 build/bsp_f1xx_led.o
-                0x00000000080012c4                ledinit
- .text.ledfilp  0x00000000080012cc       0x10 build/bsp_f1xx_led.o
-                0x00000000080012cc                ledfilp
- .text.getdmax  0x00000000080012dc       0x1c build/bsp_f1xx_dma.o
-                0x00000000080012dc                getdmax
- .text.dmainit  0x00000000080012f8       0x74 build/bsp_f1xx_dma.o
-                0x00000000080012f8                dmainit
+                0x0000000008001300       0x28 build/bsp_f1xx_timer.o
+                0x0000000008001300                TIM7_IRQHandler
+ .text.ledinit  0x0000000008001328        0x8 build/bsp_f1xx_led.o
+                0x0000000008001328                ledinit
+ .text.ledfilp  0x0000000008001330       0x10 build/bsp_f1xx_led.o
+                0x0000000008001330                ledfilp
+ .text.getdmax  0x0000000008001340       0x1c build/bsp_f1xx_dma.o
+                0x0000000008001340                getdmax
+ .text.dmainit  0x000000000800135c       0x60 build/bsp_f1xx_dma.o
+                0x000000000800135c                dmainit
  .text.dma_stream_en
-                0x000000000800136c       0x16 build/bsp_f1xx_dma.o
-                0x000000000800136c                dma_stream_en
- *fill*         0x0000000008001382        0x2 
+                0x00000000080013bc       0x16 build/bsp_f1xx_dma.o
+                0x00000000080013bc                dma_stream_en
+ *fill*         0x00000000080013d2        0x2 
  .text.dma_clear_flag
-                0x0000000008001384       0x50 build/bsp_f1xx_dma.o
-                0x0000000008001384                dma_clear_flag
+                0x00000000080013d4       0x50 build/bsp_f1xx_dma.o
+                0x00000000080013d4                dma_clear_flag
  .text.bsp_UartInit
-                0x00000000080013d4      0x180 build/bsp_f1xx_uart.o
-                0x00000000080013d4                bsp_UartInit
+                0x0000000008001424      0x180 build/bsp_f1xx_uart.o
+                0x0000000008001424                bsp_UartInit
  .text.USART1_IRQHandler
-                0x0000000008001554       0x70 build/bsp_f1xx_uart.o
-                0x0000000008001554                USART1_IRQHandler
+                0x00000000080015a4       0x70 build/bsp_f1xx_uart.o
+                0x00000000080015a4                USART1_IRQHandler
  .text.USART2_IRQHandler
-                0x00000000080015c4       0x78 build/bsp_f1xx_uart.o
-                0x00000000080015c4                USART2_IRQHandler
+                0x0000000008001614       0x78 build/bsp_f1xx_uart.o
+                0x0000000008001614                USART2_IRQHandler
  .text.ComxSendData
-                0x000000000800163c       0x5c build/bsp_f1xx_uart.o
-                0x000000000800163c                ComxSendData
+                0x000000000800168c       0x5c build/bsp_f1xx_uart.o
+                0x000000000800168c                ComxSendData
  .text.Com1SendData
-                0x0000000008001698        0xe build/bsp_f1xx_uart.o
-                0x0000000008001698                Com1SendData
+                0x00000000080016e8        0xe build/bsp_f1xx_uart.o
+                0x00000000080016e8                Com1SendData
  .text.Com2SendData
-                0x00000000080016a6        0xe build/bsp_f1xx_uart.o
-                0x00000000080016a6                Com2SendData
+                0x00000000080016f6        0xe build/bsp_f1xx_uart.o
+                0x00000000080016f6                Com2SendData
  .text.DMA1_Channel6_IRQHandler
-                0x00000000080016b4       0x74 build/bsp_f1xx_uart.o
-                0x00000000080016b4                DMA1_Channel6_IRQHandler
+                0x0000000008001704       0x74 build/bsp_f1xx_uart.o
+                0x0000000008001704                DMA1_Channel6_IRQHandler
  .text.DMA1_Channel3_IRQHandler
-                0x0000000008001728       0x88 build/bsp_f1xx_uart.o
-                0x0000000008001728                DMA1_Channel3_IRQHandler
+                0x0000000008001778       0x88 build/bsp_f1xx_uart.o
+                0x0000000008001778                DMA1_Channel3_IRQHandler
  .text.SDIO_Send_Cmd
-                0x00000000080017b0       0x28 build/bsp_f1xx_sdio.o
-                0x00000000080017b0                SDIO_Send_Cmd
+                0x0000000008001800       0x28 build/bsp_f1xx_sdio.o
+                0x0000000008001800                SDIO_Send_Cmd
  .text.CmdResp1Error
-                0x00000000080017d8       0x48 build/bsp_f1xx_sdio.o
-                0x00000000080017d8                CmdResp1Error
+                0x0000000008001828       0x48 build/bsp_f1xx_sdio.o
+                0x0000000008001828                CmdResp1Error
  .text.SD_ProcessIRQSrc
-                0x0000000008001820      0x130 build/bsp_f1xx_sdio.o
-                0x0000000008001820                SD_ProcessIRQSrc
+                0x0000000008001870      0x130 build/bsp_f1xx_sdio.o
+                0x0000000008001870                SD_ProcessIRQSrc
  .text.SDIO_IRQHandler
-                0x0000000008001950        0x8 build/bsp_f1xx_sdio.o
-                0x0000000008001950                SDIO_IRQHandler
+                0x00000000080019a0        0x8 build/bsp_f1xx_sdio.o
+                0x00000000080019a0                SDIO_IRQHandler
  .text.Is_Leap_Year
-                0x0000000008001958       0x40 build/bsp_f1xx_rtc.o
-                0x0000000008001958                Is_Leap_Year
+                0x00000000080019a8       0x40 build/bsp_f1xx_rtc.o
+                0x00000000080019a8                Is_Leap_Year
  .text.RTC_Get_Week
-                0x0000000008001998       0x78 build/bsp_f1xx_rtc.o
-                0x0000000008001998                RTC_Get_Week
- .text.RTC_Get  0x0000000008001a10       0xdc build/bsp_f1xx_rtc.o
-                0x0000000008001a10                RTC_Get
+                0x00000000080019e8       0x78 build/bsp_f1xx_rtc.o
+                0x00000000080019e8                RTC_Get_Week
+ .text.RTC_Get  0x0000000008001a60       0xdc build/bsp_f1xx_rtc.o
+                0x0000000008001a60                RTC_Get
  .text.RTC_IRQHandler
-                0x0000000008001aec       0x3c build/bsp_f1xx_rtc.o
-                0x0000000008001aec                RTC_IRQHandler
+                0x0000000008001b3c       0x3c build/bsp_f1xx_rtc.o
+                0x0000000008001b3c                RTC_IRQHandler
+ .text.bsp_SoftI2CInit
+                0x0000000008001b78       0x20 build/bsp_soft_i2c.o
+                0x0000000008001b78                bsp_SoftI2CInit
+ .text.bsp_SoftI2CWriteReg
+                0x0000000008001b98      0x324 build/bsp_soft_i2c.o
+                0x0000000008001b98                bsp_SoftI2CWriteReg
+ .text.bsp_SoftI2CReadReg
+                0x0000000008001ebc      0x350 build/bsp_soft_i2c.o
+                0x0000000008001ebc                bsp_SoftI2CReadReg
  .text.CreateDataUtil
-                0x0000000008001b28       0x10 build/datautil.o
-                0x0000000008001b28                CreateDataUtil
+                0x000000000800220c       0x10 build/datautil.o
+                0x000000000800220c                CreateDataUtil
+ .text.MPU_Set_Gyro_Fsr
+                0x000000000800221c       0x1c build/mod_mpu6050.o
+                0x000000000800221c                MPU_Set_Gyro_Fsr
+ .text.MPU_Set_Accel_Fsr
+                0x0000000008002238       0x1c build/mod_mpu6050.o
+                0x0000000008002238                MPU_Set_Accel_Fsr
+ .text.MPU_Set_LPF
+                0x0000000008002254       0x40 build/mod_mpu6050.o
+                0x0000000008002254                MPU_Set_LPF
+ .text.MPU_Set_Rate
+                0x0000000008002294       0x3c build/mod_mpu6050.o
+                0x0000000008002294                MPU_Set_Rate
+ .text.mod_Mpu6050Init
+                0x00000000080022d0       0xa4 build/mod_mpu6050.o
+                0x00000000080022d0                mod_Mpu6050Init
  .text.my_mem_perused
-                0x0000000008001b38        0xc build/malloc.o
-                0x0000000008001b38                my_mem_perused
+                0x0000000008002374        0xc build/malloc.o
+                0x0000000008002374                my_mem_perused
  .text.mymemset
-                0x0000000008001b44       0x10 build/malloc.o
-                0x0000000008001b44                mymemset
+                0x0000000008002380       0x10 build/malloc.o
+                0x0000000008002380                mymemset
  .text.my_mem_init
-                0x0000000008001b54       0x1c build/malloc.o
-                0x0000000008001b54                my_mem_init
+                0x0000000008002390       0x1c build/malloc.o
+                0x0000000008002390                my_mem_init
  .text.my_mem_malloc
-                0x0000000008001b70       0x78 build/malloc.o
-                0x0000000008001b70                my_mem_malloc
+                0x00000000080023ac       0x78 build/malloc.o
+                0x00000000080023ac                my_mem_malloc
  .text.my_mem_free
-                0x0000000008001be8       0x54 build/malloc.o
-                0x0000000008001be8                my_mem_free
- .text.myfree   0x0000000008001c3c       0x18 build/malloc.o
-                0x0000000008001c3c                myfree
+                0x0000000008002424       0x54 build/malloc.o
+                0x0000000008002424                my_mem_free
+ .text.myfree   0x0000000008002478       0x18 build/malloc.o
+                0x0000000008002478                myfree
  .text.mymalloc
-                0x0000000008001c54       0x1c build/malloc.o
-                0x0000000008001c54                mymalloc
+                0x0000000008002490       0x1c build/malloc.o
+                0x0000000008002490                mymalloc
  .text.TaskTickDiff
-                0x0000000008001c70       0x48 build/tskmanager.o
-                0x0000000008001c70                TaskTickDiff
+                0x00000000080024ac       0x48 build/tskmanager.o
+                0x00000000080024ac                TaskTickDiff
  .text.StartTask
-                0x0000000008001cb8        0x2 build/tskmanager.o
- .text.EndTask  0x0000000008001cba        0x2 build/tskmanager.o
- .text.DelayMs  0x0000000008001cbc       0x30 build/tskmanager.o
+                0x00000000080024f4        0x2 build/tskmanager.o
+ .text.EndTask  0x00000000080024f6        0x2 build/tskmanager.o
+ .text.DelayMs  0x00000000080024f8       0x30 build/tskmanager.o
  .text.CreateTask
-                0x0000000008001cec       0xe4 build/tskmanager.o
-                0x0000000008001cec                CreateTask
+                0x0000000008002528       0xe4 build/tskmanager.o
+                0x0000000008002528                CreateTask
  .text.TskTickHandler
-                0x0000000008001dd0       0x20 build/tskmanager.o
-                0x0000000008001dd0                TskTickHandler
+                0x000000000800260c       0x20 build/tskmanager.o
+                0x000000000800260c                TskTickHandler
  .text.ExecTask
-                0x0000000008001df0       0x38 build/tskmanager.o
-                0x0000000008001df0                ExecTask
+                0x000000000800262c       0x38 build/tskmanager.o
+                0x000000000800262c                ExecTask
  .text.Reset_Handler
-                0x0000000008001e28       0x44 build/startup_stm32f103xe.o
-                0x0000000008001e28                Reset_Handler
+                0x0000000008002664       0x44 build/startup_stm32f103xe.o
+                0x0000000008002664                Reset_Handler
  .text.Default_Handler
-                0x0000000008001e6c        0x2 build/startup_stm32f103xe.o
-                0x0000000008001e6c                DMA2_Channel3_IRQHandler
-                0x0000000008001e6c                EXTI2_IRQHandler
-                0x0000000008001e6c                TIM8_TRG_COM_IRQHandler
-                0x0000000008001e6c                TIM8_CC_IRQHandler
-                0x0000000008001e6c                DebugMon_Handler
-                0x0000000008001e6c                TIM1_CC_IRQHandler
-                0x0000000008001e6c                HardFault_Handler
-                0x0000000008001e6c                SysTick_Handler
-                0x0000000008001e6c                PVD_IRQHandler
-                0x0000000008001e6c                PendSV_Handler
-                0x0000000008001e6c                NMI_Handler
-                0x0000000008001e6c                EXTI3_IRQHandler
-                0x0000000008001e6c                EXTI0_IRQHandler
-                0x0000000008001e6c                I2C2_EV_IRQHandler
-                0x0000000008001e6c                UsageFault_Handler
-                0x0000000008001e6c                ADC1_2_IRQHandler
-                0x0000000008001e6c                SPI1_IRQHandler
-                0x0000000008001e6c                TAMPER_IRQHandler
-                0x0000000008001e6c                TIM8_UP_IRQHandler
-                0x0000000008001e6c                DMA2_Channel2_IRQHandler
-                0x0000000008001e6c                DMA1_Channel4_IRQHandler
-                0x0000000008001e6c                USART3_IRQHandler
-                0x0000000008001e6c                DMA1_Channel7_IRQHandler
-                0x0000000008001e6c                CAN1_RX1_IRQHandler
-                0x0000000008001e6c                UART5_IRQHandler
-                0x0000000008001e6c                ADC3_IRQHandler
-                0x0000000008001e6c                DMA2_Channel1_IRQHandler
-                0x0000000008001e6c                I2C1_EV_IRQHandler
-                0x0000000008001e6c                UART4_IRQHandler
-                0x0000000008001e6c                RCC_IRQHandler
-                0x0000000008001e6c                TIM1_TRG_COM_IRQHandler
-                0x0000000008001e6c                DMA1_Channel1_IRQHandler
-                0x0000000008001e6c                Default_Handler
-                0x0000000008001e6c                EXTI15_10_IRQHandler
-                0x0000000008001e6c                EXTI9_5_IRQHandler
-                0x0000000008001e6c                SPI2_IRQHandler
-                0x0000000008001e6c                MemManage_Handler
-                0x0000000008001e6c                SVC_Handler
-                0x0000000008001e6c                DMA1_Channel5_IRQHandler
-                0x0000000008001e6c                EXTI4_IRQHandler
-                0x0000000008001e6c                USB_LP_CAN1_RX0_IRQHandler
-                0x0000000008001e6c                USB_HP_CAN1_TX_IRQHandler
-                0x0000000008001e6c                FSMC_IRQHandler
-                0x0000000008001e6c                TIM1_UP_IRQHandler
-                0x0000000008001e6c                WWDG_IRQHandler
-                0x0000000008001e6c                TIM1_BRK_IRQHandler
-                0x0000000008001e6c                EXTI1_IRQHandler
-                0x0000000008001e6c                DMA2_Channel4_5_IRQHandler
-                0x0000000008001e6c                I2C2_ER_IRQHandler
-                0x0000000008001e6c                DMA1_Channel2_IRQHandler
-                0x0000000008001e6c                TIM8_BRK_IRQHandler
-                0x0000000008001e6c                CAN1_SCE_IRQHandler
-                0x0000000008001e6c                FLASH_IRQHandler
-                0x0000000008001e6c                BusFault_Handler
-                0x0000000008001e6c                SPI3_IRQHandler
-                0x0000000008001e6c                I2C1_ER_IRQHandler
-                0x0000000008001e6c                USBWakeUp_IRQHandler
-                0x0000000008001e6c                RTC_Alarm_IRQHandler
- *fill*         0x0000000008001e6e        0x2 
+                0x00000000080026a8        0x2 build/startup_stm32f103xe.o
+                0x00000000080026a8                DMA2_Channel3_IRQHandler
+                0x00000000080026a8                EXTI2_IRQHandler
+                0x00000000080026a8                TIM8_TRG_COM_IRQHandler
+                0x00000000080026a8                TIM8_CC_IRQHandler
+                0x00000000080026a8                DebugMon_Handler
+                0x00000000080026a8                TIM1_CC_IRQHandler
+                0x00000000080026a8                HardFault_Handler
+                0x00000000080026a8                SysTick_Handler
+                0x00000000080026a8                PVD_IRQHandler
+                0x00000000080026a8                PendSV_Handler
+                0x00000000080026a8                NMI_Handler
+                0x00000000080026a8                EXTI3_IRQHandler
+                0x00000000080026a8                EXTI0_IRQHandler
+                0x00000000080026a8                I2C2_EV_IRQHandler
+                0x00000000080026a8                UsageFault_Handler
+                0x00000000080026a8                ADC1_2_IRQHandler
+                0x00000000080026a8                SPI1_IRQHandler
+                0x00000000080026a8                TAMPER_IRQHandler
+                0x00000000080026a8                TIM8_UP_IRQHandler
+                0x00000000080026a8                DMA2_Channel2_IRQHandler
+                0x00000000080026a8                DMA1_Channel4_IRQHandler
+                0x00000000080026a8                USART3_IRQHandler
+                0x00000000080026a8                DMA1_Channel7_IRQHandler
+                0x00000000080026a8                CAN1_RX1_IRQHandler
+                0x00000000080026a8                UART5_IRQHandler
+                0x00000000080026a8                ADC3_IRQHandler
+                0x00000000080026a8                DMA2_Channel1_IRQHandler
+                0x00000000080026a8                I2C1_EV_IRQHandler
+                0x00000000080026a8                UART4_IRQHandler
+                0x00000000080026a8                RCC_IRQHandler
+                0x00000000080026a8                TIM1_TRG_COM_IRQHandler
+                0x00000000080026a8                DMA1_Channel1_IRQHandler
+                0x00000000080026a8                Default_Handler
+                0x00000000080026a8                EXTI15_10_IRQHandler
+                0x00000000080026a8                EXTI9_5_IRQHandler
+                0x00000000080026a8                SPI2_IRQHandler
+                0x00000000080026a8                MemManage_Handler
+                0x00000000080026a8                SVC_Handler
+                0x00000000080026a8                DMA1_Channel5_IRQHandler
+                0x00000000080026a8                EXTI4_IRQHandler
+                0x00000000080026a8                USB_LP_CAN1_RX0_IRQHandler
+                0x00000000080026a8                USB_HP_CAN1_TX_IRQHandler
+                0x00000000080026a8                FSMC_IRQHandler
+                0x00000000080026a8                TIM1_UP_IRQHandler
+                0x00000000080026a8                WWDG_IRQHandler
+                0x00000000080026a8                TIM1_BRK_IRQHandler
+                0x00000000080026a8                EXTI1_IRQHandler
+                0x00000000080026a8                DMA2_Channel4_5_IRQHandler
+                0x00000000080026a8                I2C2_ER_IRQHandler
+                0x00000000080026a8                DMA1_Channel2_IRQHandler
+                0x00000000080026a8                TIM8_BRK_IRQHandler
+                0x00000000080026a8                CAN1_SCE_IRQHandler
+                0x00000000080026a8                FLASH_IRQHandler
+                0x00000000080026a8                BusFault_Handler
+                0x00000000080026a8                SPI3_IRQHandler
+                0x00000000080026a8                I2C1_ER_IRQHandler
+                0x00000000080026a8                USBWakeUp_IRQHandler
+                0x00000000080026a8                RTC_Alarm_IRQHandler
+ *fill*         0x00000000080026aa        0x2 
  .text.__libc_init_array
-                0x0000000008001e70       0x48 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-init.o)
-                0x0000000008001e70                __libc_init_array
- .text.memcpy   0x0000000008001eb8       0x16 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memcpy-stub.o)
-                0x0000000008001eb8                memcpy
- *fill*         0x0000000008001ece        0x2 
- .text.sprintf  0x0000000008001ed0       0x40 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sprintf.o)
-                0x0000000008001ed0                sprintf
-                0x0000000008001ed0                siprintf
+                0x00000000080026ac       0x48 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-init.o)
+                0x00000000080026ac                __libc_init_array
+ .text.memcpy   0x00000000080026f4       0x16 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memcpy-stub.o)
+                0x00000000080026f4                memcpy
+ *fill*         0x000000000800270a        0x2 
+ .text.sprintf  0x000000000800270c       0x40 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sprintf.o)
+                0x000000000800270c                sprintf
+                0x000000000800270c                siprintf
  .text.__ssputs_r
-                0x0000000008001f10       0xb4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
-                0x0000000008001f10                __ssputs_r
+                0x000000000800274c       0xb4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x000000000800274c                __ssputs_r
  .text._svfprintf_r
-                0x0000000008001fc4      0x1ec /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
-                0x0000000008001fc4                _svfprintf_r
-                0x0000000008001fc4                _svfiprintf_r
+                0x0000000008002800      0x1ec /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000008002800                _svfprintf_r
+                0x0000000008002800                _svfiprintf_r
  .text._printf_common
-                0x00000000080021b0       0xec /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x00000000080021b0                _printf_common
+                0x00000000080029ec       0xec /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00000000080029ec                _printf_common
  .text._printf_i
-                0x000000000800229c      0x224 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x000000000800229c                _printf_i
- .text.memchr   0x00000000080024c0       0x1c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memchr-stub.o)
-                0x00000000080024c0                memchr
- .text.memmove  0x00000000080024dc       0x32 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memmove.o)
-                0x00000000080024dc                memmove
- *fill*         0x000000000800250e        0x2 
- .text._free_r  0x0000000008002510       0x98 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-freer.o)
-                0x0000000008002510                _free_r
+                0x0000000008002ad8      0x224 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000000008002ad8                _printf_i
+ .text.memchr   0x0000000008002cfc       0x1c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memchr-stub.o)
+                0x0000000008002cfc                memchr
+ .text.memmove  0x0000000008002d18       0x32 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memmove.o)
+                0x0000000008002d18                memmove
+ *fill*         0x0000000008002d4a        0x2 
+ .text._free_r  0x0000000008002d4c       0x98 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-freer.o)
+                0x0000000008002d4c                _free_r
  .text._malloc_r
-                0x00000000080025a8       0xb4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000080025a8                _malloc_r
+                0x0000000008002de4       0xb4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
+                0x0000000008002de4                _malloc_r
  .text._realloc_r
-                0x000000000800265c       0x4c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-reallocr.o)
-                0x000000000800265c                _realloc_r
- .text._sbrk_r  0x00000000080026a8       0x20 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sbrkr.o)
-                0x00000000080026a8                _sbrk_r
+                0x0000000008002e98       0x4c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-reallocr.o)
+                0x0000000008002e98                _realloc_r
+ .text._sbrk_r  0x0000000008002ee4       0x20 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sbrkr.o)
+                0x0000000008002ee4                _sbrk_r
  .text.__malloc_lock
-                0x00000000080026c8        0x2 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
-                0x00000000080026c8                __malloc_lock
+                0x0000000008002f04        0x2 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
+                0x0000000008002f04                __malloc_lock
  .text.__malloc_unlock
-                0x00000000080026ca        0x2 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
-                0x00000000080026ca                __malloc_unlock
+                0x0000000008002f06        0x2 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
+                0x0000000008002f06                __malloc_unlock
  .text._malloc_usable_size_r
-                0x00000000080026cc       0x10 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-msizer.o)
-                0x00000000080026cc                _malloc_usable_size_r
- .text._sbrk    0x00000000080026dc       0x1c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(sbrk.o)
-                0x00000000080026dc                _sbrk
+                0x0000000008002f08       0x10 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-msizer.o)
+                0x0000000008002f08                _malloc_usable_size_r
+ .text._sbrk    0x0000000008002f18       0x1c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(sbrk.o)
+                0x0000000008002f18                _sbrk
  *(.glue_7)
- .glue_7        0x00000000080026f8        0x0 linker stubs
+ .glue_7        0x0000000008002f34        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x00000000080026f8        0x0 linker stubs
+ .glue_7t       0x0000000008002f34        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x00000000080026f8        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
+ .eh_frame      0x0000000008002f34        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
  *(.init)
- .init          0x00000000080026f8        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crti.o
-                0x00000000080026f8                _init
- .init          0x00000000080026fc        0x8 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtn.o
+ .init          0x0000000008002f34        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crti.o
+                0x0000000008002f34                _init
+ .init          0x0000000008002f38        0x8 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtn.o
  *(.fini)
- .fini          0x0000000008002704        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crti.o
-                0x0000000008002704                _fini
- .fini          0x0000000008002708        0x8 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtn.o
-                0x0000000008002710                . = ALIGN (0x4)
-                0x0000000008002710                _etext = .
+ .fini          0x0000000008002f40        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crti.o
+                0x0000000008002f40                _fini
+ .fini          0x0000000008002f44        0x8 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtn.o
+                0x0000000008002f4c                . = ALIGN (0x4)
+                0x0000000008002f4c                _etext = .
 
-.vfp11_veneer   0x0000000008002710        0x0
- .vfp11_veneer  0x0000000008002710        0x0 linker stubs
+.vfp11_veneer   0x0000000008002f4c        0x0
+ .vfp11_veneer  0x0000000008002f4c        0x0 linker stubs
 
-.v4_bx          0x0000000008002710        0x0
- .v4_bx         0x0000000008002710        0x0 linker stubs
+.v4_bx          0x0000000008002f4c        0x0
+ .v4_bx         0x0000000008002f4c        0x0 linker stubs
 
-.iplt           0x0000000008002710        0x0
- .iplt          0x0000000008002710        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
+.iplt           0x0000000008002f4c        0x0
+ .iplt          0x0000000008002f4c        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
 
-.rodata         0x0000000008002710       0x58
-                0x0000000008002710                . = ALIGN (0x4)
+.rodata         0x0000000008002f4c       0x58
+                0x0000000008002f4c                . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
  .rodata.UploadTsk.str1.4
-                0x0000000008002710        0xc build/main.o
+                0x0000000008002f4c        0xc build/main.o
  .rodata.mon_table
-                0x000000000800271c        0xc build/bsp_f1xx_rtc.o
-                0x000000000800271c                mon_table
+                0x0000000008002f58        0xc build/bsp_f1xx_rtc.o
+                0x0000000008002f58                mon_table
  .rodata.table_week
-                0x0000000008002728        0xc build/bsp_f1xx_rtc.o
-                0x0000000008002728                table_week
+                0x0000000008002f64        0xc build/bsp_f1xx_rtc.o
+                0x0000000008002f64                table_week
  .rodata._svfprintf_r.str1.1
-                0x0000000008002734       0x11 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000008002f70       0x11 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x0000000008002745       0x22 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000000008002768                . = ALIGN (0x4)
- *fill*         0x0000000008002767        0x1 
+                0x0000000008002f81       0x22 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000000008002fa4                . = ALIGN (0x4)
+ *fill*         0x0000000008002fa3        0x1 
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x0000000008002768        0x8
-                0x0000000008002768                __exidx_start = .
+.ARM            0x0000000008002fa4        0x8
+                0x0000000008002fa4                __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x0000000008002768        0x8 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_udivmoddi4.o)
-                0x0000000008002770                __exidx_end = .
+ .ARM.exidx     0x0000000008002fa4        0x8 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_udivmoddi4.o)
+                0x0000000008002fac                __exidx_end = .
 
-.rel.dyn        0x0000000008002770        0x0
- .rel.iplt      0x0000000008002770        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
+.rel.dyn        0x0000000008002fac        0x0
+ .rel.iplt      0x0000000008002fac        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
 
-.preinit_array  0x0000000008002770        0x0
-                0x0000000008002770                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x0000000008002fac        0x0
+                0x0000000008002fac                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x0000000008002770                PROVIDE (__preinit_array_end, .)
+                0x0000000008002fac                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x0000000008002770        0x4
-                0x0000000008002770                PROVIDE (__init_array_start, .)
+.init_array     0x0000000008002fac        0x4
+                0x0000000008002fac                PROVIDE (__init_array_start, .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0000000008002770        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
-                0x0000000008002774                PROVIDE (__init_array_end, .)
+ .init_array    0x0000000008002fac        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
+                0x0000000008002fb0                PROVIDE (__init_array_end, .)
 
-.fini_array     0x0000000008002774        0x4
+.fini_array     0x0000000008002fb0        0x4
                 [!provide]                        PROVIDE (__fini_array_start, .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0000000008002774        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
+ .fini_array    0x0000000008002fb0        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end, .)
-                0x0000000008002778                _sidata = LOADADDR (.data)
+                0x0000000008002fb4                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x2dc load address 0x0000000008002778
+.data           0x0000000020000000      0x2e4 load address 0x0000000008002fb4
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -896,85 +970,88 @@ LOAD /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/ar
                 0x00000000200000d0                uartlist
  .data.mTime    0x000000002000019c       0x10 build/bsp_f1xx_rtc.o
                 0x000000002000019c                mTime
+ .data.i2c      0x00000000200001ac       0x10 build/mod_mpu6050.o
+                0x00000000200001ac                i2c
  .data.mallco_dev
-                0x00000000200001ac       0x14 build/malloc.o
-                0x00000000200001ac                mallco_dev
+                0x00000000200001bc       0x14 build/malloc.o
+                0x00000000200001bc                mallco_dev
  .data.TaskManger
-                0x00000000200001c0       0x28 build/tskmanager.o
-                0x00000000200001c0                TaskManger
- .data.eTask    0x00000000200001e8       0x48 build/tskmanager.o
-                0x00000000200001e8                eTask
- .data.sTask    0x0000000020000230       0x48 build/tskmanager.o
-                0x0000000020000230                sTask
+                0x00000000200001d0       0x20 build/tskmanager.o
+                0x00000000200001d0                TaskManger
+ .data.eTask    0x00000000200001f0       0x48 build/tskmanager.o
+                0x00000000200001f0                eTask
+ .data.sTask    0x0000000020000238       0x48 build/tskmanager.o
+                0x0000000020000238                sTask
  .data._impure_ptr
-                0x0000000020000278        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-impure.o)
-                0x0000000020000278                _impure_ptr
+                0x0000000020000280        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-impure.o)
+                0x0000000020000280                _impure_ptr
  .data.impure_data
-                0x000000002000027c       0x60 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-impure.o)
-                0x00000000200002dc                . = ALIGN (0x4)
-                0x00000000200002dc                _edata = .
+                0x0000000020000284       0x60 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-impure.o)
+                0x00000000200002e4                . = ALIGN (0x4)
+                0x00000000200002e4                _edata = .
 
-.igot.plt       0x00000000200002dc        0x0 load address 0x0000000008002a54
- .igot.plt      0x00000000200002dc        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
-                0x00000000200002dc                . = ALIGN (0x4)
+.igot.plt       0x00000000200002e4        0x0 load address 0x0000000008003298
+ .igot.plt      0x00000000200002e4        0x0 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
+                0x00000000200002e4                . = ALIGN (0x4)
 
-.bss            0x00000000200002e0     0x8874 load address 0x0000000008002a54
-                0x00000000200002e0                _sbss = .
-                0x00000000200002e0                __bss_start__ = _sbss
+.bss            0x00000000200002e8     0x8874 load address 0x0000000008003298
+                0x00000000200002e8                _sbss = .
+                0x00000000200002e8                __bss_start__ = _sbss
  *(.bss)
- .bss           0x00000000200002e0       0x1c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
+ .bss           0x00000000200002e8       0x1c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
  *(.bss*)
- .bss.fac_ms    0x00000000200002fc        0x2 build/sys.o
- *fill*         0x00000000200002fe        0x2 
- .bss.arr       0x0000000020000300        0x8 build/bsp_f1xx_timer.o
- .bss.funcs     0x0000000020000308       0x18 build/bsp_f1xx_timer.o
- .bss.psc       0x0000000020000320        0x8 build/bsp_f1xx_timer.o
+ .bss.fac_ms    0x0000000020000304        0x2 build/sys.o
+ .bss.fac_us    0x0000000020000306        0x1 build/sys.o
+ *fill*         0x0000000020000307        0x1 
+ .bss.arr       0x0000000020000308        0x8 build/bsp_f1xx_timer.o
+ .bss.funcs     0x0000000020000310       0x18 build/bsp_f1xx_timer.o
+ .bss.psc       0x0000000020000328        0x8 build/bsp_f1xx_timer.o
  .bss.StopCondition
-                0x0000000020000328        0x1 build/bsp_f1xx_sdio.o
+                0x0000000020000330        0x1 build/bsp_f1xx_sdio.o
  .bss.TransferEnd
-                0x0000000020000329        0x1 build/bsp_f1xx_sdio.o
-                0x0000000020000329                TransferEnd
+                0x0000000020000331        0x1 build/bsp_f1xx_sdio.o
+                0x0000000020000331                TransferEnd
  .bss.TransferError
-                0x000000002000032a        0x1 build/bsp_f1xx_sdio.o
-                0x000000002000032a                TransferError
- *fill*         0x000000002000032b        0x1 
- .bss.MemUsed   0x000000002000032c        0x4 build/malloc.o
-                0x000000002000032c                MemUsed
+                0x0000000020000332        0x1 build/bsp_f1xx_sdio.o
+                0x0000000020000332                TransferError
+ *fill*         0x0000000020000333        0x1 
+ .bss.MemUsed   0x0000000020000334        0x4 build/malloc.o
+                0x0000000020000334                MemUsed
  .bss.__malloc_free_list
-                0x0000000020000330        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
-                0x0000000020000330                __malloc_free_list
+                0x0000000020000338        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
+                0x0000000020000338                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x0000000020000334        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
-                0x0000000020000334                __malloc_sbrk_start
+                0x000000002000033c        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
+                0x000000002000033c                __malloc_sbrk_start
  .bss.heap_end.4102
-                0x0000000020000338        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(sbrk.o)
+                0x0000000020000340        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(sbrk.o)
  *(COMMON)
- COMMON         0x000000002000033c        0x8 build/main.o
-                0x000000002000033c                msg
-                0x0000000020000340                util
- *fill*         0x0000000020000344        0x4 
- COMMON         0x0000000020000348     0x8800 build/malloc.o
-                0x0000000020000348                mem1mapbase
-                0x0000000020000b48                mem1base
- COMMON         0x0000000020008b48        0x8 build/tskmanager.o
-                0x0000000020008b48                delayTick
- COMMON         0x0000000020008b50        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
-                0x0000000020008b50                errno
-                0x0000000020008b54                . = ALIGN (0x4)
-                0x0000000020008b54                _ebss = .
-                0x0000000020008b54                __bss_end__ = _ebss
+ COMMON         0x0000000020000344        0x8 build/main.o
+                0x0000000020000344                msg
+                0x0000000020000348                util
+ *fill*         0x000000002000034c        0x4 
+ COMMON         0x0000000020000350     0x8800 build/malloc.o
+                0x0000000020000350                mem1mapbase
+                0x0000000020000b50                mem1base
+ COMMON         0x0000000020008b50        0x8 build/tskmanager.o
+                0x0000000020008b50                delayTick
+ COMMON         0x0000000020008b58        0x4 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
+                0x0000000020008b58                errno
+                0x0000000020008b5c                . = ALIGN (0x4)
+                0x0000000020008b5c                _ebss = .
+                0x0000000020008b5c                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x0000000020008b54      0x604 load address 0x0000000008002a54
-                0x0000000020008b58                . = ALIGN (0x8)
- *fill*         0x0000000020008b54        0x4 
-                0x0000000020008b58                PROVIDE (end, .)
+                0x0000000020008b5c      0x604 load address 0x0000000008003298
+                0x0000000020008b60                . = ALIGN (0x8)
+ *fill*         0x0000000020008b5c        0x4 
+                0x0000000020008b60                PROVIDE (end, .)
                 [!provide]                        PROVIDE (_end, .)
-                0x0000000020008d58                . = (. + _Min_Heap_Size)
- *fill*         0x0000000020008b58      0x200 
-                0x0000000020009158                . = (. + _Min_Stack_Size)
- *fill*         0x0000000020008d58      0x400 
-                0x0000000020009158                . = ALIGN (0x8)
+                0x0000000020008d60                . = (. + _Min_Heap_Size)
+ *fill*         0x0000000020008b60      0x200 
+                0x0000000020009160                . = (. + _Min_Stack_Size)
+ *fill*         0x0000000020008d60      0x400 
+                0x0000000020009160                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -1009,202 +1086,224 @@ LOAD /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/ar
  .ARM.attributes
                 0x0000000000000215       0x33 build/bsp_f1xx_rtc.o
  .ARM.attributes
-                0x0000000000000248       0x33 build/datautil.o
+                0x0000000000000248       0x33 build/bsp_soft_i2c.o
  .ARM.attributes
-                0x000000000000027b       0x33 build/malloc.o
+                0x000000000000027b       0x33 build/datautil.o
  .ARM.attributes
-                0x00000000000002ae       0x33 build/tskmanager.o
+                0x00000000000002ae       0x33 build/mod_mpu6050.o
  .ARM.attributes
-                0x00000000000002e1       0x21 build/startup_stm32f103xe.o
+                0x00000000000002e1       0x33 build/malloc.o
  .ARM.attributes
-                0x0000000000000302       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-impure.o)
+                0x0000000000000314       0x33 build/tskmanager.o
  .ARM.attributes
-                0x000000000000032f       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-init.o)
+                0x0000000000000347       0x21 build/startup_stm32f103xe.o
  .ARM.attributes
-                0x000000000000035c       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memcpy-stub.o)
+                0x0000000000000368       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-impure.o)
  .ARM.attributes
-                0x0000000000000389       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sprintf.o)
+                0x0000000000000395       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-init.o)
  .ARM.attributes
-                0x00000000000003b6       0x17 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-strlen.o)
+                0x00000000000003c2       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memcpy-stub.o)
  .ARM.attributes
-                0x00000000000003cd       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00000000000003ef       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sprintf.o)
  .ARM.attributes
-                0x00000000000003fa       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x000000000000041c       0x17 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-strlen.o)
  .ARM.attributes
-                0x0000000000000427       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memchr-stub.o)
+                0x0000000000000433       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
  .ARM.attributes
-                0x0000000000000454       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memmove.o)
+                0x0000000000000460       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
  .ARM.attributes
-                0x0000000000000481       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-freer.o)
+                0x000000000000048d       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memchr-stub.o)
  .ARM.attributes
-                0x00000000000004ae       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000000004ba       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memmove.o)
  .ARM.attributes
-                0x00000000000004db       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-reallocr.o)
+                0x00000000000004e7       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-freer.o)
  .ARM.attributes
-                0x0000000000000508       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sbrkr.o)
+                0x0000000000000514       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
  .ARM.attributes
-                0x0000000000000535       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
+                0x0000000000000541       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-reallocr.o)
  .ARM.attributes
-                0x0000000000000562       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-msizer.o)
+                0x000000000000056e       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sbrkr.o)
  .ARM.attributes
-                0x000000000000058f       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
+                0x000000000000059b       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
  .ARM.attributes
-                0x00000000000005bc       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(sbrk.o)
+                0x00000000000005c8       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-msizer.o)
  .ARM.attributes
-                0x00000000000005e9       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
+                0x00000000000005f5       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
  .ARM.attributes
-                0x0000000000000606       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
+                0x0000000000000622       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(sbrk.o)
  .ARM.attributes
-                0x0000000000000623       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
+                0x000000000000064f       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
  .ARM.attributes
-                0x0000000000000640       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
+                0x000000000000066c       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
  .ARM.attributes
-                0x000000000000065d       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_aeabi_uldivmod.o)
+                0x0000000000000689       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
  .ARM.attributes
-                0x000000000000067a       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_udivmoddi4.o)
+                0x00000000000006a6       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
  .ARM.attributes
-                0x00000000000006a7       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_dvmd_tls.o)
+                0x00000000000006c3       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_aeabi_uldivmod.o)
  .ARM.attributes
-                0x00000000000006c4       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtn.o
+                0x00000000000006e0       0x2d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_udivmoddi4.o)
+ .ARM.attributes
+                0x000000000000070d       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x000000000000072a       0x1d /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtn.o
 OUTPUT(build/drivers_stm32f1xx.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000     0xf8bb
- .debug_info    0x0000000000000000     0x110d build/main.o
- .debug_info    0x000000000000110d      0xe66 build/runled.o
- .debug_info    0x0000000000001f73     0x13e7 build/sys.o
- .debug_info    0x000000000000335a      0xe88 build/bsp_f1xx_io.o
- .debug_info    0x00000000000041e2     0x1201 build/bsp_f1xx_timer.o
- .debug_info    0x00000000000053e3      0xe9a build/bsp_f1xx_led.o
- .debug_info    0x000000000000627d      0xe5d build/bsp_f1xx_dma.o
- .debug_info    0x00000000000070da     0x1c4f build/bsp_f1xx_uart.o
- .debug_info    0x0000000000008d29     0x2bec build/bsp_f1xx_sdio.o
- .debug_info    0x000000000000b915     0x1403 build/bsp_f1xx_rtc.o
- .debug_info    0x000000000000cd18      0xde5 build/datautil.o
- .debug_info    0x000000000000dafd      0xf84 build/malloc.o
- .debug_info    0x000000000000ea81      0xe18 build/tskmanager.o
- .debug_info    0x000000000000f899       0x22 build/startup_stm32f103xe.o
+.debug_info     0x0000000000000000    0x14ab6
+ .debug_info    0x0000000000000000     0x1115 build/main.o
+ .debug_info    0x0000000000001115      0xe58 build/runled.o
+ .debug_info    0x0000000000001f6d     0x1425 build/sys.o
+ .debug_info    0x0000000000003392      0xea6 build/bsp_f1xx_io.o
+ .debug_info    0x0000000000004238     0x11f3 build/bsp_f1xx_timer.o
+ .debug_info    0x000000000000542b      0xe8c build/bsp_f1xx_led.o
+ .debug_info    0x00000000000062b7      0xe4f build/bsp_f1xx_dma.o
+ .debug_info    0x0000000000007106     0x1c41 build/bsp_f1xx_uart.o
+ .debug_info    0x0000000000008d47     0x2bde build/bsp_f1xx_sdio.o
+ .debug_info    0x000000000000b925     0x13f5 build/bsp_f1xx_rtc.o
+ .debug_info    0x000000000000cd1a     0x3f39 build/bsp_soft_i2c.o
+ .debug_info    0x0000000000010c53      0xdd7 build/datautil.o
+ .debug_info    0x0000000000011a2a     0x12e8 build/mod_mpu6050.o
+ .debug_info    0x0000000000012d12      0xf76 build/malloc.o
+ .debug_info    0x0000000000013c88      0xe0c build/tskmanager.o
+ .debug_info    0x0000000000014a94       0x22 build/startup_stm32f103xe.o
 
-.debug_abbrev   0x0000000000000000     0x2421
+.debug_abbrev   0x0000000000000000     0x29c4
  .debug_abbrev  0x0000000000000000      0x29c build/main.o
  .debug_abbrev  0x000000000000029c      0x254 build/runled.o
- .debug_abbrev  0x00000000000004f0      0x2e2 build/sys.o
- .debug_abbrev  0x00000000000007d2      0x238 build/bsp_f1xx_io.o
- .debug_abbrev  0x0000000000000a0a      0x2f1 build/bsp_f1xx_timer.o
- .debug_abbrev  0x0000000000000cfb      0x23f build/bsp_f1xx_led.o
- .debug_abbrev  0x0000000000000f3a      0x260 build/bsp_f1xx_dma.o
- .debug_abbrev  0x000000000000119a      0x377 build/bsp_f1xx_uart.o
- .debug_abbrev  0x0000000000001511      0x431 build/bsp_f1xx_sdio.o
- .debug_abbrev  0x0000000000001942      0x2ac build/bsp_f1xx_rtc.o
- .debug_abbrev  0x0000000000001bee      0x245 build/datautil.o
- .debug_abbrev  0x0000000000001e33      0x2fd build/malloc.o
- .debug_abbrev  0x0000000000002130      0x2df build/tskmanager.o
- .debug_abbrev  0x000000000000240f       0x12 build/startup_stm32f103xe.o
+ .debug_abbrev  0x00000000000004f0      0x2d5 build/sys.o
+ .debug_abbrev  0x00000000000007c5      0x254 build/bsp_f1xx_io.o
+ .debug_abbrev  0x0000000000000a19      0x2f1 build/bsp_f1xx_timer.o
+ .debug_abbrev  0x0000000000000d0a      0x23f build/bsp_f1xx_led.o
+ .debug_abbrev  0x0000000000000f49      0x260 build/bsp_f1xx_dma.o
+ .debug_abbrev  0x00000000000011a9      0x377 build/bsp_f1xx_uart.o
+ .debug_abbrev  0x0000000000001520      0x431 build/bsp_f1xx_sdio.o
+ .debug_abbrev  0x0000000000001951      0x2ac build/bsp_f1xx_rtc.o
+ .debug_abbrev  0x0000000000001bfd      0x30a build/bsp_soft_i2c.o
+ .debug_abbrev  0x0000000000001f07      0x245 build/datautil.o
+ .debug_abbrev  0x000000000000214c      0x285 build/mod_mpu6050.o
+ .debug_abbrev  0x00000000000023d1      0x2fd build/malloc.o
+ .debug_abbrev  0x00000000000026ce      0x2e4 build/tskmanager.o
+ .debug_abbrev  0x00000000000029b2       0x12 build/startup_stm32f103xe.o
 
-.debug_loc      0x0000000000000000     0x4193
+.debug_loc      0x0000000000000000     0x5cf2
  .debug_loc     0x0000000000000000       0x61 build/main.o
  .debug_loc     0x0000000000000061       0x61 build/runled.o
- .debug_loc     0x00000000000000c2      0x472 build/sys.o
- .debug_loc     0x0000000000000534       0x79 build/bsp_f1xx_io.o
- .debug_loc     0x00000000000005ad      0x168 build/bsp_f1xx_timer.o
- .debug_loc     0x0000000000000715      0x116 build/bsp_f1xx_led.o
- .debug_loc     0x000000000000082b      0x114 build/bsp_f1xx_dma.o
- .debug_loc     0x000000000000093f      0x757 build/bsp_f1xx_uart.o
- .debug_loc     0x0000000000001096     0x22d3 build/bsp_f1xx_sdio.o
- .debug_loc     0x0000000000003369      0x575 build/bsp_f1xx_rtc.o
- .debug_loc     0x00000000000038de      0x11c build/datautil.o
- .debug_loc     0x00000000000039fa      0x4ce build/malloc.o
- .debug_loc     0x0000000000003ec8      0x2cb build/tskmanager.o
+ .debug_loc     0x00000000000000c2      0x4a6 build/sys.o
+ .debug_loc     0x0000000000000568       0x9a build/bsp_f1xx_io.o
+ .debug_loc     0x0000000000000602      0x168 build/bsp_f1xx_timer.o
+ .debug_loc     0x000000000000076a      0x116 build/bsp_f1xx_led.o
+ .debug_loc     0x0000000000000880      0x114 build/bsp_f1xx_dma.o
+ .debug_loc     0x0000000000000994      0x757 build/bsp_f1xx_uart.o
+ .debug_loc     0x00000000000010eb     0x22d3 build/bsp_f1xx_sdio.o
+ .debug_loc     0x00000000000033be      0x575 build/bsp_f1xx_rtc.o
+ .debug_loc     0x0000000000003933     0x1786 build/bsp_soft_i2c.o
+ .debug_loc     0x00000000000050b9      0x11c build/datautil.o
+ .debug_loc     0x00000000000051d5      0x384 build/mod_mpu6050.o
+ .debug_loc     0x0000000000005559      0x4ce build/malloc.o
+ .debug_loc     0x0000000000005a27      0x2cb build/tskmanager.o
 
-.debug_aranges  0x0000000000000000      0x4c8
+.debug_aranges  0x0000000000000000      0x570
  .debug_aranges
                 0x0000000000000000       0x30 build/main.o
  .debug_aranges
                 0x0000000000000030       0x30 build/runled.o
  .debug_aranges
-                0x0000000000000060       0x98 build/sys.o
+                0x0000000000000060       0xa0 build/sys.o
  .debug_aranges
-                0x00000000000000f8       0x30 build/bsp_f1xx_io.o
+                0x0000000000000100       0x38 build/bsp_f1xx_io.o
  .debug_aranges
-                0x0000000000000128       0x50 build/bsp_f1xx_timer.o
+                0x0000000000000138       0x50 build/bsp_f1xx_timer.o
  .debug_aranges
-                0x0000000000000178       0x38 build/bsp_f1xx_led.o
+                0x0000000000000188       0x38 build/bsp_f1xx_led.o
  .debug_aranges
-                0x00000000000001b0       0x38 build/bsp_f1xx_dma.o
+                0x00000000000001c0       0x38 build/bsp_f1xx_dma.o
  .debug_aranges
-                0x00000000000001e8       0x68 build/bsp_f1xx_uart.o
+                0x00000000000001f8       0x68 build/bsp_f1xx_uart.o
  .debug_aranges
-                0x0000000000000250      0x118 build/bsp_f1xx_sdio.o
+                0x0000000000000260      0x118 build/bsp_f1xx_sdio.o
  .debug_aranges
-                0x0000000000000368       0x50 build/bsp_f1xx_rtc.o
+                0x0000000000000378       0x50 build/bsp_f1xx_rtc.o
  .debug_aranges
-                0x00000000000003b8       0x28 build/datautil.o
+                0x00000000000003c8       0x40 build/bsp_soft_i2c.o
  .debug_aranges
-                0x00000000000003e0       0x60 build/malloc.o
+                0x0000000000000408       0x28 build/datautil.o
  .debug_aranges
-                0x0000000000000440       0x60 build/tskmanager.o
+                0x0000000000000430       0x58 build/mod_mpu6050.o
  .debug_aranges
-                0x00000000000004a0       0x28 build/startup_stm32f103xe.o
+                0x0000000000000488       0x60 build/malloc.o
+ .debug_aranges
+                0x00000000000004e8       0x60 build/tskmanager.o
+ .debug_aranges
+                0x0000000000000548       0x28 build/startup_stm32f103xe.o
 
-.debug_ranges   0x0000000000000000      0x450
+.debug_ranges   0x0000000000000000      0x550
  .debug_ranges  0x0000000000000000       0x20 build/main.o
  .debug_ranges  0x0000000000000020       0x20 build/runled.o
- .debug_ranges  0x0000000000000040       0x88 build/sys.o
- .debug_ranges  0x00000000000000c8       0x20 build/bsp_f1xx_io.o
- .debug_ranges  0x00000000000000e8       0x40 build/bsp_f1xx_timer.o
- .debug_ranges  0x0000000000000128       0x28 build/bsp_f1xx_led.o
- .debug_ranges  0x0000000000000150       0x28 build/bsp_f1xx_dma.o
- .debug_ranges  0x0000000000000178       0xb8 build/bsp_f1xx_uart.o
- .debug_ranges  0x0000000000000230      0x108 build/bsp_f1xx_sdio.o
- .debug_ranges  0x0000000000000338       0x40 build/bsp_f1xx_rtc.o
- .debug_ranges  0x0000000000000378       0x18 build/datautil.o
- .debug_ranges  0x0000000000000390       0x50 build/malloc.o
- .debug_ranges  0x00000000000003e0       0x50 build/tskmanager.o
- .debug_ranges  0x0000000000000430       0x20 build/startup_stm32f103xe.o
+ .debug_ranges  0x0000000000000040       0x90 build/sys.o
+ .debug_ranges  0x00000000000000d0       0x28 build/bsp_f1xx_io.o
+ .debug_ranges  0x00000000000000f8       0x40 build/bsp_f1xx_timer.o
+ .debug_ranges  0x0000000000000138       0x28 build/bsp_f1xx_led.o
+ .debug_ranges  0x0000000000000160       0x28 build/bsp_f1xx_dma.o
+ .debug_ranges  0x0000000000000188       0xb8 build/bsp_f1xx_uart.o
+ .debug_ranges  0x0000000000000240      0x108 build/bsp_f1xx_sdio.o
+ .debug_ranges  0x0000000000000348       0x40 build/bsp_f1xx_rtc.o
+ .debug_ranges  0x0000000000000388       0xa8 build/bsp_soft_i2c.o
+ .debug_ranges  0x0000000000000430       0x18 build/datautil.o
+ .debug_ranges  0x0000000000000448       0x48 build/mod_mpu6050.o
+ .debug_ranges  0x0000000000000490       0x50 build/malloc.o
+ .debug_ranges  0x00000000000004e0       0x50 build/tskmanager.o
+ .debug_ranges  0x0000000000000530       0x20 build/startup_stm32f103xe.o
 
-.debug_line     0x0000000000000000     0x2b8b
- .debug_line    0x0000000000000000      0x2c5 build/main.o
- .debug_line    0x00000000000002c5      0x235 build/runled.o
- .debug_line    0x00000000000004fa      0x373 build/sys.o
- .debug_line    0x000000000000086d      0x23e build/bsp_f1xx_io.o
- .debug_line    0x0000000000000aab      0x2b2 build/bsp_f1xx_timer.o
- .debug_line    0x0000000000000d5d      0x251 build/bsp_f1xx_led.o
- .debug_line    0x0000000000000fae      0x250 build/bsp_f1xx_dma.o
- .debug_line    0x00000000000011fe      0x3a9 build/bsp_f1xx_uart.o
- .debug_line    0x00000000000015a7      0xa4d build/bsp_f1xx_sdio.o
- .debug_line    0x0000000000001ff4      0x36c build/bsp_f1xx_rtc.o
- .debug_line    0x0000000000002360      0x230 build/datautil.o
- .debug_line    0x0000000000002590      0x2f7 build/malloc.o
- .debug_line    0x0000000000002887      0x28b build/tskmanager.o
- .debug_line    0x0000000000002b12       0x79 build/startup_stm32f103xe.o
+.debug_line     0x0000000000000000     0x34e4
+ .debug_line    0x0000000000000000      0x2ea build/main.o
+ .debug_line    0x00000000000002ea      0x235 build/runled.o
+ .debug_line    0x000000000000051f      0x393 build/sys.o
+ .debug_line    0x00000000000008b2      0x24f build/bsp_f1xx_io.o
+ .debug_line    0x0000000000000b01      0x2b2 build/bsp_f1xx_timer.o
+ .debug_line    0x0000000000000db3      0x251 build/bsp_f1xx_led.o
+ .debug_line    0x0000000000001004      0x24b build/bsp_f1xx_dma.o
+ .debug_line    0x000000000000124f      0x3ab build/bsp_f1xx_uart.o
+ .debug_line    0x00000000000015fa      0xa4d build/bsp_f1xx_sdio.o
+ .debug_line    0x0000000000002047      0x36c build/bsp_f1xx_rtc.o
+ .debug_line    0x00000000000023b3      0x63b build/bsp_soft_i2c.o
+ .debug_line    0x00000000000029ee      0x230 build/datautil.o
+ .debug_line    0x0000000000002c1e      0x2cb build/mod_mpu6050.o
+ .debug_line    0x0000000000002ee9      0x2f7 build/malloc.o
+ .debug_line    0x00000000000031e0      0x28b build/tskmanager.o
+ .debug_line    0x000000000000346b       0x79 build/startup_stm32f103xe.o
 
-.debug_str      0x0000000000000000     0x2089
- .debug_str     0x0000000000000000      0x701 build/main.o
-                                        0x7c5 (size before relaxing)
- .debug_str     0x0000000000000701      0x1be build/runled.o
-                                        0x821 (size before relaxing)
- .debug_str     0x00000000000008bf      0x325 build/sys.o
-                                        0x8e7 (size before relaxing)
- .debug_str     0x0000000000000be4       0x35 build/bsp_f1xx_io.o
-                                        0x82f (size before relaxing)
- .debug_str     0x0000000000000c19      0x46f build/bsp_f1xx_timer.o
-                                        0xb67 (size before relaxing)
- .debug_str     0x0000000000001088       0x24 build/bsp_f1xx_led.o
-                                        0x817 (size before relaxing)
- .debug_str     0x00000000000010ac       0x8b build/bsp_f1xx_dma.o
-                                        0x706 (size before relaxing)
- .debug_str     0x0000000000001137      0x1eb build/bsp_f1xx_uart.o
-                                        0xea7 (size before relaxing)
- .debug_str     0x0000000000001322      0xa16 build/bsp_f1xx_sdio.o
-                                       0x1521 (size before relaxing)
- .debug_str     0x0000000000001d38      0x1d2 build/bsp_f1xx_rtc.o
-                                        0x892 (size before relaxing)
- .debug_str     0x0000000000001f0a       0x34 build/datautil.o
-                                        0x6f5 (size before relaxing)
- .debug_str     0x0000000000001f3e       0xa5 build/malloc.o
-                                        0x701 (size before relaxing)
- .debug_str     0x0000000000001fe3       0x79 build/tskmanager.o
-                                        0x6c8 (size before relaxing)
- .debug_str     0x000000000000205c       0x2d build/startup_stm32f103xe.o
+.debug_str      0x0000000000000000     0x224b
+ .debug_str     0x0000000000000000      0x709 build/main.o
+                                        0x7cd (size before relaxing)
+ .debug_str     0x0000000000000709      0x1be build/runled.o
+                                        0x819 (size before relaxing)
+ .debug_str     0x00000000000008c7      0x32e build/sys.o
+                                        0x8f0 (size before relaxing)
+ .debug_str     0x0000000000000bf5       0x40 build/bsp_f1xx_io.o
+                                        0x832 (size before relaxing)
+ .debug_str     0x0000000000000c35      0x46f build/bsp_f1xx_timer.o
+                                        0xb5f (size before relaxing)
+ .debug_str     0x00000000000010a4       0x24 build/bsp_f1xx_led.o
+                                        0x80f (size before relaxing)
+ .debug_str     0x00000000000010c8       0x8b build/bsp_f1xx_dma.o
+                                        0x6fe (size before relaxing)
+ .debug_str     0x0000000000001153      0x1eb build/bsp_f1xx_uart.o
+                                        0xe9f (size before relaxing)
+ .debug_str     0x000000000000133e      0xa16 build/bsp_f1xx_sdio.o
+                                       0x1519 (size before relaxing)
+ .debug_str     0x0000000000001d54      0x1d2 build/bsp_f1xx_rtc.o
+                                        0x88a (size before relaxing)
+ .debug_str     0x0000000000001f26      0x10b build/bsp_soft_i2c.o
+                                        0x8ef (size before relaxing)
+ .debug_str     0x0000000000002031       0x34 build/datautil.o
+                                        0x6ed (size before relaxing)
+ .debug_str     0x0000000000002065       0x9b build/mod_mpu6050.o
+                                        0x8b3 (size before relaxing)
+ .debug_str     0x0000000000002100       0xa5 build/malloc.o
+                                        0x6f9 (size before relaxing)
+ .debug_str     0x00000000000021a5       0x79 build/tskmanager.o
+                                        0x6c0 (size before relaxing)
+ .debug_str     0x000000000000221e       0x2d build/startup_stm32f103xe.o
                                          0x63 (size before relaxing)
 
 .comment        0x0000000000000000       0x7e
@@ -1219,45 +1318,49 @@ OUTPUT(build/drivers_stm32f1xx.elf elf32-littlearm)
  .comment       0x000000000000007e       0x7f build/bsp_f1xx_uart.o
  .comment       0x000000000000007e       0x7f build/bsp_f1xx_sdio.o
  .comment       0x000000000000007e       0x7f build/bsp_f1xx_rtc.o
+ .comment       0x000000000000007e       0x7f build/bsp_soft_i2c.o
  .comment       0x000000000000007e       0x7f build/datautil.o
+ .comment       0x000000000000007e       0x7f build/mod_mpu6050.o
  .comment       0x000000000000007e       0x7f build/malloc.o
  .comment       0x000000000000007e       0x7f build/tskmanager.o
 
-.debug_frame    0x0000000000000000     0x128c
+.debug_frame    0x0000000000000000     0x14a8
  .debug_frame   0x0000000000000000       0x5c build/main.o
  .debug_frame   0x000000000000005c       0x58 build/runled.o
- .debug_frame   0x00000000000000b4      0x188 build/sys.o
- .debug_frame   0x000000000000023c       0x64 build/bsp_f1xx_io.o
- .debug_frame   0x00000000000002a0       0xe4 build/bsp_f1xx_timer.o
- .debug_frame   0x0000000000000384       0x74 build/bsp_f1xx_led.o
- .debug_frame   0x00000000000003f8       0x70 build/bsp_f1xx_dma.o
- .debug_frame   0x0000000000000468      0x178 build/bsp_f1xx_uart.o
- .debug_frame   0x00000000000005e0      0x3e4 build/bsp_f1xx_sdio.o
- .debug_frame   0x00000000000009c4       0xe8 build/bsp_f1xx_rtc.o
- .debug_frame   0x0000000000000aac       0x4c build/datautil.o
- .debug_frame   0x0000000000000af8       0xfc build/malloc.o
- .debug_frame   0x0000000000000bf4      0x14c build/tskmanager.o
- .debug_frame   0x0000000000000d40       0x2c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-init.o)
- .debug_frame   0x0000000000000d6c       0x28 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x0000000000000d94       0x6c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sprintf.o)
- .debug_frame   0x0000000000000e00       0x90 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
- .debug_frame   0x0000000000000e90       0x60 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
- .debug_frame   0x0000000000000ef0       0x28 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memchr-stub.o)
- .debug_frame   0x0000000000000f18       0x28 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memmove.o)
- .debug_frame   0x0000000000000f40       0x38 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x0000000000000f78       0x2c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x0000000000000fa4       0x3c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-reallocr.o)
- .debug_frame   0x0000000000000fe0       0x2c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x000000000000100c       0x30 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
- .debug_frame   0x000000000000103c       0x20 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-msizer.o)
- .debug_frame   0x000000000000105c       0x5c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
- .debug_frame   0x00000000000010b8       0x20 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(sbrk.o)
- .debug_frame   0x00000000000010d8       0xac /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
- .debug_frame   0x0000000000001184       0x4c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
- .debug_frame   0x00000000000011d0       0x38 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
- .debug_frame   0x0000000000001208       0x24 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
- .debug_frame   0x000000000000122c       0x2c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_aeabi_uldivmod.o)
- .debug_frame   0x0000000000001258       0x34 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00000000000000b4      0x198 build/sys.o
+ .debug_frame   0x000000000000024c       0x74 build/bsp_f1xx_io.o
+ .debug_frame   0x00000000000002c0       0xe4 build/bsp_f1xx_timer.o
+ .debug_frame   0x00000000000003a4       0x74 build/bsp_f1xx_led.o
+ .debug_frame   0x0000000000000418       0x70 build/bsp_f1xx_dma.o
+ .debug_frame   0x0000000000000488      0x178 build/bsp_f1xx_uart.o
+ .debug_frame   0x0000000000000600      0x3e4 build/bsp_f1xx_sdio.o
+ .debug_frame   0x00000000000009e4       0xe8 build/bsp_f1xx_rtc.o
+ .debug_frame   0x0000000000000acc       0xf4 build/bsp_soft_i2c.o
+ .debug_frame   0x0000000000000bc0       0x4c build/datautil.o
+ .debug_frame   0x0000000000000c0c      0x108 build/mod_mpu6050.o
+ .debug_frame   0x0000000000000d14       0xfc build/malloc.o
+ .debug_frame   0x0000000000000e10      0x14c build/tskmanager.o
+ .debug_frame   0x0000000000000f5c       0x2c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-init.o)
+ .debug_frame   0x0000000000000f88       0x28 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x0000000000000fb0       0x6c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sprintf.o)
+ .debug_frame   0x000000000000101c       0x90 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x00000000000010ac       0x60 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x000000000000110c       0x28 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memchr-stub.o)
+ .debug_frame   0x0000000000001134       0x28 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-memmove.o)
+ .debug_frame   0x000000000000115c       0x38 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x0000000000001194       0x2c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x00000000000011c0       0x3c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x00000000000011fc       0x2c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x0000000000001228       0x30 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
+ .debug_frame   0x0000000000001258       0x20 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x0000000000001278       0x5c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
+ .debug_frame   0x00000000000012d4       0x20 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libnosys.a(sbrk.o)
+ .debug_frame   0x00000000000012f4       0xac /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
+ .debug_frame   0x00000000000013a0       0x4c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
+ .debug_frame   0x00000000000013ec       0x38 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
+ .debug_frame   0x0000000000001424       0x24 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
+ .debug_frame   0x0000000000001448       0x2c /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x0000000000001474       0x34 /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_udivmoddi4.o)
 
 Cross Reference Table
 
@@ -1328,6 +1431,13 @@ InitBuffer                                        build/bufferutil.o
 IsCardProgramming                                 build/bsp_f1xx_sdio.o
 Is_Leap_Year                                      build/bsp_f1xx_rtc.o
 JTAG_Set                                          build/sys.o
+MPU_Get_Accelerometer                             build/mod_mpu6050.o
+MPU_Get_Gyroscope                                 build/mod_mpu6050.o
+MPU_Get_Temperature                               build/mod_mpu6050.o
+MPU_Set_Accel_Fsr                                 build/mod_mpu6050.o
+MPU_Set_Gyro_Fsr                                  build/mod_mpu6050.o
+MPU_Set_LPF                                       build/mod_mpu6050.o
+MPU_Set_Rate                                      build/mod_mpu6050.o
 MSR_MSP                                           build/sys.o
 MYRCC_DeInit                                      build/sys.o
 MY_NVIC_Init                                      build/sys.o
@@ -1425,22 +1535,32 @@ WFI_SET                                           build/sys.o
 WWDG_IRQHandler                                   build/startup_stm32f103xe.o
 __adddf3                                          /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
 __addsf3                                          /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
+__aeabi_d2f                                       /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_truncdfsf2.o)
+                                                  build/mod_mpu6050.o
 __aeabi_dadd                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
+                                                  build/mod_mpu6050.o
+__aeabi_ddiv                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
+                                                  build/mod_mpu6050.o
+__aeabi_dmul                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
 __aeabi_drsub                                     /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
 __aeabi_dsub                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
 __aeabi_f2d                                       /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
                                                   build/main.o
+__aeabi_f2iz                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixsfsi.o)
+                                                  build/mod_mpu6050.o
 __aeabi_f2uiz                                     /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
                                                   build/bsp_f1xx_uart.o
 __aeabi_fadd                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
 __aeabi_fdiv                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
                                                   build/bsp_f1xx_uart.o
 __aeabi_fmul                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
+                                                  build/mod_mpu6050.o
                                                   build/bsp_f1xx_uart.o
 __aeabi_frsub                                     /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
 __aeabi_fsub                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
                                                   build/bsp_f1xx_uart.o
 __aeabi_i2d                                       /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
+                                                  build/mod_mpu6050.o
 __aeabi_i2f                                       /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
                                                   build/bsp_f1xx_uart.o
 __aeabi_idiv0                                     /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_dvmd_tls.o)
@@ -1459,9 +1579,11 @@ __bss_end__                                       /Users/zy/Desktop/Tools/gcc-ar
 __bss_start__                                     /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/crt0.o
 __call_exitprocs                                  /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-exit.o)
 __deregister_frame_info                           /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
+__divdf3                                          /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
 __divsf3                                          /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
 __dso_handle                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/crtbegin.o
 __extendsfdf2                                     /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
+__fixsfsi                                         /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixsfsi.o)
 __fixunssfsi                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_fixunssfsi.o)
 __floatdidf                                       /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
 __floatdisf                                       /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
@@ -1486,6 +1608,7 @@ __malloc_sbrk_start                               /Users/zy/Desktop/Tools/gcc-ar
 __malloc_unlock                                   /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-mlock.o)
                                                   /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-mallocr.o)
                                                   /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-nano-freer.o)
+__muldf3                                          /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivdf3.o)
 __mulsf3                                          /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_muldivsf3.o)
 __preinit_array_end                               /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-init.o)
 __preinit_array_start                             /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-init.o)
@@ -1498,6 +1621,7 @@ __ssputs_r                                        /Users/zy/Desktop/Tools/gcc-ar
 __stack                                           /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/crt0.o
 __subdf3                                          /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubdf3.o)
 __subsf3                                          /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_addsubsf3.o)
+__truncdfsf2                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_arm_truncdfsf2.o)
 __udivmoddi4                                      /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_udivmoddi4.o)
                                                   /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7-m/libgcc.a(_aeabi_uldivmod.o)
 _ebss                                             build/startup_stm32f103xe.o
@@ -1546,15 +1670,29 @@ _svfprintf_r                                      /Users/zy/Desktop/Tools/gcc-ar
 atexit                                            /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/crt0.o
 bsp_EraseFlash                                    build/bsp_f1xx_flash.o
 bsp_IoClr                                         build/bsp_f1xx_io.o
+                                                  build/bsp_soft_i2c.o
                                                   build/bsp_f1xx_led.o
 bsp_IoInit                                        build/bsp_f1xx_io.o
+                                                  build/bsp_soft_i2c.o
                                                   build/bsp_f1xx_uart.o
                                                   build/bsp_f1xx_led.o
+bsp_IoRead                                        build/bsp_f1xx_io.o
+                                                  build/bsp_soft_i2c.o
 bsp_IoSet                                         build/bsp_f1xx_io.o
+                                                  build/bsp_soft_i2c.o
                                                   build/bsp_f1xx_led.o
 bsp_RTC_Init                                      build/bsp_f1xx_rtc.o
 bsp_ReadFlash                                     build/bsp_f1xx_flash.o
 bsp_SD_Init                                       build/bsp_f1xx_sdio.o
+bsp_SoftI2CInit                                   build/bsp_soft_i2c.o
+                                                  build/mod_mpu6050.o
+bsp_SoftI2CRead                                   build/bsp_soft_i2c.o
+                                                  build/mod_mpu6050.o
+bsp_SoftI2CReadReg                                build/bsp_soft_i2c.o
+                                                  build/mod_mpu6050.o
+bsp_SoftI2CWrite                                  build/bsp_soft_i2c.o
+bsp_SoftI2CWriteReg                               build/bsp_soft_i2c.o
+                                                  build/mod_mpu6050.o
 bsp_TimerInit                                     build/bsp_f1xx_timer.o
                                                   build/main.o
 bsp_UartClose                                     build/bsp_f1xx_uart.o
@@ -1568,7 +1706,10 @@ delayTick                                         build/tskmanager.o
 delay_init                                        build/sys.o
                                                   build/main.o
 delay_ms                                          build/sys.o
+                                                  build/mod_mpu6050.o
                                                   build/bsp_f1xx_uart.o
+delay_us                                          build/sys.o
+                                                  build/bsp_soft_i2c.o
 dma_clear_flag                                    build/bsp_f1xx_dma.o
                                                   build/bsp_f1xx_uart.o
 dma_stream_en                                     build/bsp_f1xx_dma.o
@@ -1584,6 +1725,7 @@ exit                                              /Users/zy/Desktop/Tools/gcc-ar
 g_pfnVectors                                      build/startup_stm32f103xe.o
 getdmax                                           build/bsp_f1xx_dma.o
 hardware_init_hook                                /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/crt0.o
+i2c                                               build/mod_mpu6050.o
 ledfilp                                           build/bsp_f1xx_led.o
                                                   build/runled.o
 ledinit                                           build/bsp_f1xx_led.o
@@ -1612,6 +1754,8 @@ memset                                            /Users/zy/Desktop/Tools/gcc-ar
                                                   /Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/crt0.o
 memsize                                           build/malloc.o
 memtblsize                                        build/malloc.o
+mod_Mpu6050Init                                   build/mod_mpu6050.o
+                                                  build/main.o
 mon_table                                         build/bsp_f1xx_rtc.o
 msg                                               build/main.o
 my_mem_free                                       build/malloc.o

@@ -33,13 +33,8 @@ void dmainit(DMA_Channel_TypeDef *DMA_CHx, u32 cpar, u32 cmar, u8 dir)
 	DMA_CHx->CMAR = (u32) cmar; //DMA1,存储器地址
 	DMA_CHx->CCR = 0X00000000; //复位
 	DMA_CHx->CCR |= dir << 4;    //从存储器读
-	DMA_CHx->CCR |= 0 << 5;    //普通模式
-	DMA_CHx->CCR |= 0 << 6;    //外设地址非增量模式
 	DMA_CHx->CCR |= 1 << 7;    //存储器增量模式
-	DMA_CHx->CCR |= 0 << 8;    //外设数据宽度为8位
-	DMA_CHx->CCR |= 0 << 10;   //存储器数据宽度8位
 	DMA_CHx->CCR |= 1 << 12;   //中等优先级
-	DMA_CHx->CCR |= 0 << 14;   //非存储器到存储器模式
 }
 
 //开启一次DMA传输

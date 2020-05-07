@@ -1,0 +1,4128 @@
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"bsp_soft_i2c.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.bsp_SoftI2CInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	bsp_SoftI2CInit
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	bsp_SoftI2CInit:
+  24              	.LFB67:
+  25              		.file 1 "drivers/bsp_soft_i2c.c"
+   1:drivers/bsp_soft_i2c.c **** //
+   2:drivers/bsp_soft_i2c.c **** // Created by 周洋 on 2020/5/7.
+   3:drivers/bsp_soft_i2c.c **** //
+   4:drivers/bsp_soft_i2c.c **** 
+   5:drivers/bsp_soft_i2c.c **** #include "bsp_soft_i2c.h"
+   6:drivers/bsp_soft_i2c.c **** 
+   7:drivers/bsp_soft_i2c.c **** static inline void SwitchDir(_I2C *i2c, u8 dir)
+   8:drivers/bsp_soft_i2c.c **** {
+   9:drivers/bsp_soft_i2c.c **** 	if (dir)//输出
+  10:drivers/bsp_soft_i2c.c **** 		i2c->sda.mode = IO_MODE_IN_PULL;
+  11:drivers/bsp_soft_i2c.c **** 	else
+  12:drivers/bsp_soft_i2c.c **** 		i2c->sda.mode = IO_MODE_OUT_PP_50MHZ;
+  13:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+  14:drivers/bsp_soft_i2c.c **** }
+  15:drivers/bsp_soft_i2c.c **** 
+  16:drivers/bsp_soft_i2c.c **** void bsp_SoftI2CInit(_I2C *i2c)
+  17:drivers/bsp_soft_i2c.c **** {
+  26              		.loc 1 17 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 38B5     		push	{r3, r4, r5, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 16
+  34              		.cfi_offset 3, -16
+  35              		.cfi_offset 4, -12
+  36              		.cfi_offset 5, -8
+  37              		.cfi_offset 14, -4
+  38 0002 0546     		mov	r5, r0
+  18:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+  39              		.loc 1 18 0
+  40 0004 FFF7FEFF 		bl	bsp_IoInit
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 2
+
+
+  41              	.LVL1:
+  19:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->scl);
+  42              		.loc 1 19 0
+  43 0008 05F10804 		add	r4, r5, #8
+  44 000c 2046     		mov	r0, r4
+  45 000e FFF7FEFF 		bl	bsp_IoInit
+  46              	.LVL2:
+  20:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+  47              		.loc 1 20 0
+  48 0012 2846     		mov	r0, r5
+  49 0014 FFF7FEFF 		bl	bsp_IoSet
+  50              	.LVL3:
+  21:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+  51              		.loc 1 21 0
+  52 0018 2046     		mov	r0, r4
+  53 001a FFF7FEFF 		bl	bsp_IoSet
+  54              	.LVL4:
+  22:drivers/bsp_soft_i2c.c **** }
+  55              		.loc 1 22 0
+  56 001e 38BD     		pop	{r3, r4, r5, pc}
+  57              		.cfi_endproc
+  58              	.LFE67:
+  60              		.section	.text.bsp_SoftI2CWrite,"ax",%progbits
+  61              		.align	1
+  62              		.global	bsp_SoftI2CWrite
+  63              		.syntax unified
+  64              		.thumb
+  65              		.thumb_func
+  66              		.fpu softvfp
+  68              	bsp_SoftI2CWrite:
+  69              	.LFB75:
+  23:drivers/bsp_soft_i2c.c **** 
+  24:drivers/bsp_soft_i2c.c **** static inline void bsp_SoftI2CStart(_I2C *i2c)
+  25:drivers/bsp_soft_i2c.c **** {
+  26:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 1);//sda线输出
+  27:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+  28:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+  29:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  30:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+  31:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  32:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+  33:drivers/bsp_soft_i2c.c **** }
+  34:drivers/bsp_soft_i2c.c **** 
+  35:drivers/bsp_soft_i2c.c **** static inline void bsp_SoftI2CStop(_I2C *i2c)
+  36:drivers/bsp_soft_i2c.c **** {
+  37:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 1);//sda线输出
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+  39:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+  40:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+  42:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+  43:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  44:drivers/bsp_soft_i2c.c **** }
+  45:drivers/bsp_soft_i2c.c **** 
+  46:drivers/bsp_soft_i2c.c **** static inline u8 bsp_SoftI2CWaitAck(_I2C *i2c)
+  47:drivers/bsp_soft_i2c.c **** {
+  48:drivers/bsp_soft_i2c.c **** 	u8 ucErrTime = 0;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 3
+
+
+  49:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 0);      //SDA设置为输入
+  50:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+  51:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  52:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+  53:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  54:drivers/bsp_soft_i2c.c **** 
+  55:drivers/bsp_soft_i2c.c **** 	while (bsp_IoRead(&i2c->sda)) {
+  56:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+  57:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+  58:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+  59:drivers/bsp_soft_i2c.c **** 			return 1;
+  60:drivers/bsp_soft_i2c.c **** 		}
+  61:drivers/bsp_soft_i2c.c **** 	}
+  62:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+  63:drivers/bsp_soft_i2c.c **** 	return 0;
+  64:drivers/bsp_soft_i2c.c **** }
+  65:drivers/bsp_soft_i2c.c **** 
+  66:drivers/bsp_soft_i2c.c **** static inline void bsp_SoftI2CAck(_I2C *i2c)
+  67:drivers/bsp_soft_i2c.c **** {
+  68:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+  69:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 1);
+  70:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+  71:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  72:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+  73:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  74:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+  75:drivers/bsp_soft_i2c.c **** }
+  76:drivers/bsp_soft_i2c.c **** 
+  77:drivers/bsp_soft_i2c.c **** static inline void bsp_SoftI2cNack(_I2C *i2c)
+  78:drivers/bsp_soft_i2c.c **** {
+  79:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+  80:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 1);
+  81:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+  82:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  83:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+  84:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+  85:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+  86:drivers/bsp_soft_i2c.c **** }
+  87:drivers/bsp_soft_i2c.c **** 
+  88:drivers/bsp_soft_i2c.c **** static inline void bsp_SoftI2CSendByte(_I2C *i2c, u8 dat)
+  89:drivers/bsp_soft_i2c.c **** {
+  90:drivers/bsp_soft_i2c.c **** 	u8 t;
+  91:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 1);
+  92:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);//拉低时钟开始数据传输
+  93:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+  94:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+  95:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+  96:drivers/bsp_soft_i2c.c **** 		else
+  97:drivers/bsp_soft_i2c.c **** 			bsp_IoClr(&i2c->sda);
+  98:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+  99:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 100:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 101:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 102:drivers/bsp_soft_i2c.c **** 	}
+ 103:drivers/bsp_soft_i2c.c **** }
+ 104:drivers/bsp_soft_i2c.c **** 
+ 105:drivers/bsp_soft_i2c.c **** static inline u8 bsp_SoftI2CReadByte(_I2C *i2c, u8 ack)
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 4
+
+
+ 106:drivers/bsp_soft_i2c.c **** {
+ 107:drivers/bsp_soft_i2c.c **** 	unsigned char i, receive = 0;
+ 108:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 0);//SDA设置为输入
+ 109:drivers/bsp_soft_i2c.c **** 	for (i = 0; i < 8; i++) {
+ 110:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 111:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 112:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 113:drivers/bsp_soft_i2c.c **** 		receive <<= 1;
+ 114:drivers/bsp_soft_i2c.c **** 		if (bsp_IoRead(&i2c->sda))receive++;
+ 115:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 116:drivers/bsp_soft_i2c.c **** 	}
+ 117:drivers/bsp_soft_i2c.c **** 	if (!ack)
+ 118:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CAck(i2c);//发送nACK
+ 119:drivers/bsp_soft_i2c.c **** 	else
+ 120:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2cNack(i2c); //发送ACK
+ 121:drivers/bsp_soft_i2c.c **** 	return receive;
+ 122:drivers/bsp_soft_i2c.c **** }
+ 123:drivers/bsp_soft_i2c.c **** 
+ 124:drivers/bsp_soft_i2c.c **** s16 bsp_SoftI2CWrite(_I2C *i2c, u8 addr, u8 reg, u8 *dat, u16 len)
+ 125:drivers/bsp_soft_i2c.c **** {
+  70              		.loc 1 125 0
+  71              		.cfi_startproc
+  72              		@ args = 4, pretend = 0, frame = 0
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74              	.LVL5:
+  75 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  76              	.LCFI1:
+  77              		.cfi_def_cfa_offset 40
+  78              		.cfi_offset 3, -40
+  79              		.cfi_offset 4, -36
+  80              		.cfi_offset 5, -32
+  81              		.cfi_offset 6, -28
+  82              		.cfi_offset 7, -24
+  83              		.cfi_offset 8, -20
+  84              		.cfi_offset 9, -16
+  85              		.cfi_offset 10, -12
+  86              		.cfi_offset 11, -8
+  87              		.cfi_offset 14, -4
+  88 0004 0646     		mov	r6, r0
+  89 0006 0D46     		mov	r5, r1
+  90 0008 9146     		mov	r9, r2
+  91 000a 9846     		mov	r8, r3
+  92 000c BDF82870 		ldrh	r7, [sp, #40]
+  93              	.LVL6:
+  94              	.LBB64:
+  95              	.LBB65:
+  96              	.LBB66:
+  97              	.LBB67:
+  10:drivers/bsp_soft_i2c.c **** 	else
+  98              		.loc 1 10 0
+  99 0010 4FF0080B 		mov	fp, #8
+ 100 0014 80F805B0 		strb	fp, [r0, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 101              		.loc 1 13 0
+ 102 0018 FFF7FEFF 		bl	bsp_IoInit
+ 103              	.LVL7:
+ 104              	.LBE67:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 5
+
+
+ 105              	.LBE66:
+  27:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 106              		.loc 1 27 0
+ 107 001c 3046     		mov	r0, r6
+ 108 001e FFF7FEFF 		bl	bsp_IoSet
+ 109              	.LVL8:
+  28:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 110              		.loc 1 28 0
+ 111 0022 06EB0B04 		add	r4, r6, fp
+ 112 0026 2046     		mov	r0, r4
+ 113 0028 FFF7FEFF 		bl	bsp_IoSet
+ 114              	.LVL9:
+  29:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 115              		.loc 1 29 0
+ 116 002c 0220     		movs	r0, #2
+ 117 002e FFF7FEFF 		bl	delay_us
+ 118              	.LVL10:
+  30:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 119              		.loc 1 30 0
+ 120 0032 3046     		mov	r0, r6
+ 121 0034 FFF7FEFF 		bl	bsp_IoClr
+ 122              	.LVL11:
+  31:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 123              		.loc 1 31 0
+ 124 0038 0220     		movs	r0, #2
+ 125 003a FFF7FEFF 		bl	delay_us
+ 126              	.LVL12:
+  32:drivers/bsp_soft_i2c.c **** }
+ 127              		.loc 1 32 0
+ 128 003e 2046     		mov	r0, r4
+ 129 0040 FFF7FEFF 		bl	bsp_IoClr
+ 130              	.LVL13:
+ 131              	.LBE65:
+ 132              	.LBE64:
+ 126:drivers/bsp_soft_i2c.c **** 	u16 i=0;
+ 127:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStart(i2c);
+ 128:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c, (addr << 1) | 0);//发送器件地址+写命令
+ 133              		.loc 1 128 0
+ 134 0044 6D00     		lsls	r5, r5, #1
+ 135 0046 5FFA85FA 		uxtb	r10, r5
+ 136              	.LVL14:
+ 137              	.LBB68:
+ 138              	.LBB69:
+ 139              	.LBB70:
+ 140              	.LBB71:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 141              		.loc 1 10 0
+ 142 004a 86F805B0 		strb	fp, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 143              		.loc 1 13 0
+ 144 004e B346     		mov	fp, r6
+ 145 0050 3046     		mov	r0, r6
+ 146 0052 FFF7FEFF 		bl	bsp_IoInit
+ 147              	.LVL15:
+ 148              	.LBE71:
+ 149              	.LBE70:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 6
+
+
+ 150              		.loc 1 92 0
+ 151 0056 2546     		mov	r5, r4
+ 152 0058 2046     		mov	r0, r4
+ 153 005a FFF7FEFF 		bl	bsp_IoClr
+ 154              	.LVL16:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 155              		.loc 1 93 0
+ 156 005e 8024     		movs	r4, #128
+ 157 0060 0FE0     		b	.L4
+ 158              	.LVL17:
+ 159              	.L5:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 160              		.loc 1 97 0
+ 161 0062 5846     		mov	r0, fp
+ 162 0064 FFF7FEFF 		bl	bsp_IoClr
+ 163              	.LVL18:
+ 164              	.L6:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 165              		.loc 1 98 0
+ 166 0068 2846     		mov	r0, r5
+ 167 006a FFF7FEFF 		bl	bsp_IoSet
+ 168              	.LVL19:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 169              		.loc 1 99 0
+ 170 006e 0220     		movs	r0, #2
+ 171 0070 FFF7FEFF 		bl	delay_us
+ 172              	.LVL20:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 173              		.loc 1 100 0
+ 174 0074 2846     		mov	r0, r5
+ 175 0076 FFF7FEFF 		bl	bsp_IoClr
+ 176              	.LVL21:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 177              		.loc 1 101 0
+ 178 007a 0220     		movs	r0, #2
+ 179 007c FFF7FEFF 		bl	delay_us
+ 180              	.LVL22:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 181              		.loc 1 93 0
+ 182 0080 6408     		lsrs	r4, r4, #1
+ 183              	.LVL23:
+ 184              	.L4:
+ 185 0082 34B1     		cbz	r4, .L31
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 186              		.loc 1 94 0
+ 187 0084 1AEA040F 		tst	r10, r4
+ 188 0088 EBD0     		beq	.L5
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 189              		.loc 1 95 0
+ 190 008a 5846     		mov	r0, fp
+ 191 008c FFF7FEFF 		bl	bsp_IoSet
+ 192              	.LVL24:
+ 193 0090 EAE7     		b	.L6
+ 194              	.L31:
+ 195              	.LVL25:
+ 196              	.LBE69:
+ 197              	.LBE68:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 7
+
+
+ 198              	.LBB72:
+ 199              	.LBB73:
+ 200              	.LBB74:
+ 201              	.LBB75:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 202              		.loc 1 12 0
+ 203 0092 0323     		movs	r3, #3
+ 204 0094 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 205              		.loc 1 13 0
+ 206 0096 3546     		mov	r5, r6
+ 207 0098 3046     		mov	r0, r6
+ 208 009a FFF7FEFF 		bl	bsp_IoInit
+ 209              	.LVL26:
+ 210              	.LBE75:
+ 211              	.LBE74:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 212              		.loc 1 50 0
+ 213 009e 3046     		mov	r0, r6
+ 214 00a0 FFF7FEFF 		bl	bsp_IoSet
+ 215              	.LVL27:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 216              		.loc 1 51 0
+ 217 00a4 0220     		movs	r0, #2
+ 218 00a6 FFF7FEFF 		bl	delay_us
+ 219              	.LVL28:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 220              		.loc 1 52 0
+ 221 00aa 06F1080A 		add	r10, r6, #8
+ 222 00ae 5046     		mov	r0, r10
+ 223 00b0 FFF7FEFF 		bl	bsp_IoSet
+ 224              	.LVL29:
+  53:drivers/bsp_soft_i2c.c **** 
+ 225              		.loc 1 53 0
+ 226 00b4 0220     		movs	r0, #2
+ 227 00b6 FFF7FEFF 		bl	delay_us
+ 228              	.LVL30:
+ 229              	.L8:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 230              		.loc 1 55 0
+ 231 00ba 2846     		mov	r0, r5
+ 232 00bc FFF7FEFF 		bl	bsp_IoRead
+ 233              	.LVL31:
+ 234 00c0 8346     		mov	fp, r0
+ 235 00c2 F8B1     		cbz	r0, .L32
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 236              		.loc 1 56 0
+ 237 00c4 0134     		adds	r4, r4, #1
+ 238              	.LVL32:
+ 239 00c6 E4B2     		uxtb	r4, r4
+ 240              	.LVL33:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 241              		.loc 1 57 0
+ 242 00c8 FA2C     		cmp	r4, #250
+ 243 00ca F6D9     		bls	.L8
+ 244              	.LVL34:
+ 245              	.LBB76:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 8
+
+
+ 246              	.LBB77:
+ 247              	.LBB78:
+ 248              	.LBB79:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 249              		.loc 1 10 0
+ 250 00cc 0823     		movs	r3, #8
+ 251 00ce 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 252              		.loc 1 13 0
+ 253 00d0 3046     		mov	r0, r6
+ 254 00d2 FFF7FEFF 		bl	bsp_IoInit
+ 255              	.LVL35:
+ 256              	.LBE79:
+ 257              	.LBE78:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 258              		.loc 1 38 0
+ 259 00d6 06F10804 		add	r4, r6, #8
+ 260              	.LVL36:
+ 261 00da 2046     		mov	r0, r4
+ 262 00dc FFF7FEFF 		bl	bsp_IoClr
+ 263              	.LVL37:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 264              		.loc 1 39 0
+ 265 00e0 3046     		mov	r0, r6
+ 266 00e2 FFF7FEFF 		bl	bsp_IoClr
+ 267              	.LVL38:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 268              		.loc 1 40 0
+ 269 00e6 0220     		movs	r0, #2
+ 270 00e8 FFF7FEFF 		bl	delay_us
+ 271              	.LVL39:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 272              		.loc 1 41 0
+ 273 00ec 3046     		mov	r0, r6
+ 274 00ee FFF7FEFF 		bl	bsp_IoSet
+ 275              	.LVL40:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 276              		.loc 1 42 0
+ 277 00f2 2046     		mov	r0, r4
+ 278 00f4 FFF7FEFF 		bl	bsp_IoSet
+ 279              	.LVL41:
+  43:drivers/bsp_soft_i2c.c **** }
+ 280              		.loc 1 43 0
+ 281 00f8 0220     		movs	r0, #2
+ 282 00fa FFF7FEFF 		bl	delay_us
+ 283              	.LVL42:
+ 284              	.LBE77:
+ 285              	.LBE76:
+  59:drivers/bsp_soft_i2c.c **** 		}
+ 286              		.loc 1 59 0
+ 287 00fe 4FF0010B 		mov	fp, #1
+ 288 0102 02E0     		b	.L9
+ 289              	.LVL43:
+ 290              	.L32:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 291              		.loc 1 62 0
+ 292 0104 5046     		mov	r0, r10
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 9
+
+
+ 293 0106 FFF7FEFF 		bl	bsp_IoClr
+ 294              	.LVL44:
+ 295              	.L9:
+ 296              	.LBE73:
+ 297              	.LBE72:
+ 129:drivers/bsp_soft_i2c.c **** 	if (bsp_SoftI2CWaitAck(i2c))    //等待应答
+ 298              		.loc 1 129 0
+ 299 010a BBF1000F 		cmp	fp, #0
+ 300 010e 0CD1     		bne	.L33
+ 301              	.LVL45:
+ 302              	.LBB80:
+ 303              	.LBB81:
+ 304              	.LBB82:
+ 305              	.LBB83:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 306              		.loc 1 10 0
+ 307 0110 0823     		movs	r3, #8
+ 308 0112 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 309              		.loc 1 13 0
+ 310 0114 B246     		mov	r10, r6
+ 311 0116 3046     		mov	r0, r6
+ 312 0118 FFF7FEFF 		bl	bsp_IoInit
+ 313              	.LVL46:
+ 314              	.LBE83:
+ 315              	.LBE82:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 316              		.loc 1 92 0
+ 317 011c 06F10805 		add	r5, r6, #8
+ 318              	.LVL47:
+ 319 0120 2846     		mov	r0, r5
+ 320 0122 FFF7FEFF 		bl	bsp_IoClr
+ 321              	.LVL48:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 322              		.loc 1 93 0
+ 323 0126 8024     		movs	r4, #128
+ 324 0128 2BE0     		b	.L13
+ 325              	.LVL49:
+ 326              	.L33:
+ 327              	.LBE81:
+ 328              	.LBE80:
+ 329              	.LBB85:
+ 330              	.LBB86:
+ 331              	.LBB87:
+ 332              	.LBB88:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 333              		.loc 1 10 0
+ 334 012a 0823     		movs	r3, #8
+ 335 012c 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 336              		.loc 1 13 0
+ 337 012e 3046     		mov	r0, r6
+ 338 0130 FFF7FEFF 		bl	bsp_IoInit
+ 339              	.LVL50:
+ 340              	.LBE88:
+ 341              	.LBE87:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 10
+
+
+ 342              		.loc 1 38 0
+ 343 0134 06F10804 		add	r4, r6, #8
+ 344 0138 2046     		mov	r0, r4
+ 345 013a FFF7FEFF 		bl	bsp_IoClr
+ 346              	.LVL51:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 347              		.loc 1 39 0
+ 348 013e 3046     		mov	r0, r6
+ 349 0140 FFF7FEFF 		bl	bsp_IoClr
+ 350              	.LVL52:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 351              		.loc 1 40 0
+ 352 0144 0220     		movs	r0, #2
+ 353 0146 FFF7FEFF 		bl	delay_us
+ 354              	.LVL53:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 355              		.loc 1 41 0
+ 356 014a 3046     		mov	r0, r6
+ 357 014c FFF7FEFF 		bl	bsp_IoSet
+ 358              	.LVL54:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 359              		.loc 1 42 0
+ 360 0150 2046     		mov	r0, r4
+ 361 0152 FFF7FEFF 		bl	bsp_IoSet
+ 362              	.LVL55:
+  43:drivers/bsp_soft_i2c.c **** }
+ 363              		.loc 1 43 0
+ 364 0156 0220     		movs	r0, #2
+ 365 0158 FFF7FEFF 		bl	delay_us
+ 366              	.LVL56:
+ 367              	.LBE86:
+ 368              	.LBE85:
+ 130:drivers/bsp_soft_i2c.c **** 	{
+ 131:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CStop(i2c);
+ 132:drivers/bsp_soft_i2c.c **** 		return -1;
+ 369              		.loc 1 132 0
+ 370 015c 4FF0FF30 		mov	r0, #-1
+ 371 0160 DAE0     		b	.L12
+ 372              	.LVL57:
+ 373              	.L14:
+ 374              	.LBB89:
+ 375              	.LBB84:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 376              		.loc 1 97 0
+ 377 0162 5046     		mov	r0, r10
+ 378 0164 FFF7FEFF 		bl	bsp_IoClr
+ 379              	.LVL58:
+ 380              	.L15:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 381              		.loc 1 98 0
+ 382 0168 2846     		mov	r0, r5
+ 383 016a FFF7FEFF 		bl	bsp_IoSet
+ 384              	.LVL59:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 385              		.loc 1 99 0
+ 386 016e 0220     		movs	r0, #2
+ 387 0170 FFF7FEFF 		bl	delay_us
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 11
+
+
+ 388              	.LVL60:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 389              		.loc 1 100 0
+ 390 0174 2846     		mov	r0, r5
+ 391 0176 FFF7FEFF 		bl	bsp_IoClr
+ 392              	.LVL61:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 393              		.loc 1 101 0
+ 394 017a 0220     		movs	r0, #2
+ 395 017c FFF7FEFF 		bl	delay_us
+ 396              	.LVL62:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 397              		.loc 1 93 0
+ 398 0180 6408     		lsrs	r4, r4, #1
+ 399              	.LVL63:
+ 400              	.L13:
+ 401 0182 34B1     		cbz	r4, .L34
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 402              		.loc 1 94 0
+ 403 0184 19EA040F 		tst	r9, r4
+ 404 0188 EBD0     		beq	.L14
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 405              		.loc 1 95 0
+ 406 018a 5046     		mov	r0, r10
+ 407 018c FFF7FEFF 		bl	bsp_IoSet
+ 408              	.LVL64:
+ 409 0190 EAE7     		b	.L15
+ 410              	.L34:
+ 411              	.LVL65:
+ 412              	.LBE84:
+ 413              	.LBE89:
+ 414              	.LBB90:
+ 415              	.LBB91:
+ 416              	.LBB92:
+ 417              	.LBB93:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 418              		.loc 1 12 0
+ 419 0192 0323     		movs	r3, #3
+ 420 0194 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 421              		.loc 1 13 0
+ 422 0196 3546     		mov	r5, r6
+ 423 0198 3046     		mov	r0, r6
+ 424 019a FFF7FEFF 		bl	bsp_IoInit
+ 425              	.LVL66:
+ 426              	.LBE93:
+ 427              	.LBE92:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 428              		.loc 1 50 0
+ 429 019e 3046     		mov	r0, r6
+ 430 01a0 FFF7FEFF 		bl	bsp_IoSet
+ 431              	.LVL67:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 432              		.loc 1 51 0
+ 433 01a4 0220     		movs	r0, #2
+ 434 01a6 FFF7FEFF 		bl	delay_us
+ 435              	.LVL68:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 12
+
+
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 436              		.loc 1 52 0
+ 437 01aa 06F10809 		add	r9, r6, #8
+ 438 01ae 4846     		mov	r0, r9
+ 439 01b0 FFF7FEFF 		bl	bsp_IoSet
+ 440              	.LVL69:
+  53:drivers/bsp_soft_i2c.c **** 
+ 441              		.loc 1 53 0
+ 442 01b4 0220     		movs	r0, #2
+ 443 01b6 FFF7FEFF 		bl	delay_us
+ 444              	.LVL70:
+ 445              	.L17:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 446              		.loc 1 55 0
+ 447 01ba 2846     		mov	r0, r5
+ 448 01bc FFF7FEFF 		bl	bsp_IoRead
+ 449              	.LVL71:
+ 450 01c0 E8B1     		cbz	r0, .L35
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 451              		.loc 1 56 0
+ 452 01c2 0134     		adds	r4, r4, #1
+ 453              	.LVL72:
+ 454 01c4 E4B2     		uxtb	r4, r4
+ 455              	.LVL73:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 456              		.loc 1 57 0
+ 457 01c6 FA2C     		cmp	r4, #250
+ 458 01c8 F7D9     		bls	.L17
+ 459              	.LVL74:
+ 460              	.LBB94:
+ 461              	.LBB95:
+ 462              	.LBB96:
+ 463              	.LBB97:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 464              		.loc 1 10 0
+ 465 01ca 0823     		movs	r3, #8
+ 466 01cc 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 467              		.loc 1 13 0
+ 468 01ce 3046     		mov	r0, r6
+ 469 01d0 FFF7FEFF 		bl	bsp_IoInit
+ 470              	.LVL75:
+ 471              	.LBE97:
+ 472              	.LBE96:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 473              		.loc 1 38 0
+ 474 01d4 06F10804 		add	r4, r6, #8
+ 475              	.LVL76:
+ 476 01d8 2046     		mov	r0, r4
+ 477 01da FFF7FEFF 		bl	bsp_IoClr
+ 478              	.LVL77:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 479              		.loc 1 39 0
+ 480 01de 3046     		mov	r0, r6
+ 481 01e0 FFF7FEFF 		bl	bsp_IoClr
+ 482              	.LVL78:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 13
+
+
+ 483              		.loc 1 40 0
+ 484 01e4 0220     		movs	r0, #2
+ 485 01e6 FFF7FEFF 		bl	delay_us
+ 486              	.LVL79:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 487              		.loc 1 41 0
+ 488 01ea 3046     		mov	r0, r6
+ 489 01ec FFF7FEFF 		bl	bsp_IoSet
+ 490              	.LVL80:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 491              		.loc 1 42 0
+ 492 01f0 2046     		mov	r0, r4
+ 493 01f2 FFF7FEFF 		bl	bsp_IoSet
+ 494              	.LVL81:
+  43:drivers/bsp_soft_i2c.c **** }
+ 495              		.loc 1 43 0
+ 496 01f6 0220     		movs	r0, #2
+ 497 01f8 FFF7FEFF 		bl	delay_us
+ 498              	.LVL82:
+ 499 01fc 02E0     		b	.L18
+ 500              	.LVL83:
+ 501              	.L35:
+ 502              	.LBE95:
+ 503              	.LBE94:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 504              		.loc 1 62 0
+ 505 01fe 4846     		mov	r0, r9
+ 506 0200 FFF7FEFF 		bl	bsp_IoClr
+ 507              	.LVL84:
+ 508              	.L18:
+ 509              	.LBE91:
+ 510              	.LBE90:
+ 133:drivers/bsp_soft_i2c.c **** 	}
+ 134:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c, reg);    //写寄存器地址
+ 135:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CWaitAck(i2c);        //等待应答
+ 136:drivers/bsp_soft_i2c.c **** 	for (i = 0; i < len; i++) {
+ 511              		.loc 1 136 0
+ 512 0204 4FF00009 		mov	r9, #0
+ 513 0208 5AE0     		b	.L20
+ 514              	.LVL85:
+ 515              	.L22:
+ 516              	.LBB98:
+ 517              	.LBB99:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 518              		.loc 1 97 0
+ 519 020a 5046     		mov	r0, r10
+ 520 020c FFF7FEFF 		bl	bsp_IoClr
+ 521              	.LVL86:
+ 522              	.L23:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 523              		.loc 1 98 0
+ 524 0210 2846     		mov	r0, r5
+ 525 0212 FFF7FEFF 		bl	bsp_IoSet
+ 526              	.LVL87:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 527              		.loc 1 99 0
+ 528 0216 0220     		movs	r0, #2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 14
+
+
+ 529 0218 FFF7FEFF 		bl	delay_us
+ 530              	.LVL88:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 531              		.loc 1 100 0
+ 532 021c 2846     		mov	r0, r5
+ 533 021e FFF7FEFF 		bl	bsp_IoClr
+ 534              	.LVL89:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 535              		.loc 1 101 0
+ 536 0222 0220     		movs	r0, #2
+ 537 0224 FFF7FEFF 		bl	delay_us
+ 538              	.LVL90:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 539              		.loc 1 93 0
+ 540 0228 6408     		lsrs	r4, r4, #1
+ 541              	.LVL91:
+ 542              	.L21:
+ 543 022a 34B1     		cbz	r4, .L36
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 544              		.loc 1 94 0
+ 545 022c 1BEA040F 		tst	fp, r4
+ 546 0230 EBD0     		beq	.L22
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 547              		.loc 1 95 0
+ 548 0232 5046     		mov	r0, r10
+ 549 0234 FFF7FEFF 		bl	bsp_IoSet
+ 550              	.LVL92:
+ 551 0238 EAE7     		b	.L23
+ 552              	.L36:
+ 553              	.LVL93:
+ 554              	.LBE99:
+ 555              	.LBE98:
+ 556              	.LBB103:
+ 557              	.LBB104:
+ 558              	.LBB105:
+ 559              	.LBB106:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 560              		.loc 1 12 0
+ 561 023a 0323     		movs	r3, #3
+ 562 023c 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 563              		.loc 1 13 0
+ 564 023e 3546     		mov	r5, r6
+ 565 0240 3046     		mov	r0, r6
+ 566 0242 FFF7FEFF 		bl	bsp_IoInit
+ 567              	.LVL94:
+ 568              	.LBE106:
+ 569              	.LBE105:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 570              		.loc 1 50 0
+ 571 0246 3046     		mov	r0, r6
+ 572 0248 FFF7FEFF 		bl	bsp_IoSet
+ 573              	.LVL95:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 574              		.loc 1 51 0
+ 575 024c 0220     		movs	r0, #2
+ 576 024e FFF7FEFF 		bl	delay_us
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 15
+
+
+ 577              	.LVL96:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 578              		.loc 1 52 0
+ 579 0252 06F1080A 		add	r10, r6, #8
+ 580 0256 5046     		mov	r0, r10
+ 581 0258 FFF7FEFF 		bl	bsp_IoSet
+ 582              	.LVL97:
+  53:drivers/bsp_soft_i2c.c **** 
+ 583              		.loc 1 53 0
+ 584 025c 0220     		movs	r0, #2
+ 585 025e FFF7FEFF 		bl	delay_us
+ 586              	.LVL98:
+ 587              	.L25:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 588              		.loc 1 55 0
+ 589 0262 2846     		mov	r0, r5
+ 590 0264 FFF7FEFF 		bl	bsp_IoRead
+ 591              	.LVL99:
+ 592 0268 8346     		mov	fp, r0
+ 593 026a F8B1     		cbz	r0, .L37
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 594              		.loc 1 56 0
+ 595 026c 0134     		adds	r4, r4, #1
+ 596              	.LVL100:
+ 597 026e E4B2     		uxtb	r4, r4
+ 598              	.LVL101:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 599              		.loc 1 57 0
+ 600 0270 FA2C     		cmp	r4, #250
+ 601 0272 F6D9     		bls	.L25
+ 602              	.LVL102:
+ 603              	.LBB107:
+ 604              	.LBB108:
+ 605              	.LBB109:
+ 606              	.LBB110:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 607              		.loc 1 10 0
+ 608 0274 0823     		movs	r3, #8
+ 609 0276 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 610              		.loc 1 13 0
+ 611 0278 3046     		mov	r0, r6
+ 612 027a FFF7FEFF 		bl	bsp_IoInit
+ 613              	.LVL103:
+ 614              	.LBE110:
+ 615              	.LBE109:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 616              		.loc 1 38 0
+ 617 027e 06F10804 		add	r4, r6, #8
+ 618              	.LVL104:
+ 619 0282 2046     		mov	r0, r4
+ 620 0284 FFF7FEFF 		bl	bsp_IoClr
+ 621              	.LVL105:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 622              		.loc 1 39 0
+ 623 0288 3046     		mov	r0, r6
+ 624 028a FFF7FEFF 		bl	bsp_IoClr
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 16
+
+
+ 625              	.LVL106:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 626              		.loc 1 40 0
+ 627 028e 0220     		movs	r0, #2
+ 628 0290 FFF7FEFF 		bl	delay_us
+ 629              	.LVL107:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 630              		.loc 1 41 0
+ 631 0294 3046     		mov	r0, r6
+ 632 0296 FFF7FEFF 		bl	bsp_IoSet
+ 633              	.LVL108:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 634              		.loc 1 42 0
+ 635 029a 2046     		mov	r0, r4
+ 636 029c FFF7FEFF 		bl	bsp_IoSet
+ 637              	.LVL109:
+  43:drivers/bsp_soft_i2c.c **** }
+ 638              		.loc 1 43 0
+ 639 02a0 0220     		movs	r0, #2
+ 640 02a2 FFF7FEFF 		bl	delay_us
+ 641              	.LVL110:
+ 642              	.LBE108:
+ 643              	.LBE107:
+  59:drivers/bsp_soft_i2c.c **** 		}
+ 644              		.loc 1 59 0
+ 645 02a6 4FF0010B 		mov	fp, #1
+ 646 02aa 02E0     		b	.L26
+ 647              	.LVL111:
+ 648              	.L37:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 649              		.loc 1 62 0
+ 650 02ac 5046     		mov	r0, r10
+ 651 02ae FFF7FEFF 		bl	bsp_IoClr
+ 652              	.LVL112:
+ 653              	.L26:
+ 654              	.LBE104:
+ 655              	.LBE103:
+ 137:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CSendByte(i2c, dat[i]);    //发送数据
+ 138:drivers/bsp_soft_i2c.c **** 		if (bsp_SoftI2CWaitAck(i2c))        //等待ACK
+ 656              		.loc 1 138 0
+ 657 02b2 BBF1000F 		cmp	fp, #0
+ 658 02b6 14D1     		bne	.L28
+ 136:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CSendByte(i2c, dat[i]);    //发送数据
+ 659              		.loc 1 136 0 discriminator 2
+ 660 02b8 09F10109 		add	r9, r9, #1
+ 661              	.LVL113:
+ 662 02bc 1FFA89F9 		uxth	r9, r9
+ 663              	.LVL114:
+ 664              	.L20:
+ 136:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CSendByte(i2c, dat[i]);    //发送数据
+ 665              		.loc 1 136 0 is_stmt 0 discriminator 1
+ 666 02c0 B945     		cmp	r9, r7
+ 667 02c2 0ED2     		bcs	.L28
+ 137:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CSendByte(i2c, dat[i]);    //发送数据
+ 668              		.loc 1 137 0 is_stmt 1
+ 669 02c4 18F809B0 		ldrb	fp, [r8, r9]	@ zero_extendqisi2
+ 670              	.LVL115:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 17
+
+
+ 671              	.LBB111:
+ 672              	.LBB102:
+ 673              	.LBB100:
+ 674              	.LBB101:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 675              		.loc 1 10 0
+ 676 02c8 0823     		movs	r3, #8
+ 677 02ca 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 678              		.loc 1 13 0
+ 679 02cc B246     		mov	r10, r6
+ 680 02ce 3046     		mov	r0, r6
+ 681 02d0 FFF7FEFF 		bl	bsp_IoInit
+ 682              	.LVL116:
+ 683              	.LBE101:
+ 684              	.LBE100:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 685              		.loc 1 92 0
+ 686 02d4 06F10805 		add	r5, r6, #8
+ 687              	.LVL117:
+ 688 02d8 2846     		mov	r0, r5
+ 689 02da FFF7FEFF 		bl	bsp_IoClr
+ 690              	.LVL118:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 691              		.loc 1 93 0
+ 692 02de 8024     		movs	r4, #128
+ 693 02e0 A3E7     		b	.L21
+ 694              	.LVL119:
+ 695              	.L28:
+ 696              	.LBE102:
+ 697              	.LBE111:
+ 698              	.LBB112:
+ 699              	.LBB113:
+ 700              	.LBB114:
+ 701              	.LBB115:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 702              		.loc 1 10 0
+ 703 02e2 0823     		movs	r3, #8
+ 704 02e4 7371     		strb	r3, [r6, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 705              		.loc 1 13 0
+ 706 02e6 3046     		mov	r0, r6
+ 707 02e8 FFF7FEFF 		bl	bsp_IoInit
+ 708              	.LVL120:
+ 709              	.LBE115:
+ 710              	.LBE114:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 711              		.loc 1 38 0
+ 712 02ec 06F10804 		add	r4, r6, #8
+ 713 02f0 2046     		mov	r0, r4
+ 714 02f2 FFF7FEFF 		bl	bsp_IoClr
+ 715              	.LVL121:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 716              		.loc 1 39 0
+ 717 02f6 3046     		mov	r0, r6
+ 718 02f8 FFF7FEFF 		bl	bsp_IoClr
+ 719              	.LVL122:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 18
+
+
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 720              		.loc 1 40 0
+ 721 02fc 0220     		movs	r0, #2
+ 722 02fe FFF7FEFF 		bl	delay_us
+ 723              	.LVL123:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 724              		.loc 1 41 0
+ 725 0302 3046     		mov	r0, r6
+ 726 0304 FFF7FEFF 		bl	bsp_IoSet
+ 727              	.LVL124:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 728              		.loc 1 42 0
+ 729 0308 2046     		mov	r0, r4
+ 730 030a FFF7FEFF 		bl	bsp_IoSet
+ 731              	.LVL125:
+  43:drivers/bsp_soft_i2c.c **** }
+ 732              		.loc 1 43 0
+ 733 030e 0220     		movs	r0, #2
+ 734 0310 FFF7FEFF 		bl	delay_us
+ 735              	.LVL126:
+ 736              	.LBE113:
+ 737              	.LBE112:
+ 139:drivers/bsp_soft_i2c.c **** 		{
+ 140:drivers/bsp_soft_i2c.c **** 			break;
+ 141:drivers/bsp_soft_i2c.c **** 		}
+ 142:drivers/bsp_soft_i2c.c **** 	}
+ 143:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStop(i2c);
+ 144:drivers/bsp_soft_i2c.c **** 	return i;
+ 738              		.loc 1 144 0
+ 739 0314 0FFA89F0 		sxth	r0, r9
+ 740              	.LVL127:
+ 741              	.L12:
+ 145:drivers/bsp_soft_i2c.c **** }
+ 742              		.loc 1 145 0
+ 743 0318 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 744              		.cfi_endproc
+ 745              	.LFE75:
+ 747              		.section	.text.bsp_SoftI2CRead,"ax",%progbits
+ 748              		.align	1
+ 749              		.global	bsp_SoftI2CRead
+ 750              		.syntax unified
+ 751              		.thumb
+ 752              		.thumb_func
+ 753              		.fpu softvfp
+ 755              	bsp_SoftI2CRead:
+ 756              	.LFB76:
+ 146:drivers/bsp_soft_i2c.c **** 
+ 147:drivers/bsp_soft_i2c.c **** s16 bsp_SoftI2CRead(_I2C *i2c,u8 addr,u8 reg,u8 *dat,u16 len)
+ 148:drivers/bsp_soft_i2c.c **** {
+ 757              		.loc 1 148 0
+ 758              		.cfi_startproc
+ 759              		@ args = 4, pretend = 0, frame = 8
+ 760              		@ frame_needed = 0, uses_anonymous_args = 0
+ 761              	.LVL128:
+ 762 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 763              	.LCFI2:
+ 764              		.cfi_def_cfa_offset 36
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 19
+
+
+ 765              		.cfi_offset 4, -36
+ 766              		.cfi_offset 5, -32
+ 767              		.cfi_offset 6, -28
+ 768              		.cfi_offset 7, -24
+ 769              		.cfi_offset 8, -20
+ 770              		.cfi_offset 9, -16
+ 771              		.cfi_offset 10, -12
+ 772              		.cfi_offset 11, -8
+ 773              		.cfi_offset 14, -4
+ 774 0004 83B0     		sub	sp, sp, #12
+ 775              	.LCFI3:
+ 776              		.cfi_def_cfa_offset 48
+ 777 0006 0446     		mov	r4, r0
+ 778 0008 8946     		mov	r9, r1
+ 779 000a 9246     		mov	r10, r2
+ 780 000c 9846     		mov	r8, r3
+ 781 000e BDF83060 		ldrh	r6, [sp, #48]
+ 782              	.LVL129:
+ 783              	.LBB192:
+ 784              	.LBB193:
+ 785              	.LBB194:
+ 786              	.LBB195:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 787              		.loc 1 10 0
+ 788 0012 0827     		movs	r7, #8
+ 789 0014 4771     		strb	r7, [r0, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 790              		.loc 1 13 0
+ 791 0016 FFF7FEFF 		bl	bsp_IoInit
+ 792              	.LVL130:
+ 793              	.LBE195:
+ 794              	.LBE194:
+  27:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 795              		.loc 1 27 0
+ 796 001a 2046     		mov	r0, r4
+ 797 001c FFF7FEFF 		bl	bsp_IoSet
+ 798              	.LVL131:
+  28:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 799              		.loc 1 28 0
+ 800 0020 E519     		adds	r5, r4, r7
+ 801 0022 2846     		mov	r0, r5
+ 802 0024 FFF7FEFF 		bl	bsp_IoSet
+ 803              	.LVL132:
+  29:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 804              		.loc 1 29 0
+ 805 0028 0220     		movs	r0, #2
+ 806 002a FFF7FEFF 		bl	delay_us
+ 807              	.LVL133:
+  30:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 808              		.loc 1 30 0
+ 809 002e 2046     		mov	r0, r4
+ 810 0030 FFF7FEFF 		bl	bsp_IoClr
+ 811              	.LVL134:
+  31:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 812              		.loc 1 31 0
+ 813 0034 0220     		movs	r0, #2
+ 814 0036 FFF7FEFF 		bl	delay_us
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 20
+
+
+ 815              	.LVL135:
+  32:drivers/bsp_soft_i2c.c **** }
+ 816              		.loc 1 32 0
+ 817 003a 2846     		mov	r0, r5
+ 818 003c FFF7FEFF 		bl	bsp_IoClr
+ 819              	.LVL136:
+ 820              	.LBE193:
+ 821              	.LBE192:
+ 149:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStart(i2c);
+ 150:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c, (addr << 1) | 0);//发送器件地址+写命令
+ 822              		.loc 1 150 0
+ 823 0040 4FEA490B 		lsl	fp, r9, #1
+ 824 0044 5FFA8BFB 		uxtb	fp, fp
+ 825              	.LVL137:
+ 826              	.LBB196:
+ 827              	.LBB197:
+ 828              	.LBB198:
+ 829              	.LBB199:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 830              		.loc 1 10 0
+ 831 0048 6771     		strb	r7, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 832              		.loc 1 13 0
+ 833 004a 0194     		str	r4, [sp, #4]
+ 834 004c 2046     		mov	r0, r4
+ 835 004e FFF7FEFF 		bl	bsp_IoInit
+ 836              	.LVL138:
+ 837              	.LBE199:
+ 838              	.LBE198:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 839              		.loc 1 92 0
+ 840 0052 2F46     		mov	r7, r5
+ 841 0054 2846     		mov	r0, r5
+ 842 0056 FFF7FEFF 		bl	bsp_IoClr
+ 843              	.LVL139:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 844              		.loc 1 93 0
+ 845 005a 8025     		movs	r5, #128
+ 846 005c 0FE0     		b	.L39
+ 847              	.LVL140:
+ 848              	.L40:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 849              		.loc 1 97 0
+ 850 005e 0198     		ldr	r0, [sp, #4]
+ 851 0060 FFF7FEFF 		bl	bsp_IoClr
+ 852              	.LVL141:
+ 853              	.L41:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 854              		.loc 1 98 0
+ 855 0064 3846     		mov	r0, r7
+ 856 0066 FFF7FEFF 		bl	bsp_IoSet
+ 857              	.LVL142:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 858              		.loc 1 99 0
+ 859 006a 0220     		movs	r0, #2
+ 860 006c FFF7FEFF 		bl	delay_us
+ 861              	.LVL143:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 21
+
+
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 862              		.loc 1 100 0
+ 863 0070 3846     		mov	r0, r7
+ 864 0072 FFF7FEFF 		bl	bsp_IoClr
+ 865              	.LVL144:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 866              		.loc 1 101 0
+ 867 0076 0220     		movs	r0, #2
+ 868 0078 FFF7FEFF 		bl	delay_us
+ 869              	.LVL145:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 870              		.loc 1 93 0
+ 871 007c 6D08     		lsrs	r5, r5, #1
+ 872              	.LVL146:
+ 873              	.L39:
+ 874 007e 35B1     		cbz	r5, .L73
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 875              		.loc 1 94 0
+ 876 0080 1BEA050F 		tst	fp, r5
+ 877 0084 EBD0     		beq	.L40
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 878              		.loc 1 95 0
+ 879 0086 0198     		ldr	r0, [sp, #4]
+ 880 0088 FFF7FEFF 		bl	bsp_IoSet
+ 881              	.LVL147:
+ 882 008c EAE7     		b	.L41
+ 883              	.L73:
+ 884              	.LVL148:
+ 885              	.LBE197:
+ 886              	.LBE196:
+ 887              	.LBB200:
+ 888              	.LBB201:
+ 889              	.LBB202:
+ 890              	.LBB203:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 891              		.loc 1 12 0
+ 892 008e 0323     		movs	r3, #3
+ 893 0090 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 894              		.loc 1 13 0
+ 895 0092 A346     		mov	fp, r4
+ 896 0094 2046     		mov	r0, r4
+ 897 0096 FFF7FEFF 		bl	bsp_IoInit
+ 898              	.LVL149:
+ 899              	.LBE203:
+ 900              	.LBE202:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 901              		.loc 1 50 0
+ 902 009a 2046     		mov	r0, r4
+ 903 009c FFF7FEFF 		bl	bsp_IoSet
+ 904              	.LVL150:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 905              		.loc 1 51 0
+ 906 00a0 0220     		movs	r0, #2
+ 907 00a2 FFF7FEFF 		bl	delay_us
+ 908              	.LVL151:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 22
+
+
+ 909              		.loc 1 52 0
+ 910 00a6 04F10803 		add	r3, r4, #8
+ 911 00aa 0193     		str	r3, [sp, #4]
+ 912 00ac 1846     		mov	r0, r3
+ 913 00ae FFF7FEFF 		bl	bsp_IoSet
+ 914              	.LVL152:
+  53:drivers/bsp_soft_i2c.c **** 
+ 915              		.loc 1 53 0
+ 916 00b2 0220     		movs	r0, #2
+ 917 00b4 FFF7FEFF 		bl	delay_us
+ 918              	.LVL153:
+ 919              	.L43:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 920              		.loc 1 55 0
+ 921 00b8 5846     		mov	r0, fp
+ 922 00ba FFF7FEFF 		bl	bsp_IoRead
+ 923              	.LVL154:
+ 924 00be 0746     		mov	r7, r0
+ 925 00c0 F0B1     		cbz	r0, .L74
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 926              		.loc 1 56 0
+ 927 00c2 0135     		adds	r5, r5, #1
+ 928              	.LVL155:
+ 929 00c4 EDB2     		uxtb	r5, r5
+ 930              	.LVL156:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 931              		.loc 1 57 0
+ 932 00c6 FA2D     		cmp	r5, #250
+ 933 00c8 F6D9     		bls	.L43
+ 934              	.LVL157:
+ 935              	.LBB204:
+ 936              	.LBB205:
+ 937              	.LBB206:
+ 938              	.LBB207:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 939              		.loc 1 10 0
+ 940 00ca 0823     		movs	r3, #8
+ 941 00cc 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 942              		.loc 1 13 0
+ 943 00ce 2046     		mov	r0, r4
+ 944 00d0 FFF7FEFF 		bl	bsp_IoInit
+ 945              	.LVL158:
+ 946              	.LBE207:
+ 947              	.LBE206:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 948              		.loc 1 38 0
+ 949 00d4 04F10805 		add	r5, r4, #8
+ 950              	.LVL159:
+ 951 00d8 2846     		mov	r0, r5
+ 952 00da FFF7FEFF 		bl	bsp_IoClr
+ 953              	.LVL160:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 954              		.loc 1 39 0
+ 955 00de 2046     		mov	r0, r4
+ 956 00e0 FFF7FEFF 		bl	bsp_IoClr
+ 957              	.LVL161:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 23
+
+
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 958              		.loc 1 40 0
+ 959 00e4 0220     		movs	r0, #2
+ 960 00e6 FFF7FEFF 		bl	delay_us
+ 961              	.LVL162:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 962              		.loc 1 41 0
+ 963 00ea 2046     		mov	r0, r4
+ 964 00ec FFF7FEFF 		bl	bsp_IoSet
+ 965              	.LVL163:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 966              		.loc 1 42 0
+ 967 00f0 2846     		mov	r0, r5
+ 968 00f2 FFF7FEFF 		bl	bsp_IoSet
+ 969              	.LVL164:
+  43:drivers/bsp_soft_i2c.c **** }
+ 970              		.loc 1 43 0
+ 971 00f6 0220     		movs	r0, #2
+ 972 00f8 FFF7FEFF 		bl	delay_us
+ 973              	.LVL165:
+ 974              	.LBE205:
+ 975              	.LBE204:
+  59:drivers/bsp_soft_i2c.c **** 		}
+ 976              		.loc 1 59 0
+ 977 00fc 0127     		movs	r7, #1
+ 978 00fe 02E0     		b	.L44
+ 979              	.LVL166:
+ 980              	.L74:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 981              		.loc 1 62 0
+ 982 0100 0198     		ldr	r0, [sp, #4]
+ 983 0102 FFF7FEFF 		bl	bsp_IoClr
+ 984              	.LVL167:
+ 985              	.L44:
+ 986              	.LBE201:
+ 987              	.LBE200:
+ 151:drivers/bsp_soft_i2c.c **** 	if (bsp_SoftI2CWaitAck(i2c))    //等待应答
+ 988              		.loc 1 151 0
+ 989 0106 67B9     		cbnz	r7, .L75
+ 990              	.LVL168:
+ 991              	.LBB208:
+ 992              	.LBB209:
+ 993              	.LBB210:
+ 994              	.LBB211:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 995              		.loc 1 10 0
+ 996 0108 0823     		movs	r3, #8
+ 997 010a 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 998              		.loc 1 13 0
+ 999 010c 0194     		str	r4, [sp, #4]
+ 1000 010e 2046     		mov	r0, r4
+ 1001 0110 FFF7FEFF 		bl	bsp_IoInit
+ 1002              	.LVL169:
+ 1003              	.LBE211:
+ 1004              	.LBE210:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 24
+
+
+ 1005              		.loc 1 92 0
+ 1006 0114 04F1080B 		add	fp, r4, #8
+ 1007 0118 5846     		mov	r0, fp
+ 1008 011a FFF7FEFF 		bl	bsp_IoClr
+ 1009              	.LVL170:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 1010              		.loc 1 93 0
+ 1011 011e 8025     		movs	r5, #128
+ 1012 0120 2BE0     		b	.L48
+ 1013              	.LVL171:
+ 1014              	.L75:
+ 1015              	.LBE209:
+ 1016              	.LBE208:
+ 1017              	.LBB213:
+ 1018              	.LBB214:
+ 1019              	.LBB215:
+ 1020              	.LBB216:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1021              		.loc 1 10 0
+ 1022 0122 0823     		movs	r3, #8
+ 1023 0124 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1024              		.loc 1 13 0
+ 1025 0126 2046     		mov	r0, r4
+ 1026 0128 FFF7FEFF 		bl	bsp_IoInit
+ 1027              	.LVL172:
+ 1028              	.LBE216:
+ 1029              	.LBE215:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 1030              		.loc 1 38 0
+ 1031 012c 04F10805 		add	r5, r4, #8
+ 1032 0130 2846     		mov	r0, r5
+ 1033 0132 FFF7FEFF 		bl	bsp_IoClr
+ 1034              	.LVL173:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1035              		.loc 1 39 0
+ 1036 0136 2046     		mov	r0, r4
+ 1037 0138 FFF7FEFF 		bl	bsp_IoClr
+ 1038              	.LVL174:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 1039              		.loc 1 40 0
+ 1040 013c 0220     		movs	r0, #2
+ 1041 013e FFF7FEFF 		bl	delay_us
+ 1042              	.LVL175:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1043              		.loc 1 41 0
+ 1044 0142 2046     		mov	r0, r4
+ 1045 0144 FFF7FEFF 		bl	bsp_IoSet
+ 1046              	.LVL176:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1047              		.loc 1 42 0
+ 1048 0148 2846     		mov	r0, r5
+ 1049 014a FFF7FEFF 		bl	bsp_IoSet
+ 1050              	.LVL177:
+  43:drivers/bsp_soft_i2c.c **** }
+ 1051              		.loc 1 43 0
+ 1052 014e 0220     		movs	r0, #2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 25
+
+
+ 1053 0150 FFF7FEFF 		bl	delay_us
+ 1054              	.LVL178:
+ 1055              	.LBE214:
+ 1056              	.LBE213:
+ 152:drivers/bsp_soft_i2c.c **** 	{
+ 153:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CStop(i2c);
+ 154:drivers/bsp_soft_i2c.c **** 		return -1;
+ 1057              		.loc 1 154 0
+ 1058 0154 4FF0FF30 		mov	r0, #-1
+ 1059 0158 7CE1     		b	.L47
+ 1060              	.LVL179:
+ 1061              	.L49:
+ 1062              	.LBB217:
+ 1063              	.LBB212:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 1064              		.loc 1 97 0
+ 1065 015a 0198     		ldr	r0, [sp, #4]
+ 1066 015c FFF7FEFF 		bl	bsp_IoClr
+ 1067              	.LVL180:
+ 1068              	.L50:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1069              		.loc 1 98 0
+ 1070 0160 5846     		mov	r0, fp
+ 1071 0162 FFF7FEFF 		bl	bsp_IoSet
+ 1072              	.LVL181:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 1073              		.loc 1 99 0
+ 1074 0166 0220     		movs	r0, #2
+ 1075 0168 FFF7FEFF 		bl	delay_us
+ 1076              	.LVL182:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1077              		.loc 1 100 0
+ 1078 016c 5846     		mov	r0, fp
+ 1079 016e FFF7FEFF 		bl	bsp_IoClr
+ 1080              	.LVL183:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 1081              		.loc 1 101 0
+ 1082 0172 0220     		movs	r0, #2
+ 1083 0174 FFF7FEFF 		bl	delay_us
+ 1084              	.LVL184:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 1085              		.loc 1 93 0
+ 1086 0178 6D08     		lsrs	r5, r5, #1
+ 1087              	.LVL185:
+ 1088              	.L48:
+ 1089 017a 35B1     		cbz	r5, .L76
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 1090              		.loc 1 94 0
+ 1091 017c 1AEA050F 		tst	r10, r5
+ 1092 0180 EBD0     		beq	.L49
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 1093              		.loc 1 95 0
+ 1094 0182 0198     		ldr	r0, [sp, #4]
+ 1095 0184 FFF7FEFF 		bl	bsp_IoSet
+ 1096              	.LVL186:
+ 1097 0188 EAE7     		b	.L50
+ 1098              	.L76:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 26
+
+
+ 1099              	.LVL187:
+ 1100              	.LBE212:
+ 1101              	.LBE217:
+ 1102              	.LBB218:
+ 1103              	.LBB219:
+ 1104              	.LBB220:
+ 1105              	.LBB221:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 1106              		.loc 1 12 0
+ 1107 018a 0323     		movs	r3, #3
+ 1108 018c 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1109              		.loc 1 13 0
+ 1110 018e A246     		mov	r10, r4
+ 1111 0190 2046     		mov	r0, r4
+ 1112 0192 FFF7FEFF 		bl	bsp_IoInit
+ 1113              	.LVL188:
+ 1114              	.LBE221:
+ 1115              	.LBE220:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1116              		.loc 1 50 0
+ 1117 0196 2046     		mov	r0, r4
+ 1118 0198 FFF7FEFF 		bl	bsp_IoSet
+ 1119              	.LVL189:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1120              		.loc 1 51 0
+ 1121 019c 0220     		movs	r0, #2
+ 1122 019e FFF7FEFF 		bl	delay_us
+ 1123              	.LVL190:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1124              		.loc 1 52 0
+ 1125 01a2 04F1080B 		add	fp, r4, #8
+ 1126 01a6 5846     		mov	r0, fp
+ 1127 01a8 FFF7FEFF 		bl	bsp_IoSet
+ 1128              	.LVL191:
+  53:drivers/bsp_soft_i2c.c **** 
+ 1129              		.loc 1 53 0
+ 1130 01ac 0220     		movs	r0, #2
+ 1131 01ae FFF7FEFF 		bl	delay_us
+ 1132              	.LVL192:
+ 1133              	.L52:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 1134              		.loc 1 55 0
+ 1135 01b2 5046     		mov	r0, r10
+ 1136 01b4 FFF7FEFF 		bl	bsp_IoRead
+ 1137              	.LVL193:
+ 1138 01b8 E8B1     		cbz	r0, .L77
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 1139              		.loc 1 56 0
+ 1140 01ba 0135     		adds	r5, r5, #1
+ 1141              	.LVL194:
+ 1142 01bc EDB2     		uxtb	r5, r5
+ 1143              	.LVL195:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 1144              		.loc 1 57 0
+ 1145 01be FA2D     		cmp	r5, #250
+ 1146 01c0 F7D9     		bls	.L52
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 27
+
+
+ 1147              	.LVL196:
+ 1148              	.LBB222:
+ 1149              	.LBB223:
+ 1150              	.LBB224:
+ 1151              	.LBB225:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1152              		.loc 1 10 0
+ 1153 01c2 0823     		movs	r3, #8
+ 1154 01c4 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1155              		.loc 1 13 0
+ 1156 01c6 2046     		mov	r0, r4
+ 1157 01c8 FFF7FEFF 		bl	bsp_IoInit
+ 1158              	.LVL197:
+ 1159              	.LBE225:
+ 1160              	.LBE224:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 1161              		.loc 1 38 0
+ 1162 01cc 04F10805 		add	r5, r4, #8
+ 1163              	.LVL198:
+ 1164 01d0 2846     		mov	r0, r5
+ 1165 01d2 FFF7FEFF 		bl	bsp_IoClr
+ 1166              	.LVL199:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1167              		.loc 1 39 0
+ 1168 01d6 2046     		mov	r0, r4
+ 1169 01d8 FFF7FEFF 		bl	bsp_IoClr
+ 1170              	.LVL200:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 1171              		.loc 1 40 0
+ 1172 01dc 0220     		movs	r0, #2
+ 1173 01de FFF7FEFF 		bl	delay_us
+ 1174              	.LVL201:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1175              		.loc 1 41 0
+ 1176 01e2 2046     		mov	r0, r4
+ 1177 01e4 FFF7FEFF 		bl	bsp_IoSet
+ 1178              	.LVL202:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1179              		.loc 1 42 0
+ 1180 01e8 2846     		mov	r0, r5
+ 1181 01ea FFF7FEFF 		bl	bsp_IoSet
+ 1182              	.LVL203:
+  43:drivers/bsp_soft_i2c.c **** }
+ 1183              		.loc 1 43 0
+ 1184 01ee 0220     		movs	r0, #2
+ 1185 01f0 FFF7FEFF 		bl	delay_us
+ 1186              	.LVL204:
+ 1187 01f4 02E0     		b	.L53
+ 1188              	.LVL205:
+ 1189              	.L77:
+ 1190              	.LBE223:
+ 1191              	.LBE222:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 1192              		.loc 1 62 0
+ 1193 01f6 5846     		mov	r0, fp
+ 1194 01f8 FFF7FEFF 		bl	bsp_IoClr
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 28
+
+
+ 1195              	.LVL206:
+ 1196              	.L53:
+ 1197              	.LBE219:
+ 1198              	.LBE218:
+ 1199              	.LBB226:
+ 1200              	.LBB227:
+ 1201              	.LBB228:
+ 1202              	.LBB229:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1203              		.loc 1 10 0
+ 1204 01fc 0825     		movs	r5, #8
+ 1205 01fe 6571     		strb	r5, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1206              		.loc 1 13 0
+ 1207 0200 2046     		mov	r0, r4
+ 1208 0202 FFF7FEFF 		bl	bsp_IoInit
+ 1209              	.LVL207:
+ 1210              	.LBE229:
+ 1211              	.LBE228:
+  27:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1212              		.loc 1 27 0
+ 1213 0206 2046     		mov	r0, r4
+ 1214 0208 FFF7FEFF 		bl	bsp_IoSet
+ 1215              	.LVL208:
+  28:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1216              		.loc 1 28 0
+ 1217 020c 04EB050A 		add	r10, r4, r5
+ 1218 0210 5046     		mov	r0, r10
+ 1219 0212 FFF7FEFF 		bl	bsp_IoSet
+ 1220              	.LVL209:
+  29:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 1221              		.loc 1 29 0
+ 1222 0216 0220     		movs	r0, #2
+ 1223 0218 FFF7FEFF 		bl	delay_us
+ 1224              	.LVL210:
+  30:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1225              		.loc 1 30 0
+ 1226 021c 2046     		mov	r0, r4
+ 1227 021e FFF7FEFF 		bl	bsp_IoClr
+ 1228              	.LVL211:
+  31:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 1229              		.loc 1 31 0
+ 1230 0222 0220     		movs	r0, #2
+ 1231 0224 FFF7FEFF 		bl	delay_us
+ 1232              	.LVL212:
+  32:drivers/bsp_soft_i2c.c **** }
+ 1233              		.loc 1 32 0
+ 1234 0228 5046     		mov	r0, r10
+ 1235 022a FFF7FEFF 		bl	bsp_IoClr
+ 1236              	.LVL213:
+ 1237              	.LBE227:
+ 1238              	.LBE226:
+ 155:drivers/bsp_soft_i2c.c **** 	}
+ 156:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c, reg);    //写寄存器地址
+ 157:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CWaitAck(i2c);        //等待应答
+ 158:drivers/bsp_soft_i2c.c **** 
+ 159:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStart(i2c);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 29
+
+
+ 160:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c, (addr << 1) | 1);//发送器件地址+读命令
+ 1239              		.loc 1 160 0
+ 1240 022e 4FEA4909 		lsl	r9, r9, #1
+ 1241 0232 49F00109 		orr	r9, r9, #1
+ 1242 0236 5FFA89F9 		uxtb	r9, r9
+ 1243              	.LVL214:
+ 1244              	.LBB230:
+ 1245              	.LBB231:
+ 1246              	.LBB232:
+ 1247              	.LBB233:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1248              		.loc 1 10 0
+ 1249 023a 6571     		strb	r5, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1250              		.loc 1 13 0
+ 1251 023c A346     		mov	fp, r4
+ 1252 023e 2046     		mov	r0, r4
+ 1253 0240 FFF7FEFF 		bl	bsp_IoInit
+ 1254              	.LVL215:
+ 1255              	.LBE233:
+ 1256              	.LBE232:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 1257              		.loc 1 92 0
+ 1258 0244 5546     		mov	r5, r10
+ 1259 0246 5046     		mov	r0, r10
+ 1260 0248 FFF7FEFF 		bl	bsp_IoClr
+ 1261              	.LVL216:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 1262              		.loc 1 93 0
+ 1263 024c 4FF0800A 		mov	r10, #128
+ 1264 0250 10E0     		b	.L55
+ 1265              	.LVL217:
+ 1266              	.L56:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 1267              		.loc 1 97 0
+ 1268 0252 5846     		mov	r0, fp
+ 1269 0254 FFF7FEFF 		bl	bsp_IoClr
+ 1270              	.LVL218:
+ 1271              	.L57:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1272              		.loc 1 98 0
+ 1273 0258 2846     		mov	r0, r5
+ 1274 025a FFF7FEFF 		bl	bsp_IoSet
+ 1275              	.LVL219:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 1276              		.loc 1 99 0
+ 1277 025e 0220     		movs	r0, #2
+ 1278 0260 FFF7FEFF 		bl	delay_us
+ 1279              	.LVL220:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1280              		.loc 1 100 0
+ 1281 0264 2846     		mov	r0, r5
+ 1282 0266 FFF7FEFF 		bl	bsp_IoClr
+ 1283              	.LVL221:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 1284              		.loc 1 101 0
+ 1285 026a 0220     		movs	r0, #2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 30
+
+
+ 1286 026c FFF7FEFF 		bl	delay_us
+ 1287              	.LVL222:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 1288              		.loc 1 93 0
+ 1289 0270 4FEA5A0A 		lsr	r10, r10, #1
+ 1290              	.LVL223:
+ 1291              	.L55:
+ 1292 0274 BAF1000F 		cmp	r10, #0
+ 1293 0278 06D0     		beq	.L78
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 1294              		.loc 1 94 0
+ 1295 027a 19EA0A0F 		tst	r9, r10
+ 1296 027e E8D0     		beq	.L56
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 1297              		.loc 1 95 0
+ 1298 0280 5846     		mov	r0, fp
+ 1299 0282 FFF7FEFF 		bl	bsp_IoSet
+ 1300              	.LVL224:
+ 1301 0286 E7E7     		b	.L57
+ 1302              	.L78:
+ 1303              	.LVL225:
+ 1304              	.LBE231:
+ 1305              	.LBE230:
+ 1306              	.LBB234:
+ 1307              	.LBB235:
+ 1308              	.LBB236:
+ 1309              	.LBB237:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 1310              		.loc 1 12 0
+ 1311 0288 0323     		movs	r3, #3
+ 1312 028a 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1313              		.loc 1 13 0
+ 1314 028c 2546     		mov	r5, r4
+ 1315 028e 2046     		mov	r0, r4
+ 1316 0290 FFF7FEFF 		bl	bsp_IoInit
+ 1317              	.LVL226:
+ 1318              	.LBE237:
+ 1319              	.LBE236:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1320              		.loc 1 50 0
+ 1321 0294 2046     		mov	r0, r4
+ 1322 0296 FFF7FEFF 		bl	bsp_IoSet
+ 1323              	.LVL227:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1324              		.loc 1 51 0
+ 1325 029a 0220     		movs	r0, #2
+ 1326 029c FFF7FEFF 		bl	delay_us
+ 1327              	.LVL228:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1328              		.loc 1 52 0
+ 1329 02a0 04F10809 		add	r9, r4, #8
+ 1330 02a4 4846     		mov	r0, r9
+ 1331 02a6 FFF7FEFF 		bl	bsp_IoSet
+ 1332              	.LVL229:
+  53:drivers/bsp_soft_i2c.c **** 
+ 1333              		.loc 1 53 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 31
+
+
+ 1334 02aa 0220     		movs	r0, #2
+ 1335 02ac FFF7FEFF 		bl	delay_us
+ 1336              	.LVL230:
+ 1337              	.L59:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 1338              		.loc 1 55 0
+ 1339 02b0 2846     		mov	r0, r5
+ 1340 02b2 FFF7FEFF 		bl	bsp_IoRead
+ 1341              	.LVL231:
+ 1342 02b6 00B3     		cbz	r0, .L79
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 1343              		.loc 1 56 0
+ 1344 02b8 0AF1010A 		add	r10, r10, #1
+ 1345              	.LVL232:
+ 1346 02bc 5FFA8AFA 		uxtb	r10, r10
+ 1347              	.LVL233:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 1348              		.loc 1 57 0
+ 1349 02c0 BAF1FA0F 		cmp	r10, #250
+ 1350 02c4 F4D9     		bls	.L59
+ 1351              	.LVL234:
+ 1352              	.LBB238:
+ 1353              	.LBB239:
+ 1354              	.LBB240:
+ 1355              	.LBB241:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1356              		.loc 1 10 0
+ 1357 02c6 0823     		movs	r3, #8
+ 1358 02c8 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1359              		.loc 1 13 0
+ 1360 02ca 2046     		mov	r0, r4
+ 1361 02cc FFF7FEFF 		bl	bsp_IoInit
+ 1362              	.LVL235:
+ 1363              	.LBE241:
+ 1364              	.LBE240:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 1365              		.loc 1 38 0
+ 1366 02d0 04F10805 		add	r5, r4, #8
+ 1367 02d4 2846     		mov	r0, r5
+ 1368 02d6 FFF7FEFF 		bl	bsp_IoClr
+ 1369              	.LVL236:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1370              		.loc 1 39 0
+ 1371 02da 2046     		mov	r0, r4
+ 1372 02dc FFF7FEFF 		bl	bsp_IoClr
+ 1373              	.LVL237:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 1374              		.loc 1 40 0
+ 1375 02e0 0220     		movs	r0, #2
+ 1376 02e2 FFF7FEFF 		bl	delay_us
+ 1377              	.LVL238:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1378              		.loc 1 41 0
+ 1379 02e6 2046     		mov	r0, r4
+ 1380 02e8 FFF7FEFF 		bl	bsp_IoSet
+ 1381              	.LVL239:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 32
+
+
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1382              		.loc 1 42 0
+ 1383 02ec 2846     		mov	r0, r5
+ 1384 02ee FFF7FEFF 		bl	bsp_IoSet
+ 1385              	.LVL240:
+  43:drivers/bsp_soft_i2c.c **** }
+ 1386              		.loc 1 43 0
+ 1387 02f2 0220     		movs	r0, #2
+ 1388 02f4 FFF7FEFF 		bl	delay_us
+ 1389              	.LVL241:
+ 1390 02f8 85E0     		b	.L62
+ 1391              	.LVL242:
+ 1392              	.L79:
+ 1393              	.LBE239:
+ 1394              	.LBE238:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 1395              		.loc 1 62 0
+ 1396 02fa 4846     		mov	r0, r9
+ 1397 02fc FFF7FEFF 		bl	bsp_IoClr
+ 1398              	.LVL243:
+ 1399 0300 81E0     		b	.L62
+ 1400              	.LVL244:
+ 1401              	.L83:
+ 1402              	.LBE235:
+ 1403              	.LBE234:
+ 1404              	.LBB242:
+ 1405              	.LBB243:
+ 1406              	.LBB244:
+ 1407              	.LBB245:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 1408              		.loc 1 12 0
+ 1409 0302 0323     		movs	r3, #3
+ 1410 0304 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1411              		.loc 1 13 0
+ 1412 0306 A346     		mov	fp, r4
+ 1413 0308 2046     		mov	r0, r4
+ 1414 030a FFF7FEFF 		bl	bsp_IoInit
+ 1415              	.LVL245:
+ 1416              	.LBE245:
+ 1417              	.LBE244:
+ 107:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 0);//SDA设置为输入
+ 1418              		.loc 1 107 0
+ 1419 030e 3D46     		mov	r5, r7
+ 109:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 1420              		.loc 1 109 0
+ 1421 0310 B946     		mov	r9, r7
+ 1422 0312 06E0     		b	.L64
+ 1423              	.LVL246:
+ 1424              	.L65:
+ 115:drivers/bsp_soft_i2c.c **** 	}
+ 1425              		.loc 1 115 0
+ 1426 0314 0220     		movs	r0, #2
+ 1427 0316 FFF7FEFF 		bl	delay_us
+ 1428              	.LVL247:
+ 109:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 1429              		.loc 1 109 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 33
+
+
+ 1430 031a 09F10109 		add	r9, r9, #1
+ 1431              	.LVL248:
+ 1432 031e 5FFA89F9 		uxtb	r9, r9
+ 1433              	.LVL249:
+ 1434              	.L64:
+ 1435 0322 B9F1070F 		cmp	r9, #7
+ 1436 0326 14D8     		bhi	.L80
+ 110:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1437              		.loc 1 110 0
+ 1438 0328 04F1080A 		add	r10, r4, #8
+ 1439 032c 5046     		mov	r0, r10
+ 1440 032e FFF7FEFF 		bl	bsp_IoClr
+ 1441              	.LVL250:
+ 111:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 1442              		.loc 1 111 0
+ 1443 0332 0220     		movs	r0, #2
+ 1444 0334 FFF7FEFF 		bl	delay_us
+ 1445              	.LVL251:
+ 112:drivers/bsp_soft_i2c.c **** 		receive <<= 1;
+ 1446              		.loc 1 112 0
+ 1447 0338 5046     		mov	r0, r10
+ 1448 033a FFF7FEFF 		bl	bsp_IoSet
+ 1449              	.LVL252:
+ 113:drivers/bsp_soft_i2c.c **** 		if (bsp_IoRead(&i2c->sda))receive++;
+ 1450              		.loc 1 113 0
+ 1451 033e 6D00     		lsls	r5, r5, #1
+ 1452              	.LVL253:
+ 1453 0340 EDB2     		uxtb	r5, r5
+ 1454              	.LVL254:
+ 114:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1455              		.loc 1 114 0
+ 1456 0342 5846     		mov	r0, fp
+ 1457 0344 FFF7FEFF 		bl	bsp_IoRead
+ 1458              	.LVL255:
+ 1459 0348 0028     		cmp	r0, #0
+ 1460 034a E3D0     		beq	.L65
+ 1461 034c 0135     		adds	r5, r5, #1
+ 1462              	.LVL256:
+ 1463 034e EDB2     		uxtb	r5, r5
+ 1464              	.LVL257:
+ 1465 0350 E0E7     		b	.L65
+ 1466              	.L80:
+ 1467              	.LVL258:
+ 1468              	.LBB246:
+ 1469              	.LBB247:
+  68:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 1);
+ 1470              		.loc 1 68 0
+ 1471 0352 04F10809 		add	r9, r4, #8
+ 1472              	.LVL259:
+ 1473 0356 4846     		mov	r0, r9
+ 1474 0358 FFF7FEFF 		bl	bsp_IoClr
+ 1475              	.LVL260:
+ 1476              	.LBB248:
+ 1477              	.LBB249:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1478              		.loc 1 10 0
+ 1479 035c 0823     		movs	r3, #8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 34
+
+
+ 1480 035e 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1481              		.loc 1 13 0
+ 1482 0360 2046     		mov	r0, r4
+ 1483 0362 FFF7FEFF 		bl	bsp_IoInit
+ 1484              	.LVL261:
+ 1485              	.LBE249:
+ 1486              	.LBE248:
+  70:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1487              		.loc 1 70 0
+ 1488 0366 2046     		mov	r0, r4
+ 1489 0368 FFF7FEFF 		bl	bsp_IoClr
+ 1490              	.LVL262:
+  71:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1491              		.loc 1 71 0
+ 1492 036c 0220     		movs	r0, #2
+ 1493 036e FFF7FEFF 		bl	delay_us
+ 1494              	.LVL263:
+  72:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1495              		.loc 1 72 0
+ 1496 0372 4846     		mov	r0, r9
+ 1497 0374 FFF7FEFF 		bl	bsp_IoSet
+ 1498              	.LVL264:
+  73:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 1499              		.loc 1 73 0
+ 1500 0378 0220     		movs	r0, #2
+ 1501 037a FFF7FEFF 		bl	delay_us
+ 1502              	.LVL265:
+  74:drivers/bsp_soft_i2c.c **** }
+ 1503              		.loc 1 74 0
+ 1504 037e 4846     		mov	r0, r9
+ 1505 0380 FFF7FEFF 		bl	bsp_IoClr
+ 1506              	.LVL266:
+ 1507              	.LBE247:
+ 1508              	.LBE246:
+ 1509              	.LBE243:
+ 1510              	.LBE242:
+ 161:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CWaitAck(i2c);		//等待应答
+ 162:drivers/bsp_soft_i2c.c **** 	while(len)
+ 163:drivers/bsp_soft_i2c.c **** 	{
+ 164:drivers/bsp_soft_i2c.c **** 		if(len==1)*dat=bsp_SoftI2CReadByte(i2c,0);//读数据,发送nACK
+ 1511              		.loc 1 164 0
+ 1512 0384 88F80050 		strb	r5, [r8]
+ 1513 0388 39E0     		b	.L67
+ 1514              	.LVL267:
+ 1515              	.L69:
+ 1516              	.LBB250:
+ 1517              	.LBB251:
+ 115:drivers/bsp_soft_i2c.c **** 	}
+ 1518              		.loc 1 115 0
+ 1519 038a 0220     		movs	r0, #2
+ 1520 038c FFF7FEFF 		bl	delay_us
+ 1521              	.LVL268:
+ 109:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 1522              		.loc 1 109 0
+ 1523 0390 09F10109 		add	r9, r9, #1
+ 1524              	.LVL269:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 35
+
+
+ 1525 0394 5FFA89F9 		uxtb	r9, r9
+ 1526              	.LVL270:
+ 1527              	.L68:
+ 1528 0398 B9F1070F 		cmp	r9, #7
+ 1529 039c 14D8     		bhi	.L81
+ 110:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1530              		.loc 1 110 0
+ 1531 039e 04F1080A 		add	r10, r4, #8
+ 1532 03a2 5046     		mov	r0, r10
+ 1533 03a4 FFF7FEFF 		bl	bsp_IoClr
+ 1534              	.LVL271:
+ 111:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 1535              		.loc 1 111 0
+ 1536 03a8 0220     		movs	r0, #2
+ 1537 03aa FFF7FEFF 		bl	delay_us
+ 1538              	.LVL272:
+ 112:drivers/bsp_soft_i2c.c **** 		receive <<= 1;
+ 1539              		.loc 1 112 0
+ 1540 03ae 5046     		mov	r0, r10
+ 1541 03b0 FFF7FEFF 		bl	bsp_IoSet
+ 1542              	.LVL273:
+ 113:drivers/bsp_soft_i2c.c **** 		if (bsp_IoRead(&i2c->sda))receive++;
+ 1543              		.loc 1 113 0
+ 1544 03b4 6D00     		lsls	r5, r5, #1
+ 1545              	.LVL274:
+ 1546 03b6 EDB2     		uxtb	r5, r5
+ 1547              	.LVL275:
+ 114:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1548              		.loc 1 114 0
+ 1549 03b8 5846     		mov	r0, fp
+ 1550 03ba FFF7FEFF 		bl	bsp_IoRead
+ 1551              	.LVL276:
+ 1552 03be 0028     		cmp	r0, #0
+ 1553 03c0 E3D0     		beq	.L69
+ 1554 03c2 0135     		adds	r5, r5, #1
+ 1555              	.LVL277:
+ 1556 03c4 EDB2     		uxtb	r5, r5
+ 1557              	.LVL278:
+ 1558 03c6 E0E7     		b	.L69
+ 1559              	.L81:
+ 1560              	.LVL279:
+ 1561              	.LBB252:
+ 1562              	.LBB253:
+  79:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 1);
+ 1563              		.loc 1 79 0
+ 1564 03c8 04F10809 		add	r9, r4, #8
+ 1565              	.LVL280:
+ 1566 03cc 4846     		mov	r0, r9
+ 1567 03ce FFF7FEFF 		bl	bsp_IoClr
+ 1568              	.LVL281:
+ 1569              	.LBB254:
+ 1570              	.LBB255:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1571              		.loc 1 10 0
+ 1572 03d2 0823     		movs	r3, #8
+ 1573 03d4 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 36
+
+
+ 1574              		.loc 1 13 0
+ 1575 03d6 2046     		mov	r0, r4
+ 1576 03d8 FFF7FEFF 		bl	bsp_IoInit
+ 1577              	.LVL282:
+ 1578              	.LBE255:
+ 1579              	.LBE254:
+  81:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1580              		.loc 1 81 0
+ 1581 03dc 2046     		mov	r0, r4
+ 1582 03de FFF7FEFF 		bl	bsp_IoSet
+ 1583              	.LVL283:
+  82:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1584              		.loc 1 82 0
+ 1585 03e2 0220     		movs	r0, #2
+ 1586 03e4 FFF7FEFF 		bl	delay_us
+ 1587              	.LVL284:
+  83:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1588              		.loc 1 83 0
+ 1589 03e8 4846     		mov	r0, r9
+ 1590 03ea FFF7FEFF 		bl	bsp_IoSet
+ 1591              	.LVL285:
+  84:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 1592              		.loc 1 84 0
+ 1593 03ee 0220     		movs	r0, #2
+ 1594 03f0 FFF7FEFF 		bl	delay_us
+ 1595              	.LVL286:
+  85:drivers/bsp_soft_i2c.c **** }
+ 1596              		.loc 1 85 0
+ 1597 03f4 4846     		mov	r0, r9
+ 1598 03f6 FFF7FEFF 		bl	bsp_IoClr
+ 1599              	.LVL287:
+ 1600              	.LBE253:
+ 1601              	.LBE252:
+ 1602              	.LBE251:
+ 1603              	.LBE250:
+ 165:drivers/bsp_soft_i2c.c **** 		else *dat=bsp_SoftI2CReadByte(i2c,1);		//读数据,发送ACK
+ 1604              		.loc 1 165 0
+ 1605 03fa 88F80050 		strb	r5, [r8]
+ 1606              	.L67:
+ 166:drivers/bsp_soft_i2c.c **** 		len--;
+ 1607              		.loc 1 166 0
+ 1608 03fe 013E     		subs	r6, r6, #1
+ 1609              	.LVL288:
+ 1610 0400 B6B2     		uxth	r6, r6
+ 1611              	.LVL289:
+ 167:drivers/bsp_soft_i2c.c **** 		dat++;
+ 1612              		.loc 1 167 0
+ 1613 0402 08F10108 		add	r8, r8, #1
+ 1614              	.LVL290:
+ 1615              	.L62:
+ 162:drivers/bsp_soft_i2c.c **** 	{
+ 1616              		.loc 1 162 0
+ 1617 0406 5EB1     		cbz	r6, .L82
+ 164:drivers/bsp_soft_i2c.c **** 		else *dat=bsp_SoftI2CReadByte(i2c,1);		//读数据,发送ACK
+ 1618              		.loc 1 164 0
+ 1619 0408 012E     		cmp	r6, #1
+ 1620 040a 3FF47AAF 		beq	.L83
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 37
+
+
+ 1621              	.LVL291:
+ 1622              	.LBB259:
+ 1623              	.LBB258:
+ 1624              	.LBB256:
+ 1625              	.LBB257:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 1626              		.loc 1 12 0
+ 1627 040e 0323     		movs	r3, #3
+ 1628 0410 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1629              		.loc 1 13 0
+ 1630 0412 A346     		mov	fp, r4
+ 1631 0414 2046     		mov	r0, r4
+ 1632 0416 FFF7FEFF 		bl	bsp_IoInit
+ 1633              	.LVL292:
+ 1634              	.LBE257:
+ 1635              	.LBE256:
+ 107:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 0);//SDA设置为输入
+ 1636              		.loc 1 107 0
+ 1637 041a 3D46     		mov	r5, r7
+ 109:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 1638              		.loc 1 109 0
+ 1639 041c B946     		mov	r9, r7
+ 1640 041e BBE7     		b	.L68
+ 1641              	.LVL293:
+ 1642              	.L82:
+ 1643              	.LBE258:
+ 1644              	.LBE259:
+ 1645              	.LBB260:
+ 1646              	.LBB261:
+ 1647              	.LBB262:
+ 1648              	.LBB263:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1649              		.loc 1 10 0
+ 1650 0420 0823     		movs	r3, #8
+ 1651 0422 6371     		strb	r3, [r4, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1652              		.loc 1 13 0
+ 1653 0424 2046     		mov	r0, r4
+ 1654 0426 FFF7FEFF 		bl	bsp_IoInit
+ 1655              	.LVL294:
+ 1656              	.LBE263:
+ 1657              	.LBE262:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 1658              		.loc 1 38 0
+ 1659 042a 04F10805 		add	r5, r4, #8
+ 1660 042e 2846     		mov	r0, r5
+ 1661 0430 FFF7FEFF 		bl	bsp_IoClr
+ 1662              	.LVL295:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1663              		.loc 1 39 0
+ 1664 0434 2046     		mov	r0, r4
+ 1665 0436 FFF7FEFF 		bl	bsp_IoClr
+ 1666              	.LVL296:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 1667              		.loc 1 40 0
+ 1668 043a 0220     		movs	r0, #2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 38
+
+
+ 1669 043c FFF7FEFF 		bl	delay_us
+ 1670              	.LVL297:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1671              		.loc 1 41 0
+ 1672 0440 2046     		mov	r0, r4
+ 1673 0442 FFF7FEFF 		bl	bsp_IoSet
+ 1674              	.LVL298:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1675              		.loc 1 42 0
+ 1676 0446 2846     		mov	r0, r5
+ 1677 0448 FFF7FEFF 		bl	bsp_IoSet
+ 1678              	.LVL299:
+  43:drivers/bsp_soft_i2c.c **** }
+ 1679              		.loc 1 43 0
+ 1680 044c 0220     		movs	r0, #2
+ 1681 044e FFF7FEFF 		bl	delay_us
+ 1682              	.LVL300:
+ 1683              	.LBE261:
+ 1684              	.LBE260:
+ 168:drivers/bsp_soft_i2c.c **** 	}
+ 169:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStop(i2c);	//产生一个停止条件
+ 170:drivers/bsp_soft_i2c.c **** 	return 0;
+ 1685              		.loc 1 170 0
+ 1686 0452 0020     		movs	r0, #0
+ 1687              	.LVL301:
+ 1688              	.L47:
+ 171:drivers/bsp_soft_i2c.c **** }
+ 1689              		.loc 1 171 0
+ 1690 0454 03B0     		add	sp, sp, #12
+ 1691              	.LCFI4:
+ 1692              		.cfi_def_cfa_offset 36
+ 1693              		@ sp needed
+ 1694 0456 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1695              		.cfi_endproc
+ 1696              	.LFE76:
+ 1698              		.section	.text.bsp_SoftI2CWriteReg,"ax",%progbits
+ 1699              		.align	1
+ 1700              		.global	bsp_SoftI2CWriteReg
+ 1701              		.syntax unified
+ 1702              		.thumb
+ 1703              		.thumb_func
+ 1704              		.fpu softvfp
+ 1706              	bsp_SoftI2CWriteReg:
+ 1707              	.LFB77:
+ 172:drivers/bsp_soft_i2c.c **** 
+ 173:drivers/bsp_soft_i2c.c **** s16 bsp_SoftI2CWriteReg(_I2C *i2c,u8 addr,u8 reg,u8 dat)
+ 174:drivers/bsp_soft_i2c.c **** {
+ 1708              		.loc 1 174 0
+ 1709              		.cfi_startproc
+ 1710              		@ args = 0, pretend = 0, frame = 0
+ 1711              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1712              	.LVL302:
+ 1713 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 1714              	.LCFI5:
+ 1715              		.cfi_def_cfa_offset 32
+ 1716              		.cfi_offset 4, -32
+ 1717              		.cfi_offset 5, -28
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 39
+
+
+ 1718              		.cfi_offset 6, -24
+ 1719              		.cfi_offset 7, -20
+ 1720              		.cfi_offset 8, -16
+ 1721              		.cfi_offset 9, -12
+ 1722              		.cfi_offset 10, -8
+ 1723              		.cfi_offset 14, -4
+ 1724 0004 0546     		mov	r5, r0
+ 1725 0006 8946     		mov	r9, r1
+ 1726 0008 9046     		mov	r8, r2
+ 1727 000a 1F46     		mov	r7, r3
+ 1728              	.LVL303:
+ 1729              	.LBB316:
+ 1730              	.LBB317:
+ 1731              	.LBB318:
+ 1732              	.LBB319:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1733              		.loc 1 10 0
+ 1734 000c 0826     		movs	r6, #8
+ 1735 000e 4671     		strb	r6, [r0, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1736              		.loc 1 13 0
+ 1737 0010 FFF7FEFF 		bl	bsp_IoInit
+ 1738              	.LVL304:
+ 1739              	.LBE319:
+ 1740              	.LBE318:
+  27:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1741              		.loc 1 27 0
+ 1742 0014 2846     		mov	r0, r5
+ 1743 0016 FFF7FEFF 		bl	bsp_IoSet
+ 1744              	.LVL305:
+  28:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1745              		.loc 1 28 0
+ 1746 001a AC19     		adds	r4, r5, r6
+ 1747 001c 2046     		mov	r0, r4
+ 1748 001e FFF7FEFF 		bl	bsp_IoSet
+ 1749              	.LVL306:
+  29:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 1750              		.loc 1 29 0
+ 1751 0022 0220     		movs	r0, #2
+ 1752 0024 FFF7FEFF 		bl	delay_us
+ 1753              	.LVL307:
+  30:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1754              		.loc 1 30 0
+ 1755 0028 2846     		mov	r0, r5
+ 1756 002a FFF7FEFF 		bl	bsp_IoClr
+ 1757              	.LVL308:
+  31:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 1758              		.loc 1 31 0
+ 1759 002e 0220     		movs	r0, #2
+ 1760 0030 FFF7FEFF 		bl	delay_us
+ 1761              	.LVL309:
+  32:drivers/bsp_soft_i2c.c **** }
+ 1762              		.loc 1 32 0
+ 1763 0034 2046     		mov	r0, r4
+ 1764 0036 FFF7FEFF 		bl	bsp_IoClr
+ 1765              	.LVL310:
+ 1766              	.LBE317:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 40
+
+
+ 1767              	.LBE316:
+ 175:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStart(i2c);
+ 176:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c,(addr<<1)|0);//发送器件地址+写命令
+ 1768              		.loc 1 176 0
+ 1769 003a 4FEA4909 		lsl	r9, r9, #1
+ 1770 003e 5FFA89F9 		uxtb	r9, r9
+ 1771              	.LVL311:
+ 1772              	.LBB320:
+ 1773              	.LBB321:
+ 1774              	.LBB322:
+ 1775              	.LBB323:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1776              		.loc 1 10 0
+ 1777 0042 6E71     		strb	r6, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1778              		.loc 1 13 0
+ 1779 0044 AA46     		mov	r10, r5
+ 1780 0046 2846     		mov	r0, r5
+ 1781 0048 FFF7FEFF 		bl	bsp_IoInit
+ 1782              	.LVL312:
+ 1783              	.LBE323:
+ 1784              	.LBE322:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 1785              		.loc 1 92 0
+ 1786 004c 2646     		mov	r6, r4
+ 1787 004e 2046     		mov	r0, r4
+ 1788 0050 FFF7FEFF 		bl	bsp_IoClr
+ 1789              	.LVL313:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 1790              		.loc 1 93 0
+ 1791 0054 8024     		movs	r4, #128
+ 1792 0056 0FE0     		b	.L85
+ 1793              	.LVL314:
+ 1794              	.L86:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 1795              		.loc 1 97 0
+ 1796 0058 5046     		mov	r0, r10
+ 1797 005a FFF7FEFF 		bl	bsp_IoClr
+ 1798              	.LVL315:
+ 1799              	.L87:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1800              		.loc 1 98 0
+ 1801 005e 3046     		mov	r0, r6
+ 1802 0060 FFF7FEFF 		bl	bsp_IoSet
+ 1803              	.LVL316:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 1804              		.loc 1 99 0
+ 1805 0064 0220     		movs	r0, #2
+ 1806 0066 FFF7FEFF 		bl	delay_us
+ 1807              	.LVL317:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 1808              		.loc 1 100 0
+ 1809 006a 3046     		mov	r0, r6
+ 1810 006c FFF7FEFF 		bl	bsp_IoClr
+ 1811              	.LVL318:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 1812              		.loc 1 101 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 41
+
+
+ 1813 0070 0220     		movs	r0, #2
+ 1814 0072 FFF7FEFF 		bl	delay_us
+ 1815              	.LVL319:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 1816              		.loc 1 93 0
+ 1817 0076 6408     		lsrs	r4, r4, #1
+ 1818              	.LVL320:
+ 1819              	.L85:
+ 1820 0078 34B1     		cbz	r4, .L110
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 1821              		.loc 1 94 0
+ 1822 007a 19EA040F 		tst	r9, r4
+ 1823 007e EBD0     		beq	.L86
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 1824              		.loc 1 95 0
+ 1825 0080 5046     		mov	r0, r10
+ 1826 0082 FFF7FEFF 		bl	bsp_IoSet
+ 1827              	.LVL321:
+ 1828 0086 EAE7     		b	.L87
+ 1829              	.L110:
+ 1830              	.LVL322:
+ 1831              	.LBE321:
+ 1832              	.LBE320:
+ 1833              	.LBB324:
+ 1834              	.LBB325:
+ 1835              	.LBB326:
+ 1836              	.LBB327:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 1837              		.loc 1 12 0
+ 1838 0088 0323     		movs	r3, #3
+ 1839 008a 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1840              		.loc 1 13 0
+ 1841 008c A946     		mov	r9, r5
+ 1842 008e 2846     		mov	r0, r5
+ 1843 0090 FFF7FEFF 		bl	bsp_IoInit
+ 1844              	.LVL323:
+ 1845              	.LBE327:
+ 1846              	.LBE326:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1847              		.loc 1 50 0
+ 1848 0094 2846     		mov	r0, r5
+ 1849 0096 FFF7FEFF 		bl	bsp_IoSet
+ 1850              	.LVL324:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1851              		.loc 1 51 0
+ 1852 009a 0220     		movs	r0, #2
+ 1853 009c FFF7FEFF 		bl	delay_us
+ 1854              	.LVL325:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1855              		.loc 1 52 0
+ 1856 00a0 05F1080A 		add	r10, r5, #8
+ 1857 00a4 5046     		mov	r0, r10
+ 1858 00a6 FFF7FEFF 		bl	bsp_IoSet
+ 1859              	.LVL326:
+  53:drivers/bsp_soft_i2c.c **** 
+ 1860              		.loc 1 53 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 42
+
+
+ 1861 00aa 0220     		movs	r0, #2
+ 1862 00ac FFF7FEFF 		bl	delay_us
+ 1863              	.LVL327:
+ 1864              	.L89:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 1865              		.loc 1 55 0
+ 1866 00b0 4846     		mov	r0, r9
+ 1867 00b2 FFF7FEFF 		bl	bsp_IoRead
+ 1868              	.LVL328:
+ 1869 00b6 0646     		mov	r6, r0
+ 1870 00b8 F0B1     		cbz	r0, .L111
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 1871              		.loc 1 56 0
+ 1872 00ba 0134     		adds	r4, r4, #1
+ 1873              	.LVL329:
+ 1874 00bc E4B2     		uxtb	r4, r4
+ 1875              	.LVL330:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 1876              		.loc 1 57 0
+ 1877 00be FA2C     		cmp	r4, #250
+ 1878 00c0 F6D9     		bls	.L89
+ 1879              	.LVL331:
+ 1880              	.LBB328:
+ 1881              	.LBB329:
+ 1882              	.LBB330:
+ 1883              	.LBB331:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1884              		.loc 1 10 0
+ 1885 00c2 0823     		movs	r3, #8
+ 1886 00c4 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1887              		.loc 1 13 0
+ 1888 00c6 2846     		mov	r0, r5
+ 1889 00c8 FFF7FEFF 		bl	bsp_IoInit
+ 1890              	.LVL332:
+ 1891              	.LBE331:
+ 1892              	.LBE330:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 1893              		.loc 1 38 0
+ 1894 00cc 05F10804 		add	r4, r5, #8
+ 1895              	.LVL333:
+ 1896 00d0 2046     		mov	r0, r4
+ 1897 00d2 FFF7FEFF 		bl	bsp_IoClr
+ 1898              	.LVL334:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1899              		.loc 1 39 0
+ 1900 00d6 2846     		mov	r0, r5
+ 1901 00d8 FFF7FEFF 		bl	bsp_IoClr
+ 1902              	.LVL335:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 1903              		.loc 1 40 0
+ 1904 00dc 0220     		movs	r0, #2
+ 1905 00de FFF7FEFF 		bl	delay_us
+ 1906              	.LVL336:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1907              		.loc 1 41 0
+ 1908 00e2 2846     		mov	r0, r5
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 43
+
+
+ 1909 00e4 FFF7FEFF 		bl	bsp_IoSet
+ 1910              	.LVL337:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1911              		.loc 1 42 0
+ 1912 00e8 2046     		mov	r0, r4
+ 1913 00ea FFF7FEFF 		bl	bsp_IoSet
+ 1914              	.LVL338:
+  43:drivers/bsp_soft_i2c.c **** }
+ 1915              		.loc 1 43 0
+ 1916 00ee 0220     		movs	r0, #2
+ 1917 00f0 FFF7FEFF 		bl	delay_us
+ 1918              	.LVL339:
+ 1919              	.LBE329:
+ 1920              	.LBE328:
+  59:drivers/bsp_soft_i2c.c **** 		}
+ 1921              		.loc 1 59 0
+ 1922 00f4 0126     		movs	r6, #1
+ 1923 00f6 02E0     		b	.L90
+ 1924              	.LVL340:
+ 1925              	.L111:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 1926              		.loc 1 62 0
+ 1927 00f8 5046     		mov	r0, r10
+ 1928 00fa FFF7FEFF 		bl	bsp_IoClr
+ 1929              	.LVL341:
+ 1930              	.L90:
+ 1931              	.LBE325:
+ 1932              	.LBE324:
+ 177:drivers/bsp_soft_i2c.c **** 	if (bsp_SoftI2CWaitAck(i2c))    //等待应答
+ 1933              		.loc 1 177 0
+ 1934 00fe 66B9     		cbnz	r6, .L112
+ 1935              	.LVL342:
+ 1936              	.LBB332:
+ 1937              	.LBB333:
+ 1938              	.LBB334:
+ 1939              	.LBB335:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1940              		.loc 1 10 0
+ 1941 0100 0823     		movs	r3, #8
+ 1942 0102 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1943              		.loc 1 13 0
+ 1944 0104 A946     		mov	r9, r5
+ 1945 0106 2846     		mov	r0, r5
+ 1946 0108 FFF7FEFF 		bl	bsp_IoInit
+ 1947              	.LVL343:
+ 1948              	.LBE335:
+ 1949              	.LBE334:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 1950              		.loc 1 92 0
+ 1951 010c 05F10806 		add	r6, r5, #8
+ 1952 0110 3046     		mov	r0, r6
+ 1953 0112 FFF7FEFF 		bl	bsp_IoClr
+ 1954              	.LVL344:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 1955              		.loc 1 93 0
+ 1956 0116 8024     		movs	r4, #128
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 44
+
+
+ 1957 0118 2BE0     		b	.L94
+ 1958              	.LVL345:
+ 1959              	.L112:
+ 1960              	.LBE333:
+ 1961              	.LBE332:
+ 1962              	.LBB337:
+ 1963              	.LBB338:
+ 1964              	.LBB339:
+ 1965              	.LBB340:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 1966              		.loc 1 10 0
+ 1967 011a 0823     		movs	r3, #8
+ 1968 011c 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 1969              		.loc 1 13 0
+ 1970 011e 2846     		mov	r0, r5
+ 1971 0120 FFF7FEFF 		bl	bsp_IoInit
+ 1972              	.LVL346:
+ 1973              	.LBE340:
+ 1974              	.LBE339:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 1975              		.loc 1 38 0
+ 1976 0124 05F10804 		add	r4, r5, #8
+ 1977 0128 2046     		mov	r0, r4
+ 1978 012a FFF7FEFF 		bl	bsp_IoClr
+ 1979              	.LVL347:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1980              		.loc 1 39 0
+ 1981 012e 2846     		mov	r0, r5
+ 1982 0130 FFF7FEFF 		bl	bsp_IoClr
+ 1983              	.LVL348:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 1984              		.loc 1 40 0
+ 1985 0134 0220     		movs	r0, #2
+ 1986 0136 FFF7FEFF 		bl	delay_us
+ 1987              	.LVL349:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 1988              		.loc 1 41 0
+ 1989 013a 2846     		mov	r0, r5
+ 1990 013c FFF7FEFF 		bl	bsp_IoSet
+ 1991              	.LVL350:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 1992              		.loc 1 42 0
+ 1993 0140 2046     		mov	r0, r4
+ 1994 0142 FFF7FEFF 		bl	bsp_IoSet
+ 1995              	.LVL351:
+  43:drivers/bsp_soft_i2c.c **** }
+ 1996              		.loc 1 43 0
+ 1997 0146 0220     		movs	r0, #2
+ 1998 0148 FFF7FEFF 		bl	delay_us
+ 1999              	.LVL352:
+ 2000              	.LBE338:
+ 2001              	.LBE337:
+ 178:drivers/bsp_soft_i2c.c **** 	{
+ 179:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CStop(i2c);
+ 180:drivers/bsp_soft_i2c.c **** 		return -1;
+ 2002              		.loc 1 180 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 45
+
+
+ 2003 014c 4FF0FF30 		mov	r0, #-1
+ 2004 0150 CAE0     		b	.L93
+ 2005              	.LVL353:
+ 2006              	.L95:
+ 2007              	.LBB341:
+ 2008              	.LBB336:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 2009              		.loc 1 97 0
+ 2010 0152 4846     		mov	r0, r9
+ 2011 0154 FFF7FEFF 		bl	bsp_IoClr
+ 2012              	.LVL354:
+ 2013              	.L96:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2014              		.loc 1 98 0
+ 2015 0158 3046     		mov	r0, r6
+ 2016 015a FFF7FEFF 		bl	bsp_IoSet
+ 2017              	.LVL355:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 2018              		.loc 1 99 0
+ 2019 015e 0220     		movs	r0, #2
+ 2020 0160 FFF7FEFF 		bl	delay_us
+ 2021              	.LVL356:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2022              		.loc 1 100 0
+ 2023 0164 3046     		mov	r0, r6
+ 2024 0166 FFF7FEFF 		bl	bsp_IoClr
+ 2025              	.LVL357:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 2026              		.loc 1 101 0
+ 2027 016a 0220     		movs	r0, #2
+ 2028 016c FFF7FEFF 		bl	delay_us
+ 2029              	.LVL358:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2030              		.loc 1 93 0
+ 2031 0170 6408     		lsrs	r4, r4, #1
+ 2032              	.LVL359:
+ 2033              	.L94:
+ 2034 0172 34B1     		cbz	r4, .L113
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 2035              		.loc 1 94 0
+ 2036 0174 18EA040F 		tst	r8, r4
+ 2037 0178 EBD0     		beq	.L95
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 2038              		.loc 1 95 0
+ 2039 017a 4846     		mov	r0, r9
+ 2040 017c FFF7FEFF 		bl	bsp_IoSet
+ 2041              	.LVL360:
+ 2042 0180 EAE7     		b	.L96
+ 2043              	.L113:
+ 2044              	.LVL361:
+ 2045              	.LBE336:
+ 2046              	.LBE341:
+ 2047              	.LBB342:
+ 2048              	.LBB343:
+ 2049              	.LBB344:
+ 2050              	.LBB345:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 46
+
+
+ 2051              		.loc 1 12 0
+ 2052 0182 0323     		movs	r3, #3
+ 2053 0184 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2054              		.loc 1 13 0
+ 2055 0186 2E46     		mov	r6, r5
+ 2056 0188 2846     		mov	r0, r5
+ 2057 018a FFF7FEFF 		bl	bsp_IoInit
+ 2058              	.LVL362:
+ 2059              	.LBE345:
+ 2060              	.LBE344:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2061              		.loc 1 50 0
+ 2062 018e 2846     		mov	r0, r5
+ 2063 0190 FFF7FEFF 		bl	bsp_IoSet
+ 2064              	.LVL363:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2065              		.loc 1 51 0
+ 2066 0194 0220     		movs	r0, #2
+ 2067 0196 FFF7FEFF 		bl	delay_us
+ 2068              	.LVL364:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2069              		.loc 1 52 0
+ 2070 019a 05F10808 		add	r8, r5, #8
+ 2071 019e 4046     		mov	r0, r8
+ 2072 01a0 FFF7FEFF 		bl	bsp_IoSet
+ 2073              	.LVL365:
+  53:drivers/bsp_soft_i2c.c **** 
+ 2074              		.loc 1 53 0
+ 2075 01a4 0220     		movs	r0, #2
+ 2076 01a6 FFF7FEFF 		bl	delay_us
+ 2077              	.LVL366:
+ 2078              	.L98:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 2079              		.loc 1 55 0
+ 2080 01aa 3046     		mov	r0, r6
+ 2081 01ac FFF7FEFF 		bl	bsp_IoRead
+ 2082              	.LVL367:
+ 2083 01b0 E8B1     		cbz	r0, .L114
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 2084              		.loc 1 56 0
+ 2085 01b2 0134     		adds	r4, r4, #1
+ 2086              	.LVL368:
+ 2087 01b4 E4B2     		uxtb	r4, r4
+ 2088              	.LVL369:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 2089              		.loc 1 57 0
+ 2090 01b6 FA2C     		cmp	r4, #250
+ 2091 01b8 F7D9     		bls	.L98
+ 2092              	.LVL370:
+ 2093              	.LBB346:
+ 2094              	.LBB347:
+ 2095              	.LBB348:
+ 2096              	.LBB349:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2097              		.loc 1 10 0
+ 2098 01ba 0823     		movs	r3, #8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 47
+
+
+ 2099 01bc 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2100              		.loc 1 13 0
+ 2101 01be 2846     		mov	r0, r5
+ 2102 01c0 FFF7FEFF 		bl	bsp_IoInit
+ 2103              	.LVL371:
+ 2104              	.LBE349:
+ 2105              	.LBE348:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2106              		.loc 1 38 0
+ 2107 01c4 05F10804 		add	r4, r5, #8
+ 2108              	.LVL372:
+ 2109 01c8 2046     		mov	r0, r4
+ 2110 01ca FFF7FEFF 		bl	bsp_IoClr
+ 2111              	.LVL373:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2112              		.loc 1 39 0
+ 2113 01ce 2846     		mov	r0, r5
+ 2114 01d0 FFF7FEFF 		bl	bsp_IoClr
+ 2115              	.LVL374:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 2116              		.loc 1 40 0
+ 2117 01d4 0220     		movs	r0, #2
+ 2118 01d6 FFF7FEFF 		bl	delay_us
+ 2119              	.LVL375:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2120              		.loc 1 41 0
+ 2121 01da 2846     		mov	r0, r5
+ 2122 01dc FFF7FEFF 		bl	bsp_IoSet
+ 2123              	.LVL376:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2124              		.loc 1 42 0
+ 2125 01e0 2046     		mov	r0, r4
+ 2126 01e2 FFF7FEFF 		bl	bsp_IoSet
+ 2127              	.LVL377:
+  43:drivers/bsp_soft_i2c.c **** }
+ 2128              		.loc 1 43 0
+ 2129 01e6 0220     		movs	r0, #2
+ 2130 01e8 FFF7FEFF 		bl	delay_us
+ 2131              	.LVL378:
+ 2132 01ec 02E0     		b	.L99
+ 2133              	.LVL379:
+ 2134              	.L114:
+ 2135              	.LBE347:
+ 2136              	.LBE346:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 2137              		.loc 1 62 0
+ 2138 01ee 4046     		mov	r0, r8
+ 2139 01f0 FFF7FEFF 		bl	bsp_IoClr
+ 2140              	.LVL380:
+ 2141              	.L99:
+ 2142              	.LBE343:
+ 2143              	.LBE342:
+ 2144              	.LBB350:
+ 2145              	.LBB351:
+ 2146              	.LBB352:
+ 2147              	.LBB353:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 48
+
+
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2148              		.loc 1 10 0
+ 2149 01f4 0823     		movs	r3, #8
+ 2150 01f6 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2151              		.loc 1 13 0
+ 2152 01f8 A846     		mov	r8, r5
+ 2153 01fa 2846     		mov	r0, r5
+ 2154 01fc FFF7FEFF 		bl	bsp_IoInit
+ 2155              	.LVL381:
+ 2156              	.LBE353:
+ 2157              	.LBE352:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 2158              		.loc 1 92 0
+ 2159 0200 05F10806 		add	r6, r5, #8
+ 2160 0204 3046     		mov	r0, r6
+ 2161 0206 FFF7FEFF 		bl	bsp_IoClr
+ 2162              	.LVL382:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2163              		.loc 1 93 0
+ 2164 020a 8024     		movs	r4, #128
+ 2165 020c 0FE0     		b	.L101
+ 2166              	.LVL383:
+ 2167              	.L102:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 2168              		.loc 1 97 0
+ 2169 020e 4046     		mov	r0, r8
+ 2170 0210 FFF7FEFF 		bl	bsp_IoClr
+ 2171              	.LVL384:
+ 2172              	.L103:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2173              		.loc 1 98 0
+ 2174 0214 3046     		mov	r0, r6
+ 2175 0216 FFF7FEFF 		bl	bsp_IoSet
+ 2176              	.LVL385:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 2177              		.loc 1 99 0
+ 2178 021a 0220     		movs	r0, #2
+ 2179 021c FFF7FEFF 		bl	delay_us
+ 2180              	.LVL386:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2181              		.loc 1 100 0
+ 2182 0220 3046     		mov	r0, r6
+ 2183 0222 FFF7FEFF 		bl	bsp_IoClr
+ 2184              	.LVL387:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 2185              		.loc 1 101 0
+ 2186 0226 0220     		movs	r0, #2
+ 2187 0228 FFF7FEFF 		bl	delay_us
+ 2188              	.LVL388:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2189              		.loc 1 93 0
+ 2190 022c 6408     		lsrs	r4, r4, #1
+ 2191              	.LVL389:
+ 2192              	.L101:
+ 2193 022e 2CB1     		cbz	r4, .L115
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 49
+
+
+ 2194              		.loc 1 94 0
+ 2195 0230 2742     		tst	r7, r4
+ 2196 0232 ECD0     		beq	.L102
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 2197              		.loc 1 95 0
+ 2198 0234 4046     		mov	r0, r8
+ 2199 0236 FFF7FEFF 		bl	bsp_IoSet
+ 2200              	.LVL390:
+ 2201 023a EBE7     		b	.L103
+ 2202              	.L115:
+ 2203              	.LVL391:
+ 2204              	.LBE351:
+ 2205              	.LBE350:
+ 2206              	.LBB354:
+ 2207              	.LBB355:
+ 2208              	.LBB356:
+ 2209              	.LBB357:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 2210              		.loc 1 12 0
+ 2211 023c 0323     		movs	r3, #3
+ 2212 023e 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2213              		.loc 1 13 0
+ 2214 0240 2F46     		mov	r7, r5
+ 2215 0242 2846     		mov	r0, r5
+ 2216 0244 FFF7FEFF 		bl	bsp_IoInit
+ 2217              	.LVL392:
+ 2218              	.LBE357:
+ 2219              	.LBE356:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2220              		.loc 1 50 0
+ 2221 0248 2846     		mov	r0, r5
+ 2222 024a FFF7FEFF 		bl	bsp_IoSet
+ 2223              	.LVL393:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2224              		.loc 1 51 0
+ 2225 024e 0220     		movs	r0, #2
+ 2226 0250 FFF7FEFF 		bl	delay_us
+ 2227              	.LVL394:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2228              		.loc 1 52 0
+ 2229 0254 05F10808 		add	r8, r5, #8
+ 2230 0258 4046     		mov	r0, r8
+ 2231 025a FFF7FEFF 		bl	bsp_IoSet
+ 2232              	.LVL395:
+  53:drivers/bsp_soft_i2c.c **** 
+ 2233              		.loc 1 53 0
+ 2234 025e 0220     		movs	r0, #2
+ 2235 0260 FFF7FEFF 		bl	delay_us
+ 2236              	.LVL396:
+ 2237              	.L105:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 2238              		.loc 1 55 0
+ 2239 0264 3846     		mov	r0, r7
+ 2240 0266 FFF7FEFF 		bl	bsp_IoRead
+ 2241              	.LVL397:
+ 2242 026a 0646     		mov	r6, r0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 50
+
+
+ 2243 026c F0B1     		cbz	r0, .L116
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 2244              		.loc 1 56 0
+ 2245 026e 0134     		adds	r4, r4, #1
+ 2246              	.LVL398:
+ 2247 0270 E4B2     		uxtb	r4, r4
+ 2248              	.LVL399:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 2249              		.loc 1 57 0
+ 2250 0272 FA2C     		cmp	r4, #250
+ 2251 0274 F6D9     		bls	.L105
+ 2252              	.LVL400:
+ 2253              	.LBB358:
+ 2254              	.LBB359:
+ 2255              	.LBB360:
+ 2256              	.LBB361:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2257              		.loc 1 10 0
+ 2258 0276 0823     		movs	r3, #8
+ 2259 0278 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2260              		.loc 1 13 0
+ 2261 027a 2846     		mov	r0, r5
+ 2262 027c FFF7FEFF 		bl	bsp_IoInit
+ 2263              	.LVL401:
+ 2264              	.LBE361:
+ 2265              	.LBE360:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2266              		.loc 1 38 0
+ 2267 0280 05F10804 		add	r4, r5, #8
+ 2268              	.LVL402:
+ 2269 0284 2046     		mov	r0, r4
+ 2270 0286 FFF7FEFF 		bl	bsp_IoClr
+ 2271              	.LVL403:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2272              		.loc 1 39 0
+ 2273 028a 2846     		mov	r0, r5
+ 2274 028c FFF7FEFF 		bl	bsp_IoClr
+ 2275              	.LVL404:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 2276              		.loc 1 40 0
+ 2277 0290 0220     		movs	r0, #2
+ 2278 0292 FFF7FEFF 		bl	delay_us
+ 2279              	.LVL405:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2280              		.loc 1 41 0
+ 2281 0296 2846     		mov	r0, r5
+ 2282 0298 FFF7FEFF 		bl	bsp_IoSet
+ 2283              	.LVL406:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2284              		.loc 1 42 0
+ 2285 029c 2046     		mov	r0, r4
+ 2286 029e FFF7FEFF 		bl	bsp_IoSet
+ 2287              	.LVL407:
+  43:drivers/bsp_soft_i2c.c **** }
+ 2288              		.loc 1 43 0
+ 2289 02a2 0220     		movs	r0, #2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 51
+
+
+ 2290 02a4 FFF7FEFF 		bl	delay_us
+ 2291              	.LVL408:
+ 2292              	.LBE359:
+ 2293              	.LBE358:
+  59:drivers/bsp_soft_i2c.c **** 		}
+ 2294              		.loc 1 59 0
+ 2295 02a8 0126     		movs	r6, #1
+ 2296 02aa 02E0     		b	.L106
+ 2297              	.LVL409:
+ 2298              	.L116:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 2299              		.loc 1 62 0
+ 2300 02ac 4046     		mov	r0, r8
+ 2301 02ae FFF7FEFF 		bl	bsp_IoClr
+ 2302              	.LVL410:
+ 2303              	.L106:
+ 2304              	.LBE355:
+ 2305              	.LBE354:
+ 181:drivers/bsp_soft_i2c.c **** 	}
+ 182:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c, reg);    //写寄存器地址
+ 183:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CWaitAck(i2c);        //等待应答
+ 184:drivers/bsp_soft_i2c.c **** 
+ 185:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c,dat);//发送数据
+ 186:drivers/bsp_soft_i2c.c **** 	if(bsp_SoftI2CWaitAck(i2c))	//等待ACK
+ 2306              		.loc 1 186 0
+ 2307 02b2 DEB9     		cbnz	r6, .L117
+ 2308              	.LVL411:
+ 2309              	.LBB362:
+ 2310              	.LBB363:
+ 2311              	.LBB364:
+ 2312              	.LBB365:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2313              		.loc 1 10 0
+ 2314 02b4 0823     		movs	r3, #8
+ 2315 02b6 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2316              		.loc 1 13 0
+ 2317 02b8 2846     		mov	r0, r5
+ 2318 02ba FFF7FEFF 		bl	bsp_IoInit
+ 2319              	.LVL412:
+ 2320              	.LBE365:
+ 2321              	.LBE364:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2322              		.loc 1 38 0
+ 2323 02be 05F10804 		add	r4, r5, #8
+ 2324 02c2 2046     		mov	r0, r4
+ 2325 02c4 FFF7FEFF 		bl	bsp_IoClr
+ 2326              	.LVL413:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2327              		.loc 1 39 0
+ 2328 02c8 2846     		mov	r0, r5
+ 2329 02ca FFF7FEFF 		bl	bsp_IoClr
+ 2330              	.LVL414:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 2331              		.loc 1 40 0
+ 2332 02ce 0220     		movs	r0, #2
+ 2333 02d0 FFF7FEFF 		bl	delay_us
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 52
+
+
+ 2334              	.LVL415:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2335              		.loc 1 41 0
+ 2336 02d4 2846     		mov	r0, r5
+ 2337 02d6 FFF7FEFF 		bl	bsp_IoSet
+ 2338              	.LVL416:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2339              		.loc 1 42 0
+ 2340 02da 2046     		mov	r0, r4
+ 2341 02dc FFF7FEFF 		bl	bsp_IoSet
+ 2342              	.LVL417:
+  43:drivers/bsp_soft_i2c.c **** }
+ 2343              		.loc 1 43 0
+ 2344 02e0 0220     		movs	r0, #2
+ 2345 02e2 FFF7FEFF 		bl	delay_us
+ 2346              	.LVL418:
+ 2347              	.LBE363:
+ 2348              	.LBE362:
+ 187:drivers/bsp_soft_i2c.c **** 	{
+ 188:drivers/bsp_soft_i2c.c **** 		bsp_SoftI2CStop(i2c);
+ 189:drivers/bsp_soft_i2c.c **** 		return -1;
+ 190:drivers/bsp_soft_i2c.c **** 	}
+ 191:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStop(i2c);
+ 192:drivers/bsp_soft_i2c.c **** 	return 0;
+ 2349              		.loc 1 192 0
+ 2350 02e6 0020     		movs	r0, #0
+ 2351              	.LVL419:
+ 2352              	.L93:
+ 193:drivers/bsp_soft_i2c.c **** }
+ 2353              		.loc 1 193 0
+ 2354 02e8 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 2355              	.LVL420:
+ 2356              	.L117:
+ 2357              	.LBB366:
+ 2358              	.LBB367:
+ 2359              	.LBB368:
+ 2360              	.LBB369:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2361              		.loc 1 10 0
+ 2362 02ec 0823     		movs	r3, #8
+ 2363 02ee 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2364              		.loc 1 13 0
+ 2365 02f0 2846     		mov	r0, r5
+ 2366 02f2 FFF7FEFF 		bl	bsp_IoInit
+ 2367              	.LVL421:
+ 2368              	.LBE369:
+ 2369              	.LBE368:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2370              		.loc 1 38 0
+ 2371 02f6 05F10804 		add	r4, r5, #8
+ 2372 02fa 2046     		mov	r0, r4
+ 2373 02fc FFF7FEFF 		bl	bsp_IoClr
+ 2374              	.LVL422:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2375              		.loc 1 39 0
+ 2376 0300 2846     		mov	r0, r5
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 53
+
+
+ 2377 0302 FFF7FEFF 		bl	bsp_IoClr
+ 2378              	.LVL423:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 2379              		.loc 1 40 0
+ 2380 0306 0220     		movs	r0, #2
+ 2381 0308 FFF7FEFF 		bl	delay_us
+ 2382              	.LVL424:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2383              		.loc 1 41 0
+ 2384 030c 2846     		mov	r0, r5
+ 2385 030e FFF7FEFF 		bl	bsp_IoSet
+ 2386              	.LVL425:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2387              		.loc 1 42 0
+ 2388 0312 2046     		mov	r0, r4
+ 2389 0314 FFF7FEFF 		bl	bsp_IoSet
+ 2390              	.LVL426:
+  43:drivers/bsp_soft_i2c.c **** }
+ 2391              		.loc 1 43 0
+ 2392 0318 0220     		movs	r0, #2
+ 2393 031a FFF7FEFF 		bl	delay_us
+ 2394              	.LVL427:
+ 2395              	.LBE367:
+ 2396              	.LBE366:
+ 189:drivers/bsp_soft_i2c.c **** 	}
+ 2397              		.loc 1 189 0
+ 2398 031e 4FF0FF30 		mov	r0, #-1
+ 2399 0322 E1E7     		b	.L93
+ 2400              		.cfi_endproc
+ 2401              	.LFE77:
+ 2403              		.section	.text.bsp_SoftI2CReadReg,"ax",%progbits
+ 2404              		.align	1
+ 2405              		.global	bsp_SoftI2CReadReg
+ 2406              		.syntax unified
+ 2407              		.thumb
+ 2408              		.thumb_func
+ 2409              		.fpu softvfp
+ 2411              	bsp_SoftI2CReadReg:
+ 2412              	.LFB78:
+ 194:drivers/bsp_soft_i2c.c **** 
+ 195:drivers/bsp_soft_i2c.c **** u8 bsp_SoftI2CReadReg(_I2C *i2c,u8 addr,u8 reg)
+ 196:drivers/bsp_soft_i2c.c **** {
+ 2413              		.loc 1 196 0
+ 2414              		.cfi_startproc
+ 2415              		@ args = 0, pretend = 0, frame = 0
+ 2416              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2417              	.LVL428:
+ 2418 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 2419              	.LCFI6:
+ 2420              		.cfi_def_cfa_offset 32
+ 2421              		.cfi_offset 4, -32
+ 2422              		.cfi_offset 5, -28
+ 2423              		.cfi_offset 6, -24
+ 2424              		.cfi_offset 7, -20
+ 2425              		.cfi_offset 8, -16
+ 2426              		.cfi_offset 9, -12
+ 2427              		.cfi_offset 10, -8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 54
+
+
+ 2428              		.cfi_offset 14, -4
+ 2429 0004 0546     		mov	r5, r0
+ 2430 0006 0F46     		mov	r7, r1
+ 2431 0008 9046     		mov	r8, r2
+ 2432              	.LVL429:
+ 2433              	.LBB430:
+ 2434              	.LBB431:
+ 2435              	.LBB432:
+ 2436              	.LBB433:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2437              		.loc 1 10 0
+ 2438 000a 0826     		movs	r6, #8
+ 2439 000c 4671     		strb	r6, [r0, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2440              		.loc 1 13 0
+ 2441 000e FFF7FEFF 		bl	bsp_IoInit
+ 2442              	.LVL430:
+ 2443              	.LBE433:
+ 2444              	.LBE432:
+  27:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2445              		.loc 1 27 0
+ 2446 0012 2846     		mov	r0, r5
+ 2447 0014 FFF7FEFF 		bl	bsp_IoSet
+ 2448              	.LVL431:
+  28:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2449              		.loc 1 28 0
+ 2450 0018 AC19     		adds	r4, r5, r6
+ 2451 001a 2046     		mov	r0, r4
+ 2452 001c FFF7FEFF 		bl	bsp_IoSet
+ 2453              	.LVL432:
+  29:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2454              		.loc 1 29 0
+ 2455 0020 0220     		movs	r0, #2
+ 2456 0022 FFF7FEFF 		bl	delay_us
+ 2457              	.LVL433:
+  30:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2458              		.loc 1 30 0
+ 2459 0026 2846     		mov	r0, r5
+ 2460 0028 FFF7FEFF 		bl	bsp_IoClr
+ 2461              	.LVL434:
+  31:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 2462              		.loc 1 31 0
+ 2463 002c 0220     		movs	r0, #2
+ 2464 002e FFF7FEFF 		bl	delay_us
+ 2465              	.LVL435:
+  32:drivers/bsp_soft_i2c.c **** }
+ 2466              		.loc 1 32 0
+ 2467 0032 2046     		mov	r0, r4
+ 2468 0034 FFF7FEFF 		bl	bsp_IoClr
+ 2469              	.LVL436:
+ 2470              	.LBE431:
+ 2471              	.LBE430:
+ 197:drivers/bsp_soft_i2c.c **** 	u8 res;
+ 198:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStart(i2c);
+ 199:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c,(addr<<1)|0);//发送器件地址+写命令
+ 2472              		.loc 1 199 0
+ 2473 0038 4FEA4709 		lsl	r9, r7, #1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 55
+
+
+ 2474 003c 5FFA89F9 		uxtb	r9, r9
+ 2475              	.LVL437:
+ 2476              	.LBB434:
+ 2477              	.LBB435:
+ 2478              	.LBB436:
+ 2479              	.LBB437:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2480              		.loc 1 10 0
+ 2481 0040 6E71     		strb	r6, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2482              		.loc 1 13 0
+ 2483 0042 AA46     		mov	r10, r5
+ 2484 0044 2846     		mov	r0, r5
+ 2485 0046 FFF7FEFF 		bl	bsp_IoInit
+ 2486              	.LVL438:
+ 2487              	.LBE437:
+ 2488              	.LBE436:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 2489              		.loc 1 92 0
+ 2490 004a 2646     		mov	r6, r4
+ 2491 004c 2046     		mov	r0, r4
+ 2492 004e FFF7FEFF 		bl	bsp_IoClr
+ 2493              	.LVL439:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2494              		.loc 1 93 0
+ 2495 0052 8024     		movs	r4, #128
+ 2496 0054 0FE0     		b	.L119
+ 2497              	.LVL440:
+ 2498              	.L120:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 2499              		.loc 1 97 0
+ 2500 0056 5046     		mov	r0, r10
+ 2501 0058 FFF7FEFF 		bl	bsp_IoClr
+ 2502              	.LVL441:
+ 2503              	.L121:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2504              		.loc 1 98 0
+ 2505 005c 3046     		mov	r0, r6
+ 2506 005e FFF7FEFF 		bl	bsp_IoSet
+ 2507              	.LVL442:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 2508              		.loc 1 99 0
+ 2509 0062 0220     		movs	r0, #2
+ 2510 0064 FFF7FEFF 		bl	delay_us
+ 2511              	.LVL443:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2512              		.loc 1 100 0
+ 2513 0068 3046     		mov	r0, r6
+ 2514 006a FFF7FEFF 		bl	bsp_IoClr
+ 2515              	.LVL444:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 2516              		.loc 1 101 0
+ 2517 006e 0220     		movs	r0, #2
+ 2518 0070 FFF7FEFF 		bl	delay_us
+ 2519              	.LVL445:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2520              		.loc 1 93 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 56
+
+
+ 2521 0074 6408     		lsrs	r4, r4, #1
+ 2522              	.LVL446:
+ 2523              	.L119:
+ 2524 0076 34B1     		cbz	r4, .L144
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 2525              		.loc 1 94 0
+ 2526 0078 19EA040F 		tst	r9, r4
+ 2527 007c EBD0     		beq	.L120
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 2528              		.loc 1 95 0
+ 2529 007e 5046     		mov	r0, r10
+ 2530 0080 FFF7FEFF 		bl	bsp_IoSet
+ 2531              	.LVL447:
+ 2532 0084 EAE7     		b	.L121
+ 2533              	.L144:
+ 2534              	.LVL448:
+ 2535              	.LBE435:
+ 2536              	.LBE434:
+ 2537              	.LBB438:
+ 2538              	.LBB439:
+ 2539              	.LBB440:
+ 2540              	.LBB441:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 2541              		.loc 1 12 0
+ 2542 0086 0323     		movs	r3, #3
+ 2543 0088 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2544              		.loc 1 13 0
+ 2545 008a 2E46     		mov	r6, r5
+ 2546 008c 2846     		mov	r0, r5
+ 2547 008e FFF7FEFF 		bl	bsp_IoInit
+ 2548              	.LVL449:
+ 2549              	.LBE441:
+ 2550              	.LBE440:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2551              		.loc 1 50 0
+ 2552 0092 2846     		mov	r0, r5
+ 2553 0094 FFF7FEFF 		bl	bsp_IoSet
+ 2554              	.LVL450:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2555              		.loc 1 51 0
+ 2556 0098 0220     		movs	r0, #2
+ 2557 009a FFF7FEFF 		bl	delay_us
+ 2558              	.LVL451:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2559              		.loc 1 52 0
+ 2560 009e 05F10809 		add	r9, r5, #8
+ 2561 00a2 4846     		mov	r0, r9
+ 2562 00a4 FFF7FEFF 		bl	bsp_IoSet
+ 2563              	.LVL452:
+  53:drivers/bsp_soft_i2c.c **** 
+ 2564              		.loc 1 53 0
+ 2565 00a8 0220     		movs	r0, #2
+ 2566 00aa FFF7FEFF 		bl	delay_us
+ 2567              	.LVL453:
+ 2568              	.L123:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 57
+
+
+ 2569              		.loc 1 55 0
+ 2570 00ae 3046     		mov	r0, r6
+ 2571 00b0 FFF7FEFF 		bl	bsp_IoRead
+ 2572              	.LVL454:
+ 2573 00b4 E8B1     		cbz	r0, .L145
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 2574              		.loc 1 56 0
+ 2575 00b6 0134     		adds	r4, r4, #1
+ 2576              	.LVL455:
+ 2577 00b8 E4B2     		uxtb	r4, r4
+ 2578              	.LVL456:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 2579              		.loc 1 57 0
+ 2580 00ba FA2C     		cmp	r4, #250
+ 2581 00bc F7D9     		bls	.L123
+ 2582              	.LVL457:
+ 2583              	.LBB442:
+ 2584              	.LBB443:
+ 2585              	.LBB444:
+ 2586              	.LBB445:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2587              		.loc 1 10 0
+ 2588 00be 0823     		movs	r3, #8
+ 2589 00c0 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2590              		.loc 1 13 0
+ 2591 00c2 2846     		mov	r0, r5
+ 2592 00c4 FFF7FEFF 		bl	bsp_IoInit
+ 2593              	.LVL458:
+ 2594              	.LBE445:
+ 2595              	.LBE444:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2596              		.loc 1 38 0
+ 2597 00c8 05F10804 		add	r4, r5, #8
+ 2598              	.LVL459:
+ 2599 00cc 2046     		mov	r0, r4
+ 2600 00ce FFF7FEFF 		bl	bsp_IoClr
+ 2601              	.LVL460:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2602              		.loc 1 39 0
+ 2603 00d2 2846     		mov	r0, r5
+ 2604 00d4 FFF7FEFF 		bl	bsp_IoClr
+ 2605              	.LVL461:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 2606              		.loc 1 40 0
+ 2607 00d8 0220     		movs	r0, #2
+ 2608 00da FFF7FEFF 		bl	delay_us
+ 2609              	.LVL462:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2610              		.loc 1 41 0
+ 2611 00de 2846     		mov	r0, r5
+ 2612 00e0 FFF7FEFF 		bl	bsp_IoSet
+ 2613              	.LVL463:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2614              		.loc 1 42 0
+ 2615 00e4 2046     		mov	r0, r4
+ 2616 00e6 FFF7FEFF 		bl	bsp_IoSet
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 58
+
+
+ 2617              	.LVL464:
+  43:drivers/bsp_soft_i2c.c **** }
+ 2618              		.loc 1 43 0
+ 2619 00ea 0220     		movs	r0, #2
+ 2620 00ec FFF7FEFF 		bl	delay_us
+ 2621              	.LVL465:
+ 2622 00f0 02E0     		b	.L124
+ 2623              	.LVL466:
+ 2624              	.L145:
+ 2625              	.LBE443:
+ 2626              	.LBE442:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 2627              		.loc 1 62 0
+ 2628 00f2 4846     		mov	r0, r9
+ 2629 00f4 FFF7FEFF 		bl	bsp_IoClr
+ 2630              	.LVL467:
+ 2631              	.L124:
+ 2632              	.LBE439:
+ 2633              	.LBE438:
+ 2634              	.LBB446:
+ 2635              	.LBB447:
+ 2636              	.LBB448:
+ 2637              	.LBB449:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2638              		.loc 1 10 0
+ 2639 00f8 0823     		movs	r3, #8
+ 2640 00fa 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2641              		.loc 1 13 0
+ 2642 00fc A946     		mov	r9, r5
+ 2643 00fe 2846     		mov	r0, r5
+ 2644 0100 FFF7FEFF 		bl	bsp_IoInit
+ 2645              	.LVL468:
+ 2646              	.LBE449:
+ 2647              	.LBE448:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 2648              		.loc 1 92 0
+ 2649 0104 05F10806 		add	r6, r5, #8
+ 2650 0108 3046     		mov	r0, r6
+ 2651 010a FFF7FEFF 		bl	bsp_IoClr
+ 2652              	.LVL469:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2653              		.loc 1 93 0
+ 2654 010e 8024     		movs	r4, #128
+ 2655 0110 0FE0     		b	.L126
+ 2656              	.LVL470:
+ 2657              	.L127:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 2658              		.loc 1 97 0
+ 2659 0112 4846     		mov	r0, r9
+ 2660 0114 FFF7FEFF 		bl	bsp_IoClr
+ 2661              	.LVL471:
+ 2662              	.L128:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2663              		.loc 1 98 0
+ 2664 0118 3046     		mov	r0, r6
+ 2665 011a FFF7FEFF 		bl	bsp_IoSet
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 59
+
+
+ 2666              	.LVL472:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 2667              		.loc 1 99 0
+ 2668 011e 0220     		movs	r0, #2
+ 2669 0120 FFF7FEFF 		bl	delay_us
+ 2670              	.LVL473:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2671              		.loc 1 100 0
+ 2672 0124 3046     		mov	r0, r6
+ 2673 0126 FFF7FEFF 		bl	bsp_IoClr
+ 2674              	.LVL474:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 2675              		.loc 1 101 0
+ 2676 012a 0220     		movs	r0, #2
+ 2677 012c FFF7FEFF 		bl	delay_us
+ 2678              	.LVL475:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2679              		.loc 1 93 0
+ 2680 0130 6408     		lsrs	r4, r4, #1
+ 2681              	.LVL476:
+ 2682              	.L126:
+ 2683 0132 34B1     		cbz	r4, .L146
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 2684              		.loc 1 94 0
+ 2685 0134 18EA040F 		tst	r8, r4
+ 2686 0138 EBD0     		beq	.L127
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 2687              		.loc 1 95 0
+ 2688 013a 4846     		mov	r0, r9
+ 2689 013c FFF7FEFF 		bl	bsp_IoSet
+ 2690              	.LVL477:
+ 2691 0140 EAE7     		b	.L128
+ 2692              	.L146:
+ 2693              	.LVL478:
+ 2694              	.LBE447:
+ 2695              	.LBE446:
+ 2696              	.LBB450:
+ 2697              	.LBB451:
+ 2698              	.LBB452:
+ 2699              	.LBB453:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 2700              		.loc 1 12 0
+ 2701 0142 0323     		movs	r3, #3
+ 2702 0144 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2703              		.loc 1 13 0
+ 2704 0146 2E46     		mov	r6, r5
+ 2705 0148 2846     		mov	r0, r5
+ 2706 014a FFF7FEFF 		bl	bsp_IoInit
+ 2707              	.LVL479:
+ 2708              	.LBE453:
+ 2709              	.LBE452:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2710              		.loc 1 50 0
+ 2711 014e 2846     		mov	r0, r5
+ 2712 0150 FFF7FEFF 		bl	bsp_IoSet
+ 2713              	.LVL480:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 60
+
+
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2714              		.loc 1 51 0
+ 2715 0154 0220     		movs	r0, #2
+ 2716 0156 FFF7FEFF 		bl	delay_us
+ 2717              	.LVL481:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2718              		.loc 1 52 0
+ 2719 015a 05F10808 		add	r8, r5, #8
+ 2720 015e 4046     		mov	r0, r8
+ 2721 0160 FFF7FEFF 		bl	bsp_IoSet
+ 2722              	.LVL482:
+  53:drivers/bsp_soft_i2c.c **** 
+ 2723              		.loc 1 53 0
+ 2724 0164 0220     		movs	r0, #2
+ 2725 0166 FFF7FEFF 		bl	delay_us
+ 2726              	.LVL483:
+ 2727              	.L130:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 2728              		.loc 1 55 0
+ 2729 016a 3046     		mov	r0, r6
+ 2730 016c FFF7FEFF 		bl	bsp_IoRead
+ 2731              	.LVL484:
+ 2732 0170 E8B1     		cbz	r0, .L147
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 2733              		.loc 1 56 0
+ 2734 0172 0134     		adds	r4, r4, #1
+ 2735              	.LVL485:
+ 2736 0174 E4B2     		uxtb	r4, r4
+ 2737              	.LVL486:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 2738              		.loc 1 57 0
+ 2739 0176 FA2C     		cmp	r4, #250
+ 2740 0178 F7D9     		bls	.L130
+ 2741              	.LVL487:
+ 2742              	.LBB454:
+ 2743              	.LBB455:
+ 2744              	.LBB456:
+ 2745              	.LBB457:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2746              		.loc 1 10 0
+ 2747 017a 0823     		movs	r3, #8
+ 2748 017c 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2749              		.loc 1 13 0
+ 2750 017e 2846     		mov	r0, r5
+ 2751 0180 FFF7FEFF 		bl	bsp_IoInit
+ 2752              	.LVL488:
+ 2753              	.LBE457:
+ 2754              	.LBE456:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2755              		.loc 1 38 0
+ 2756 0184 05F10804 		add	r4, r5, #8
+ 2757              	.LVL489:
+ 2758 0188 2046     		mov	r0, r4
+ 2759 018a FFF7FEFF 		bl	bsp_IoClr
+ 2760              	.LVL490:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 61
+
+
+ 2761              		.loc 1 39 0
+ 2762 018e 2846     		mov	r0, r5
+ 2763 0190 FFF7FEFF 		bl	bsp_IoClr
+ 2764              	.LVL491:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 2765              		.loc 1 40 0
+ 2766 0194 0220     		movs	r0, #2
+ 2767 0196 FFF7FEFF 		bl	delay_us
+ 2768              	.LVL492:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2769              		.loc 1 41 0
+ 2770 019a 2846     		mov	r0, r5
+ 2771 019c FFF7FEFF 		bl	bsp_IoSet
+ 2772              	.LVL493:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2773              		.loc 1 42 0
+ 2774 01a0 2046     		mov	r0, r4
+ 2775 01a2 FFF7FEFF 		bl	bsp_IoSet
+ 2776              	.LVL494:
+  43:drivers/bsp_soft_i2c.c **** }
+ 2777              		.loc 1 43 0
+ 2778 01a6 0220     		movs	r0, #2
+ 2779 01a8 FFF7FEFF 		bl	delay_us
+ 2780              	.LVL495:
+ 2781 01ac 02E0     		b	.L131
+ 2782              	.LVL496:
+ 2783              	.L147:
+ 2784              	.LBE455:
+ 2785              	.LBE454:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 2786              		.loc 1 62 0
+ 2787 01ae 4046     		mov	r0, r8
+ 2788 01b0 FFF7FEFF 		bl	bsp_IoClr
+ 2789              	.LVL497:
+ 2790              	.L131:
+ 2791              	.LBE451:
+ 2792              	.LBE450:
+ 2793              	.LBB458:
+ 2794              	.LBB459:
+ 2795              	.LBB460:
+ 2796              	.LBB461:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2797              		.loc 1 10 0
+ 2798 01b4 0826     		movs	r6, #8
+ 2799 01b6 6E71     		strb	r6, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2800              		.loc 1 13 0
+ 2801 01b8 2846     		mov	r0, r5
+ 2802 01ba FFF7FEFF 		bl	bsp_IoInit
+ 2803              	.LVL498:
+ 2804              	.LBE461:
+ 2805              	.LBE460:
+  27:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2806              		.loc 1 27 0
+ 2807 01be 2846     		mov	r0, r5
+ 2808 01c0 FFF7FEFF 		bl	bsp_IoSet
+ 2809              	.LVL499:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 62
+
+
+  28:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2810              		.loc 1 28 0
+ 2811 01c4 AC19     		adds	r4, r5, r6
+ 2812 01c6 2046     		mov	r0, r4
+ 2813 01c8 FFF7FEFF 		bl	bsp_IoSet
+ 2814              	.LVL500:
+  29:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2815              		.loc 1 29 0
+ 2816 01cc 0220     		movs	r0, #2
+ 2817 01ce FFF7FEFF 		bl	delay_us
+ 2818              	.LVL501:
+  30:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2819              		.loc 1 30 0
+ 2820 01d2 2846     		mov	r0, r5
+ 2821 01d4 FFF7FEFF 		bl	bsp_IoClr
+ 2822              	.LVL502:
+  31:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 2823              		.loc 1 31 0
+ 2824 01d8 0220     		movs	r0, #2
+ 2825 01da FFF7FEFF 		bl	delay_us
+ 2826              	.LVL503:
+  32:drivers/bsp_soft_i2c.c **** }
+ 2827              		.loc 1 32 0
+ 2828 01de 2046     		mov	r0, r4
+ 2829 01e0 FFF7FEFF 		bl	bsp_IoClr
+ 2830              	.LVL504:
+ 2831              	.LBE459:
+ 2832              	.LBE458:
+ 200:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CWaitAck(i2c);
+ 201:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c, reg);    //写寄存器地址
+ 202:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CWaitAck(i2c);        //等待应答
+ 203:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStart(i2c);
+ 204:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CSendByte(i2c,(addr<<1)|1);//发送器件地址+读命令
+ 2833              		.loc 1 204 0
+ 2834 01e4 7F00     		lsls	r7, r7, #1
+ 2835 01e6 47F00107 		orr	r7, r7, #1
+ 2836 01ea FFB2     		uxtb	r7, r7
+ 2837              	.LVL505:
+ 2838              	.LBB462:
+ 2839              	.LBB463:
+ 2840              	.LBB464:
+ 2841              	.LBB465:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 2842              		.loc 1 10 0
+ 2843 01ec 6E71     		strb	r6, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2844              		.loc 1 13 0
+ 2845 01ee A846     		mov	r8, r5
+ 2846 01f0 2846     		mov	r0, r5
+ 2847 01f2 FFF7FEFF 		bl	bsp_IoInit
+ 2848              	.LVL506:
+ 2849              	.LBE465:
+ 2850              	.LBE464:
+  92:drivers/bsp_soft_i2c.c **** 	for (t = 0x80; t > 0; t >>= 1) {
+ 2851              		.loc 1 92 0
+ 2852 01f6 2646     		mov	r6, r4
+ 2853 01f8 2046     		mov	r0, r4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 63
+
+
+ 2854 01fa FFF7FEFF 		bl	bsp_IoClr
+ 2855              	.LVL507:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2856              		.loc 1 93 0
+ 2857 01fe 8024     		movs	r4, #128
+ 2858 0200 0FE0     		b	.L133
+ 2859              	.LVL508:
+ 2860              	.L134:
+  97:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 2861              		.loc 1 97 0
+ 2862 0202 4046     		mov	r0, r8
+ 2863 0204 FFF7FEFF 		bl	bsp_IoClr
+ 2864              	.LVL509:
+ 2865              	.L135:
+  98:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2866              		.loc 1 98 0
+ 2867 0208 3046     		mov	r0, r6
+ 2868 020a FFF7FEFF 		bl	bsp_IoSet
+ 2869              	.LVL510:
+  99:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 2870              		.loc 1 99 0
+ 2871 020e 0220     		movs	r0, #2
+ 2872 0210 FFF7FEFF 		bl	delay_us
+ 2873              	.LVL511:
+ 100:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 2874              		.loc 1 100 0
+ 2875 0214 3046     		mov	r0, r6
+ 2876 0216 FFF7FEFF 		bl	bsp_IoClr
+ 2877              	.LVL512:
+ 101:drivers/bsp_soft_i2c.c **** 	}
+ 2878              		.loc 1 101 0
+ 2879 021a 0220     		movs	r0, #2
+ 2880 021c FFF7FEFF 		bl	delay_us
+ 2881              	.LVL513:
+  93:drivers/bsp_soft_i2c.c **** 		if (dat & t)
+ 2882              		.loc 1 93 0
+ 2883 0220 6408     		lsrs	r4, r4, #1
+ 2884              	.LVL514:
+ 2885              	.L133:
+ 2886 0222 2CB1     		cbz	r4, .L148
+  94:drivers/bsp_soft_i2c.c **** 			bsp_IoSet(&i2c->sda);
+ 2887              		.loc 1 94 0
+ 2888 0224 2742     		tst	r7, r4
+ 2889 0226 ECD0     		beq	.L134
+  95:drivers/bsp_soft_i2c.c **** 		else
+ 2890              		.loc 1 95 0
+ 2891 0228 4046     		mov	r0, r8
+ 2892 022a FFF7FEFF 		bl	bsp_IoSet
+ 2893              	.LVL515:
+ 2894 022e EBE7     		b	.L135
+ 2895              	.L148:
+ 2896              	.LVL516:
+ 2897              	.LBE463:
+ 2898              	.LBE462:
+ 2899              	.LBB466:
+ 2900              	.LBB467:
+ 2901              	.LBB468:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 64
+
+
+ 2902              	.LBB469:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 2903              		.loc 1 12 0
+ 2904 0230 0323     		movs	r3, #3
+ 2905 0232 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2906              		.loc 1 13 0
+ 2907 0234 2E46     		mov	r6, r5
+ 2908 0236 2846     		mov	r0, r5
+ 2909 0238 FFF7FEFF 		bl	bsp_IoInit
+ 2910              	.LVL517:
+ 2911              	.LBE469:
+ 2912              	.LBE468:
+  50:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2913              		.loc 1 50 0
+ 2914 023c 2846     		mov	r0, r5
+ 2915 023e FFF7FEFF 		bl	bsp_IoSet
+ 2916              	.LVL518:
+  51:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2917              		.loc 1 51 0
+ 2918 0242 0220     		movs	r0, #2
+ 2919 0244 FFF7FEFF 		bl	delay_us
+ 2920              	.LVL519:
+  52:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2921              		.loc 1 52 0
+ 2922 0248 05F10807 		add	r7, r5, #8
+ 2923 024c 3846     		mov	r0, r7
+ 2924 024e FFF7FEFF 		bl	bsp_IoSet
+ 2925              	.LVL520:
+  53:drivers/bsp_soft_i2c.c **** 
+ 2926              		.loc 1 53 0
+ 2927 0252 0220     		movs	r0, #2
+ 2928 0254 FFF7FEFF 		bl	delay_us
+ 2929              	.LVL521:
+ 2930              	.L137:
+  55:drivers/bsp_soft_i2c.c **** 		ucErrTime++;
+ 2931              		.loc 1 55 0
+ 2932 0258 3046     		mov	r0, r6
+ 2933 025a FFF7FEFF 		bl	bsp_IoRead
+ 2934              	.LVL522:
+ 2935 025e E8B1     		cbz	r0, .L149
+  56:drivers/bsp_soft_i2c.c **** 		if (ucErrTime > 250) {
+ 2936              		.loc 1 56 0
+ 2937 0260 0134     		adds	r4, r4, #1
+ 2938              	.LVL523:
+ 2939 0262 E4B2     		uxtb	r4, r4
+ 2940              	.LVL524:
+  57:drivers/bsp_soft_i2c.c **** 			bsp_SoftI2CStop(i2c);
+ 2941              		.loc 1 57 0
+ 2942 0264 FA2C     		cmp	r4, #250
+ 2943 0266 F7D9     		bls	.L137
+ 2944              	.LVL525:
+ 2945              	.LBB470:
+ 2946              	.LBB471:
+ 2947              	.LBB472:
+ 2948              	.LBB473:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 65
+
+
+ 2949              		.loc 1 10 0
+ 2950 0268 0823     		movs	r3, #8
+ 2951 026a 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 2952              		.loc 1 13 0
+ 2953 026c 2846     		mov	r0, r5
+ 2954 026e FFF7FEFF 		bl	bsp_IoInit
+ 2955              	.LVL526:
+ 2956              	.LBE473:
+ 2957              	.LBE472:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 2958              		.loc 1 38 0
+ 2959 0272 05F10804 		add	r4, r5, #8
+ 2960              	.LVL527:
+ 2961 0276 2046     		mov	r0, r4
+ 2962 0278 FFF7FEFF 		bl	bsp_IoClr
+ 2963              	.LVL528:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2964              		.loc 1 39 0
+ 2965 027c 2846     		mov	r0, r5
+ 2966 027e FFF7FEFF 		bl	bsp_IoClr
+ 2967              	.LVL529:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 2968              		.loc 1 40 0
+ 2969 0282 0220     		movs	r0, #2
+ 2970 0284 FFF7FEFF 		bl	delay_us
+ 2971              	.LVL530:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 2972              		.loc 1 41 0
+ 2973 0288 2846     		mov	r0, r5
+ 2974 028a FFF7FEFF 		bl	bsp_IoSet
+ 2975              	.LVL531:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 2976              		.loc 1 42 0
+ 2977 028e 2046     		mov	r0, r4
+ 2978 0290 FFF7FEFF 		bl	bsp_IoSet
+ 2979              	.LVL532:
+  43:drivers/bsp_soft_i2c.c **** }
+ 2980              		.loc 1 43 0
+ 2981 0294 0220     		movs	r0, #2
+ 2982 0296 FFF7FEFF 		bl	delay_us
+ 2983              	.LVL533:
+ 2984 029a 02E0     		b	.L138
+ 2985              	.LVL534:
+ 2986              	.L149:
+ 2987              	.LBE471:
+ 2988              	.LBE470:
+  62:drivers/bsp_soft_i2c.c **** 	return 0;
+ 2989              		.loc 1 62 0
+ 2990 029c 3846     		mov	r0, r7
+ 2991 029e FFF7FEFF 		bl	bsp_IoClr
+ 2992              	.LVL535:
+ 2993              	.L138:
+ 2994              	.LBE467:
+ 2995              	.LBE466:
+ 2996              	.LBB474:
+ 2997              	.LBB475:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 66
+
+
+ 2998              	.LBB476:
+ 2999              	.LBB477:
+  12:drivers/bsp_soft_i2c.c **** 	bsp_IoInit(&i2c->sda);
+ 3000              		.loc 1 12 0
+ 3001 02a2 0323     		movs	r3, #3
+ 3002 02a4 6B71     		strb	r3, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 3003              		.loc 1 13 0
+ 3004 02a6 A846     		mov	r8, r5
+ 3005 02a8 2846     		mov	r0, r5
+ 3006 02aa FFF7FEFF 		bl	bsp_IoInit
+ 3007              	.LVL536:
+ 3008              	.LBE477:
+ 3009              	.LBE476:
+ 107:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 0);//SDA设置为输入
+ 3010              		.loc 1 107 0
+ 3011 02ae 0024     		movs	r4, #0
+ 109:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 3012              		.loc 1 109 0
+ 3013 02b0 2646     		mov	r6, r4
+ 3014 02b2 04E0     		b	.L140
+ 3015              	.LVL537:
+ 3016              	.L141:
+ 115:drivers/bsp_soft_i2c.c **** 	}
+ 3017              		.loc 1 115 0
+ 3018 02b4 0220     		movs	r0, #2
+ 3019 02b6 FFF7FEFF 		bl	delay_us
+ 3020              	.LVL538:
+ 109:drivers/bsp_soft_i2c.c **** 		bsp_IoClr(&i2c->scl);
+ 3021              		.loc 1 109 0
+ 3022 02ba 0136     		adds	r6, r6, #1
+ 3023              	.LVL539:
+ 3024 02bc F6B2     		uxtb	r6, r6
+ 3025              	.LVL540:
+ 3026              	.L140:
+ 3027 02be 072E     		cmp	r6, #7
+ 3028 02c0 14D8     		bhi	.L150
+ 110:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 3029              		.loc 1 110 0
+ 3030 02c2 05F10807 		add	r7, r5, #8
+ 3031 02c6 3846     		mov	r0, r7
+ 3032 02c8 FFF7FEFF 		bl	bsp_IoClr
+ 3033              	.LVL541:
+ 111:drivers/bsp_soft_i2c.c **** 		bsp_IoSet(&i2c->scl);
+ 3034              		.loc 1 111 0
+ 3035 02cc 0220     		movs	r0, #2
+ 3036 02ce FFF7FEFF 		bl	delay_us
+ 3037              	.LVL542:
+ 112:drivers/bsp_soft_i2c.c **** 		receive <<= 1;
+ 3038              		.loc 1 112 0
+ 3039 02d2 3846     		mov	r0, r7
+ 3040 02d4 FFF7FEFF 		bl	bsp_IoSet
+ 3041              	.LVL543:
+ 113:drivers/bsp_soft_i2c.c **** 		if (bsp_IoRead(&i2c->sda))receive++;
+ 3042              		.loc 1 113 0
+ 3043 02d8 6400     		lsls	r4, r4, #1
+ 3044              	.LVL544:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 67
+
+
+ 3045 02da E4B2     		uxtb	r4, r4
+ 3046              	.LVL545:
+ 114:drivers/bsp_soft_i2c.c **** 		delay_us(2);
+ 3047              		.loc 1 114 0
+ 3048 02dc 4046     		mov	r0, r8
+ 3049 02de FFF7FEFF 		bl	bsp_IoRead
+ 3050              	.LVL546:
+ 3051 02e2 0028     		cmp	r0, #0
+ 3052 02e4 E6D0     		beq	.L141
+ 3053 02e6 0134     		adds	r4, r4, #1
+ 3054              	.LVL547:
+ 3055 02e8 E4B2     		uxtb	r4, r4
+ 3056              	.LVL548:
+ 3057 02ea E3E7     		b	.L141
+ 3058              	.L150:
+ 3059              	.LVL549:
+ 3060              	.LBB478:
+ 3061              	.LBB479:
+  68:drivers/bsp_soft_i2c.c **** 	SwitchDir(i2c, 1);
+ 3062              		.loc 1 68 0
+ 3063 02ec 05F10806 		add	r6, r5, #8
+ 3064              	.LVL550:
+ 3065 02f0 3046     		mov	r0, r6
+ 3066 02f2 FFF7FEFF 		bl	bsp_IoClr
+ 3067              	.LVL551:
+ 3068              	.LBB480:
+ 3069              	.LBB481:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 3070              		.loc 1 10 0
+ 3071 02f6 0827     		movs	r7, #8
+ 3072 02f8 6F71     		strb	r7, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 3073              		.loc 1 13 0
+ 3074 02fa 2846     		mov	r0, r5
+ 3075 02fc FFF7FEFF 		bl	bsp_IoInit
+ 3076              	.LVL552:
+ 3077              	.LBE481:
+ 3078              	.LBE480:
+  70:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 3079              		.loc 1 70 0
+ 3080 0300 2846     		mov	r0, r5
+ 3081 0302 FFF7FEFF 		bl	bsp_IoClr
+ 3082              	.LVL553:
+  71:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 3083              		.loc 1 71 0
+ 3084 0306 0220     		movs	r0, #2
+ 3085 0308 FFF7FEFF 		bl	delay_us
+ 3086              	.LVL554:
+  72:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 3087              		.loc 1 72 0
+ 3088 030c 3046     		mov	r0, r6
+ 3089 030e FFF7FEFF 		bl	bsp_IoSet
+ 3090              	.LVL555:
+  73:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->scl);
+ 3091              		.loc 1 73 0
+ 3092 0312 0220     		movs	r0, #2
+ 3093 0314 FFF7FEFF 		bl	delay_us
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 68
+
+
+ 3094              	.LVL556:
+  74:drivers/bsp_soft_i2c.c **** }
+ 3095              		.loc 1 74 0
+ 3096 0318 3046     		mov	r0, r6
+ 3097 031a FFF7FEFF 		bl	bsp_IoClr
+ 3098              	.LVL557:
+ 3099              	.LBE479:
+ 3100              	.LBE478:
+ 3101              	.LBE475:
+ 3102              	.LBE474:
+ 3103              	.LBB482:
+ 3104              	.LBB483:
+ 3105              	.LBB484:
+ 3106              	.LBB485:
+  10:drivers/bsp_soft_i2c.c **** 	else
+ 3107              		.loc 1 10 0
+ 3108 031e 6F71     		strb	r7, [r5, #5]
+  13:drivers/bsp_soft_i2c.c **** }
+ 3109              		.loc 1 13 0
+ 3110 0320 2846     		mov	r0, r5
+ 3111 0322 FFF7FEFF 		bl	bsp_IoInit
+ 3112              	.LVL558:
+ 3113              	.LBE485:
+ 3114              	.LBE484:
+  38:drivers/bsp_soft_i2c.c **** 	bsp_IoClr(&i2c->sda);
+ 3115              		.loc 1 38 0
+ 3116 0326 3046     		mov	r0, r6
+ 3117 0328 FFF7FEFF 		bl	bsp_IoClr
+ 3118              	.LVL559:
+  39:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 3119              		.loc 1 39 0
+ 3120 032c 2846     		mov	r0, r5
+ 3121 032e FFF7FEFF 		bl	bsp_IoClr
+ 3122              	.LVL560:
+  40:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->sda);
+ 3123              		.loc 1 40 0
+ 3124 0332 0220     		movs	r0, #2
+ 3125 0334 FFF7FEFF 		bl	delay_us
+ 3126              	.LVL561:
+  41:drivers/bsp_soft_i2c.c **** 	bsp_IoSet(&i2c->scl);
+ 3127              		.loc 1 41 0
+ 3128 0338 2846     		mov	r0, r5
+ 3129 033a FFF7FEFF 		bl	bsp_IoSet
+ 3130              	.LVL562:
+  42:drivers/bsp_soft_i2c.c **** 	delay_us(2);
+ 3131              		.loc 1 42 0
+ 3132 033e 3046     		mov	r0, r6
+ 3133 0340 FFF7FEFF 		bl	bsp_IoSet
+ 3134              	.LVL563:
+  43:drivers/bsp_soft_i2c.c **** }
+ 3135              		.loc 1 43 0
+ 3136 0344 0220     		movs	r0, #2
+ 3137 0346 FFF7FEFF 		bl	delay_us
+ 3138              	.LVL564:
+ 3139              	.LBE483:
+ 3140              	.LBE482:
+ 205:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CWaitAck(i2c);    //等待应答
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 69
+
+
+ 206:drivers/bsp_soft_i2c.c **** 	res=bsp_SoftI2CReadByte(i2c,0);//读取数据,发送nACK
+ 207:drivers/bsp_soft_i2c.c **** 	bsp_SoftI2CStop(i2c);			//产生一个停止条件
+ 208:drivers/bsp_soft_i2c.c **** 	return res;
+ 209:drivers/bsp_soft_i2c.c **** }
+ 3141              		.loc 1 209 0
+ 3142 034a 2046     		mov	r0, r4
+ 3143 034c BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 3144              		.cfi_endproc
+ 3145              	.LFE78:
+ 3147              		.text
+ 3148              	.Letext0:
+ 3149              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 3150              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 3151              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 3152              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 3153              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 3154              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 3155              		.file 8 "Inc/core_cm3.h"
+ 3156              		.file 9 "startup/inc/sys.h"
+ 3157              		.file 10 "tools/inc/malloc.h"
+ 3158              		.file 11 "tools/inc/tskmanager.h"
+ 3159              		.file 12 "drivers/inc/bsp_f1xx_io.h"
+ 3160              		.file 13 "drivers/inc/bsp_soft_i2c.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s 			page 70
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 bsp_soft_i2c.c
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:16     .text.bsp_SoftI2CInit:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:23     .text.bsp_SoftI2CInit:0000000000000000 bsp_SoftI2CInit
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:61     .text.bsp_SoftI2CWrite:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:68     .text.bsp_SoftI2CWrite:0000000000000000 bsp_SoftI2CWrite
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:748    .text.bsp_SoftI2CRead:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:755    .text.bsp_SoftI2CRead:0000000000000000 bsp_SoftI2CRead
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:1699   .text.bsp_SoftI2CWriteReg:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:1706   .text.bsp_SoftI2CWriteReg:0000000000000000 bsp_SoftI2CWriteReg
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:2404   .text.bsp_SoftI2CReadReg:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccmPKVBU.s:2411   .text.bsp_SoftI2CReadReg:0000000000000000 bsp_SoftI2CReadReg
+
+UNDEFINED SYMBOLS
+bsp_IoInit
+bsp_IoSet
+delay_us
+bsp_IoClr
+bsp_IoRead

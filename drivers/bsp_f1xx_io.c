@@ -19,3 +19,8 @@ void bsp_IoSet(_io *io) {
 void bsp_IoClr(_io *io) {
     io->port->BRR = 1 << io->pinx;
 }
+
+u8 bsp_IoRead(_io *io)
+{
+    return ((io->port->IDR >> io->pinx) & 0x01);
+}
