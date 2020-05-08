@@ -1,7 +1,3 @@
-//
-// Created by 周洋 on 2020/3/29.
-//
-
 #include "bsp_f1xx_led.h"
 
 void ledinit(_led *led)

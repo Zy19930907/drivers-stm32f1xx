@@ -104,8 +104,7 @@ u8 MPU_Get_Accelerometer(short *ax,short *ay,short *az)
 u8 mod_Mpu6050Init(void)
 {
 	u8 res;
-	bsp_SoftI2CInit(&i2c);//初始化IIC总线
-
+	mod_Mpu6050DataLineInit();
 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_PWR_MGMT1_REG,0X80);	//复位MPU6050
 	delay_ms(100);
 	bsp_SoftI2CWriteReg(&i2c,MPU_ADDR,MPU_PWR_MGMT1_REG,0X00);	//唤醒MPU6050
@@ -126,3 +125,17 @@ u8 mod_Mpu6050Init(void)
 	return 0;
 }
 
+void mod_Mpu6050DataLineInit(void)
+{
+	bsp_SoftI2CInit(&i2c);//初始化IIC总线
+}
+
+s16 mod_Mpu_Write(u8 addr,u8 reg,u16 len,u8 *buf)
+{
+	return bsp_SoftI2CWrite(&i2c,addr,reg,buf,len);
+}
+
+s16 mod_Mpu_Read(u8 addr,u8 reg,u16 len,u8 *buf)
+{
+	return bsp_SoftI2CRead(&i2c,addr,reg,buf,len);
+}

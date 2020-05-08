@@ -1,7 +1,3 @@
-//
-// Created by 周洋 on 2020/3/29.
-//
-
 #include "bsp_f1xx_uart.h"
 #include "bsp_f1xx_dma.h"
 
@@ -24,10 +20,10 @@ _uart uartlist[] = {
                 .dmarxirqn = DMA1_Channel5_IRQn,
                 .dmatxirqn = DMA1_Channel4_IRQn,
 
-//                .rxio = {PA,10,IO_MODE_IN_FLOAT},
-//                .txio = {PA,9,IO_MODE_OUT_AF_PP_50MHZ},
-                .rxio = {PB,7,IO_MODE_IN_FLOAT},
-                .txio = {PB,6,IO_MODE_OUT_AF_PP_50MHZ},
+                .rxio = {PA,10,IO_MODE_IN_FLOAT},
+                .txio = {PA,9,IO_MODE_OUT_AF_PP_50MHZ},
+//                .rxio = {PB,7,IO_MODE_IN_FLOAT},
+//                .txio = {PB,6,IO_MODE_OUT_AF_PP_50MHZ},
         },
         {
                 .pclk = 36000000,
@@ -116,8 +112,8 @@ _DataUtil* bsp_UartInit(_uartpara *para)
     dmainit(cfguart->txch,(u32)&cfguart->uartx->DR,(u32)&cfguart->txbuf[0],1);
     bsp_IoInit(&cfguart->txio);
     bsp_IoInit(&cfguart->rxio);
-    RCC->APB2ENR |= BIT0; //AFIO时钟
-    AFIO->MAPR |= BIT2;   //串口1重映射到PB6、PB7
+//    RCC->APB2ENR |= BIT0; //AFIO时钟
+//    AFIO->MAPR |= BIT2;   //串口1重映射到PB6、PB7
 
     *cfguart->uartclk |= cfguart->uartclkbit;
     delay_ms(100);

@@ -252,6 +252,8 @@ drivers/bsp_soft_i2c.c \
 drivers/datautil.c \
 drivers/bsp_f1xx_flash.c \
 Modules/mpu6050/mod_mpu6050.c \
+Modules/mpu6050/inv_mpu.c \
+Modules/mpu6050/inv_mpu_dmp_motion_driver.c \
 tools/malloc.c \
 tools/tskmanager.c \
 tools/bufferutil.c \

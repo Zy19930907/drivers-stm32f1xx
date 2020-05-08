@@ -82,5 +82,8 @@ u8 mod_Mpu6050Init(void);
 u8 MPU_Get_Accelerometer(short *ax,short *ay,short *az);
 u8 MPU_Get_Gyroscope(short *gx,short *gy,short *gz);
 short MPU_Get_Temperature(void);
+s16 mod_Mpu_Write(u8 addr,u8 reg,u16 len,u8 *buf);
+s16 mod_Mpu_Read(u8 addr,u8 reg,u16 len,u8 *buf);
+void mod_Mpu6050DataLineInit(void);
 
 #endif //DRIVERS_STM32F1XX_MOD_MPU6050_H

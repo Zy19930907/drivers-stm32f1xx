@@ -1,7 +1,3 @@
-//
-// Created by 周洋 on 2020/3/29.
-//
-
 #include "runled.h"
 #include "tskmanager.h"
 #include "bsp_f1xx_led.h"

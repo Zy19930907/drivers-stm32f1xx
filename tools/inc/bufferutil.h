@@ -1,5 +1,5 @@
 //
-// Created by 周洋 on 2020/4/7.
+// Created on 2020/4/7.
 //
 
 #ifndef RECORDERCONFIGER_BUFFERUTIL_H

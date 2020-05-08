@@ -1,7 +1,3 @@
-//
-// Created by 周洋 on 2020/3/31.
-//
-
 #include "datautil.h"
 #include "bsp_f1xx_uart.h"
 

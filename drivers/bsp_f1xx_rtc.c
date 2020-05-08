@@ -1,7 +1,3 @@
-//
-// Created by 周洋 on 2020/4/7.
-//
-
 #include "bsp_f1xx_rtc.h"
 
 _MTIME mTime = {

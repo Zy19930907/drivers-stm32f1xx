@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
    8:Inc/cmsis_gcc.h **** 
    9:Inc/cmsis_gcc.h ****    All rights reserved.
   10:Inc/cmsis_gcc.h ****    Redistribution and use in source and binary forms, with or without
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 2
 
 
   11:Inc/cmsis_gcc.h ****    modification, are permitted provided that the following conditions are met:
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
   65:Inc/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
   66:Inc/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
   67:Inc/cmsis_gcc.h ****   Can only be executed in Privileged modes.
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 3
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 3
 
 
   68:Inc/cmsis_gcc.h ****  */
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  122:Inc/cmsis_gcc.h **** 
  123:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, apsr" : "=r" (result) );
  124:Inc/cmsis_gcc.h ****   return(result);
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 4
 
 
  125:Inc/cmsis_gcc.h **** }
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  179:Inc/cmsis_gcc.h **** }
  180:Inc/cmsis_gcc.h **** 
  181:Inc/cmsis_gcc.h **** 
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 5
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 5
 
 
  182:Inc/cmsis_gcc.h **** /**
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  192:Inc/cmsis_gcc.h **** 
  193:Inc/cmsis_gcc.h **** 
  194:Inc/cmsis_gcc.h **** /**
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 6
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 6
 
 
  195:Inc/cmsis_gcc.h ****   \brief   Get Priority Mask
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  249:Inc/cmsis_gcc.h **** {
  250:Inc/cmsis_gcc.h ****   uint32_t result;
  251:Inc/cmsis_gcc.h **** 
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 7
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 7
 
 
  252:Inc/cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri" : "=r" (result) );
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  306:Inc/cmsis_gcc.h **** 
  307:Inc/cmsis_gcc.h **** #if       (__CORTEX_M == 0x04U) || (__CORTEX_M == 0x07U)
  308:Inc/cmsis_gcc.h **** 
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 8
 
 
  309:Inc/cmsis_gcc.h **** /**
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  363:Inc/cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "l" (r)
  364:Inc/cmsis_gcc.h **** #else
  365:Inc/cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=r" (r)
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 9
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 9
 
 
  366:Inc/cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "r" (r)
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  114              	.LBB15:
   71:Inc/cmsis_gcc.h **** }
  115              		.loc 2 71 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 10
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 10
 
 
  116              		.syntax unified
@@ -598,7 +598,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  164              		.thumb
  165              		.thumb_func
  166              		.fpu softvfp
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 11
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 11
 
 
  168              	MY_NVIC_SetVectorTable:
@@ -658,7 +658,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  209 0000 C043     		mvns	r0, r0
  210              	.LVL6:
   41:startup/sys.c **** 	temp1 <<= 8;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 12
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 12
 
 
  211              		.loc 1 41 0
@@ -718,7 +718,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
   54:startup/sys.c **** //注意优先级不能超过设定的组的范围!否则会有意想不到的错误
   55:startup/sys.c **** //组划分:
   56:startup/sys.c **** //组0:0位抢占优先级,4位响应优先级
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 13
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 13
 
 
   57:startup/sys.c **** //组1:1位抢占优先级,3位响应优先级
@@ -778,7 +778,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  296 002e 0121     		movs	r1, #1
  297 0030 B140     		lsls	r1, r1, r6
  298 0032 0B43     		orrs	r3, r3, r1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 14
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 14
 
 
  299 0034 42F82030 		str	r3, [r2, r0, lsl #2]
@@ -838,7 +838,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  339 0002 8B08     		lsrs	r3, r1, #2
  340              	.LVL23:
   86:startup/sys.c **** 	EXTOFFSET = (BITx % 4) * 4;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 15
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 15
 
 
  341              		.loc 1 86 0
@@ -898,7 +898,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
   96:startup/sys.c **** 		EXTI->RTSR |= 1 << BITx; //line BITx上事件上升降沿触发
  386              		.loc 1 96 0
  387 0054 044B     		ldr	r3, .L20+8
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 16
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 16
 
 
  388 0056 9A68     		ldr	r2, [r3, #8]
@@ -958,7 +958,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  105:startup/sys.c **** 
  106:startup/sys.c **** 	RCC->AHBENR = 0x00000014;  //睡眠模式闪存和SRAM时钟使能.其他关闭.
  436              		.loc 1 106 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 17
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 17
 
 
  437 000a 1422     		movs	r2, #20
@@ -1018,7 +1018,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  476 004c 00100240 		.word	1073876992
  477 0050 0000FFF8 		.word	-117506048
  478              		.cfi_endproc
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 18
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 18
 
 
  479              	.LFE74:
@@ -1078,7 +1078,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  525              	.LVL32:
  132:startup/sys.c **** }
  526              		.loc 1 132 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 19
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 19
 
 
  527 0034 08BD     		pop	{r3, pc}
@@ -1138,7 +1138,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  142:startup/sys.c **** //#define JTAG_SWD_DISABLE   0X02
  143:startup/sys.c **** //#define SWD_ENABLE         0X01
  144:startup/sys.c **** //#define JTAG_SWD_ENABLE    0X00
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 20
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 20
 
 
  145:startup/sys.c **** void JTAG_Set(u8 mode)
@@ -1198,7 +1198,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  618              		.cfi_startproc
  619              		@ args = 0, pretend = 0, frame = 0
  620              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 21
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 21
 
 
  621              	.LVL35:
@@ -1258,7 +1258,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  169:startup/sys.c **** 	RCC->CR |= 0x01000000;  //PLLON
  665              		.loc 1 169 0
  666 0040 1A68     		ldr	r2, [r3]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 22
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 22
 
 
  667 0042 42F08072 		orr	r2, r2, #16777216
@@ -1318,7 +1318,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  711              		.syntax unified
  712              		.thumb
  713              		.thumb_func
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 23
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 23
 
 
  714              		.fpu softvfp
@@ -1378,7 +1378,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  758 0030 0E49     		ldr	r1, .L50+4
  759 0032 0A68     		ldr	r2, [r1]
  760 0034 42F03202 		orr	r2, r2, #50
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 24
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 24
 
 
  761 0038 0A60     		str	r2, [r1]
@@ -1438,7 +1438,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  805              		.section	.text.delay_init,"ax",%progbits
  806              		.align	1
  807              		.global	delay_init
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 25
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 25
 
 
  808              		.syntax unified
@@ -1498,7 +1498,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  851              		.syntax unified
  852              		.thumb
  853              		.thumb_func
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 26
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 26
 
 
  854              		.fpu softvfp
@@ -1558,7 +1558,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  895              	.L58:
  896 002a 00BF     		.align	2
  897              	.L57:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 27
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 27
 
 
  898 002c 00000000 		.word	.LANCHOR1
@@ -1618,7 +1618,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  942              		.loc 1 237 0
  943 0020 034B     		ldr	r3, .L61+4
  944 0022 0022     		movs	r2, #0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 28
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 28
 
 
  945 0024 1A60     		str	r2, [r3]
@@ -1656,62 +1656,62 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 1
  980              		.file 9 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
  981              		.file 10 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reen
  982              		.file 11 "startup/inc/sys.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s 			page 29
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s 			page 29
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 sys.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:16     .text.MSR_MSP:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:23     .text.MSR_MSP:0000000000000000 MSR_MSP
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:68     .text.WFI_SET:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:75     .text.WFI_SET:0000000000000000 WFI_SET
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:99     .text.INTX_DISABLE:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:106    .text.INTX_DISABLE:0000000000000000 INTX_DISABLE
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:130    .text.INTX_ENABLE:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:137    .text.INTX_ENABLE:0000000000000000 INTX_ENABLE
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:161    .text.MY_NVIC_SetVectorTable:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:168    .text.MY_NVIC_SetVectorTable:0000000000000000 MY_NVIC_SetVectorTable
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:188    .text.MY_NVIC_SetVectorTable:0000000000000010 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:193    .text.MY_NVIC_PriorityGroupConfig:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:200    .text.MY_NVIC_PriorityGroupConfig:0000000000000000 MY_NVIC_PriorityGroupConfig
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:241    .text.MY_NVIC_PriorityGroupConfig:0000000000000024 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:246    .text.MY_NVIC_Init:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:253    .text.MY_NVIC_Init:0000000000000000 MY_NVIC_Init
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:311    .text.MY_NVIC_Init:0000000000000048 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:316    .text.Ex_NVIC_Config:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:323    .text.Ex_NVIC_Config:0000000000000000 Ex_NVIC_Config
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:405    .text.Ex_NVIC_Config:0000000000000060 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:412    .text.MYRCC_DeInit:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:419    .text.MYRCC_DeInit:0000000000000000 MYRCC_DeInit
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:476    .text.MYRCC_DeInit:000000000000004c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:482    .text.Sys_Standby:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:489    .text.Sys_Standby:0000000000000000 Sys_Standby
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:531    .text.Sys_Standby:0000000000000038 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:538    .text.Sys_Soft_Reset:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:545    .text.Sys_Soft_Reset:0000000000000000 Sys_Soft_Reset
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:561    .text.Sys_Soft_Reset:0000000000000008 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:567    .text.JTAG_Set:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:574    .text.JTAG_Set:0000000000000000 JTAG_Set
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:602    .text.JTAG_Set:0000000000000020 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:608    .text.Stm32_Clock_Init:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:615    .text.Stm32_Clock_Init:0000000000000000 Stm32_Clock_Init
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:703    .text.Stm32_Clock_Init:000000000000006c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:709    .text.Stm32_Hsi_Init:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:716    .text.Stm32_Hsi_Init:0000000000000000 Stm32_Hsi_Init
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:800    .text.Stm32_Hsi_Init:0000000000000068 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:806    .text.delay_init:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:813    .text.delay_init:0000000000000000 delay_init
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:842    .text.delay_init:0000000000000020 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:849    .text.delay_ms:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:856    .text.delay_ms:0000000000000000 delay_ms
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:898    .text.delay_ms:000000000000002c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:904    .text.delay_us:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:911    .text.delay_us:0000000000000000 delay_us
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:953    .text.delay_us:000000000000002c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:16     .text.MSR_MSP:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:23     .text.MSR_MSP:0000000000000000 MSR_MSP
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:68     .text.WFI_SET:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:75     .text.WFI_SET:0000000000000000 WFI_SET
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:99     .text.INTX_DISABLE:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:106    .text.INTX_DISABLE:0000000000000000 INTX_DISABLE
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:130    .text.INTX_ENABLE:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:137    .text.INTX_ENABLE:0000000000000000 INTX_ENABLE
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:161    .text.MY_NVIC_SetVectorTable:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:168    .text.MY_NVIC_SetVectorTable:0000000000000000 MY_NVIC_SetVectorTable
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:188    .text.MY_NVIC_SetVectorTable:0000000000000010 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:193    .text.MY_NVIC_PriorityGroupConfig:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:200    .text.MY_NVIC_PriorityGroupConfig:0000000000000000 MY_NVIC_PriorityGroupConfig
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:241    .text.MY_NVIC_PriorityGroupConfig:0000000000000024 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:246    .text.MY_NVIC_Init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:253    .text.MY_NVIC_Init:0000000000000000 MY_NVIC_Init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:311    .text.MY_NVIC_Init:0000000000000048 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:316    .text.Ex_NVIC_Config:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:323    .text.Ex_NVIC_Config:0000000000000000 Ex_NVIC_Config
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:405    .text.Ex_NVIC_Config:0000000000000060 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:412    .text.MYRCC_DeInit:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:419    .text.MYRCC_DeInit:0000000000000000 MYRCC_DeInit
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:476    .text.MYRCC_DeInit:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:482    .text.Sys_Standby:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:489    .text.Sys_Standby:0000000000000000 Sys_Standby
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:531    .text.Sys_Standby:0000000000000038 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:538    .text.Sys_Soft_Reset:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:545    .text.Sys_Soft_Reset:0000000000000000 Sys_Soft_Reset
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:561    .text.Sys_Soft_Reset:0000000000000008 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:567    .text.JTAG_Set:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:574    .text.JTAG_Set:0000000000000000 JTAG_Set
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:602    .text.JTAG_Set:0000000000000020 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:608    .text.Stm32_Clock_Init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:615    .text.Stm32_Clock_Init:0000000000000000 Stm32_Clock_Init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:703    .text.Stm32_Clock_Init:000000000000006c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:709    .text.Stm32_Hsi_Init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:716    .text.Stm32_Hsi_Init:0000000000000000 Stm32_Hsi_Init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:800    .text.Stm32_Hsi_Init:0000000000000068 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:806    .text.delay_init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:813    .text.delay_init:0000000000000000 delay_init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:842    .text.delay_init:0000000000000020 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:849    .text.delay_ms:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:856    .text.delay_ms:0000000000000000 delay_ms
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:898    .text.delay_ms:000000000000002c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:904    .text.delay_us:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:911    .text.delay_us:0000000000000000 delay_us
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:953    .text.delay_us:000000000000002c $d
                             *COM*:0000000000000008 sys
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:960    .bss.fac_ms:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:964    .bss.fac_ms:0000000000000000 fac_ms
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:970    .bss.fac_us:0000000000000000 fac_us
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclP3te1.s:971    .bss.fac_us:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:960    .bss.fac_ms:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:964    .bss.fac_ms:0000000000000000 fac_ms
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:970    .bss.fac_us:0000000000000000 fac_us
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc3sKkgB.s:971    .bss.fac_us:0000000000000000 $d
 
 NO UNDEFINED SYMBOLS

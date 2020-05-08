@@ -1,7 +1,3 @@
-//
-// Created by 周洋 on 2020/3/31.
-//
-
 #include "bsp_f1xx_sdio.h"
 
 static u8 CardType=SDIO_STD_CAPACITY_SD_CARD_V1_1;		//SD卡类型（默认为1.x卡）
