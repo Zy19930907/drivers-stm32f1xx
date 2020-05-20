@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccYWtTkh.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -25,26 +25,22 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 1
   23              	CreateDataUtil:
   24              	.LFB66:
   25              		.file 1 "drivers/datautil.c"
-   1:drivers/datautil.c **** //
-   2:drivers/datautil.c **** // Created by 周洋 on 2020/3/31.
-   3:drivers/datautil.c **** //
-   4:drivers/datautil.c **** 
-   5:drivers/datautil.c **** #include "datautil.h"
-   6:drivers/datautil.c **** #include "bsp_f1xx_uart.h"
-   7:drivers/datautil.c **** 
-   8:drivers/datautil.c **** _DataUtil* CreateDataUtil(_DataUtilType type,void *args)
-   9:drivers/datautil.c **** {
-  26              		.loc 1 9 0
+   1:drivers/datautil.c **** #include "datautil.h"
+   2:drivers/datautil.c **** #include "bsp_f1xx_uart.h"
+   3:drivers/datautil.c **** 
+   4:drivers/datautil.c **** _DataUtil *CreateDataUtil(_DataUtilType type, void *args)
+   5:drivers/datautil.c **** {
+  26              		.loc 1 5 0
   27              		.cfi_startproc
   28              		@ args = 0, pretend = 0, frame = 0
   29              		@ frame_needed = 0, uses_anonymous_args = 0
   30              	.LVL0:
-  10:drivers/datautil.c ****     _DataUtil *util = 0;
-  11:drivers/datautil.c ****     switch(type)
-  31              		.loc 1 11 0
+   6:drivers/datautil.c **** 	_DataUtil *util = 0;
+   7:drivers/datautil.c **** 	switch (type) {
+  31              		.loc 1 7 0
   32 0000 20B9     		cbnz	r0, .L5
-   9:drivers/datautil.c ****     _DataUtil *util = 0;
-  33              		.loc 1 9 0
+   5:drivers/datautil.c **** 	_DataUtil *util = 0;
+  33              		.loc 1 5 0
   34 0002 08B5     		push	{r3, lr}
   35              	.LCFI0:
   36              		.cfi_def_cfa_offset 8
@@ -52,22 +48,26 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 1
   38              		.cfi_offset 14, -4
   39 0004 0846     		mov	r0, r1
   40              	.LVL1:
-  12:drivers/datautil.c ****     {
-  13:drivers/datautil.c ****         case DataUtil_UART:
-  14:drivers/datautil.c ****             util = bsp_UartInit((_uartpara*)args);
-  41              		.loc 1 14 0
+   8:drivers/datautil.c **** 		case DATAUTIL_UART:
+   9:drivers/datautil.c **** 			util = bsp_UartInit((_uartpara *) args);
+  41              		.loc 1 9 0
   42 0006 FFF7FEFF 		bl	bsp_UartInit
   43              	.LVL2:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 2
+  10:drivers/datautil.c **** 			break;
+  11:drivers/datautil.c **** 
+  12:drivers/datautil.c **** 		case DATAUTIL_SPI:
+  13:drivers/datautil.c **** 			break;
+  14:drivers/datautil.c **** 
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccYWtTkh.s 			page 2
 
 
-  15:drivers/datautil.c ****             break;
-  16:drivers/datautil.c **** 
-  17:drivers/datautil.c ****         case DataUtil_SPI:
-  18:drivers/datautil.c ****             break;
-  19:drivers/datautil.c ****     }
+  15:drivers/datautil.c **** 		case DATAUTIL_SOFTI2C:
+  16:drivers/datautil.c **** 			break;
+  17:drivers/datautil.c **** 		case DATAUTIL_SOFTSPI:
+  18:drivers/datautil.c **** 			break;
+  19:drivers/datautil.c **** 	}
   20:drivers/datautil.c **** 
-  21:drivers/datautil.c ****     return util;
+  21:drivers/datautil.c **** 	return util;
   22:drivers/datautil.c **** }
   44              		.loc 1 22 0
   45 000a 08BD     		pop	{r3, pc}
@@ -77,8 +77,8 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 1
   49              		.cfi_def_cfa_offset 0
   50              		.cfi_restore 3
   51              		.cfi_restore 14
-  10:drivers/datautil.c ****     switch(type)
-  52              		.loc 1 10 0
+   6:drivers/datautil.c **** 	switch (type) {
+  52              		.loc 1 6 0
   53 000c 0020     		movs	r0, #0
   54              	.LVL4:
   55              		.loc 1 22 0
@@ -96,19 +96,19 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 1
   69              	.LFB67:
   23:drivers/datautil.c **** 
   24:drivers/datautil.c **** 
-  25:drivers/datautil.c **** void CloseDataUtil(_DataUtilType type,_DataUtil *util)
+  25:drivers/datautil.c **** void CloseDataUtil(_DataUtilType type, _DataUtil *util)
   26:drivers/datautil.c **** {
   70              		.loc 1 26 0
   71              		.cfi_startproc
   72              		@ args = 0, pretend = 0, frame = 0
   73              		@ frame_needed = 0, uses_anonymous_args = 0
   74              	.LVL5:
-  27:drivers/datautil.c **** 	switch(type)
+  27:drivers/datautil.c **** 	switch (type) {
   75              		.loc 1 27 0
   76 0000 00B1     		cbz	r0, .L17
   77 0002 7047     		bx	lr
   78              	.L17:
-  26:drivers/datautil.c **** 	switch(type)
+  26:drivers/datautil.c **** 	switch (type) {
   79              		.loc 1 26 0
   80 0004 10B5     		push	{r4, lr}
   81              	.LCFI2:
@@ -116,29 +116,32 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 1
   83              		.cfi_offset 4, -8
   84              		.cfi_offset 14, -4
   85 0006 0C46     		mov	r4, r1
-  28:drivers/datautil.c **** 	{
-  29:drivers/datautil.c **** 		case DataUtil_UART:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 3
+  28:drivers/datautil.c **** 		case DATAUTIL_UART:
+  29:drivers/datautil.c **** 			bsp_UartClose(util);
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccYWtTkh.s 			page 3
 
 
-  30:drivers/datautil.c **** 			bsp_UartClose(util);
-  86              		.loc 1 30 0
+  86              		.loc 1 29 0
   87 0008 0846     		mov	r0, r1
   88              	.LVL6:
   89 000a FFF7FEFF 		bl	bsp_UartClose
   90              	.LVL7:
-  31:drivers/datautil.c **** 			myfree(util);
-  91              		.loc 1 31 0
+  30:drivers/datautil.c **** 			myfree(util);
+  91              		.loc 1 30 0
   92 000e 2046     		mov	r0, r4
   93 0010 FFF7FEFF 		bl	myfree
   94              	.LVL8:
-  32:drivers/datautil.c **** 			break;
-  33:drivers/datautil.c **** 
-  34:drivers/datautil.c **** 		case DataUtil_SPI:
-  35:drivers/datautil.c **** 			break;
-  36:drivers/datautil.c **** 	}
-  37:drivers/datautil.c **** }
-  95              		.loc 1 37 0
+  31:drivers/datautil.c **** 			break;
+  32:drivers/datautil.c **** 
+  33:drivers/datautil.c **** 		case DATAUTIL_SPI:
+  34:drivers/datautil.c **** 			break;
+  35:drivers/datautil.c **** 		case DATAUTIL_SOFTI2C:
+  36:drivers/datautil.c **** 			break;
+  37:drivers/datautil.c **** 		case DATAUTIL_SOFTSPI:
+  38:drivers/datautil.c **** 			break;
+  39:drivers/datautil.c **** 	}
+  40:drivers/datautil.c **** }
+  95              		.loc 1 40 0
   96 0014 10BD     		pop	{r4, pc}
   97              		.cfi_endproc
   98              	.LFE67:
@@ -156,15 +159,15 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 1
  111              		.file 11 "tools/inc/tskmanager.h"
  112              		.file 12 "drivers/inc/datautil.h"
  113              		.file 13 "drivers/inc/bsp_f1xx_uart.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s 			page 4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccYWtTkh.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 datautil.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s:16     .text.CreateDataUtil:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s:23     .text.CreateDataUtil:0000000000000000 CreateDataUtil
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s:61     .text.CloseDataUtil:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEBMcpJ.s:68     .text.CloseDataUtil:0000000000000000 CloseDataUtil
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccYWtTkh.s:16     .text.CreateDataUtil:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccYWtTkh.s:23     .text.CreateDataUtil:0000000000000000 CreateDataUtil
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccYWtTkh.s:61     .text.CloseDataUtil:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccYWtTkh.s:68     .text.CloseDataUtil:0000000000000000 CloseDataUtil
 
 UNDEFINED SYMBOLS
 bsp_UartInit

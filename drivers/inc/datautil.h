@@ -21,8 +21,10 @@ typedef struct{
 }_uartpara;
 
 typedef enum{
-    DataUtil_UART,
-    DataUtil_SPI,
+    DATAUTIL_UART,			//硬件串口
+    DATAUTIL_SPI,				//硬件SPI
+    DATAUTIL_SOFTI2C,		//软件模拟I2C
+    DATAUTIL_SOFTSPI,		//软件模拟SPI
 }_DataUtilType;
 
 typedef struct{

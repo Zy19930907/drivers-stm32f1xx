@@ -4,38 +4,13 @@
 
 #include "temp_dht11.h"
 
-static inline void dht11_delay_us(u32 nus)
-{
-	mod_delay_us(nus);
-}
-
-static inline void dht11_delay_ms(u32 nms)
-{
-	mod_delay_ms(nms);
-}
-
-static inline void SwitchDqDir(_dht11 *dht11, u8 dir)
-{
-	mod_IoSetDir(&dht11->dq,dir);
-}
-
-static inline void SwitchDqOut(_dht11 *dht11, u8 val)
-{
-	mod_IoSetVal(&dht11->dq,val);
-}
-
-static inline u8 GetDq(_dht11 *dht11)
-{
-	return mod_IoGetVal(&dht11->dq);
-}
-
 static inline void mod_Dht11Reset(_dht11 *dht11)
 {
-	SwitchDqDir(dht11, 1);
-	SwitchDqOut(dht11, 0);
-	dht11_delay_ms(20);        //拉低至少18ms
-	SwitchDqOut(dht11, 1);
-	dht11_delay_us(30);        //主机拉高20~40us
+	mod_IoSetDir(&dht11->dq, 1);
+	mod_IoSetVal(&dht11->dq, 0);
+	mod_delay_ms(20);        //拉低至少18ms
+	mod_IoSetVal(&dht11->dq, 1);
+	mod_delay_us(30);        //主机拉高20~40us
 }
 
 //等待DHT11的回应
@@ -44,15 +19,15 @@ static inline void mod_Dht11Reset(_dht11 *dht11)
 static inline u8 DHT11_Check(_dht11 *dht11)
 {
 	u8 retry = 0;
-	SwitchDqDir(dht11, 0);;//SET INPUT
-	while (GetDq(dht11) && retry < 100)//DHT11会拉低40~80us
+	mod_IoSetDir(&dht11->dq, 0);;//SET INPUT
+	while (mod_IoGetVal(&dht11->dq) && retry < 100)//DHT11会拉低40~80us
 	{
 		retry++;
 		delay_us(1);
 	}
 	if (retry >= 100)return 1;
 	else retry = 0;
-	while (!GetDq(dht11) && retry < 100)//DHT11拉低后会再次拉高40~80us
+	while (!mod_IoGetVal(&dht11->dq) && retry < 100)//DHT11拉低后会再次拉高40~80us
 	{
 		retry++;
 		delay_us(1);
@@ -66,19 +41,19 @@ static inline u8 DHT11_Check(_dht11 *dht11)
 static inline u8 DHT11_Read_Bit(_dht11 *dht11)
 {
 	u8 retry = 0;
-	while (GetDq(dht11) && retry < 100)//等待变为低电平
+	while (mod_IoGetVal(&dht11->dq) && retry < 100)//等待变为低电平
 	{
 		retry++;
 		delay_us(1);
 	}
 	retry = 0;
-	while (!GetDq(dht11) && retry < 100)//等待变高电平
+	while (!mod_IoGetVal(&dht11->dq) && retry < 100)//等待变高电平
 	{
 		retry++;
 		delay_us(1);
 	}
 	delay_us(40);//等待40us
-	if (GetDq(dht11))return 1;
+	if (mod_IoGetVal(&dht11->dq))return 1;
 	else return 0;
 }
 
@@ -95,10 +70,13 @@ static inline u8 DHT11_Read_Byte(void)
 	return dat;
 }
 
-//从DHT11读取一次数据
-//temp:温度值(范围:0~50°)
-//humi:湿度值(范围:20%~90%)
-//返回值：0,正常;1,读取失败
+/*
+===========================================================================================
+* 功    能：
+* 输    入：esp：wifi模块配置参数
+* 输    出：无
+===========================================================================================
+ */
 u8 mod_Dht11Read(_dht11 *dht11, u8 *temp, u8 *humi)
 {
 	u8 buf[5];

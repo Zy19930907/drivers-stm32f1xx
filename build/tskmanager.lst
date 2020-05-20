@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -15,786 +15,831 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 1
   12              		.text
   13              	.Ltext0:
   14              		.cfi_sections	.debug_frame
-  15              		.section	.text.TaskTickDiff,"ax",%progbits
+  15              		.section	.text.StartTask,"ax",%progbits
   16              		.align	1
-  17              		.global	TaskTickDiff
-  18              		.syntax unified
-  19              		.thumb
-  20              		.thumb_func
-  21              		.fpu softvfp
-  23              	TaskTickDiff:
-  24              	.LFB66:
-  25              		.file 1 "tools/tskmanager.c"
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	StartTask:
+  23              	.LFB66:
+  24              		.file 1 "tools/tskmanager.c"
    1:tools/tskmanager.c **** #include "tskmanager.h"
    2:tools/tskmanager.c **** #include "malloc.h"
    3:tools/tskmanager.c **** 
    4:tools/tskmanager.c **** static inline void StartTask(void *args);
    5:tools/tskmanager.c **** static inline void EndTask(void *args);
-   6:tools/tskmanager.c **** u64 TaskTickDiff(u64 tick);
+   6:tools/tskmanager.c **** static inline u64 TaskTickDiff(u64 tick);
    7:tools/tskmanager.c **** static inline void DelayMs(u64 nms);
    8:tools/tskmanager.c **** 
    9:tools/tskmanager.c **** extern _Task eTask;
   10:tools/tskmanager.c **** _Task sTask = {
-  11:tools/tskmanager.c **** 	.day = 0,
-  12:tools/tskmanager.c **** 	.hour = 0,
-  13:tools/tskmanager.c **** 	.min = 0,
-  14:tools/tskmanager.c **** 	.sec = 0,
-  15:tools/tskmanager.c **** 	.ms = 0,
-  16:tools/tskmanager.c **** 	.func = StartTask,
-  17:tools/tskmanager.c **** 	.pre = &eTask,
-  18:tools/tskmanager.c **** 	.next = &eTask,
-  19:tools/tskmanager.c **** };
-  20:tools/tskmanager.c **** 
-  21:tools/tskmanager.c **** _Task eTask = {
-  22:tools/tskmanager.c **** 	.day = 0,
-  23:tools/tskmanager.c **** 	.hour = 0,
-  24:tools/tskmanager.c **** 	.min = 0,
-  25:tools/tskmanager.c **** 	.sec = 0,
-  26:tools/tskmanager.c **** 	.ms = 0,
-  27:tools/tskmanager.c **** 	.func = EndTask,
-  28:tools/tskmanager.c **** 	.pre = &sTask,
-  29:tools/tskmanager.c **** 	.next = &sTask,
-  30:tools/tskmanager.c **** };
-  31:tools/tskmanager.c **** 
-  32:tools/tskmanager.c **** _TaskManger TaskManger = {0, &sTask, &sTask, &eTask, TaskTickDiff, DelayMs};
+  11:tools/tskmanager.c **** 		.func = StartTask,
+  12:tools/tskmanager.c **** 		.pre = &eTask,
+  13:tools/tskmanager.c **** 		.next = &eTask,
+  14:tools/tskmanager.c **** };
+  15:tools/tskmanager.c **** 
+  16:tools/tskmanager.c **** _Task eTask = {
+  17:tools/tskmanager.c **** 		.func = EndTask,
+  18:tools/tskmanager.c **** 		.pre = &sTask,
+  19:tools/tskmanager.c **** 		.next = &sTask,
+  20:tools/tskmanager.c **** };
+  21:tools/tskmanager.c **** 
+  22:tools/tskmanager.c **** _TaskManger TaskManger = {0, &sTask, &sTask, &eTask, TaskTickDiff, DelayMs};
+  23:tools/tskmanager.c **** 
+  24:tools/tskmanager.c **** //默认创建任务，位于任务链表开始节点
+  25:tools/tskmanager.c **** static inline void StartTask(void *args)
+  26:tools/tskmanager.c **** {
+  25              		.loc 1 26 0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              		@ link register save eliminated.
+  30              	.LVL0:
+  27:tools/tskmanager.c **** 
+  28:tools/tskmanager.c **** }
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 2
+
+
+  31              		.loc 1 28 0
+  32 0000 7047     		bx	lr
+  33              		.cfi_endproc
+  34              	.LFE66:
+  36              		.section	.text.EndTask,"ax",%progbits
+  37              		.align	1
+  38              		.syntax unified
+  39              		.thumb
+  40              		.thumb_func
+  41              		.fpu softvfp
+  43              	EndTask:
+  44              	.LFB67:
+  29:tools/tskmanager.c **** 
+  30:tools/tskmanager.c **** //默认创建任务，位于任务链表结束节点
+  31:tools/tskmanager.c **** static inline void EndTask(void *args)
+  32:tools/tskmanager.c **** {
+  45              		.loc 1 32 0
+  46              		.cfi_startproc
+  47              		@ args = 0, pretend = 0, frame = 0
+  48              		@ frame_needed = 0, uses_anonymous_args = 0
+  49              		@ link register save eliminated.
+  50              	.LVL1:
   33:tools/tskmanager.c **** 
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 2
+  34:tools/tskmanager.c **** }
+  51              		.loc 1 34 0
+  52 0000 7047     		bx	lr
+  53              		.cfi_endproc
+  54              	.LFE67:
+  56              		.section	.text.DelayMs,"ax",%progbits
+  57              		.align	1
+  58              		.syntax unified
+  59              		.thumb
+  60              		.thumb_func
+  61              		.fpu softvfp
+  63              	DelayMs:
+  64              	.LFB68:
+  35:tools/tskmanager.c **** 
+  36:tools/tskmanager.c **** volatile u64 delayTick;
+  37:tools/tskmanager.c **** 
+  38:tools/tskmanager.c **** void DelayMs(u64 nms)
+  39:tools/tskmanager.c **** {
+  65              		.loc 1 39 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              		@ link register save eliminated.
+  70              	.LVL2:
+  71 0000 2DE93008 		push	{r4, r5, fp}
+  72              	.LCFI0:
+  73              		.cfi_def_cfa_offset 12
+  74              		.cfi_offset 4, -12
+  75              		.cfi_offset 5, -8
+  76              		.cfi_offset 11, -4
+  40:tools/tskmanager.c **** 	delayTick = TaskManger.tick;
+  77              		.loc 1 40 0
+  78 0004 154B     		ldr	r3, .L9
+  79 0006 D3E90045 		ldrd	r4, [r3]
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 3
 
 
-  34:tools/tskmanager.c **** //计算任务执行时钟
-  35:tools/tskmanager.c **** u64 TaskTickDiff(u64 tick)
-  36:tools/tskmanager.c **** {
-  26              		.loc 1 36 0
-  27              		.cfi_startproc
-  28              		@ args = 0, pretend = 0, frame = 0
-  29              		@ frame_needed = 0, uses_anonymous_args = 0
-  30              		@ link register save eliminated.
-  31              	.LVL0:
-  32 0000 2DE93008 		push	{r4, r5, fp}
-  33              	.LCFI0:
-  34              		.cfi_def_cfa_offset 12
-  35              		.cfi_offset 4, -12
-  36              		.cfi_offset 5, -8
-  37              		.cfi_offset 11, -4
-  37:tools/tskmanager.c **** 	if (tick > TaskManger.tick)
-  38              		.loc 1 37 0
-  39 0004 0F4B     		ldr	r3, .L6
-  40 0006 D3E90023 		ldrd	r2, [r3]
-  41 000a 8B42     		cmp	r3, r1
-  42 000c 08BF     		it	eq
-  43 000e 8242     		cmpeq	r2, r0
-  44 0010 0CD3     		bcc	.L5
-  38:tools/tskmanager.c **** 		return 0xFFFFFFFFFFFFFFFF - tick + TaskManger.tick;
-  39:tools/tskmanager.c **** 	else
-  40:tools/tskmanager.c **** 		return TaskManger.tick - tick;
-  45              		.loc 1 40 0
-  46 0012 0C4B     		ldr	r3, .L6
-  47 0014 D3E90023 		ldrd	r2, [r3]
-  48 0018 121A     		subs	r2, r2, r0
-  49 001a 63EB0103 		sbc	r3, r3, r1
-  50 001e 1446     		mov	r4, r2
-  51 0020 1D46     		mov	r5, r3
-  52              	.L1:
-  41:tools/tskmanager.c **** }
-  53              		.loc 1 41 0
-  54 0022 2046     		mov	r0, r4
-  55              	.LVL1:
-  56 0024 2946     		mov	r1, r5
-  57 0026 BDE83008 		pop	{r4, r5, fp}
-  58              	.LCFI1:
-  59              		.cfi_remember_state
-  60              		.cfi_restore 11
-  61              		.cfi_restore 5
-  62              		.cfi_restore 4
-  63              		.cfi_def_cfa_offset 0
-  64 002a 7047     		bx	lr
-  65              	.LVL2:
-  66              	.L5:
-  67              	.LCFI2:
-  68              		.cfi_restore_state
-  38:tools/tskmanager.c **** 		return 0xFFFFFFFFFFFFFFFF - tick + TaskManger.tick;
-  69              		.loc 1 38 0
-  70 002c 054B     		ldr	r3, .L6
-  71 002e D3E90023 		ldrd	r2, [r3]
-  72 0032 121A     		subs	r2, r2, r0
-  73 0034 63EB0103 		sbc	r3, r3, r1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 3
+  80 000a 154B     		ldr	r3, .L9+4
+  81 000c C3E90045 		strd	r4, [r3]
+  41:tools/tskmanager.c **** 	while (TaskTickDiff(delayTick) < nms);
+  82              		.loc 1 41 0
+  83 0010 0BE0     		b	.L6
+  84              	.LVL3:
+  85              	.L4:
+  86              	.LBB6:
+  87              	.LBB7:
+  42:tools/tskmanager.c **** }
+  43:tools/tskmanager.c **** 
+  44:tools/tskmanager.c **** //运行时基计数
+  45:tools/tskmanager.c **** void TskTickHandler(void)
+  46:tools/tskmanager.c **** {
+  47:tools/tskmanager.c **** 	TaskManger.tick++;
+  48:tools/tskmanager.c **** }
+  49:tools/tskmanager.c **** 
+  50:tools/tskmanager.c **** //计算任务执行时钟
+  51:tools/tskmanager.c **** static inline u64 TaskTickDiff(u64 tick)
+  52:tools/tskmanager.c **** {
+  53:tools/tskmanager.c **** 	if (tick > TaskManger.tick)
+  54:tools/tskmanager.c **** 		return 0xFFFFFFFFFFFFFFFF - tick + TaskManger.tick;
+  55:tools/tskmanager.c **** 	else
+  56:tools/tskmanager.c **** 		return TaskManger.tick - tick;
+  88              		.loc 1 56 0
+  89 0012 124B     		ldr	r3, .L9
+  90 0014 D3E90023 		ldrd	r2, [r3]
+  91 0018 121B     		subs	r2, r2, r4
+  92 001a 63EB0503 		sbc	r3, r3, r5
+  93 001e 9346     		mov	fp, r2
+  94 0020 9C46     		mov	ip, r3
+  95              	.L5:
+  96              	.LVL4:
+  97              	.LBE7:
+  98              	.LBE6:
+  41:tools/tskmanager.c **** 	while (TaskTickDiff(delayTick) < nms);
+  99              		.loc 1 41 0
+ 100 0022 8C45     		cmp	ip, r1
+ 101 0024 08BF     		it	eq
+ 102 0026 8345     		cmpeq	fp, r0
+ 103 0028 15D2     		bcs	.L8
+ 104              	.L6:
+  41:tools/tskmanager.c **** 	while (TaskTickDiff(delayTick) < nms);
+ 105              		.loc 1 41 0 is_stmt 0 discriminator 1
+ 106 002a 0D4B     		ldr	r3, .L9+4
+ 107 002c D3E90045 		ldrd	r4, [r3]
+ 108              	.LVL5:
+ 109              	.LBB9:
+ 110              	.LBB8:
+  53:tools/tskmanager.c **** 		return 0xFFFFFFFFFFFFFFFF - tick + TaskManger.tick;
+ 111              		.loc 1 53 0 is_stmt 1 discriminator 1
+ 112 0030 0A4B     		ldr	r3, .L9
+ 113 0032 D3E90023 		ldrd	r2, [r3]
+ 114 0036 AB42     		cmp	r3, r5
+ 115 0038 08BF     		it	eq
+ 116 003a A242     		cmpeq	r2, r4
+ 117 003c E9D2     		bcs	.L4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 4
 
 
-  74 0038 12F1FF34 		adds	r4, r2, #-1
-  75 003c 43F1FF35 		adc	r5, r3, #-1
-  76 0040 EFE7     		b	.L1
-  77              	.L7:
-  78 0042 00BF     		.align	2
-  79              	.L6:
-  80 0044 00000000 		.word	.LANCHOR0
-  81              		.cfi_endproc
-  82              	.LFE66:
-  84              		.section	.text.StartTask,"ax",%progbits
-  85              		.align	1
-  86              		.syntax unified
-  87              		.thumb
-  88              		.thumb_func
-  89              		.fpu softvfp
-  91              	StartTask:
-  92              	.LFB67:
-  42:tools/tskmanager.c **** 
-  43:tools/tskmanager.c **** //默认创建任务，位于任务链表开始节点
-  44:tools/tskmanager.c **** static inline void StartTask(void *args)
-  45:tools/tskmanager.c **** {
-  93              		.loc 1 45 0
-  94              		.cfi_startproc
-  95              		@ args = 0, pretend = 0, frame = 0
-  96              		@ frame_needed = 0, uses_anonymous_args = 0
-  97              		@ link register save eliminated.
-  98              	.LVL3:
-  46:tools/tskmanager.c **** 
+  54:tools/tskmanager.c **** 	else
+ 118              		.loc 1 54 0
+ 119 003e 074B     		ldr	r3, .L9
+ 120 0040 D3E900BC 		ldrd	fp, [r3]
+ 121 0044 BBEB0402 		subs	r2, fp, r4
+ 122 0048 6CEB0503 		sbc	r3, ip, r5
+ 123 004c 12F1FF3B 		adds	fp, r2, #-1
+ 124 0050 43F1FF3C 		adc	ip, r3, #-1
+ 125 0054 E5E7     		b	.L5
+ 126              	.LVL6:
+ 127              	.L8:
+ 128              	.LBE8:
+ 129              	.LBE9:
+  42:tools/tskmanager.c **** }
+ 130              		.loc 1 42 0
+ 131 0056 BDE83008 		pop	{r4, r5, fp}
+ 132              	.LCFI1:
+ 133              		.cfi_restore 11
+ 134              		.cfi_restore 5
+ 135              		.cfi_restore 4
+ 136              		.cfi_def_cfa_offset 0
+ 137 005a 7047     		bx	lr
+ 138              	.L10:
+ 139              		.align	2
+ 140              	.L9:
+ 141 005c 00000000 		.word	.LANCHOR0
+ 142 0060 00000000 		.word	delayTick
+ 143              		.cfi_endproc
+ 144              	.LFE68:
+ 146              		.section	.text.TaskTickDiff,"ax",%progbits
+ 147              		.align	1
+ 148              		.syntax unified
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.fpu softvfp
+ 153              	TaskTickDiff:
+ 154              	.LFB70:
+  52:tools/tskmanager.c **** 	if (tick > TaskManger.tick)
+ 155              		.loc 1 52 0
+ 156              		.cfi_startproc
+ 157              		@ args = 0, pretend = 0, frame = 0
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159              		@ link register save eliminated.
+ 160              	.LVL7:
+ 161 0000 2DE93008 		push	{r4, r5, fp}
+ 162              	.LCFI2:
+ 163              		.cfi_def_cfa_offset 12
+ 164              		.cfi_offset 4, -12
+ 165              		.cfi_offset 5, -8
+ 166              		.cfi_offset 11, -4
+  53:tools/tskmanager.c **** 		return 0xFFFFFFFFFFFFFFFF - tick + TaskManger.tick;
+ 167              		.loc 1 53 0
+ 168 0004 0F4B     		ldr	r3, .L16
+ 169 0006 D3E90023 		ldrd	r2, [r3]
+ 170 000a 8B42     		cmp	r3, r1
+ 171 000c 08BF     		it	eq
+ 172 000e 8242     		cmpeq	r2, r0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 5
+
+
+ 173 0010 0CD3     		bcc	.L15
+ 174              		.loc 1 56 0
+ 175 0012 0C4B     		ldr	r3, .L16
+ 176 0014 D3E90023 		ldrd	r2, [r3]
+ 177 0018 121A     		subs	r2, r2, r0
+ 178 001a 63EB0103 		sbc	r3, r3, r1
+ 179 001e 1446     		mov	r4, r2
+ 180 0020 1D46     		mov	r5, r3
+ 181              	.L11:
+  57:tools/tskmanager.c **** }
+ 182              		.loc 1 57 0
+ 183 0022 2046     		mov	r0, r4
+ 184              	.LVL8:
+ 185 0024 2946     		mov	r1, r5
+ 186 0026 BDE83008 		pop	{r4, r5, fp}
+ 187              	.LCFI3:
+ 188              		.cfi_remember_state
+ 189              		.cfi_restore 11
+ 190              		.cfi_restore 5
+ 191              		.cfi_restore 4
+ 192              		.cfi_def_cfa_offset 0
+ 193 002a 7047     		bx	lr
+ 194              	.LVL9:
+ 195              	.L15:
+ 196              	.LCFI4:
+ 197              		.cfi_restore_state
+  54:tools/tskmanager.c **** 	else
+ 198              		.loc 1 54 0
+ 199 002c 054B     		ldr	r3, .L16
+ 200 002e D3E90023 		ldrd	r2, [r3]
+ 201 0032 121A     		subs	r2, r2, r0
+ 202 0034 63EB0103 		sbc	r3, r3, r1
+ 203 0038 12F1FF34 		adds	r4, r2, #-1
+ 204 003c 43F1FF35 		adc	r5, r3, #-1
+ 205 0040 EFE7     		b	.L11
+ 206              	.L17:
+ 207 0042 00BF     		.align	2
+ 208              	.L16:
+ 209 0044 00000000 		.word	.LANCHOR0
+ 210              		.cfi_endproc
+ 211              	.LFE70:
+ 213              		.section	.text.TskTickHandler,"ax",%progbits
+ 214              		.align	1
+ 215              		.global	TskTickHandler
+ 216              		.syntax unified
+ 217              		.thumb
+ 218              		.thumb_func
+ 219              		.fpu softvfp
+ 221              	TskTickHandler:
+ 222              	.LFB69:
+  46:tools/tskmanager.c **** 	TaskManger.tick++;
+ 223              		.loc 1 46 0
+ 224              		.cfi_startproc
+ 225              		@ args = 0, pretend = 0, frame = 0
+ 226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227              		@ link register save eliminated.
+ 228 0000 4DF804BD 		push	{fp}
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 6
+
+
+ 229              	.LCFI5:
+ 230              		.cfi_def_cfa_offset 4
+ 231              		.cfi_offset 11, -4
   47:tools/tskmanager.c **** }
-  99              		.loc 1 47 0
- 100 0000 7047     		bx	lr
- 101              		.cfi_endproc
- 102              	.LFE67:
- 104              		.section	.text.EndTask,"ax",%progbits
- 105              		.align	1
- 106              		.syntax unified
- 107              		.thumb
- 108              		.thumb_func
- 109              		.fpu softvfp
- 111              	EndTask:
- 112              	.LFB68:
+ 232              		.loc 1 47 0
+ 233 0004 0549     		ldr	r1, .L20
+ 234 0006 D1E900BC 		ldrd	fp, [r1]
+ 235 000a 1BF10102 		adds	r2, fp, #1
+ 236 000e 4CF10003 		adc	r3, ip, #0
+ 237 0012 C1E90023 		strd	r2, [r1]
   48:tools/tskmanager.c **** 
-  49:tools/tskmanager.c **** //默认创建任务，位于任务链表结束节点
-  50:tools/tskmanager.c **** static inline void EndTask(void *args)
-  51:tools/tskmanager.c **** {
- 113              		.loc 1 51 0
- 114              		.cfi_startproc
- 115              		@ args = 0, pretend = 0, frame = 0
- 116              		@ frame_needed = 0, uses_anonymous_args = 0
- 117              		@ link register save eliminated.
- 118              	.LVL4:
-  52:tools/tskmanager.c **** 
-  53:tools/tskmanager.c **** }
- 119              		.loc 1 53 0
- 120 0000 7047     		bx	lr
- 121              		.cfi_endproc
- 122              	.LFE68:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 4
+ 238              		.loc 1 48 0
+ 239 0016 5DF804BB 		ldr	fp, [sp], #4
+ 240              	.LCFI6:
+ 241              		.cfi_restore 11
+ 242              		.cfi_def_cfa_offset 0
+ 243 001a 7047     		bx	lr
+ 244              	.L21:
+ 245              		.align	2
+ 246              	.L20:
+ 247 001c 00000000 		.word	.LANCHOR0
+ 248              		.cfi_endproc
+ 249              	.LFE69:
+ 251              		.section	.text.CreateTask,"ax",%progbits
+ 252              		.align	1
+ 253              		.global	CreateTask
+ 254              		.syntax unified
+ 255              		.thumb
+ 256              		.thumb_func
+ 257              		.fpu softvfp
+ 259              	CreateTask:
+ 260              	.LFB71:
+  58:tools/tskmanager.c **** 
+  59:tools/tskmanager.c **** //创建新任务，添加到任务链表结束节点的上一节点
+  60:tools/tskmanager.c **** void CreateTask(_Task *tsk)
+  61:tools/tskmanager.c **** {
+ 261              		.loc 1 61 0
+ 262              		.cfi_startproc
+ 263              		@ args = 0, pretend = 0, frame = 8
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265              	.LVL10:
+ 266 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 267              	.LCFI7:
+ 268              		.cfi_def_cfa_offset 36
+ 269              		.cfi_offset 4, -36
+ 270              		.cfi_offset 5, -32
+ 271              		.cfi_offset 6, -28
+ 272              		.cfi_offset 7, -24
+ 273              		.cfi_offset 8, -20
+ 274              		.cfi_offset 9, -16
+ 275              		.cfi_offset 10, -12
+ 276              		.cfi_offset 11, -8
+ 277              		.cfi_offset 14, -4
+ 278 0004 83B0     		sub	sp, sp, #12
+ 279              	.LCFI8:
+ 280              		.cfi_def_cfa_offset 48
+  62:tools/tskmanager.c **** 	tsk->tick = TaskManger.tick;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 7
 
 
- 124              		.section	.text.DelayMs,"ax",%progbits
- 125              		.align	1
- 126              		.syntax unified
- 127              		.thumb
- 128              		.thumb_func
- 129              		.fpu softvfp
- 131              	DelayMs:
- 132              	.LFB72:
-  54:tools/tskmanager.c **** 
-  55:tools/tskmanager.c **** //创建新任务，添加到任务链表结束节点的上一节点
-  56:tools/tskmanager.c **** void CreateTask(_Task *tsk)
-  57:tools/tskmanager.c **** {
-  58:tools/tskmanager.c **** 	tsk->tick = TaskManger.tick;
-  59:tools/tskmanager.c **** 	tsk->period = (((u64)tsk->day * 86400000) + ((u64)tsk->hour * 3600000) + ((u64)tsk->min * 60000) +
-  60:tools/tskmanager.c **** 	tsk->pre = TaskManger.lasTask->pre;
-  61:tools/tskmanager.c **** 	tsk->next = TaskManger.lasTask;
-  62:tools/tskmanager.c **** 	TaskManger.lasTask->pre->next = tsk;
-  63:tools/tskmanager.c **** 	TaskManger.lasTask->pre = tsk;
-  64:tools/tskmanager.c **** }
-  65:tools/tskmanager.c **** 
-  66:tools/tskmanager.c **** //从任务链表中删除任务
-  67:tools/tskmanager.c **** void DelTask(_Task *delTask)
-  68:tools/tskmanager.c **** {
-  69:tools/tskmanager.c **** 	if (delTask != 0)
-  70:tools/tskmanager.c **** 	{
-  71:tools/tskmanager.c **** 		delTask->pre->next = delTask->next;
-  72:tools/tskmanager.c **** 		delTask->next->pre = delTask->pre;
-  73:tools/tskmanager.c **** 		myfree(delTask);
-  74:tools/tskmanager.c **** 	}
-  75:tools/tskmanager.c **** }
-  76:tools/tskmanager.c **** 
-  77:tools/tskmanager.c **** //修改任务执行周期
-  78:tools/tskmanager.c **** void SetTaskPeriod(u64 day, u64 hour, u64 min, u64 sec, u64 ms, _Task *Task)
-  79:tools/tskmanager.c **** {
-  80:tools/tskmanager.c **** 	Task->period = ((day * 86400000) + (hour * 3600000) + (min * 60000) + (sec * 1000) + ms);        /
-  81:tools/tskmanager.c **** }
-  82:tools/tskmanager.c **** 
-  83:tools/tskmanager.c **** volatile u64 delayTick;
-  84:tools/tskmanager.c **** void DelayMs(u64 nms)
-  85:tools/tskmanager.c **** {
- 133              		.loc 1 85 0
- 134              		.cfi_startproc
- 135              		@ args = 0, pretend = 0, frame = 0
- 136              		@ frame_needed = 0, uses_anonymous_args = 0
- 137              	.LVL5:
- 138 0000 38B5     		push	{r3, r4, r5, lr}
- 139              	.LCFI3:
- 140              		.cfi_def_cfa_offset 16
- 141              		.cfi_offset 3, -16
- 142              		.cfi_offset 4, -12
- 143              		.cfi_offset 5, -8
- 144              		.cfi_offset 14, -4
- 145 0002 0446     		mov	r4, r0
- 146 0004 0D46     		mov	r5, r1
-  86:tools/tskmanager.c **** 	delayTick = TaskManger.tick;
- 147              		.loc 1 86 0
- 148 0006 084B     		ldr	r3, .L13
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 5
+ 281              		.loc 1 62 0
+ 282 0006 3449     		ldr	r1, .L24
+ 283 0008 D1E90023 		ldrd	r2, [r1]
+ 284 000c C0E90023 		strd	r2, [r0]
+  63:tools/tskmanager.c **** 	tsk->period = (((u64) tsk->day * 86400000) + ((u64) tsk->hour * 3600000) + ((u64) tsk->min * 60000
+ 285              		.loc 1 63 0
+ 286 0010 0469     		ldr	r4, [r0, #16]
+ 287 0012 4669     		ldr	r6, [r0, #20]
+ 288 0014 314B     		ldr	r3, .L24+4
+ 289 0016 A4FB0345 		umull	r4, r5, r4, r3
+ 290 001a 03FB0655 		mla	r5, r3, r6, r5
+ 291 001e 8369     		ldr	r3, [r0, #24]
+ 292 0020 C269     		ldr	r2, [r0, #28]
+ 293 0022 2F4E     		ldr	r6, .L24+8
+ 294 0024 A3FB06AB 		umull	r10, fp, r3, r6
+ 295 0028 06FB02BB 		mla	fp, r6, r2, fp
+ 296 002c 1AEB0408 		adds	r8, r10, r4
+ 297 0030 4BEB0509 		adc	r9, fp, r5
+  64:tools/tskmanager.c **** 				   ((u64) tsk->sec * 1000) + (u64) tsk->ms);        //计算任务执行周期
+ 298              		.loc 1 64 0
+ 299 0034 D0E90A45 		ldrd	r4, [r0, #40]
+ 300 0038 6E01     		lsls	r6, r5, #5
+ 301 003a 6201     		lsls	r2, r4, #5
+ 302 003c 46EAD463 		orr	r3, r6, r4, lsr #27
+ 303 0040 121B     		subs	r2, r2, r4
+ 304 0042 63EB0503 		sbc	r3, r3, r5
+ 305 0046 9E00     		lsls	r6, r3, #2
+ 306 0048 46EA9276 		orr	r6, r6, r2, lsr #30
+ 307 004c 9700     		lsls	r7, r2, #2
+ 308 004e 3A19     		adds	r2, r7, r4
+ 309 0050 46EB0503 		adc	r3, r6, r5
+ 310 0054 DC00     		lsls	r4, r3, #3
+ 311 0056 44EA5274 		orr	r4, r4, r2, lsr #29
+ 312 005a D500     		lsls	r5, r2, #3
+ 313 005c 0095     		str	r5, [sp]
+ 314 005e 0194     		str	r4, [sp, #4]
+  63:tools/tskmanager.c **** 	tsk->period = (((u64) tsk->day * 86400000) + ((u64) tsk->hour * 3600000) + ((u64) tsk->min * 60000
+ 315              		.loc 1 63 0
+ 316 0060 D0E90867 		ldrd	r6, [r0, #32]
+ 317 0064 4FEA471C 		lsl	ip, r7, #5
+ 318 0068 7401     		lsls	r4, r6, #5
+ 319 006a 4CEAD665 		orr	r5, ip, r6, lsr #27
+ 320 006e A21B     		subs	r2, r4, r6
+ 321 0070 65EB0703 		sbc	r3, r5, r7
+ 322 0074 4FEA830C 		lsl	ip, r3, #2
+ 323 0078 4CEA927C 		orr	ip, ip, r2, lsr #30
+ 324 007c 4FEA820E 		lsl	lr, r2, #2
+ 325 0080 1EEB0604 		adds	r4, lr, r6
+ 326 0084 4CEB0705 		adc	r5, ip, r7
+ 327 0088 2F01     		lsls	r7, r5, #4
+ 328 008a 47EA1477 		orr	r7, r7, r4, lsr #28
+ 329 008e 2601     		lsls	r6, r4, #4
+ 330 0090 361B     		subs	r6, r6, r4
+ 331 0092 67EB0507 		sbc	r7, r7, r5
+ 332 0096 B246     		mov	r10, r6
+ 333 0098 7E01     		lsls	r6, r7, #5
+ 334 009a 46EADA66 		orr	r6, r6, r10, lsr #27
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 8
 
 
- 149 0008 D3E90001 		ldrd	r0, [r3]
- 150              	.LVL6:
- 151 000c 074B     		ldr	r3, .L13+4
- 152 000e C3E90001 		strd	r0, [r3]
- 153              	.L11:
-  87:tools/tskmanager.c **** 	while (TaskTickDiff(delayTick) < nms);
- 154              		.loc 1 87 0 discriminator 1
- 155 0012 064B     		ldr	r3, .L13+4
- 156 0014 D3E90001 		ldrd	r0, [r3]
- 157 0018 FFF7FEFF 		bl	TaskTickDiff
- 158              	.LVL7:
- 159 001c A942     		cmp	r1, r5
- 160 001e 08BF     		it	eq
- 161 0020 A042     		cmpeq	r0, r4
- 162 0022 F6D3     		bcc	.L11
-  88:tools/tskmanager.c **** }
- 163              		.loc 1 88 0
- 164 0024 38BD     		pop	{r3, r4, r5, pc}
- 165              	.L14:
- 166 0026 00BF     		.align	2
- 167              	.L13:
- 168 0028 00000000 		.word	.LANCHOR0
- 169 002c 00000000 		.word	delayTick
- 170              		.cfi_endproc
- 171              	.LFE72:
- 173              		.section	.text.CreateTask,"ax",%progbits
- 174              		.align	1
- 175              		.global	CreateTask
- 176              		.syntax unified
- 177              		.thumb
- 178              		.thumb_func
- 179              		.fpu softvfp
- 181              	CreateTask:
- 182              	.LFB69:
-  57:tools/tskmanager.c **** 	tsk->tick = TaskManger.tick;
- 183              		.loc 1 57 0
- 184              		.cfi_startproc
- 185              		@ args = 0, pretend = 0, frame = 8
- 186              		@ frame_needed = 0, uses_anonymous_args = 0
- 187              	.LVL8:
- 188 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
- 189              	.LCFI4:
- 190              		.cfi_def_cfa_offset 36
- 191              		.cfi_offset 4, -36
- 192              		.cfi_offset 5, -32
- 193              		.cfi_offset 6, -28
- 194              		.cfi_offset 7, -24
- 195              		.cfi_offset 8, -20
- 196              		.cfi_offset 9, -16
- 197              		.cfi_offset 10, -12
- 198              		.cfi_offset 11, -8
- 199              		.cfi_offset 14, -4
- 200 0004 83B0     		sub	sp, sp, #12
- 201              	.LCFI5:
- 202              		.cfi_def_cfa_offset 48
-  58:tools/tskmanager.c **** 	tsk->period = (((u64)tsk->day * 86400000) + ((u64)tsk->hour * 3600000) + ((u64)tsk->min * 60000) +
- 203              		.loc 1 58 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 6
+ 335 009e 4FEA4A17 		lsl	r7, r10, #5
+ 336 00a2 DDE90023 		ldrd	r2, [sp]
+ 337 00a6 D219     		adds	r2, r2, r7
+ 338 00a8 7341     		adcs	r3, r3, r6
+ 339 00aa 18EB0204 		adds	r4, r8, r2
+ 340 00ae 49EB0305 		adc	r5, r9, r3
+ 341              		.loc 1 64 0
+ 342 00b2 D0E90CAB 		ldrd	r10, [r0, #48]
+ 343 00b6 14EB0A08 		adds	r8, r4, r10
+ 344 00ba 45EB0B09 		adc	r9, r5, fp
+  63:tools/tskmanager.c **** 	tsk->period = (((u64) tsk->day * 86400000) + ((u64) tsk->hour * 3600000) + ((u64) tsk->min * 60000
+ 345              		.loc 1 63 0
+ 346 00be C0E90289 		strd	r8, [r0, #8]
+  65:tools/tskmanager.c **** 	tsk->pre = TaskManger.lasTask->pre;
+ 347              		.loc 1 65 0
+ 348 00c2 0B69     		ldr	r3, [r1, #16]
+ 349 00c4 1A6C     		ldr	r2, [r3, #64]
+ 350 00c6 0264     		str	r2, [r0, #64]
+  66:tools/tskmanager.c **** 	tsk->next = TaskManger.lasTask;
+ 351              		.loc 1 66 0
+ 352 00c8 4364     		str	r3, [r0, #68]
+  67:tools/tskmanager.c **** 	TaskManger.lasTask->pre->next = tsk;
+ 353              		.loc 1 67 0
+ 354 00ca 1A6C     		ldr	r2, [r3, #64]
+ 355 00cc 5064     		str	r0, [r2, #68]
+  68:tools/tskmanager.c **** 	TaskManger.lasTask->pre = tsk;
+ 356              		.loc 1 68 0
+ 357 00ce 1864     		str	r0, [r3, #64]
+  69:tools/tskmanager.c **** }
+ 358              		.loc 1 69 0
+ 359 00d0 03B0     		add	sp, sp, #12
+ 360              	.LCFI9:
+ 361              		.cfi_def_cfa_offset 36
+ 362              		@ sp needed
+ 363 00d2 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 364              	.L25:
+ 365 00d6 00BF     		.align	2
+ 366              	.L24:
+ 367 00d8 00000000 		.word	.LANCHOR0
+ 368 00dc 005C2605 		.word	86400000
+ 369 00e0 80EE3600 		.word	3600000
+ 370              		.cfi_endproc
+ 371              	.LFE71:
+ 373              		.section	.text.DelTask,"ax",%progbits
+ 374              		.align	1
+ 375              		.global	DelTask
+ 376              		.syntax unified
+ 377              		.thumb
+ 378              		.thumb_func
+ 379              		.fpu softvfp
+ 381              	DelTask:
+ 382              	.LFB72:
+  70:tools/tskmanager.c **** 
+  71:tools/tskmanager.c **** //从任务链表中删除任务
+  72:tools/tskmanager.c **** void DelTask(_Task *delTask)
+  73:tools/tskmanager.c **** {
+ 383              		.loc 1 73 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 9
 
 
- 204 0006 3449     		ldr	r1, .L17
- 205 0008 D1E90023 		ldrd	r2, [r1]
- 206 000c C0E90023 		strd	r2, [r0]
-  59:tools/tskmanager.c **** 	tsk->pre = TaskManger.lasTask->pre;
- 207              		.loc 1 59 0
- 208 0010 0469     		ldr	r4, [r0, #16]
- 209 0012 4669     		ldr	r6, [r0, #20]
- 210 0014 314B     		ldr	r3, .L17+4
- 211 0016 A4FB0345 		umull	r4, r5, r4, r3
- 212 001a 03FB0655 		mla	r5, r3, r6, r5
- 213 001e 8369     		ldr	r3, [r0, #24]
- 214 0020 C269     		ldr	r2, [r0, #28]
- 215 0022 2F4E     		ldr	r6, .L17+8
- 216 0024 A3FB06AB 		umull	r10, fp, r3, r6
- 217 0028 06FB02BB 		mla	fp, r6, r2, fp
- 218 002c 1AEB0408 		adds	r8, r10, r4
- 219 0030 4BEB0509 		adc	r9, fp, r5
- 220 0034 D0E90A45 		ldrd	r4, [r0, #40]
- 221 0038 6E01     		lsls	r6, r5, #5
- 222 003a 6201     		lsls	r2, r4, #5
- 223 003c 46EAD463 		orr	r3, r6, r4, lsr #27
- 224 0040 121B     		subs	r2, r2, r4
- 225 0042 63EB0503 		sbc	r3, r3, r5
- 226 0046 9E00     		lsls	r6, r3, #2
- 227 0048 46EA9276 		orr	r6, r6, r2, lsr #30
- 228 004c 9700     		lsls	r7, r2, #2
- 229 004e 3A19     		adds	r2, r7, r4
- 230 0050 46EB0503 		adc	r3, r6, r5
- 231 0054 DC00     		lsls	r4, r3, #3
- 232 0056 44EA5274 		orr	r4, r4, r2, lsr #29
- 233 005a D500     		lsls	r5, r2, #3
- 234 005c 0095     		str	r5, [sp]
- 235 005e 0194     		str	r4, [sp, #4]
- 236 0060 D0E90867 		ldrd	r6, [r0, #32]
- 237 0064 4FEA471C 		lsl	ip, r7, #5
- 238 0068 7401     		lsls	r4, r6, #5
- 239 006a 4CEAD665 		orr	r5, ip, r6, lsr #27
- 240 006e A21B     		subs	r2, r4, r6
- 241 0070 65EB0703 		sbc	r3, r5, r7
- 242 0074 4FEA830C 		lsl	ip, r3, #2
- 243 0078 4CEA927C 		orr	ip, ip, r2, lsr #30
- 244 007c 4FEA820E 		lsl	lr, r2, #2
- 245 0080 1EEB0604 		adds	r4, lr, r6
- 246 0084 4CEB0705 		adc	r5, ip, r7
- 247 0088 2F01     		lsls	r7, r5, #4
- 248 008a 47EA1477 		orr	r7, r7, r4, lsr #28
- 249 008e 2601     		lsls	r6, r4, #4
- 250 0090 361B     		subs	r6, r6, r4
- 251 0092 67EB0507 		sbc	r7, r7, r5
- 252 0096 B246     		mov	r10, r6
- 253 0098 7E01     		lsls	r6, r7, #5
- 254 009a 46EADA66 		orr	r6, r6, r10, lsr #27
- 255 009e 4FEA4A17 		lsl	r7, r10, #5
- 256 00a2 DDE90023 		ldrd	r2, [sp]
- 257 00a6 D219     		adds	r2, r2, r7
- 258 00a8 7341     		adcs	r3, r3, r6
- 259 00aa 18EB0204 		adds	r4, r8, r2
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 7
+ 384              		.cfi_startproc
+ 385              		@ args = 0, pretend = 0, frame = 0
+ 386              		@ frame_needed = 0, uses_anonymous_args = 0
+ 387              	.LVL11:
+  74:tools/tskmanager.c **** 	if (delTask != 0) {
+ 388              		.loc 1 74 0
+ 389 0000 48B1     		cbz	r0, .L29
+  73:tools/tskmanager.c **** 	if (delTask != 0) {
+ 390              		.loc 1 73 0
+ 391 0002 08B5     		push	{r3, lr}
+ 392              	.LCFI10:
+ 393              		.cfi_def_cfa_offset 8
+ 394              		.cfi_offset 3, -8
+ 395              		.cfi_offset 14, -4
+  75:tools/tskmanager.c **** 		delTask->pre->next = delTask->next;
+ 396              		.loc 1 75 0
+ 397 0004 036C     		ldr	r3, [r0, #64]
+ 398 0006 426C     		ldr	r2, [r0, #68]
+ 399 0008 5A64     		str	r2, [r3, #68]
+  76:tools/tskmanager.c **** 		delTask->next->pre = delTask->pre;
+ 400              		.loc 1 76 0
+ 401 000a 436C     		ldr	r3, [r0, #68]
+ 402 000c 026C     		ldr	r2, [r0, #64]
+ 403 000e 1A64     		str	r2, [r3, #64]
+  77:tools/tskmanager.c **** 		myfree(delTask);
+ 404              		.loc 1 77 0
+ 405 0010 FFF7FEFF 		bl	myfree
+ 406              	.LVL12:
+  78:tools/tskmanager.c **** 	}
+  79:tools/tskmanager.c **** }
+ 407              		.loc 1 79 0
+ 408 0014 08BD     		pop	{r3, pc}
+ 409              	.LVL13:
+ 410              	.L29:
+ 411              	.LCFI11:
+ 412              		.cfi_def_cfa_offset 0
+ 413              		.cfi_restore 3
+ 414              		.cfi_restore 14
+ 415 0016 7047     		bx	lr
+ 416              		.cfi_endproc
+ 417              	.LFE72:
+ 419              		.section	.text.SetTaskPeriod,"ax",%progbits
+ 420              		.align	1
+ 421              		.global	SetTaskPeriod
+ 422              		.syntax unified
+ 423              		.thumb
+ 424              		.thumb_func
+ 425              		.fpu softvfp
+ 427              	SetTaskPeriod:
+ 428              	.LFB73:
+  80:tools/tskmanager.c **** 
+  81:tools/tskmanager.c **** //修改任务执行周期
+  82:tools/tskmanager.c **** void SetTaskPeriod(u64 day, u64 hour, u64 min, u64 sec, u64 ms, _Task *Task)
+  83:tools/tskmanager.c **** {
+ 429              		.loc 1 83 0
+ 430              		.cfi_startproc
+ 431              		@ args = 28, pretend = 0, frame = 8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 10
 
 
- 260 00ae 49EB0305 		adc	r5, r9, r3
- 261 00b2 D0E90CAB 		ldrd	r10, [r0, #48]
- 262 00b6 14EB0A08 		adds	r8, r4, r10
- 263 00ba 45EB0B09 		adc	r9, r5, fp
- 264 00be C0E90289 		strd	r8, [r0, #8]
-  60:tools/tskmanager.c **** 	tsk->next = TaskManger.lasTask;
- 265              		.loc 1 60 0
- 266 00c2 0B69     		ldr	r3, [r1, #16]
- 267 00c4 1A6C     		ldr	r2, [r3, #64]
- 268 00c6 0264     		str	r2, [r0, #64]
-  61:tools/tskmanager.c **** 	TaskManger.lasTask->pre->next = tsk;
- 269              		.loc 1 61 0
- 270 00c8 4364     		str	r3, [r0, #68]
-  62:tools/tskmanager.c **** 	TaskManger.lasTask->pre = tsk;
- 271              		.loc 1 62 0
- 272 00ca 1A6C     		ldr	r2, [r3, #64]
- 273 00cc 5064     		str	r0, [r2, #68]
-  63:tools/tskmanager.c **** }
- 274              		.loc 1 63 0
- 275 00ce 1864     		str	r0, [r3, #64]
-  64:tools/tskmanager.c **** 
- 276              		.loc 1 64 0
- 277 00d0 03B0     		add	sp, sp, #12
- 278              	.LCFI6:
- 279              		.cfi_def_cfa_offset 36
- 280              		@ sp needed
- 281 00d2 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
- 282              	.L18:
- 283 00d6 00BF     		.align	2
- 284              	.L17:
- 285 00d8 00000000 		.word	.LANCHOR0
- 286 00dc 005C2605 		.word	86400000
- 287 00e0 80EE3600 		.word	3600000
- 288              		.cfi_endproc
- 289              	.LFE69:
- 291              		.section	.text.DelTask,"ax",%progbits
- 292              		.align	1
- 293              		.global	DelTask
- 294              		.syntax unified
- 295              		.thumb
- 296              		.thumb_func
- 297              		.fpu softvfp
- 299              	DelTask:
- 300              	.LFB70:
-  68:tools/tskmanager.c **** 	if (delTask != 0)
- 301              		.loc 1 68 0
- 302              		.cfi_startproc
- 303              		@ args = 0, pretend = 0, frame = 0
- 304              		@ frame_needed = 0, uses_anonymous_args = 0
- 305              	.LVL9:
-  69:tools/tskmanager.c **** 	{
- 306              		.loc 1 69 0
- 307 0000 48B1     		cbz	r0, .L22
-  68:tools/tskmanager.c **** 	if (delTask != 0)
- 308              		.loc 1 68 0
- 309 0002 08B5     		push	{r3, lr}
- 310              	.LCFI7:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 8
+ 432              		@ frame_needed = 0, uses_anonymous_args = 0
+ 433              		@ link register save eliminated.
+ 434              	.LVL14:
+ 435 0000 2DE9F00B 		push	{r4, r5, r6, r7, r8, r9, fp}
+ 436              	.LCFI12:
+ 437              		.cfi_def_cfa_offset 28
+ 438              		.cfi_offset 4, -28
+ 439              		.cfi_offset 5, -24
+ 440              		.cfi_offset 6, -20
+ 441              		.cfi_offset 7, -16
+ 442              		.cfi_offset 8, -12
+ 443              		.cfi_offset 9, -8
+ 444              		.cfi_offset 11, -4
+ 445 0004 83B0     		sub	sp, sp, #12
+ 446              	.LCFI13:
+ 447              		.cfi_def_cfa_offset 40
+ 448 0006 DDE90A89 		ldrd	r8, [sp, #40]
+ 449 000a DDE90C67 		ldrd	r6, [sp, #48]
+  84:tools/tskmanager.c **** 	Task->period = ((day * 86400000) + (hour * 3600000) + (min * 60000) + (sec * 1000) + ms);        /
+ 450              		.loc 1 84 0
+ 451 000e DFF8B0C0 		ldr	ip, .L34
+ 452 0012 A0FB0C45 		umull	r4, r5, r0, ip
+ 453 0016 0CFB0155 		mla	r5, ip, r1, r5
+ 454 001a DFF8A8C0 		ldr	ip, .L34+4
+ 455 001e A2FB0C01 		umull	r0, r1, r2, ip
+ 456              	.LVL15:
+ 457 0022 0CFB0311 		mla	r1, ip, r3, r1
+ 458 0026 2218     		adds	r2, r4, r0
+ 459              	.LVL16:
+ 460 0028 45EB0103 		adc	r3, r5, r1
+ 461 002c 7901     		lsls	r1, r7, #5
+ 462 002e 7401     		lsls	r4, r6, #5
+ 463 0030 41EAD665 		orr	r5, r1, r6, lsr #27
+ 464 0034 A41B     		subs	r4, r4, r6
+ 465 0036 65EB0705 		sbc	r5, r5, r7
+ 466 003a A900     		lsls	r1, r5, #2
+ 467 003c 41EA9471 		orr	r1, r1, r4, lsr #30
+ 468 0040 A000     		lsls	r0, r4, #2
+ 469 0042 8419     		adds	r4, r0, r6
+ 470 0044 41EB0705 		adc	r5, r1, r7
+ 471 0048 E900     		lsls	r1, r5, #3
+ 472 004a 41EA5471 		orr	r1, r1, r4, lsr #29
+ 473 004e E000     		lsls	r0, r4, #3
+ 474 0050 0090     		str	r0, [sp]
+ 475 0052 0191     		str	r1, [sp, #4]
+ 476 0054 4FEA4911 		lsl	r1, r9, #5
+ 477 0058 4FEA4816 		lsl	r6, r8, #5
+ 478 005c 41EAD867 		orr	r7, r1, r8, lsr #27
+ 479 0060 B6EB0804 		subs	r4, r6, r8
+ 480 0064 67EB0905 		sbc	r5, r7, r9
+ 481 0068 A900     		lsls	r1, r5, #2
+ 482 006a 41EA9471 		orr	r1, r1, r4, lsr #30
+ 483 006e A000     		lsls	r0, r4, #2
+ 484 0070 10EB0806 		adds	r6, r0, r8
+ 485 0074 41EB0907 		adc	r7, r1, r9
+ 486 0078 4FEA0719 		lsl	r9, r7, #4
+ 487 007c 49EA1679 		orr	r9, r9, r6, lsr #28
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 11
 
 
- 311              		.cfi_def_cfa_offset 8
- 312              		.cfi_offset 3, -8
- 313              		.cfi_offset 14, -4
-  71:tools/tskmanager.c **** 		delTask->next->pre = delTask->pre;
- 314              		.loc 1 71 0
- 315 0004 036C     		ldr	r3, [r0, #64]
- 316 0006 426C     		ldr	r2, [r0, #68]
- 317 0008 5A64     		str	r2, [r3, #68]
-  72:tools/tskmanager.c **** 		myfree(delTask);
- 318              		.loc 1 72 0
- 319 000a 436C     		ldr	r3, [r0, #68]
- 320 000c 026C     		ldr	r2, [r0, #64]
- 321 000e 1A64     		str	r2, [r3, #64]
-  73:tools/tskmanager.c **** 	}
- 322              		.loc 1 73 0
- 323 0010 FFF7FEFF 		bl	myfree
- 324              	.LVL10:
-  75:tools/tskmanager.c **** 
- 325              		.loc 1 75 0
- 326 0014 08BD     		pop	{r3, pc}
- 327              	.LVL11:
- 328              	.L22:
- 329              	.LCFI8:
- 330              		.cfi_def_cfa_offset 0
- 331              		.cfi_restore 3
- 332              		.cfi_restore 14
- 333 0016 7047     		bx	lr
- 334              		.cfi_endproc
- 335              	.LFE70:
- 337              		.section	.text.SetTaskPeriod,"ax",%progbits
- 338              		.align	1
- 339              		.global	SetTaskPeriod
- 340              		.syntax unified
- 341              		.thumb
- 342              		.thumb_func
- 343              		.fpu softvfp
- 345              	SetTaskPeriod:
- 346              	.LFB71:
-  79:tools/tskmanager.c **** 	Task->period = ((day * 86400000) + (hour * 3600000) + (min * 60000) + (sec * 1000) + ms);        /
- 347              		.loc 1 79 0
- 348              		.cfi_startproc
- 349              		@ args = 28, pretend = 0, frame = 8
- 350              		@ frame_needed = 0, uses_anonymous_args = 0
- 351              		@ link register save eliminated.
- 352              	.LVL12:
- 353 0000 2DE9F00B 		push	{r4, r5, r6, r7, r8, r9, fp}
- 354              	.LCFI9:
- 355              		.cfi_def_cfa_offset 28
- 356              		.cfi_offset 4, -28
- 357              		.cfi_offset 5, -24
- 358              		.cfi_offset 6, -20
- 359              		.cfi_offset 7, -16
- 360              		.cfi_offset 8, -12
- 361              		.cfi_offset 9, -8
- 362              		.cfi_offset 11, -4
- 363 0004 83B0     		sub	sp, sp, #12
- 364              	.LCFI10:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 9
+ 488 0080 4FEA0618 		lsl	r8, r6, #4
+ 489 0084 B8EB0608 		subs	r8, r8, r6
+ 490 0088 69EB0709 		sbc	r9, r9, r7
+ 491 008c 4FEA4911 		lsl	r1, r9, #5
+ 492 0090 41EAD861 		orr	r1, r1, r8, lsr #27
+ 493 0094 4FEA4810 		lsl	r0, r8, #5
+ 494 0098 DDE90045 		ldrd	r4, [sp]
+ 495 009c 2418     		adds	r4, r4, r0
+ 496 009e 4D41     		adcs	r5, r5, r1
+ 497 00a0 A018     		adds	r0, r4, r2
+ 498 00a2 45EB0301 		adc	r1, r5, r3
+ 499 00a6 DDE90E23 		ldrd	r2, [sp, #56]
+ 500 00aa 8418     		adds	r4, r0, r2
+ 501 00ac 41EB0305 		adc	r5, r1, r3
+ 502 00b0 109B     		ldr	r3, [sp, #64]
+ 503 00b2 C3E90245 		strd	r4, [r3, #8]
+  85:tools/tskmanager.c **** }
+ 504              		.loc 1 85 0
+ 505 00b6 03B0     		add	sp, sp, #12
+ 506              	.LCFI14:
+ 507              		.cfi_def_cfa_offset 28
+ 508              		@ sp needed
+ 509 00b8 BDE8F00B 		pop	{r4, r5, r6, r7, r8, r9, fp}
+ 510              	.LCFI15:
+ 511              		.cfi_restore 11
+ 512              		.cfi_restore 9
+ 513              		.cfi_restore 8
+ 514              		.cfi_restore 7
+ 515              		.cfi_restore 6
+ 516              		.cfi_restore 5
+ 517              		.cfi_restore 4
+ 518              		.cfi_def_cfa_offset 0
+ 519              	.LVL17:
+ 520 00bc 7047     		bx	lr
+ 521              	.L35:
+ 522 00be 00BF     		.align	2
+ 523              	.L34:
+ 524 00c0 005C2605 		.word	86400000
+ 525 00c4 80EE3600 		.word	3600000
+ 526              		.cfi_endproc
+ 527              	.LFE73:
+ 529              		.section	.text.ExecTask,"ax",%progbits
+ 530              		.align	1
+ 531              		.global	ExecTask
+ 532              		.syntax unified
+ 533              		.thumb
+ 534              		.thumb_func
+ 535              		.fpu softvfp
+ 537              	ExecTask:
+ 538              	.LFB74:
+  86:tools/tskmanager.c **** 
+  87:tools/tskmanager.c **** //循环执行任务链表中的任务
+  88:tools/tskmanager.c **** void ExecTask(void)
+  89:tools/tskmanager.c **** {
+ 539              		.loc 1 89 0
+ 540              		.cfi_startproc
+ 541              		@ Volatile: function does not return.
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 12
 
 
- 365              		.cfi_def_cfa_offset 40
- 366 0006 DDE90A89 		ldrd	r8, [sp, #40]
- 367 000a DDE90C67 		ldrd	r6, [sp, #48]
-  80:tools/tskmanager.c **** }
- 368              		.loc 1 80 0
- 369 000e DFF8B0C0 		ldr	ip, .L27
- 370 0012 A0FB0C45 		umull	r4, r5, r0, ip
- 371 0016 0CFB0155 		mla	r5, ip, r1, r5
- 372 001a DFF8A8C0 		ldr	ip, .L27+4
- 373 001e A2FB0C01 		umull	r0, r1, r2, ip
- 374              	.LVL13:
- 375 0022 0CFB0311 		mla	r1, ip, r3, r1
- 376 0026 2218     		adds	r2, r4, r0
- 377              	.LVL14:
- 378 0028 45EB0103 		adc	r3, r5, r1
- 379 002c 7901     		lsls	r1, r7, #5
- 380 002e 7401     		lsls	r4, r6, #5
- 381 0030 41EAD665 		orr	r5, r1, r6, lsr #27
- 382 0034 A41B     		subs	r4, r4, r6
- 383 0036 65EB0705 		sbc	r5, r5, r7
- 384 003a A900     		lsls	r1, r5, #2
- 385 003c 41EA9471 		orr	r1, r1, r4, lsr #30
- 386 0040 A000     		lsls	r0, r4, #2
- 387 0042 8419     		adds	r4, r0, r6
- 388 0044 41EB0705 		adc	r5, r1, r7
- 389 0048 E900     		lsls	r1, r5, #3
- 390 004a 41EA5471 		orr	r1, r1, r4, lsr #29
- 391 004e E000     		lsls	r0, r4, #3
- 392 0050 0090     		str	r0, [sp]
- 393 0052 0191     		str	r1, [sp, #4]
- 394 0054 4FEA4911 		lsl	r1, r9, #5
- 395 0058 4FEA4816 		lsl	r6, r8, #5
- 396 005c 41EAD867 		orr	r7, r1, r8, lsr #27
- 397 0060 B6EB0804 		subs	r4, r6, r8
- 398 0064 67EB0905 		sbc	r5, r7, r9
- 399 0068 A900     		lsls	r1, r5, #2
- 400 006a 41EA9471 		orr	r1, r1, r4, lsr #30
- 401 006e A000     		lsls	r0, r4, #2
- 402 0070 10EB0806 		adds	r6, r0, r8
- 403 0074 41EB0907 		adc	r7, r1, r9
- 404 0078 4FEA0719 		lsl	r9, r7, #4
- 405 007c 49EA1679 		orr	r9, r9, r6, lsr #28
- 406 0080 4FEA0618 		lsl	r8, r6, #4
- 407 0084 B8EB0608 		subs	r8, r8, r6
- 408 0088 69EB0709 		sbc	r9, r9, r7
- 409 008c 4FEA4911 		lsl	r1, r9, #5
- 410 0090 41EAD861 		orr	r1, r1, r8, lsr #27
- 411 0094 4FEA4810 		lsl	r0, r8, #5
- 412 0098 DDE90045 		ldrd	r4, [sp]
- 413 009c 2418     		adds	r4, r4, r0
- 414 009e 4D41     		adcs	r5, r5, r1
- 415 00a0 A018     		adds	r0, r4, r2
- 416 00a2 45EB0301 		adc	r1, r5, r3
- 417 00a6 DDE90E23 		ldrd	r2, [sp, #56]
- 418 00aa 8418     		adds	r4, r0, r2
- 419 00ac 41EB0305 		adc	r5, r1, r3
- 420 00b0 109B     		ldr	r3, [sp, #64]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 10
+ 542              		@ args = 0, pretend = 0, frame = 0
+ 543              		@ frame_needed = 0, uses_anonymous_args = 0
+ 544 0000 2DE90048 		push	{fp, lr}
+ 545              	.LCFI16:
+ 546              		.cfi_def_cfa_offset 8
+ 547              		.cfi_offset 11, -8
+ 548              		.cfi_offset 14, -4
+ 549              	.LVL18:
+  90:tools/tskmanager.c **** 	_Task *RunTask = &sTask;
+ 550              		.loc 1 90 0
+ 551 0004 164C     		ldr	r4, .L42
+ 552 0006 16E0     		b	.L40
+ 553              	.LVL19:
+ 554              	.L37:
+ 555              	.LBB10:
+ 556              	.LBB11:
+  56:tools/tskmanager.c **** }
+ 557              		.loc 1 56 0
+ 558 0008 164B     		ldr	r3, .L42+4
+ 559 000a D3E90023 		ldrd	r2, [r3]
+ 560 000e 121A     		subs	r2, r2, r0
+ 561 0010 63EB0103 		sbc	r3, r3, r1
+ 562 0014 9346     		mov	fp, r2
+ 563 0016 9C46     		mov	ip, r3
+ 564              	.L38:
+ 565              	.LVL20:
+ 566              	.LBE11:
+ 567              	.LBE10:
+  91:tools/tskmanager.c **** 	for (;;) {
+  92:tools/tskmanager.c **** 		if (TaskTickDiff(RunTask->tick) >= RunTask->period) {
+ 568              		.loc 1 92 0
+ 569 0018 D4E90201 		ldrd	r0, [r4, #8]
+ 570 001c 8C45     		cmp	ip, r1
+ 571 001e 08BF     		it	eq
+ 572 0020 8345     		cmpeq	fp, r0
+ 573 0022 07D3     		bcc	.L39
+  93:tools/tskmanager.c **** 			RunTask->tick = TaskManger.tick;
+ 574              		.loc 1 93 0
+ 575 0024 0F4B     		ldr	r3, .L42+4
+ 576 0026 D3E90023 		ldrd	r2, [r3]
+ 577 002a C4E90023 		strd	r2, [r4]
+  94:tools/tskmanager.c **** 			RunTask->func(RunTask->args);//调用任务处理函数
+ 578              		.loc 1 94 0
+ 579 002e E36B     		ldr	r3, [r4, #60]
+ 580 0030 A06B     		ldr	r0, [r4, #56]
+ 581 0032 9847     		blx	r3
+ 582              	.LVL21:
+ 583              	.L39:
+  95:tools/tskmanager.c **** 		}
+  96:tools/tskmanager.c **** 		RunTask = RunTask->next;//指向下一个任务
+ 584              		.loc 1 96 0
+ 585 0034 646C     		ldr	r4, [r4, #68]
+ 586              	.LVL22:
+ 587              	.L40:
+  92:tools/tskmanager.c **** 			RunTask->tick = TaskManger.tick;
+ 588              		.loc 1 92 0
+ 589 0036 D4E90001 		ldrd	r0, [r4]
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 13
 
 
- 421 00b2 C3E90245 		strd	r4, [r3, #8]
-  81:tools/tskmanager.c **** 
- 422              		.loc 1 81 0
- 423 00b6 03B0     		add	sp, sp, #12
- 424              	.LCFI11:
- 425              		.cfi_def_cfa_offset 28
- 426              		@ sp needed
- 427 00b8 BDE8F00B 		pop	{r4, r5, r6, r7, r8, r9, fp}
- 428              	.LCFI12:
- 429              		.cfi_restore 11
- 430              		.cfi_restore 9
- 431              		.cfi_restore 8
- 432              		.cfi_restore 7
- 433              		.cfi_restore 6
- 434              		.cfi_restore 5
- 435              		.cfi_restore 4
- 436              		.cfi_def_cfa_offset 0
- 437              	.LVL15:
- 438 00bc 7047     		bx	lr
- 439              	.L28:
- 440 00be 00BF     		.align	2
- 441              	.L27:
- 442 00c0 005C2605 		.word	86400000
- 443 00c4 80EE3600 		.word	3600000
- 444              		.cfi_endproc
- 445              	.LFE71:
- 447              		.section	.text.TskTickHandler,"ax",%progbits
- 448              		.align	1
- 449              		.global	TskTickHandler
- 450              		.syntax unified
- 451              		.thumb
- 452              		.thumb_func
- 453              		.fpu softvfp
- 455              	TskTickHandler:
- 456              	.LFB73:
-  89:tools/tskmanager.c **** 
-  90:tools/tskmanager.c **** void TskTickHandler(void)
-  91:tools/tskmanager.c **** {
- 457              		.loc 1 91 0
- 458              		.cfi_startproc
- 459              		@ args = 0, pretend = 0, frame = 0
- 460              		@ frame_needed = 0, uses_anonymous_args = 0
- 461              		@ link register save eliminated.
- 462 0000 4DF804BD 		push	{fp}
- 463              	.LCFI13:
- 464              		.cfi_def_cfa_offset 4
- 465              		.cfi_offset 11, -4
-  92:tools/tskmanager.c ****     TaskManger.tick++;
- 466              		.loc 1 92 0
- 467 0004 0549     		ldr	r1, .L31
- 468 0006 D1E900BC 		ldrd	fp, [r1]
- 469 000a 1BF10102 		adds	r2, fp, #1
- 470 000e 4CF10003 		adc	r3, ip, #0
- 471 0012 C1E90023 		strd	r2, [r1]
-  93:tools/tskmanager.c **** }
- 472              		.loc 1 93 0
- 473 0016 5DF804BB 		ldr	fp, [sp], #4
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 11
+ 590              	.LVL23:
+ 591              	.LBB13:
+ 592              	.LBB12:
+  53:tools/tskmanager.c **** 		return 0xFFFFFFFFFFFFFFFF - tick + TaskManger.tick;
+ 593              		.loc 1 53 0
+ 594 003a 0A4B     		ldr	r3, .L42+4
+ 595 003c D3E90023 		ldrd	r2, [r3]
+ 596 0040 8B42     		cmp	r3, r1
+ 597 0042 08BF     		it	eq
+ 598 0044 8242     		cmpeq	r2, r0
+ 599 0046 DFD2     		bcs	.L37
+  54:tools/tskmanager.c **** 	else
+ 600              		.loc 1 54 0
+ 601 0048 064B     		ldr	r3, .L42+4
+ 602 004a D3E900BC 		ldrd	fp, [r3]
+ 603 004e BBEB0002 		subs	r2, fp, r0
+ 604 0052 6CEB0103 		sbc	r3, ip, r1
+ 605 0056 12F1FF3B 		adds	fp, r2, #-1
+ 606 005a 43F1FF3C 		adc	ip, r3, #-1
+ 607 005e DBE7     		b	.L38
+ 608              	.L43:
+ 609              		.align	2
+ 610              	.L42:
+ 611 0060 00000000 		.word	.LANCHOR1
+ 612 0064 00000000 		.word	.LANCHOR0
+ 613              	.LBE12:
+ 614              	.LBE13:
+ 615              		.cfi_endproc
+ 616              	.LFE74:
+ 618              		.comm	delayTick,8,8
+ 619              		.global	TaskManger
+ 620              		.global	eTask
+ 621              		.global	sTask
+ 622              		.section	.data.TaskManger,"aw",%progbits
+ 623              		.align	3
+ 624              		.set	.LANCHOR0,. + 0
+ 627              	TaskManger:
+ 628 0000 00000000 		.word	0
+ 629 0004 00000000 		.word	0
+ 630 0008 00000000 		.word	sTask
+ 631 000c 00000000 		.word	sTask
+ 632 0010 00000000 		.word	eTask
+ 633 0014 00000000 		.word	TaskTickDiff
+ 634 0018 00000000 		.word	DelayMs
+ 635 001c 00000000 		.space	4
+ 636              		.section	.data.eTask,"aw",%progbits
+ 637              		.align	3
+ 640              	eTask:
+ 641 0000 00000000 		.space	60
+ 641      00000000 
+ 641      00000000 
+ 641      00000000 
+ 641      00000000 
+ 642 003c 00000000 		.word	EndTask
+ 643 0040 00000000 		.word	sTask
+ 644 0044 00000000 		.word	sTask
+ 645              		.section	.data.sTask,"aw",%progbits
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 14
 
 
- 474              	.LCFI14:
- 475              		.cfi_restore 11
- 476              		.cfi_def_cfa_offset 0
- 477 001a 7047     		bx	lr
- 478              	.L32:
- 479              		.align	2
- 480              	.L31:
- 481 001c 00000000 		.word	.LANCHOR0
- 482              		.cfi_endproc
- 483              	.LFE73:
- 485              		.section	.text.ExecTask,"ax",%progbits
- 486              		.align	1
- 487              		.global	ExecTask
- 488              		.syntax unified
- 489              		.thumb
- 490              		.thumb_func
- 491              		.fpu softvfp
- 493              	ExecTask:
- 494              	.LFB74:
-  94:tools/tskmanager.c **** 
-  95:tools/tskmanager.c **** //循环执行任务链表中的任务
-  96:tools/tskmanager.c **** void ExecTask(void)
-  97:tools/tskmanager.c **** {
- 495              		.loc 1 97 0
- 496              		.cfi_startproc
- 497              		@ Volatile: function does not return.
- 498              		@ args = 0, pretend = 0, frame = 0
- 499              		@ frame_needed = 0, uses_anonymous_args = 0
- 500 0000 08B5     		push	{r3, lr}
- 501              	.LCFI15:
- 502              		.cfi_def_cfa_offset 8
- 503              		.cfi_offset 3, -8
- 504              		.cfi_offset 14, -4
- 505              	.LVL16:
-  98:tools/tskmanager.c **** 	_Task *RunTask = &sTask;
- 506              		.loc 1 98 0
- 507 0002 0B4C     		ldr	r4, .L37
- 508 0004 00E0     		b	.L35
- 509              	.LVL17:
- 510              	.L34:
-  99:tools/tskmanager.c **** 	for (;;)
- 100:tools/tskmanager.c **** 	{
- 101:tools/tskmanager.c **** 		if (TaskTickDiff(RunTask->tick) >= RunTask->period)
- 102:tools/tskmanager.c **** 		{
- 103:tools/tskmanager.c **** 			RunTask->tick = TaskManger.tick;
- 104:tools/tskmanager.c **** 			RunTask->func(RunTask->args);//调用任务处理函数
- 105:tools/tskmanager.c **** 		}
- 106:tools/tskmanager.c **** 		RunTask = RunTask->next;
- 511              		.loc 1 106 0
- 512 0006 646C     		ldr	r4, [r4, #68]
- 513              	.LVL18:
- 514              	.L35:
- 101:tools/tskmanager.c **** 		{
- 515              		.loc 1 101 0
- 516 0008 D4E90001 		ldrd	r0, [r4]
- 517 000c FFF7FEFF 		bl	TaskTickDiff
- 518              	.LVL19:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 12
-
-
- 519 0010 D4E90223 		ldrd	r2, [r4, #8]
- 520 0014 9942     		cmp	r1, r3
- 521 0016 08BF     		it	eq
- 522 0018 9042     		cmpeq	r0, r2
- 523 001a F4D3     		bcc	.L34
- 103:tools/tskmanager.c **** 			RunTask->func(RunTask->args);//调用任务处理函数
- 524              		.loc 1 103 0
- 525 001c 054B     		ldr	r3, .L37+4
- 526 001e D3E90023 		ldrd	r2, [r3]
- 527 0022 C4E90023 		strd	r2, [r4]
- 104:tools/tskmanager.c **** 		}
- 528              		.loc 1 104 0
- 529 0026 E36B     		ldr	r3, [r4, #60]
- 530 0028 A06B     		ldr	r0, [r4, #56]
- 531 002a 9847     		blx	r3
- 532              	.LVL20:
- 533 002c EBE7     		b	.L34
- 534              	.L38:
- 535 002e 00BF     		.align	2
- 536              	.L37:
- 537 0030 00000000 		.word	.LANCHOR1
- 538 0034 00000000 		.word	.LANCHOR0
- 539              		.cfi_endproc
- 540              	.LFE74:
- 542              		.comm	delayTick,8,8
- 543              		.global	TaskManger
- 544              		.global	eTask
- 545              		.global	sTask
- 546              		.section	.data.TaskManger,"aw",%progbits
- 547              		.align	3
- 548              		.set	.LANCHOR0,. + 0
- 551              	TaskManger:
- 552 0000 00000000 		.word	0
- 553 0004 00000000 		.word	0
- 554 0008 00000000 		.word	sTask
- 555 000c 00000000 		.word	sTask
- 556 0010 00000000 		.word	eTask
- 557 0014 00000000 		.word	TaskTickDiff
- 558 0018 00000000 		.word	DelayMs
- 559 001c 00000000 		.space	4
- 560              		.section	.data.eTask,"aw",%progbits
- 561              		.align	3
- 564              	eTask:
- 565 0000 00000000 		.space	16
- 565      00000000 
- 565      00000000 
- 565      00000000 
- 566 0010 00000000 		.word	0
- 567 0014 00000000 		.word	0
- 568 0018 00000000 		.word	0
- 569 001c 00000000 		.word	0
- 570 0020 00000000 		.word	0
- 571 0024 00000000 		.word	0
- 572 0028 00000000 		.word	0
- 573 002c 00000000 		.word	0
- 574 0030 00000000 		.word	0
- 575 0034 00000000 		.word	0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 13
-
-
- 576 0038 00000000 		.space	4
- 577 003c 00000000 		.word	EndTask
- 578 0040 00000000 		.word	sTask
- 579 0044 00000000 		.word	sTask
- 580              		.section	.data.sTask,"aw",%progbits
- 581              		.align	3
- 582              		.set	.LANCHOR1,. + 0
- 585              	sTask:
- 586 0000 00000000 		.space	16
- 586      00000000 
- 586      00000000 
- 586      00000000 
- 587 0010 00000000 		.word	0
- 588 0014 00000000 		.word	0
- 589 0018 00000000 		.word	0
- 590 001c 00000000 		.word	0
- 591 0020 00000000 		.word	0
- 592 0024 00000000 		.word	0
- 593 0028 00000000 		.word	0
- 594 002c 00000000 		.word	0
- 595 0030 00000000 		.word	0
- 596 0034 00000000 		.word	0
- 597 0038 00000000 		.space	4
- 598 003c 00000000 		.word	StartTask
- 599 0040 00000000 		.word	eTask
- 600 0044 00000000 		.word	eTask
- 601              		.text
- 602              	.Letext0:
- 603              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
- 604              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
- 605              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
- 606              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
- 607              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
- 608              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
- 609              		.file 8 "Inc/core_cm3.h"
- 610              		.file 9 "startup/inc/sys.h"
- 611              		.file 10 "tools/inc/malloc.h"
- 612              		.file 11 "tools/inc/tskmanager.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s 			page 14
+ 646              		.align	3
+ 647              		.set	.LANCHOR1,. + 0
+ 650              	sTask:
+ 651 0000 00000000 		.space	60
+ 651      00000000 
+ 651      00000000 
+ 651      00000000 
+ 651      00000000 
+ 652 003c 00000000 		.word	StartTask
+ 653 0040 00000000 		.word	eTask
+ 654 0044 00000000 		.word	eTask
+ 655              		.text
+ 656              	.Letext0:
+ 657              		.file 2 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_
+ 658              		.file 3 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdi
+ 659              		.file 4 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.
+ 660              		.file 5 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_type
+ 661              		.file 6 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/inc
+ 662              		.file 7 "/Users/zy/Desktop/Tools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent
+ 663              		.file 8 "Inc/core_cm3.h"
+ 664              		.file 9 "startup/inc/sys.h"
+ 665              		.file 10 "tools/inc/malloc.h"
+ 666              		.file 11 "tools/inc/tskmanager.h"
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 tskmanager.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:16     .text.TaskTickDiff:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:23     .text.TaskTickDiff:0000000000000000 TaskTickDiff
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:80     .text.TaskTickDiff:0000000000000044 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:85     .text.StartTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:91     .text.StartTask:0000000000000000 StartTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:105    .text.EndTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:111    .text.EndTask:0000000000000000 EndTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:125    .text.DelayMs:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:131    .text.DelayMs:0000000000000000 DelayMs
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:168    .text.DelayMs:0000000000000028 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:16     .text.StartTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:22     .text.StartTask:0000000000000000 StartTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:37     .text.EndTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:43     .text.EndTask:0000000000000000 EndTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:57     .text.DelayMs:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:63     .text.DelayMs:0000000000000000 DelayMs
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:141    .text.DelayMs:000000000000005c $d
                             *COM*:0000000000000008 delayTick
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:174    .text.CreateTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:181    .text.CreateTask:0000000000000000 CreateTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:285    .text.CreateTask:00000000000000d8 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:292    .text.DelTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:299    .text.DelTask:0000000000000000 DelTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:338    .text.SetTaskPeriod:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:345    .text.SetTaskPeriod:0000000000000000 SetTaskPeriod
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:442    .text.SetTaskPeriod:00000000000000c0 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:448    .text.TskTickHandler:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:455    .text.TskTickHandler:0000000000000000 TskTickHandler
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:481    .text.TskTickHandler:000000000000001c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:486    .text.ExecTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:493    .text.ExecTask:0000000000000000 ExecTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:537    .text.ExecTask:0000000000000030 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:551    .data.TaskManger:0000000000000000 TaskManger
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:564    .data.eTask:0000000000000000 eTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:585    .data.sTask:0000000000000000 sTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:547    .data.TaskManger:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:561    .data.eTask:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccEqZgZE.s:581    .data.sTask:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:147    .text.TaskTickDiff:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:153    .text.TaskTickDiff:0000000000000000 TaskTickDiff
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:209    .text.TaskTickDiff:0000000000000044 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:214    .text.TskTickHandler:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:221    .text.TskTickHandler:0000000000000000 TskTickHandler
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:247    .text.TskTickHandler:000000000000001c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:252    .text.CreateTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:259    .text.CreateTask:0000000000000000 CreateTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:367    .text.CreateTask:00000000000000d8 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:374    .text.DelTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:381    .text.DelTask:0000000000000000 DelTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:420    .text.SetTaskPeriod:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:427    .text.SetTaskPeriod:0000000000000000 SetTaskPeriod
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:524    .text.SetTaskPeriod:00000000000000c0 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:530    .text.ExecTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:537    .text.ExecTask:0000000000000000 ExecTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:611    .text.ExecTask:0000000000000060 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:627    .data.TaskManger:0000000000000000 TaskManger
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:640    .data.eTask:0000000000000000 eTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:650    .data.sTask:0000000000000000 sTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:623    .data.TaskManger:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:637    .data.eTask:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:646    .data.sTask:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 myfree

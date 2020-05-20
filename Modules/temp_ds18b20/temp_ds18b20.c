@@ -4,38 +4,13 @@
 
 #include "temp_ds18b20.h"
 
-static inline void ds18b20_delay_us(u32 nus)
-{
-	mod_delay_us(nus);
-}
-
-static inline void ds18b20_delay_ms(u32 nms)
-{
-	mod_delay_ms(nms);
-}
-
-static inline void SwitchDqDir(_ds18b20 *ds18B20, u8 dir)
-{
-	mod_IoSetDir(&ds18B20->dq, dir);
-}
-
-static inline void SwitchDqOut(_ds18b20 *ds18B20, u8 val)
-{
-	mod_IoSetVal(&ds18B20->dq, val);
-}
-
-static inline u8 GetDq(_ds18b20 *ds18B20)
-{
-	return mod_IoGetVal(&ds18B20->dq);
-}
-
 static inline void Ds18b20Reset(_ds18b20 *ds18B20)
 {
-	SwitchDqDir(1);   //SET PG11 OUTPUT
-	SwitchDqOut(ds18B20, 0);
-	ds18b20_delay_us(750);      //拉低750us
-	SwitchDqOut(ds18B20, 1);
-	ds18b20_delay_us(15);       //15US
+	mod_IoSetDir(&ds18B20->dq,1);   //SET PG11 OUTPUT
+	mod_IoSetVal(&ds18B20->dq, 0);
+	mod_delay_us(750);      //拉低750us
+	mod_IoSetVal(&ds18B20->dq, 1);
+	mod_delay_us(15);       //15US
 }
 
 //等待DS18B20的回应
@@ -44,18 +19,18 @@ static inline void Ds18b20Reset(_ds18b20 *ds18B20)
 static inline u8 DS18B20_Check(_ds18b20 *ds18B20)
 {
 	u8 retry = 0;
-	SwitchDqDir(0);  //SET PG11 INPUT
-	while (GetDq(ds18B20) && retry < 200) {
+	mod_IoSetDir(&ds18B20->dq,0);  //SET PG11 INPUT
+	while (mod_IoGetVal(&ds18B20->dq) && retry < 200) {
 		retry++;
-		ds18b20_delay_us(1);
+		mod_delay_us(1);
 	};
 	if (retry >= 200)
 		return 1;
 	else
 		retry = 0;
-	while (!GetDq(ds18B20) && retry < 240) {
+	while (!mod_IoGetVal(&ds18B20->dq)&& retry < 240) {
 		retry++;
-		ds18b20_delay_us(1);
+		mod_delay_us(1);
 	};
 	if (retry >= 240)
 		return 1;
@@ -65,17 +40,17 @@ static inline u8 DS18B20_Check(_ds18b20 *ds18B20)
 static inline u8 DS18B20_Read_Bit(_ds18b20 *ds18B20)
 {
 	u8 data;
-	SwitchDqDir(ds18B20, 1);   //SET PG11 OUTPUT
-	SwitchDqOut(ds18B20, 0);
-	ds18b20_delay_us(2);
-	SwitchDqOut(ds18B20, 1);
-	SwitchDqDir(ds18B20, 0);; //SET PG11 INPUT
-	ds18b20_delay_us(12);
-	if (GetDq(ds18B20))
+	mod_IoSetDir(&ds18B20->dq, 1);
+	mod_IoSetVal(&ds18B20->dq, 0);
+	mod_delay_us(2);
+	mod_IoSetVal(&ds18B20->dq, 1);
+	mod_IoSetDir(&ds18B20->dq, 0);;
+	mod_delay_us(12);
+	if (mod_IoGetVal(&ds18B20->dq))
 		data = 1;
 	else
 		data = 0;
-	ds18b20_delay_us(50);
+	mod_delay_us(50);
 	return data;
 }
 
@@ -98,20 +73,20 @@ static inline void DS18B20_Write_Byte(_ds18b20 *ds18B20, u8 dat)
 {
 	u8 j;
 	u8 testb;
-	SwitchDqDir(ds18B20, 1);   //SET PG11 OUTPUT
+	mod_IoSetDir(&ds18B20->dq, 1);   //SET PG11 OUTPUT
 	for (j = 1; j <= 8; j++) {
 		testb = dat & 0x01;
 		dat = dat >> 1;
 		if (testb) {
-			SwitchDqOut(ds18B20, 0);
-			ds18b20_delay_us(2);
-			SwitchDqOut(ds18B20, 1);
+			mod_IoSetVal(&ds18B20->dq, 0);
+			mod_delay_us(2);
+			mod_IoSetVal(&ds18B20->dq, 1);
 			delay_us(60);
 		} else {
-			SwitchDqOut(ds18B20, 0);
-			ds18b20_delay_us(60);
-			SwitchDqOut(ds18B20, 1);
-			ds18b20_delay_us(2);
+			mod_IoSetVal(&ds18B20->dq, 0);
+			mod_delay_us(60);
+			mod_IoSetVal(&ds18B20->dq, 1);
+			mod_delay_us(2);
 		}
 	}
 }

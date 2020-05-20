@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -25,46 +25,42 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
   23              	getdmax:
   24              	.LFB66:
   25              		.file 1 "drivers/bsp_f1xx_dma.c"
-   1:drivers/bsp_f1xx_dma.c **** //
-   2:drivers/bsp_f1xx_dma.c **** // Created by 周洋 on 2020/3/29.
-   3:drivers/bsp_f1xx_dma.c **** //
-   4:drivers/bsp_f1xx_dma.c **** 
-   5:drivers/bsp_f1xx_dma.c **** #include "bsp_f1xx_dma.h"
-   6:drivers/bsp_f1xx_dma.c **** 
-   7:drivers/bsp_f1xx_dma.c **** DMA_TypeDef *getdmax(DMA_Channel_TypeDef *chx)
-   8:drivers/bsp_f1xx_dma.c **** {
-  26              		.loc 1 8 0
+   1:drivers/bsp_f1xx_dma.c **** #include "bsp_f1xx_dma.h"
+   2:drivers/bsp_f1xx_dma.c **** 
+   3:drivers/bsp_f1xx_dma.c **** DMA_TypeDef *getdmax(DMA_Channel_TypeDef *chx)
+   4:drivers/bsp_f1xx_dma.c **** {
+  26              		.loc 1 4 0
   27              		.cfi_startproc
   28              		@ args = 0, pretend = 0, frame = 0
   29              		@ frame_needed = 0, uses_anonymous_args = 0
   30              		@ link register save eliminated.
   31              	.LVL0:
-   9:drivers/bsp_f1xx_dma.c **** 	if (chx > DMA2_Channel1)
-  32              		.loc 1 9 0
+   5:drivers/bsp_f1xx_dma.c **** 	if (chx > DMA2_Channel1)
+  32              		.loc 1 5 0
   33 0000 034B     		ldr	r3, .L5
   34 0002 9842     		cmp	r0, r3
   35 0004 01D8     		bhi	.L4
-  10:drivers/bsp_f1xx_dma.c **** 		return DMA2;
-  11:drivers/bsp_f1xx_dma.c **** 	else
-  12:drivers/bsp_f1xx_dma.c **** 		return DMA1;
-  36              		.loc 1 12 0
+   6:drivers/bsp_f1xx_dma.c **** 		return DMA2;
+   7:drivers/bsp_f1xx_dma.c **** 	else
+   8:drivers/bsp_f1xx_dma.c **** 		return DMA1;
+  36              		.loc 1 8 0
   37 0006 0348     		ldr	r0, .L5+4
   38              	.LVL1:
-  13:drivers/bsp_f1xx_dma.c **** }
-  39              		.loc 1 13 0
+   9:drivers/bsp_f1xx_dma.c **** }
+  39              		.loc 1 9 0
   40 0008 7047     		bx	lr
   41              	.LVL2:
   42              	.L4:
-  10:drivers/bsp_f1xx_dma.c **** 		return DMA2;
-  43              		.loc 1 10 0
+   6:drivers/bsp_f1xx_dma.c **** 		return DMA2;
+  43              		.loc 1 6 0
   44 000a 0348     		ldr	r0, .L5+8
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 2
-
-
   45              	.LVL3:
   46 000c 7047     		bx	lr
   47              	.L6:
   48 000e 00BF     		.align	2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s 			page 2
+
+
   49              	.L5:
   50 0010 08040240 		.word	1073873928
   51 0014 00000240 		.word	1073872896
@@ -80,17 +76,17 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
   62              		.fpu softvfp
   64              	dmainit:
   65              	.LFB67:
-  14:drivers/bsp_f1xx_dma.c **** 
-  15:drivers/bsp_f1xx_dma.c **** //DMA1的各通道配置
-  16:drivers/bsp_f1xx_dma.c **** //这里的传输形式是固定的,这点要根据不同的情况来修改
-  17:drivers/bsp_f1xx_dma.c **** //从存储器->外设模式/8位数据宽度/存储器增量模式
-  18:drivers/bsp_f1xx_dma.c **** //DMA_CHx:DMA通道CHx
-  19:drivers/bsp_f1xx_dma.c **** //cpar:外设地址
-  20:drivers/bsp_f1xx_dma.c **** //cmar:存储器地址
-  21:drivers/bsp_f1xx_dma.c **** //cndtr:数据传输量
-  22:drivers/bsp_f1xx_dma.c **** void dmainit(DMA_Channel_TypeDef *DMA_CHx, u32 cpar, u32 cmar, u8 dir)
-  23:drivers/bsp_f1xx_dma.c **** {
-  66              		.loc 1 23 0
+  10:drivers/bsp_f1xx_dma.c **** 
+  11:drivers/bsp_f1xx_dma.c **** //DMA1的各通道配置
+  12:drivers/bsp_f1xx_dma.c **** //这里的传输形式是固定的,这点要根据不同的情况来修改
+  13:drivers/bsp_f1xx_dma.c **** //从存储器->外设模式/8位数据宽度/存储器增量模式
+  14:drivers/bsp_f1xx_dma.c **** //DMA_CHx:DMA通道CHx
+  15:drivers/bsp_f1xx_dma.c **** //cpar:外设地址
+  16:drivers/bsp_f1xx_dma.c **** //cmar:存储器地址
+  17:drivers/bsp_f1xx_dma.c **** //cndtr:数据传输量
+  18:drivers/bsp_f1xx_dma.c **** void dmainit(DMA_Channel_TypeDef *DMA_CHx, u32 cpar, u32 cmar, u8 dir)
+  19:drivers/bsp_f1xx_dma.c **** {
+  66              		.loc 1 19 0
   67              		.cfi_startproc
   68              		@ args = 0, pretend = 0, frame = 0
   69              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -101,63 +97,63 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
   74              		.cfi_def_cfa_offset 8
   75              		.cfi_offset 4, -8
   76              		.cfi_offset 5, -4
-  24:drivers/bsp_f1xx_dma.c **** 	if (DMA_CHx >= DMA2_Channel1) {
-  77              		.loc 1 24 0
+  20:drivers/bsp_f1xx_dma.c **** 	if (DMA_CHx >= DMA2_Channel1) {
+  77              		.loc 1 20 0
   78 0002 154C     		ldr	r4, .L13
   79 0004 A042     		cmp	r0, r4
   80 0006 1BD9     		bls	.L8
-  25:drivers/bsp_f1xx_dma.c **** 		RCC->AHBENR |= 0x02;
-  81              		.loc 1 25 0
+  21:drivers/bsp_f1xx_dma.c **** 		RCC->AHBENR |= 0x02;
+  81              		.loc 1 21 0
   82 0008 144D     		ldr	r5, .L13+4
   83 000a 6C69     		ldr	r4, [r5, #20]
   84 000c 44F00204 		orr	r4, r4, #2
   85 0010 6C61     		str	r4, [r5, #20]
   86              	.L9:
-  26:drivers/bsp_f1xx_dma.c **** 		while (!(RCC->AHBENR & 0x02));
-  87              		.loc 1 26 0 discriminator 1
+  22:drivers/bsp_f1xx_dma.c **** 		while (!(RCC->AHBENR & 0x02));
+  87              		.loc 1 22 0 discriminator 1
   88 0012 124C     		ldr	r4, .L13+4
   89 0014 6469     		ldr	r4, [r4, #20]
   90 0016 14F0020F 		tst	r4, #2
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 3
-
-
   91 001a FAD0     		beq	.L9
   92              	.L10:
-  27:drivers/bsp_f1xx_dma.c **** 	} else {
-  28:drivers/bsp_f1xx_dma.c **** 		RCC->AHBENR |= 0x01;
-  29:drivers/bsp_f1xx_dma.c **** 		while (!(RCC->AHBENR & 0x01));
-  30:drivers/bsp_f1xx_dma.c **** 	}
-  31:drivers/bsp_f1xx_dma.c **** 
-  32:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CPAR = cpar;      //DMA1 外设地址
-  93              		.loc 1 32 0
+  23:drivers/bsp_f1xx_dma.c **** 	} else {
+  24:drivers/bsp_f1xx_dma.c **** 		RCC->AHBENR |= 0x01;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s 			page 3
+
+
+  25:drivers/bsp_f1xx_dma.c **** 		while (!(RCC->AHBENR & 0x01));
+  26:drivers/bsp_f1xx_dma.c **** 	}
+  27:drivers/bsp_f1xx_dma.c **** 
+  28:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CPAR = cpar;      //DMA1 外设地址
+  93              		.loc 1 28 0
   94 001c 8160     		str	r1, [r0, #8]
-  33:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CMAR = (u32) cmar; //DMA1,存储器地址
-  95              		.loc 1 33 0
+  29:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CMAR = (u32) cmar; //DMA1,存储器地址
+  95              		.loc 1 29 0
   96 001e C260     		str	r2, [r0, #12]
-  34:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR = 0X00000000; //复位
-  97              		.loc 1 34 0
+  30:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR = 0X00000000; //复位
+  97              		.loc 1 30 0
   98 0020 0022     		movs	r2, #0
   99              	.LVL5:
  100 0022 0260     		str	r2, [r0]
  101              	.LVL6:
-  35:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= dir << 4;    //从存储器读
- 102              		.loc 1 35 0
+  31:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= dir << 4;    //从存储器读
+ 102              		.loc 1 31 0
  103 0024 0268     		ldr	r2, [r0]
  104 0026 42EA0313 		orr	r3, r2, r3, lsl #4
  105              	.LVL7:
  106 002a 0360     		str	r3, [r0]
-  36:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 1 << 7;    //存储器增量模式
- 107              		.loc 1 36 0
+  32:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 1 << 7;    //存储器增量模式
+ 107              		.loc 1 32 0
  108 002c 0368     		ldr	r3, [r0]
  109 002e 43F08003 		orr	r3, r3, #128
  110 0032 0360     		str	r3, [r0]
-  37:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 1 << 12;   //中等优先级
- 111              		.loc 1 37 0
+  33:drivers/bsp_f1xx_dma.c **** 	DMA_CHx->CCR |= 1 << 12;   //中等优先级
+ 111              		.loc 1 33 0
  112 0034 0368     		ldr	r3, [r0]
  113 0036 43F48053 		orr	r3, r3, #4096
  114 003a 0360     		str	r3, [r0]
-  38:drivers/bsp_f1xx_dma.c **** }
- 115              		.loc 1 38 0
+  34:drivers/bsp_f1xx_dma.c **** }
+ 115              		.loc 1 34 0
  116 003c 30BC     		pop	{r4, r5}
  117              	.LCFI1:
  118              		.cfi_remember_state
@@ -169,22 +165,22 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
  124              	.L8:
  125              	.LCFI2:
  126              		.cfi_restore_state
-  28:drivers/bsp_f1xx_dma.c **** 		while (!(RCC->AHBENR & 0x01));
- 127              		.loc 1 28 0
+  24:drivers/bsp_f1xx_dma.c **** 		while (!(RCC->AHBENR & 0x01));
+ 127              		.loc 1 24 0
  128 0040 064D     		ldr	r5, .L13+4
  129 0042 6C69     		ldr	r4, [r5, #20]
  130 0044 44F00104 		orr	r4, r4, #1
  131 0048 6C61     		str	r4, [r5, #20]
  132              	.L11:
-  29:drivers/bsp_f1xx_dma.c **** 	}
- 133              		.loc 1 29 0 discriminator 1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 4
-
-
+  25:drivers/bsp_f1xx_dma.c **** 	}
+ 133              		.loc 1 25 0 discriminator 1
  134 004a 044C     		ldr	r4, .L13+4
  135 004c 6469     		ldr	r4, [r4, #20]
  136 004e 14F0010F 		tst	r4, #1
  137 0052 FAD0     		beq	.L11
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s 			page 4
+
+
  138 0054 E2E7     		b	.L10
  139              	.L14:
  140 0056 00BF     		.align	2
@@ -202,34 +198,34 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
  153              		.fpu softvfp
  155              	dma_stream_en:
  156              	.LFB68:
-  39:drivers/bsp_f1xx_dma.c **** 
-  40:drivers/bsp_f1xx_dma.c **** //开启一次DMA传输
-  41:drivers/bsp_f1xx_dma.c **** void dma_stream_en(DMA_Channel_TypeDef *chx, u8 *buf, u16 len)
-  42:drivers/bsp_f1xx_dma.c **** {
- 157              		.loc 1 42 0
+  35:drivers/bsp_f1xx_dma.c **** 
+  36:drivers/bsp_f1xx_dma.c **** //开启一次DMA传输
+  37:drivers/bsp_f1xx_dma.c **** void dma_stream_en(DMA_Channel_TypeDef *chx, u8 *buf, u16 len)
+  38:drivers/bsp_f1xx_dma.c **** {
+ 157              		.loc 1 38 0
  158              		.cfi_startproc
  159              		@ args = 0, pretend = 0, frame = 0
  160              		@ frame_needed = 0, uses_anonymous_args = 0
  161              		@ link register save eliminated.
  162              	.LVL9:
-  43:drivers/bsp_f1xx_dma.c **** 	chx->CCR &= ~(1 << 0);     //关闭DMA传输
- 163              		.loc 1 43 0
+  39:drivers/bsp_f1xx_dma.c **** 	chx->CCR &= ~(1 << 0);     //关闭DMA传输
+ 163              		.loc 1 39 0
  164 0000 0368     		ldr	r3, [r0]
  165 0002 23F00103 		bic	r3, r3, #1
  166 0006 0360     		str	r3, [r0]
-  44:drivers/bsp_f1xx_dma.c **** 	chx->CMAR = (u32) &buf[0];
- 167              		.loc 1 44 0
+  40:drivers/bsp_f1xx_dma.c **** 	chx->CMAR = (u32) &buf[0];
+ 167              		.loc 1 40 0
  168 0008 C160     		str	r1, [r0, #12]
-  45:drivers/bsp_f1xx_dma.c **** 	chx->CNDTR = len;
- 169              		.loc 1 45 0
+  41:drivers/bsp_f1xx_dma.c **** 	chx->CNDTR = len;
+ 169              		.loc 1 41 0
  170 000a 4260     		str	r2, [r0, #4]
-  46:drivers/bsp_f1xx_dma.c **** 	chx->CCR |= 1 << 0;           //开启DMA传输
- 171              		.loc 1 46 0
+  42:drivers/bsp_f1xx_dma.c **** 	chx->CCR |= 1 << 0;           //开启DMA传输
+ 171              		.loc 1 42 0
  172 000c 0368     		ldr	r3, [r0]
  173 000e 43F00103 		orr	r3, r3, #1
  174 0012 0360     		str	r3, [r0]
-  47:drivers/bsp_f1xx_dma.c **** }
- 175              		.loc 1 47 0
+  43:drivers/bsp_f1xx_dma.c **** }
+ 175              		.loc 1 43 0
  176 0014 7047     		bx	lr
  177              		.cfi_endproc
  178              	.LFE68:
@@ -238,17 +234,17 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
  182              		.global	dma_clear_flag
  183              		.syntax unified
  184              		.thumb
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 5
-
-
  185              		.thumb_func
  186              		.fpu softvfp
  188              	dma_clear_flag:
  189              	.LFB69:
-  48:drivers/bsp_f1xx_dma.c **** 
-  49:drivers/bsp_f1xx_dma.c **** void dma_clear_flag(DMA_Channel_TypeDef *chx)
-  50:drivers/bsp_f1xx_dma.c **** {
- 190              		.loc 1 50 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s 			page 5
+
+
+  44:drivers/bsp_f1xx_dma.c **** 
+  45:drivers/bsp_f1xx_dma.c **** void dma_clear_flag(DMA_Channel_TypeDef *chx)
+  46:drivers/bsp_f1xx_dma.c **** {
+ 190              		.loc 1 46 0
  191              		.cfi_startproc
  192              		@ args = 0, pretend = 0, frame = 0
  193              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -259,19 +255,19 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
  198              		.cfi_offset 4, -8
  199              		.cfi_offset 14, -4
  200 0002 0446     		mov	r4, r0
-  51:drivers/bsp_f1xx_dma.c **** 	DMA_TypeDef *dmax = getdmax(chx);
- 201              		.loc 1 51 0
+  47:drivers/bsp_f1xx_dma.c **** 	DMA_TypeDef *dmax = getdmax(chx);
+ 201              		.loc 1 47 0
  202 0004 FFF7FEFF 		bl	getdmax
  203              	.LVL11:
-  52:drivers/bsp_f1xx_dma.c **** 	if (dmax == DMA1)
- 204              		.loc 1 52 0
+  48:drivers/bsp_f1xx_dma.c **** 	if (dmax == DMA1)
+ 204              		.loc 1 48 0
  205 0008 0D4B     		ldr	r3, .L21
  206 000a 9842     		cmp	r0, r3
  207 000c 0BD0     		beq	.L20
-  53:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA1_Channel1_BASE) / 0x14) << 2);
-  54:drivers/bsp_f1xx_dma.c **** 	else
-  55:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA2_Channel1_BASE) / 0x14) << 2);
- 208              		.loc 1 55 0
+  49:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA1_Channel1_BASE) / 0x14) << 2);
+  50:drivers/bsp_f1xx_dma.c **** 	else
+  51:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA2_Channel1_BASE) / 0x14) << 2);
+ 208              		.loc 1 51 0
  209 000e 0D4B     		ldr	r3, .L21+4
  210 0010 2344     		add	r3, r3, r4
  211 0012 0D4A     		ldr	r2, .L21+8
@@ -282,13 +278,13 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
  216 001e 02FA03F3 		lsl	r3, r2, r3
  217 0022 4360     		str	r3, [r0, #4]
  218              	.L16:
-  56:drivers/bsp_f1xx_dma.c **** }
- 219              		.loc 1 56 0
+  52:drivers/bsp_f1xx_dma.c **** }
+ 219              		.loc 1 52 0
  220 0024 10BD     		pop	{r4, pc}
  221              	.LVL12:
  222              	.L20:
-  53:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA1_Channel1_BASE) / 0x14) << 2);
- 223              		.loc 1 53 0
+  49:drivers/bsp_f1xx_dma.c **** 		dmax->IFCR = (u32) 0x0F << ((((u32) chx - DMA1_Channel1_BASE) / 0x14) << 2);
+ 223              		.loc 1 49 0
  224 0026 094B     		ldr	r3, .L21+12
  225 0028 2344     		add	r3, r3, r4
  226 002a 074A     		ldr	r2, .L21+8
@@ -298,13 +294,13 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
  230 0034 0F22     		movs	r2, #15
  231 0036 02FA03F3 		lsl	r3, r2, r3
  232 003a 4360     		str	r3, [r0, #4]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 6
-
-
  233 003c F2E7     		b	.L16
  234              	.L22:
  235 003e 00BF     		.align	2
  236              	.L21:
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s 			page 6
+
+
  237 0040 00000240 		.word	1073872896
  238 0044 F8FBFDBF 		.word	-1073873928
  239 0048 CDCCCCCC 		.word	-858993459
@@ -324,21 +320,21 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 1
  254              		.file 10 "startup/inc/sys.h"
  255              		.file 11 "tools/inc/malloc.h"
  256              		.file 12 "tools/inc/tskmanager.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s 			page 7
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 bsp_f1xx_dma.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:16     .text.getdmax:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:23     .text.getdmax:0000000000000000 getdmax
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:50     .text.getdmax:0000000000000010 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:57     .text.dmainit:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:64     .text.dmainit:0000000000000000 dmainit
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:142    .text.dmainit:0000000000000058 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:148    .text.dma_stream_en:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:155    .text.dma_stream_en:0000000000000000 dma_stream_en
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:181    .text.dma_clear_flag:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:188    .text.dma_clear_flag:0000000000000000 dma_clear_flag
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFvD30d.s:237    .text.dma_clear_flag:0000000000000040 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:16     .text.getdmax:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:23     .text.getdmax:0000000000000000 getdmax
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:50     .text.getdmax:0000000000000010 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:57     .text.dmainit:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:64     .text.dmainit:0000000000000000 dmainit
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:142    .text.dmainit:0000000000000058 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:148    .text.dma_stream_en:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:155    .text.dma_stream_en:0000000000000000 dma_stream_en
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:181    .text.dma_clear_flag:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:188    .text.dma_clear_flag:0000000000000000 dma_clear_flag
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccljhEnC.s:237    .text.dma_clear_flag:0000000000000040 $d
 
 NO UNDEFINED SYMBOLS

@@ -1,7 +1,6 @@
 #include "public.h"
 #include "bsp_f1xx_timer.h"
 #include "runled.h"
-#include "inv_mpu.h"
 
 _timer tiktimer = {
 		.timx = TIM2,

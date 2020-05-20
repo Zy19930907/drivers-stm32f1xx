@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc2fhZ16.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -25,24 +25,20 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s 			page 1
   23              	main:
   24              	.LFB66:
   25              		.file 1 "app/main.c"
-   1:app/main.c    **** //
-   2:app/main.c    **** // Created by 周洋 on 2020/3/29.
-   3:app/main.c    **** //
-   4:app/main.c    **** #include "public.h"
-   5:app/main.c    **** #include "bsp_f1xx_timer.h"
-   6:app/main.c    **** #include "runled.h"
-   7:app/main.c    **** #include "inv_mpu.h"
-   8:app/main.c    **** 
-   9:app/main.c    **** _timer tiktimer = {
-  10:app/main.c    **** 		.timx = TIM2,
-  11:app/main.c    **** 		.sec = 0,
-  12:app/main.c    **** 		.ms = 1,
-  13:app/main.c    **** 		.ontimout = TskTickHandler,
-  14:app/main.c    **** };
-  15:app/main.c    **** 
-  16:app/main.c    **** int main(void)
-  17:app/main.c    **** {
-  26              		.loc 1 17 0
+   1:app/main.c    **** #include "public.h"
+   2:app/main.c    **** #include "bsp_f1xx_timer.h"
+   3:app/main.c    **** #include "runled.h"
+   4:app/main.c    **** 
+   5:app/main.c    **** _timer tiktimer = {
+   6:app/main.c    **** 		.timx = TIM2,
+   7:app/main.c    **** 		.sec = 0,
+   8:app/main.c    **** 		.ms = 1,
+   9:app/main.c    **** 		.ontimout = TskTickHandler,
+  10:app/main.c    **** };
+  11:app/main.c    **** 
+  12:app/main.c    **** int main(void)
+  13:app/main.c    **** {
+  26              		.loc 1 13 0
   27              		.cfi_startproc
   28              		@ Volatile: function does not return.
   29              		@ args = 0, pretend = 0, frame = 0
@@ -52,36 +48,36 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s 			page 1
   33              		.cfi_def_cfa_offset 8
   34              		.cfi_offset 3, -8
   35              		.cfi_offset 14, -4
-  18:app/main.c    **** 	Stm32_Clock_Init(9);
-  36              		.loc 1 18 0
+  14:app/main.c    **** 	Stm32_Clock_Init(9);
+  36              		.loc 1 14 0
   37 0002 0920     		movs	r0, #9
   38 0004 FFF7FEFF 		bl	Stm32_Clock_Init
   39              	.LVL0:
-  19:app/main.c    **** 	delay_init(72);
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s 			page 2
-
-
-  40              		.loc 1 19 0
+  15:app/main.c    **** 	delay_init(72);
+  40              		.loc 1 15 0
   41 0008 4820     		movs	r0, #72
   42 000a FFF7FEFF 		bl	delay_init
   43              	.LVL1:
-  20:app/main.c    **** 	my_mem_init();
-  44              		.loc 1 20 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc2fhZ16.s 			page 2
+
+
+  16:app/main.c    **** 	my_mem_init();
+  44              		.loc 1 16 0
   45 000e FFF7FEFF 		bl	my_mem_init
   46              	.LVL2:
-  21:app/main.c    **** 	bsp_TimerInit(&tiktimer);
-  47              		.loc 1 21 0
+  17:app/main.c    **** 	bsp_TimerInit(&tiktimer);
+  47              		.loc 1 17 0
   48 0012 0348     		ldr	r0, .L3
   49 0014 FFF7FEFF 		bl	bsp_TimerInit
   50              	.LVL3:
-  22:app/main.c    **** 
-  23:app/main.c    **** 	runledinit();
-  51              		.loc 1 23 0
+  18:app/main.c    **** 
+  19:app/main.c    **** 	runledinit();
+  51              		.loc 1 19 0
   52 0018 FFF7FEFF 		bl	runledinit
   53              	.LVL4:
-  24:app/main.c    **** 
-  25:app/main.c    **** 	ExecTask();
-  54              		.loc 1 25 0
+  20:app/main.c    **** 
+  21:app/main.c    **** 	ExecTask();
+  54              		.loc 1 21 0
   55 001c FFF7FEFF 		bl	ExecTask
   56              	.LVL5:
   57              	.L4:
@@ -115,16 +111,16 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s 			page 1
   88              		.file 12 "tools/inc/tskmanager.h"
   89              		.file 13 "drivers/inc/bsp_f1xx_timer.h"
   90              		.file 14 "app/inc/runled.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s 			page 3
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc2fhZ16.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s:16     .text.main:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s:23     .text.main:0000000000000000 main
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s:60     .text.main:0000000000000020 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s:70     .data.tiktimer:0000000000000000 tiktimer
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cclWJtn4.s:66     .data.tiktimer:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc2fhZ16.s:16     .text.main:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc2fhZ16.s:23     .text.main:0000000000000000 main
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc2fhZ16.s:60     .text.main:0000000000000020 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc2fhZ16.s:70     .data.tiktimer:0000000000000000 tiktimer
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc2fhZ16.s:66     .data.tiktimer:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 Stm32_Clock_Init

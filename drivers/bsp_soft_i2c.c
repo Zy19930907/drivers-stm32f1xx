@@ -39,8 +39,8 @@ void bsp_SoftI2CInit(_I2C *i2c)
 {
 	bsp_IoInit(&i2c->sda);
 	bsp_IoInit(&i2c->scl);
-	SDA_Switch(i2c,1);
-	SCL_Switch(i2c,1);
+	SDA_Switch(i2c, 1);
+	SCL_Switch(i2c, 1);
 }
 
 
@@ -70,9 +70,9 @@ static inline u8 bsp_SoftI2CWaitAck(_I2C *i2c)
 {
 	u8 ucErrTime = 0;
 	SwitchDir(i2c, 0);      //SDA设置为输入
-	SDA_Switch(i2c,1);
+	SDA_Switch(i2c, 1);
 	i2c_delay_us(2);
-	SCL_Switch(i2c,1);
+	SCL_Switch(i2c, 1);
 	i2c_delay_us(2);
 
 	while (I2CRead(i2c)) {
@@ -82,45 +82,45 @@ static inline u8 bsp_SoftI2CWaitAck(_I2C *i2c)
 			return 1;
 		}
 	}
-	SCL_Switch(i2c,0);
+	SCL_Switch(i2c, 0);
 	return 0;
 }
 
 static inline void bsp_SoftI2CAck(_I2C *i2c)
 {
-	SCL_Switch(i2c,0);
+	SCL_Switch(i2c, 0);
 	SwitchDir(i2c, 1);
 	SDA_Switch(i2c, 0);
 	i2c_delay_us(2);
 	SCL_Switch(i2c, 1);
 	i2c_delay_us(2);
-	SCL_Switch(i2c,0);
+	SCL_Switch(i2c, 0);
 }
 
 static inline void bsp_SoftI2cNack(_I2C *i2c)
 {
-	SCL_Switch(i2c,0);
+	SCL_Switch(i2c, 0);
 	SwitchDir(i2c, 1);
-	SDA_Switch(i2c,1);
+	SDA_Switch(i2c, 1);
 	i2c_delay_us(2);
 	SCL_Switch(i2c, 1);
 	i2c_delay_us(2);
-	SCL_Switch(i2c,0);
+	SCL_Switch(i2c, 0);
 }
 
 static inline void bsp_SoftI2CSendByte(_I2C *i2c, u8 dat)
 {
 	u8 t;
 	SwitchDir(i2c, 1);
-	SCL_Switch(i2c,0);
+	SCL_Switch(i2c, 0);
 	for (t = 0x80; t > 0; t >>= 1) {
 		if (dat & t)
-			SDA_Switch(i2c,1);
+			SDA_Switch(i2c, 1);
 		else
 			SDA_Switch(i2c, 0);
 		SCL_Switch(i2c, 1);
 		i2c_delay_us(2);
-		SCL_Switch(i2c,0);
+		SCL_Switch(i2c, 0);
 		i2c_delay_us(2);
 	}
 }
@@ -130,7 +130,7 @@ static inline u8 bsp_SoftI2CReadByte(_I2C *i2c, u8 ack)
 	unsigned char i, receive = 0;
 	SwitchDir(i2c, 0);//SDA设置为输入
 	for (i = 0; i < 8; i++) {
-		SCL_Switch(i2c,0);
+		SCL_Switch(i2c, 0);
 		i2c_delay_us(2);
 		SCL_Switch(i2c, 1);
 		receive <<= 1;

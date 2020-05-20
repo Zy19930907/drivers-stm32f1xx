@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -25,79 +25,77 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 1
   23              	bsp_EraseFlash:
   24              	.LFB66:
   25              		.file 1 "drivers/bsp_f1xx_flash.c"
-   1:drivers/bsp_f1xx_flash.c **** //
-   2:drivers/bsp_f1xx_flash.c **** // Created by 周洋 on 2020/4/9.
-   3:drivers/bsp_f1xx_flash.c **** //
-   4:drivers/bsp_f1xx_flash.c **** 
-   5:drivers/bsp_f1xx_flash.c **** #include "bsp_f1xx_flash.h"
-   6:drivers/bsp_f1xx_flash.c **** 
-   7:drivers/bsp_f1xx_flash.c **** /****************************************************************************
-   8:drivers/bsp_f1xx_flash.c **** * 功    能：Flash页擦除
-   9:drivers/bsp_f1xx_flash.c **** * 输    入：page：需要擦除的Flash页序号
-  10:drivers/bsp_f1xx_flash.c **** * 输    出：无
-  11:drivers/bsp_f1xx_flash.c **** ****************************************************************************/
-  12:drivers/bsp_f1xx_flash.c **** void bsp_EraseFlash(u16 page)
-  13:drivers/bsp_f1xx_flash.c **** {
-  26              		.loc 1 13 0
+   1:drivers/bsp_f1xx_flash.c **** #include "bsp_f1xx_flash.h"
+   2:drivers/bsp_f1xx_flash.c **** 
+   3:drivers/bsp_f1xx_flash.c **** /*
+   4:drivers/bsp_f1xx_flash.c **** ===========================================================================================
+   5:drivers/bsp_f1xx_flash.c **** * 功    能：Flash页擦除
+   6:drivers/bsp_f1xx_flash.c **** * 输    入：page：需要擦除的Flash页序号
+   7:drivers/bsp_f1xx_flash.c **** * 输    出：无
+   8:drivers/bsp_f1xx_flash.c **** ===========================================================================================
+   9:drivers/bsp_f1xx_flash.c ****  */
+  10:drivers/bsp_f1xx_flash.c **** void bsp_EraseFlash(u16 page)
+  11:drivers/bsp_f1xx_flash.c **** {
+  26              		.loc 1 11 0
   27              		.cfi_startproc
   28              		@ args = 0, pretend = 0, frame = 0
   29              		@ frame_needed = 0, uses_anonymous_args = 0
   30              		@ link register save eliminated.
   31              	.LVL0:
-  14:drivers/bsp_f1xx_flash.c **** 	UNLOCKFLASH;
-  32              		.loc 1 14 0
+  12:drivers/bsp_f1xx_flash.c **** 	UNLOCKFLASH;
+  32              		.loc 1 12 0
   33 0000 124B     		ldr	r3, .L4
   34 0002 134A     		ldr	r2, .L4+4
   35 0004 5A60     		str	r2, [r3, #4]
   36 0006 02F18832 		add	r2, r2, #-2004318072
   37 000a 5A60     		str	r2, [r3, #4]
-  15:drivers/bsp_f1xx_flash.c **** 	FLASH->CR |= EARSEFLASH_PAGE;
-  38              		.loc 1 15 0
+  13:drivers/bsp_f1xx_flash.c **** 	FLASH->CR |= EARSEFLASH_PAGE;
+  38              		.loc 1 13 0
   39 000c 1A69     		ldr	r2, [r3, #16]
   40 000e 42F00202 		orr	r2, r2, #2
   41 0012 1A61     		str	r2, [r3, #16]
   42              	.L2:
-  16:drivers/bsp_f1xx_flash.c **** 	while (FLASH->SR & 0x01); //等待falsh空闲
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 2
-
-
-  43              		.loc 1 16 0 discriminator 1
+  14:drivers/bsp_f1xx_flash.c **** 	while (FLASH->SR & 0x01); //等待falsh空闲
+  43              		.loc 1 14 0 discriminator 1
   44 0014 0D4B     		ldr	r3, .L4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s 			page 2
+
+
   45 0016 DB68     		ldr	r3, [r3, #12]
   46 0018 13F0010F 		tst	r3, #1
   47 001c FAD1     		bne	.L2
-  17:drivers/bsp_f1xx_flash.c **** 	FLASH->AR = (FLASHSTARTADDR + (page * FLASHPAGESIZE));
-  48              		.loc 1 17 0
+  15:drivers/bsp_f1xx_flash.c **** 	FLASH->AR = (FLASHSTARTADDR + (page * FLASHPAGESIZE));
+  48              		.loc 1 15 0
   49 001e 00F58030 		add	r0, r0, #65536
   50              	.LVL1:
   51 0022 C002     		lsls	r0, r0, #11
   52 0024 094B     		ldr	r3, .L4
   53 0026 5861     		str	r0, [r3, #20]
-  18:drivers/bsp_f1xx_flash.c **** 	FLASH->CR |= FLASHEARSESTART;
-  54              		.loc 1 18 0
+  16:drivers/bsp_f1xx_flash.c **** 	FLASH->CR |= FLASHEARSESTART;
+  54              		.loc 1 16 0
   55 0028 1A69     		ldr	r2, [r3, #16]
   56 002a 42F04002 		orr	r2, r2, #64
   57 002e 1A61     		str	r2, [r3, #16]
   58              	.L3:
-  19:drivers/bsp_f1xx_flash.c **** 	while (FLASH->SR & 0x01); //等待falsh空闲
-  59              		.loc 1 19 0 discriminator 1
+  17:drivers/bsp_f1xx_flash.c **** 	while (FLASH->SR & 0x01); //等待falsh空闲
+  59              		.loc 1 17 0 discriminator 1
   60 0030 064B     		ldr	r3, .L4
   61 0032 DB68     		ldr	r3, [r3, #12]
   62 0034 13F0010F 		tst	r3, #1
   63 0038 FAD1     		bne	.L3
-  20:drivers/bsp_f1xx_flash.c **** 
-  21:drivers/bsp_f1xx_flash.c **** 	FLASH->CR &= ~EARSEFLASH_PAGE;
-  64              		.loc 1 21 0
+  18:drivers/bsp_f1xx_flash.c **** 
+  19:drivers/bsp_f1xx_flash.c **** 	FLASH->CR &= ~EARSEFLASH_PAGE;
+  64              		.loc 1 19 0
   65 003a 044B     		ldr	r3, .L4
   66 003c 1A69     		ldr	r2, [r3, #16]
   67 003e 22F00202 		bic	r2, r2, #2
   68 0042 1A61     		str	r2, [r3, #16]
-  22:drivers/bsp_f1xx_flash.c **** 	LOCKFALSH;
-  69              		.loc 1 22 0
+  20:drivers/bsp_f1xx_flash.c **** 	LOCKFALSH;
+  69              		.loc 1 20 0
   70 0044 8022     		movs	r2, #128
   71 0046 1A61     		str	r2, [r3, #16]
-  23:drivers/bsp_f1xx_flash.c **** }
-  72              		.loc 1 23 0
+  21:drivers/bsp_f1xx_flash.c **** }
+  72              		.loc 1 21 0
   73 0048 7047     		bx	lr
   74              	.L5:
   75 004a 00BF     		.align	2
@@ -115,14 +113,14 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 1
   88              		.fpu softvfp
   90              	bsp_WriteFlash:
   91              	.LFB67:
-  24:drivers/bsp_f1xx_flash.c **** 
-  25:drivers/bsp_f1xx_flash.c **** void bsp_WriteFlash(u32 wAddr,u8 *dat,u16 len)
-  26:drivers/bsp_f1xx_flash.c **** {
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 3
-
-
-  92              		.loc 1 26 0
+  22:drivers/bsp_f1xx_flash.c **** 
+  23:drivers/bsp_f1xx_flash.c **** void bsp_WriteFlash(u32 wAddr, u8 *dat, u16 len)
+  24:drivers/bsp_f1xx_flash.c **** {
+  92              		.loc 1 24 0
   93              		.cfi_startproc
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s 			page 3
+
+
   94              		@ args = 0, pretend = 0, frame = 0
   95              		@ frame_needed = 0, uses_anonymous_args = 0
   96              		@ link register save eliminated.
@@ -132,39 +130,39 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 1
  100              		.cfi_def_cfa_offset 8
  101              		.cfi_offset 4, -8
  102              		.cfi_offset 5, -4
-  27:drivers/bsp_f1xx_flash.c **** 	u16*p,*q;
-  28:drivers/bsp_f1xx_flash.c **** 	len >>=1;
- 103              		.loc 1 28 0
+  25:drivers/bsp_f1xx_flash.c **** 	u16 *p, *q;
+  26:drivers/bsp_f1xx_flash.c **** 	len >>= 1;
+ 103              		.loc 1 26 0
  104 0002 5208     		lsrs	r2, r2, #1
  105              	.LVL3:
-  29:drivers/bsp_f1xx_flash.c **** 
-  30:drivers/bsp_f1xx_flash.c **** 	p = (u16*)wAddr;
-  31:drivers/bsp_f1xx_flash.c **** 	q = (u16*)dat;
-  32:drivers/bsp_f1xx_flash.c **** 
-  33:drivers/bsp_f1xx_flash.c **** 	UNLOCKFLASH;
- 106              		.loc 1 33 0
+  27:drivers/bsp_f1xx_flash.c **** 
+  28:drivers/bsp_f1xx_flash.c **** 	p = (u16 *) wAddr;
+  29:drivers/bsp_f1xx_flash.c **** 	q = (u16 *) dat;
+  30:drivers/bsp_f1xx_flash.c **** 
+  31:drivers/bsp_f1xx_flash.c **** 	UNLOCKFLASH;
+ 106              		.loc 1 31 0
  107 0004 134B     		ldr	r3, .L11
  108 0006 144C     		ldr	r4, .L11+4
  109 0008 5C60     		str	r4, [r3, #4]
  110 000a 04F18834 		add	r4, r4, #-2004318072
  111 000e 5C60     		str	r4, [r3, #4]
-  34:drivers/bsp_f1xx_flash.c **** 	FLASH->CR |= FLASH_PROGRAM;
- 112              		.loc 1 34 0
+  32:drivers/bsp_f1xx_flash.c **** 	FLASH->CR |= FLASH_PROGRAM;
+ 112              		.loc 1 32 0
  113 0010 1C69     		ldr	r4, [r3, #16]
  114 0012 44F00104 		orr	r4, r4, #1
  115 0016 1C61     		str	r4, [r3, #16]
  116              	.L7:
-  35:drivers/bsp_f1xx_flash.c **** 	while (FLASH->SR & 0x01); //等待falsh空闲
- 117              		.loc 1 35 0 discriminator 1
+  33:drivers/bsp_f1xx_flash.c **** 	while (FLASH->SR & 0x01); //等待falsh空闲
+ 117              		.loc 1 33 0 discriminator 1
  118 0018 0E4B     		ldr	r3, .L11
  119 001a DB68     		ldr	r3, [r3, #12]
  120 001c 13F0010F 		tst	r3, #1
  121 0020 FAD1     		bne	.L7
  122              	.LVL4:
  123              	.L9:
-  36:drivers/bsp_f1xx_flash.c **** 	do{
-  37:drivers/bsp_f1xx_flash.c **** 		*p++=*q++;
- 124              		.loc 1 37 0
+  34:drivers/bsp_f1xx_flash.c **** 	do {
+  35:drivers/bsp_f1xx_flash.c **** 		*p++ = *q++;
+ 124              		.loc 1 35 0
  125 0022 8C1C     		adds	r4, r1, #2
  126              	.LVL5:
  127 0024 851C     		adds	r5, r0, #2
@@ -172,42 +170,42 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 1
  129 0026 0B88     		ldrh	r3, [r1]
  130 0028 0380     		strh	r3, [r0]	@ movhi
  131              	.L8:
-  38:drivers/bsp_f1xx_flash.c **** 		while (FLASH->SR & 0x01); //等待falsh空闲
- 132              		.loc 1 38 0 discriminator 1
+  36:drivers/bsp_f1xx_flash.c **** 		while (FLASH->SR & 0x01); //等待falsh空闲
+ 132              		.loc 1 36 0 discriminator 1
  133 002a 0A4B     		ldr	r3, .L11
  134 002c DB68     		ldr	r3, [r3, #12]
  135 002e 13F0010F 		tst	r3, #1
  136 0032 FAD1     		bne	.L8
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 4
+  37:drivers/bsp_f1xx_flash.c **** 	} while (--len);
+ 137              		.loc 1 37 0
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s 			page 4
 
 
-  39:drivers/bsp_f1xx_flash.c **** 	}while (--len);
- 137              		.loc 1 39 0
  138 0034 013A     		subs	r2, r2, #1
  139              	.LVL7:
  140 0036 92B2     		uxth	r2, r2
  141              	.LVL8:
-  37:drivers/bsp_f1xx_flash.c **** 		while (FLASH->SR & 0x01); //等待falsh空闲
- 142              		.loc 1 37 0
+  35:drivers/bsp_f1xx_flash.c **** 		while (FLASH->SR & 0x01); //等待falsh空闲
+ 142              		.loc 1 35 0
  143 0038 2846     		mov	r0, r5
  144 003a 2146     		mov	r1, r4
- 145              		.loc 1 39 0
+ 145              		.loc 1 37 0
  146 003c 002A     		cmp	r2, #0
  147 003e F0D1     		bne	.L9
  148              	.LVL9:
-  40:drivers/bsp_f1xx_flash.c **** 	FLASH->CR &= ~FLASH_PROGRAM; //退出FLASH编程模式
- 149              		.loc 1 40 0
+  38:drivers/bsp_f1xx_flash.c **** 	FLASH->CR &= ~FLASH_PROGRAM; //退出FLASH编程模式
+ 149              		.loc 1 38 0
  150 0040 044B     		ldr	r3, .L11
  151 0042 1A69     		ldr	r2, [r3, #16]
  152              	.LVL10:
  153 0044 22F00102 		bic	r2, r2, #1
  154 0048 1A61     		str	r2, [r3, #16]
-  41:drivers/bsp_f1xx_flash.c **** 	LOCKFALSH;
- 155              		.loc 1 41 0
+  39:drivers/bsp_f1xx_flash.c **** 	LOCKFALSH;
+ 155              		.loc 1 39 0
  156 004a 8022     		movs	r2, #128
  157 004c 1A61     		str	r2, [r3, #16]
-  42:drivers/bsp_f1xx_flash.c **** }
- 158              		.loc 1 42 0
+  40:drivers/bsp_f1xx_flash.c **** }
+ 158              		.loc 1 40 0
  159 004e 30BC     		pop	{r4, r5}
  160              	.LCFI1:
  161              		.cfi_restore 5
@@ -230,47 +228,47 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 1
  179              		.fpu softvfp
  181              	bsp_ReadFlash:
  182              	.LFB68:
-  43:drivers/bsp_f1xx_flash.c **** 
-  44:drivers/bsp_f1xx_flash.c **** void bsp_ReadFlash(u32 rAddr,u8 *dat,u16 len)
-  45:drivers/bsp_f1xx_flash.c **** {
- 183              		.loc 1 45 0
+  41:drivers/bsp_f1xx_flash.c **** 
+  42:drivers/bsp_f1xx_flash.c **** void bsp_ReadFlash(u32 rAddr, u8 *dat, u16 len)
+  43:drivers/bsp_f1xx_flash.c **** {
+ 183              		.loc 1 43 0
  184              		.cfi_startproc
  185              		@ args = 0, pretend = 0, frame = 0
  186              		@ frame_needed = 0, uses_anonymous_args = 0
  187              		@ link register save eliminated.
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 5
-
-
  188              	.LVL11:
-  46:drivers/bsp_f1xx_flash.c **** 	len >>= 1;
- 189              		.loc 1 46 0
+  44:drivers/bsp_f1xx_flash.c **** 	len >>= 1;
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s 			page 5
+
+
+ 189              		.loc 1 44 0
  190 0000 5208     		lsrs	r2, r2, #1
  191              	.LVL12:
  192              	.L14:
-  47:drivers/bsp_f1xx_flash.c **** 	u16 *p = (u16*)dat;
-  48:drivers/bsp_f1xx_flash.c **** 	u16 *q = (u16*)rAddr;
-  49:drivers/bsp_f1xx_flash.c **** 	do{
-  50:drivers/bsp_f1xx_flash.c **** 		*p++ = *q++;
- 193              		.loc 1 50 0 discriminator 1
+  45:drivers/bsp_f1xx_flash.c **** 	u16 *p = (u16 *) dat;
+  46:drivers/bsp_f1xx_flash.c **** 	u16 *q = (u16 *) rAddr;
+  47:drivers/bsp_f1xx_flash.c **** 	do {
+  48:drivers/bsp_f1xx_flash.c **** 		*p++ = *q++;
+ 193              		.loc 1 48 0 discriminator 1
  194 0002 0388     		ldrh	r3, [r0]
  195 0004 0B80     		strh	r3, [r1]	@ movhi
-  51:drivers/bsp_f1xx_flash.c **** 	}while(--len);
- 196              		.loc 1 51 0 discriminator 1
+  49:drivers/bsp_f1xx_flash.c **** 	} while (--len);
+ 196              		.loc 1 49 0 discriminator 1
  197 0006 013A     		subs	r2, r2, #1
  198              	.LVL13:
  199 0008 92B2     		uxth	r2, r2
  200              	.LVL14:
-  50:drivers/bsp_f1xx_flash.c **** 	}while(--len);
- 201              		.loc 1 50 0 discriminator 1
+  48:drivers/bsp_f1xx_flash.c **** 	} while (--len);
+ 201              		.loc 1 48 0 discriminator 1
  202 000a 0231     		adds	r1, r1, #2
  203              	.LVL15:
  204 000c 0230     		adds	r0, r0, #2
  205              	.LVL16:
- 206              		.loc 1 51 0 discriminator 1
+ 206              		.loc 1 49 0 discriminator 1
  207 000e 002A     		cmp	r2, #0
  208 0010 F7D1     		bne	.L14
-  52:drivers/bsp_f1xx_flash.c **** }...
- 209              		.loc 1 52 0
+  50:drivers/bsp_f1xx_flash.c **** }...
+ 209              		.loc 1 50 0
  210 0012 7047     		bx	lr
  211              		.cfi_endproc
  212              	.LFE68:
@@ -287,18 +285,18 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 1
  224              		.file 10 "startup/inc/sys.h"
  225              		.file 11 "tools/inc/malloc.h"
  226              		.file 12 "tools/inc/tskmanager.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s 			page 6
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 bsp_f1xx_flash.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s:16     .text.bsp_EraseFlash:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s:23     .text.bsp_EraseFlash:0000000000000000 bsp_EraseFlash
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s:77     .text.bsp_EraseFlash:000000000000004c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s:83     .text.bsp_WriteFlash:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s:90     .text.bsp_WriteFlash:0000000000000000 bsp_WriteFlash
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s:168    .text.bsp_WriteFlash:0000000000000054 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s:174    .text.bsp_ReadFlash:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccChxd21.s:181    .text.bsp_ReadFlash:0000000000000000 bsp_ReadFlash
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s:16     .text.bsp_EraseFlash:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s:23     .text.bsp_EraseFlash:0000000000000000 bsp_EraseFlash
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s:77     .text.bsp_EraseFlash:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s:83     .text.bsp_WriteFlash:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s:90     .text.bsp_WriteFlash:0000000000000000 bsp_WriteFlash
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s:168    .text.bsp_WriteFlash:0000000000000054 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s:174    .text.bsp_ReadFlash:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccFnsXbg.s:181    .text.bsp_ReadFlash:0000000000000000 bsp_ReadFlash
 
 NO UNDEFINED SYMBOLS

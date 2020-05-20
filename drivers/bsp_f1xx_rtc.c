@@ -26,13 +26,11 @@ u8 bsp_RTC_Init(void)
 		RCC->BDCR |= 1 << 16;        //备份区域软复位
 		RCC->BDCR &= ~(1 << 16);     //备份区域软复位结束
 		RCC->BDCR |= 1 << 0;         //开启外部低速振荡器
-		while ((!(RCC->BDCR & 0X02)) && (temp < 72000000))
-		{ temp++; }//等待外部时钟就绪
+		while ((!(RCC->BDCR & 0X02)) && (temp < 72000000)) { temp++; }//等待外部时钟就绪
 		if (temp >= 72000000)return 1;//初始化时钟失败,晶振有问题
 		RCC->BDCR |= 1 << 8; //LSE作为RTC时钟
 		RCC->BDCR |= 1 << 15;//RTC时钟使能
-		while (!(RTC->CRL & (1 << 5)))
-		{}//等待RTC寄存器操作完成
+		while (!(RTC->CRL & (1 << 5))) {}//等待RTC寄存器操作完成
 //		while (!(RTC->CRL & (1 << 3))){}//等待RTC寄存器同步
 		//	RTC->CRH |= 0X01;                  //允许秒中断
 //		while (!(RTC->CRL & (1 << 5)));//等待RTC寄存器操作完成
@@ -83,8 +81,7 @@ u8 Is_Leap_Year(u16 year)
 {
 	if (year % 4 == 0) //必须能被4整除
 	{
-		if (year % 100 == 0)
-		{
+		if (year % 100 == 0) {
 			if (year % 400 == 0)return 1;//如果以00结尾,还要能被400整除
 			else return 0;
 		} else return 1;
@@ -173,8 +170,7 @@ u8 RTC_Get(void)
 	temp = timecount / 86400;   //得到天数(秒钟数对应的)
 
 	temp1 = 1970;        //从1970年开始
-	while (temp >= 365)
-	{
+	while (temp >= 365) {
 		if (Is_Leap_Year(temp1))//是闰年
 		{
 			if (temp >= 366)temp -= 366;//闰年的秒钟数
@@ -190,8 +186,7 @@ u8 RTC_Get(void)
 		{
 			if (temp >= 29)temp -= 29;//闰年的秒钟数
 			else break;
-		} else
-		{
+		} else {
 			if (temp >= mon_table[temp1])temp -= mon_table[temp1];//平年
 			else break;
 		}

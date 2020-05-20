@@ -4,28 +4,29 @@
 
 
 void runledfunc(void *args);
+
 _led runled = {
-        .io = {PB,12,IO_MODE_OUT_PP_50MHZ,},
-        .lightlevel = 0,
+		.io = {PB, 12, IO_MODE_OUT_PP_50MHZ,},
+		.lightlevel = 0,
 };
 
-_Task runledtsk={
-        .ms = 100,
-        .func = runledfunc,
+_Task runledtsk = {
+		.ms = 100,
+		.func = runledfunc,
 };
 
 void runledfunc(void *args)
 {
-	ledinit(&runled);
-    ledfilp(&runled);
+	ledfilp(&runled);
 }
 
 void runledinit(void)
 {
-    CreateTask(&runledtsk);
+	ledinit(&runled);
+	CreateTask(&runledtsk);
 }
 
 void SetRunledTime(u32 ms)
 {
-	runledtsk.period = ms;
+	SetTaskPeriod(0,0,0,0,ms,&runledtsk);
 }
