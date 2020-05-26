@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
   30              	.LVL0:
   27:tools/tskmanager.c **** 
   28:tools/tskmanager.c **** }
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 2
 
 
   31              		.loc 1 28 0
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
   77              		.loc 1 40 0
   78 0004 154B     		ldr	r3, .L9
   79 0006 D3E90045 		ldrd	r4, [r3]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 3
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 3
 
 
   80 000a 154B     		ldr	r3, .L9+4
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  115 0038 08BF     		it	eq
  116 003a A242     		cmpeq	r2, r4
  117 003c E9D2     		bcs	.L4
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 4
 
 
   54:tools/tskmanager.c **** 	else
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  170 000a 8B42     		cmp	r3, r1
  171 000c 08BF     		it	eq
  172 000e 8242     		cmpeq	r2, r0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 5
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 5
 
 
  173 0010 0CD3     		bcc	.L15
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  226              		@ frame_needed = 0, uses_anonymous_args = 0
  227              		@ link register save eliminated.
  228 0000 4DF804BD 		push	{fp}
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 6
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 6
 
 
  229              	.LCFI5:
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  279              	.LCFI8:
  280              		.cfi_def_cfa_offset 48
   62:tools/tskmanager.c **** 	tsk->tick = TaskManger.tick;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 7
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 7
 
 
  281              		.loc 1 62 0
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  332 0096 B246     		mov	r10, r6
  333 0098 7E01     		lsls	r6, r7, #5
  334 009a 46EADA66 		orr	r6, r6, r10, lsr #27
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 8
 
 
  335 009e 4FEA4A17 		lsl	r7, r10, #5
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
   72:tools/tskmanager.c **** void DelTask(_Task *delTask)
   73:tools/tskmanager.c **** {
  383              		.loc 1 73 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 9
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 9
 
 
  384              		.cfi_startproc
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  429              		.loc 1 83 0
  430              		.cfi_startproc
  431              		@ args = 28, pretend = 0, frame = 8
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 10
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 10
 
 
  432              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -598,7 +598,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  485 0074 41EB0907 		adc	r7, r1, r9
  486 0078 4FEA0719 		lsl	r9, r7, #4
  487 007c 49EA1679 		orr	r9, r9, r6, lsr #28
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 11
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 11
 
 
  488 0080 4FEA0618 		lsl	r8, r6, #4
@@ -658,7 +658,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  539              		.loc 1 89 0
  540              		.cfi_startproc
  541              		@ Volatile: function does not return.
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 12
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 12
 
 
  542              		@ args = 0, pretend = 0, frame = 0
@@ -718,7 +718,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
   92:tools/tskmanager.c **** 			RunTask->tick = TaskManger.tick;
  588              		.loc 1 92 0
  589 0036 D4E90001 		ldrd	r0, [r4]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 13
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 13
 
 
  590              	.LVL23:
@@ -778,7 +778,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  643 0040 00000000 		.word	sTask
  644 0044 00000000 		.word	sTask
  645              		.section	.data.sTask,"aw",%progbits
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 14
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 14
 
 
  646              		.align	3
@@ -804,42 +804,42 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 1
  664              		.file 9 "startup/inc/sys.h"
  665              		.file 10 "tools/inc/malloc.h"
  666              		.file 11 "tools/inc/tskmanager.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s 			page 15
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 tskmanager.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:16     .text.StartTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:22     .text.StartTask:0000000000000000 StartTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:37     .text.EndTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:43     .text.EndTask:0000000000000000 EndTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:57     .text.DelayMs:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:63     .text.DelayMs:0000000000000000 DelayMs
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:141    .text.DelayMs:000000000000005c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:16     .text.StartTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:22     .text.StartTask:0000000000000000 StartTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:37     .text.EndTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:43     .text.EndTask:0000000000000000 EndTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:57     .text.DelayMs:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:63     .text.DelayMs:0000000000000000 DelayMs
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:141    .text.DelayMs:000000000000005c $d
                             *COM*:0000000000000008 delayTick
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:147    .text.TaskTickDiff:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:153    .text.TaskTickDiff:0000000000000000 TaskTickDiff
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:209    .text.TaskTickDiff:0000000000000044 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:214    .text.TskTickHandler:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:221    .text.TskTickHandler:0000000000000000 TskTickHandler
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:247    .text.TskTickHandler:000000000000001c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:252    .text.CreateTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:259    .text.CreateTask:0000000000000000 CreateTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:367    .text.CreateTask:00000000000000d8 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:374    .text.DelTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:381    .text.DelTask:0000000000000000 DelTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:420    .text.SetTaskPeriod:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:427    .text.SetTaskPeriod:0000000000000000 SetTaskPeriod
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:524    .text.SetTaskPeriod:00000000000000c0 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:530    .text.ExecTask:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:537    .text.ExecTask:0000000000000000 ExecTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:611    .text.ExecTask:0000000000000060 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:627    .data.TaskManger:0000000000000000 TaskManger
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:640    .data.eTask:0000000000000000 eTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:650    .data.sTask:0000000000000000 sTask
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:623    .data.TaskManger:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:637    .data.eTask:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccJT9e6d.s:646    .data.sTask:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:147    .text.TaskTickDiff:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:153    .text.TaskTickDiff:0000000000000000 TaskTickDiff
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:209    .text.TaskTickDiff:0000000000000044 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:214    .text.TskTickHandler:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:221    .text.TskTickHandler:0000000000000000 TskTickHandler
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:247    .text.TskTickHandler:000000000000001c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:252    .text.CreateTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:259    .text.CreateTask:0000000000000000 CreateTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:367    .text.CreateTask:00000000000000d8 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:374    .text.DelTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:381    .text.DelTask:0000000000000000 DelTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:420    .text.SetTaskPeriod:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:427    .text.SetTaskPeriod:0000000000000000 SetTaskPeriod
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:524    .text.SetTaskPeriod:00000000000000c0 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:530    .text.ExecTask:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:537    .text.ExecTask:0000000000000000 ExecTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:611    .text.ExecTask:0000000000000060 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:627    .data.TaskManger:0000000000000000 TaskManger
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:640    .data.eTask:0000000000000000 eTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:650    .data.sTask:0000000000000000 sTask
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:623    .data.TaskManger:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:637    .data.eTask:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccr7YkMJ.s:646    .data.sTask:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 myfree

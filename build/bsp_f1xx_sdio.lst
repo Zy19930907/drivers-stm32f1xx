@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
   31:drivers/bsp_f1xx_sdio.c **** 	GPIOD->CRL &= 0XFFFFF0FF;
   32:drivers/bsp_f1xx_sdio.c **** 	GPIOD->CRL |= 0X00000B00;    //PD2复用输出,PD7 上拉输入
   33:drivers/bsp_f1xx_sdio.c **** 	//SDIO外设寄存器设置为默认值
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 2
 
 
   34:drivers/bsp_f1xx_sdio.c **** 	SDIO->POWER = 0x00000000;
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
   70:drivers/bsp_f1xx_sdio.c **** }
   44              		.loc 1 70 0
   45 000c 7047     		bx	lr
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 3
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 3
 
 
   46              	.L3:
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
   89              		.loc 1 83 0
   90 0016 40EA8110 		orr	r0, r0, r1, lsl #6
   91              	.LVL10:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 4
 
 
   84:drivers/bsp_f1xx_sdio.c **** 	tmpreg |= 0 << 8;            //无等待
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  133              		.loc 1 98 0
  134 0006 21F07E41 		bic	r1, r1, #-33554432
  135              	.LVL13:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 5
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 5
 
 
  136 000a A162     		str	r1, [r4, #40]
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  111:drivers/bsp_f1xx_sdio.c **** SD_Error SD_PowerON(void)
  112:drivers/bsp_f1xx_sdio.c **** {
  113:drivers/bsp_f1xx_sdio.c **** 	u8 i = 0;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 6
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 6
 
 
  114:drivers/bsp_f1xx_sdio.c **** 	SD_Error errorstatus = SD_OK;
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  168:drivers/bsp_f1xx_sdio.c **** 		//MMC卡,发送CMD1 SDIO_SEND_OP_COND,参数为:0x80FF8000
  169:drivers/bsp_f1xx_sdio.c **** 		while ((!validvoltage) && (count < SD_MAX_VOLT_TRIAL)) {
  170:drivers/bsp_f1xx_sdio.c **** 			SDIO_Send_Cmd(SD_CMD_SEND_OP_COND, 1, SD_VOLTAGE_WINDOW_MMC);//发送CMD1,短响应
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 7
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 7
 
 
  171:drivers/bsp_f1xx_sdio.c **** 			errorstatus = CmdResp3Error();                    //等待R3响应
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  197:drivers/bsp_f1xx_sdio.c **** {
  198:drivers/bsp_f1xx_sdio.c **** 	SD_Error errorstatus = SD_OK;
  199:drivers/bsp_f1xx_sdio.c **** 	u16 rca = 0x01;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 8
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 8
 
 
  200:drivers/bsp_f1xx_sdio.c **** 	if ((SDIO->POWER & 0X03) == 0)return SD_REQUEST_NOT_APPLICABLE;//检查电源状态,确保为上�
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  222              		.cfi_offset 7, -4
  223 0002 0346     		mov	r3, r0
  224              	.LVL21:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 9
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 9
 
 
  242:drivers/bsp_f1xx_sdio.c **** 	SD_Error errorstatus = SD_OK;
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  264 003a 6068     		ldr	r0, [r4, #4]
  265 003c 010E     		lsrs	r1, r0, #24
  266              	.LVL28:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 10
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 10
 
 
  257:drivers/bsp_f1xx_sdio.c **** 	cardinfo->SD_csd.CardComdClasses = tmp << 4;        //卡指令类高四位
@@ -598,7 +598,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  275:drivers/bsp_f1xx_sdio.c **** 		cardinfo->SD_csd.MaxRdCurrentVDDMin = (tmp & 0x38) >> 3;
  276:drivers/bsp_f1xx_sdio.c **** 		cardinfo->SD_csd.MaxRdCurrentVDDMax = (tmp & 0x07);
  277:drivers/bsp_f1xx_sdio.c **** 		tmp = (u8) ((CSD_Tab[2] & 0x00FF0000) >> 16);        //第9个字节
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 11
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 11
 
 
  278:drivers/bsp_f1xx_sdio.c **** 		cardinfo->SD_csd.MaxWrCurrentVDDMin = (tmp & 0xE0) >> 5;
@@ -658,7 +658,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  336              		.loc 1 270 0
  337 00a8 8902     		lsls	r1, r1, #10
  338 00aa 01F44061 		and	r1, r1, #3072
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 12
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 12
 
 
  339              	.LVL36:
@@ -718,7 +718,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  381 00ee 01F1010C 		add	ip, r1, #1
  284:drivers/bsp_f1xx_sdio.c **** 		cardinfo->CardBlockSize = 1 << (cardinfo->SD_csd.RdBlockLen);//块大小
  382              		.loc 1 284 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 13
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 13
 
 
  383 00f2 0230     		adds	r0, r0, #2
@@ -778,7 +778,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  425              		.loc 1 307 0
  426 0140 C2F38200 		ubfx	r0, r2, #2, #3
  427 0144 9877     		strb	r0, [r3, #30]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 14
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 14
 
 
  308:drivers/bsp_f1xx_sdio.c **** 	cardinfo->SD_csd.MaxWrBlockLen = (tmp & 0x03) << 2;
@@ -838,7 +838,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  469 0196 04F00304 		and	r4, r4, #3
  470              	.LVL51:
  471 019a 83F82840 		strb	r4, [r3, #40]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 15
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 15
 
 
  472              	.LVL52:
@@ -898,7 +898,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  511              	.LVL62:
  512 01d2 89B2     		uxth	r1, r1
  513 01d4 0A43     		orrs	r2, r2, r1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 16
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 16
 
 
  514              	.LVL63:
@@ -958,7 +958,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  553              	.LVL72:
  351:drivers/bsp_f1xx_sdio.c **** 	cardinfo->SD_cid.Reserved1 |= (tmp & 0xF0) >> 4;
  554              		.loc 1 351 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 17
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 17
 
 
  555 0208 C2F30315 		ubfx	r5, r2, #4, #4
@@ -1018,7 +1018,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  603              	SD_SetDeviceMode:
  604              	.LFB75:
  360:drivers/bsp_f1xx_sdio.c **** 
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 18
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 18
 
 
  361:drivers/bsp_f1xx_sdio.c **** //设置SDIO总线宽度(MMC卡不支持4bit模式)
@@ -1078,7 +1078,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  626              		.loc 1 392 0
  627 000e 7047     		bx	lr
  628              	.L26:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 19
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 19
 
 
  629              		.align	2
@@ -1138,7 +1138,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  433:drivers/bsp_f1xx_sdio.c **** 	{
  434:drivers/bsp_f1xx_sdio.c **** 		INTX_DISABLE();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
  435:drivers/bsp_f1xx_sdio.c **** 		while (!(SDIO->STA & ((1 << 5) | (1 << 1) | (1 << 3) | (1 << 10) | (1 << 9))))//无上溢/CRC/超
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 20
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 20
 
 
  436:drivers/bsp_f1xx_sdio.c **** 		{
@@ -1198,7 +1198,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  490:drivers/bsp_f1xx_sdio.c **** //SD卡读取多个块
  491:drivers/bsp_f1xx_sdio.c **** //buf:读数据缓存区
  492:drivers/bsp_f1xx_sdio.c **** //addr:读取地址
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 21
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 21
 
 
  493:drivers/bsp_f1xx_sdio.c **** //blksize:块大小
@@ -1258,7 +1258,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  547:drivers/bsp_f1xx_sdio.c **** 				SDIO->ICR |= 1 << 3;        //清错误标志
  548:drivers/bsp_f1xx_sdio.c **** 				return SD_DATA_TIMEOUT;
  549:drivers/bsp_f1xx_sdio.c **** 			} else if (SDIO->STA & (1 << 1))    //数据块CRC错误
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 22
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 22
 
 
  550:drivers/bsp_f1xx_sdio.c **** 			{
@@ -1318,7 +1318,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  604:drivers/bsp_f1xx_sdio.c **** 	u32 cardstatus = 0, count = 0, restwords = 0;
  605:drivers/bsp_f1xx_sdio.c **** 	u32 tlen = blksize;                        //总长度(字节)
  606:drivers/bsp_f1xx_sdio.c **** 	u32 *tempbuff = (u32 *) buf;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 23
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 23
 
 
  607:drivers/bsp_f1xx_sdio.c **** 	if (buf == NULL)return SD_INVALID_PARAMETER;//参数错误
@@ -1378,7 +1378,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  661:drivers/bsp_f1xx_sdio.c **** 					bytestransferred += 32;
  662:drivers/bsp_f1xx_sdio.c **** 				}
  663:drivers/bsp_f1xx_sdio.c **** 				timeout = 0X3FFFFFFF;    //写数据溢出时间
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 24
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 24
 
 
  664:drivers/bsp_f1xx_sdio.c **** 			} else {
@@ -1438,7 +1438,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  718:drivers/bsp_f1xx_sdio.c **** //返回值:错误状态
  719:drivers/bsp_f1xx_sdio.c **** SD_Error SD_WriteMultiBlocks(u8 *buf, long long addr, u16 blksize, u32 nblks)
  720:drivers/bsp_f1xx_sdio.c **** {
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 25
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 25
 
 
  721:drivers/bsp_f1xx_sdio.c **** 	SD_Error errorstatus = SD_OK;
@@ -1498,7 +1498,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  775:drivers/bsp_f1xx_sdio.c **** 							SDIO->FIFO = *(tempbuff + count);
  776:drivers/bsp_f1xx_sdio.c **** 						}
  777:drivers/bsp_f1xx_sdio.c **** 						tempbuff += SD_HALFFIFO;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 26
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 26
 
 
  778:drivers/bsp_f1xx_sdio.c **** 						bytestransferred += SD_HALFFIFOBYTES;
@@ -1558,7 +1558,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  832:drivers/bsp_f1xx_sdio.c **** 		}
  833:drivers/bsp_f1xx_sdio.c **** 	}
  834:drivers/bsp_f1xx_sdio.c **** 	SDIO->ICR = 0X5FF;            //清除所有标记
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 27
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 27
 
 
  835:drivers/bsp_f1xx_sdio.c **** 	errorstatus = IsCardProgramming(&cardstate);
@@ -1618,7 +1618,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  889:drivers/bsp_f1xx_sdio.c **** 	if (SDIO->STA & (1 << 4))//FIFO下溢错误
  890:drivers/bsp_f1xx_sdio.c **** 	{
  891:drivers/bsp_f1xx_sdio.c **** 		SDIO->ICR |= 1 << 4;//清除中断标记
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 28
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 28
 
 
  892:drivers/bsp_f1xx_sdio.c **** 		SDIO->MASK &= ~((1 << 1) | (1 << 3) | (1 << 8) | (1 << 14) | (1 << 15) | (1 << 4) | (1 << 5) |
@@ -1678,7 +1678,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  671 0016 044B     		ldr	r3, .L33
  672 0018 40F2FF52 		movw	r2, #1535
  673              	.LVL84:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 29
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 29
 
 
  674 001c 9A63     		str	r2, [r3, #56]
@@ -1738,7 +1738,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  717 000a 5A6B     		ldr	r2, [r3, #52]
  718              	.LVL89:
  929:drivers/bsp_f1xx_sdio.c **** 	while (timeout--) {
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 30
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 30
 
 
  719              		.loc 1 929 0
@@ -1798,7 +1798,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  945:drivers/bsp_f1xx_sdio.c **** }
  757              		.loc 1 945 0
  758 0040 7047     		bx	lr
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 31
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 31
 
 
  759              	.L44:
@@ -1858,7 +1858,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  965:drivers/bsp_f1xx_sdio.c **** 		return SD_CMD_CRC_FAIL;
  966:drivers/bsp_f1xx_sdio.c **** 	}
  967:drivers/bsp_f1xx_sdio.c **** 	if (SDIO->RESPCMD != cmd)return SD_ILLEGAL_CMD;//命令不匹配
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 32
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 32
 
 
  796              		.loc 1 967 0
@@ -1918,7 +1918,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  842 0044 00800140 		.word	1073840128
  843              		.cfi_endproc
  844              	.LFE85:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 33
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 33
 
 
  846              		.section	.text.SD_SelectDeselect,"ax",%progbits
@@ -1978,7 +1978,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  898              		.cfi_def_cfa_offset 8
  899              		.cfi_offset 3, -8
  900              		.cfi_offset 14, -4
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 34
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 34
 
 
  853:drivers/bsp_f1xx_sdio.c **** 	{
@@ -2038,7 +2038,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  945 0048 0C20     		movs	r0, #12
  946 004a FFF7FEFF 		bl	CmdResp1Error
  947              	.LVL111:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 35
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 35
 
 
  948 004e 364B     		ldr	r3, .L74+8
@@ -2098,7 +2098,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  993 00a2 214B     		ldr	r3, .L74+8
  994 00a4 1870     		strb	r0, [r3]
  871:drivers/bsp_f1xx_sdio.c **** 	}
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 36
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 36
 
 
  995              		.loc 1 871 0
@@ -2158,7 +2158,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1039 00f0 23F44343 		bic	r3, r3, #49920
  1040 00f4 23F03A03 		bic	r3, r3, #58
  1041 00f8 D363     		str	r3, [r2, #60]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 37
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 37
 
 
  894:drivers/bsp_f1xx_sdio.c **** 		return (SD_TX_UNDERRUN);
@@ -2218,7 +2218,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1091              		.cfi_def_cfa_offset 8
  1092              		.cfi_offset 3, -8
  1093              		.cfi_offset 14, -4
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 38
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 38
 
 
  845:drivers/bsp_f1xx_sdio.c **** }
@@ -2278,7 +2278,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1132 0016 9A63     		str	r2, [r3, #56]
  987:drivers/bsp_f1xx_sdio.c **** 	return SD_OK;
  1133              		.loc 1 987 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 39
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 39
 
 
  1134 0018 0020     		movs	r0, #0
@@ -2338,7 +2338,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  120:drivers/bsp_f1xx_sdio.c **** 	SDIO->CLKCR |= 0 << 11;            //1位数据宽度
  1184              		.loc 1 120 0
  1185 000c 6B68     		ldr	r3, [r5, #4]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 40
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 40
 
 
  1186 000e 6B60     		str	r3, [r5, #4]
@@ -2398,7 +2398,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1228              	.LVL122:
  1229 0048 E4B2     		uxtb	r4, r4
  1230              	.LVL123:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 41
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 41
 
 
  1231 004a F1E7     		b	.L86
@@ -2458,7 +2458,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1275 007e 0346     		mov	r3, r0
  1276 0080 C0B1     		cbz	r0, .L98
  115:drivers/bsp_f1xx_sdio.c **** 	u32 SDType = SD_STD_CAPACITY;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 42
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 42
 
 
  1277              		.loc 1 115 0
@@ -2518,7 +2518,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1321              		.loc 1 115 0
  1322 00b4 0022     		movs	r2, #0
  1323 00b6 1446     		mov	r4, r2
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 43
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 43
 
 
  1324              	.LVL143:
@@ -2578,7 +2578,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  156:drivers/bsp_f1xx_sdio.c **** 			count++;
  1369              		.loc 1 156 0
  1370 00f8 CA0F     		lsrs	r2, r1, #31
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 44
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 44
 
 
  1371              	.LVL153:
@@ -2638,7 +2638,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1417 012c 00800140 		.word	1073840128
  1418 0130 00000000 		.word	.LANCHOR0
  1419 0134 0080FF80 		.word	-2130739200
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 45
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 45
 
 
  1420              		.cfi_endproc
@@ -2698,7 +2698,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
 1002:drivers/bsp_f1xx_sdio.c **** 	{
 1003:drivers/bsp_f1xx_sdio.c **** 		errorstatus = SD_CMD_RSP_TIMEOUT;
 1004:drivers/bsp_f1xx_sdio.c **** 		SDIO->ICR |= 1 << 2;                //清除命令响应超时标志
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 46
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 46
 
 
 1005:drivers/bsp_f1xx_sdio.c **** 		return errorstatus;
@@ -2758,7 +2758,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1502              		.cfi_endproc
  1503              	.LFE87:
  1505              		.section	.text.CmdResp6Error,"ax",%progbits
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 47
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 47
 
 
  1506              		.align	1
@@ -2818,7 +2818,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1536 0016 184B     		ldr	r3, .L130
  1537              	.LVL174:
  1538 0018 1B69     		ldr	r3, [r3, #16]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 48
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 48
 
 
  1539 001a 8342     		cmp	r3, r0
@@ -2878,7 +2878,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1577              	.LVL180:
  1578              	.L127:
 1036:drivers/bsp_f1xx_sdio.c **** 		return SD_CMD_CRC_FAIL;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 49
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 49
 
 
  1579              		.loc 1 1036 0
@@ -2938,7 +2938,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1626 0078 00800140 		.word	1073840128
  1627              		.cfi_endproc
  1628              	.LFE88:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 50
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 50
 
 
  1630              		.section	.text.SD_InitializeCards,"ax",%progbits
@@ -2998,7 +2998,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1678              	.L135:
  214:drivers/bsp_f1xx_sdio.c **** 		errorstatus = CmdResp6Error(SD_CMD_SET_REL_ADDR, &rca);//等待R6响应
  1679              		.loc 1 214 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 51
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 51
 
 
  1680 002c 0022     		movs	r2, #0
@@ -3058,7 +3058,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1725 0072 1949     		ldr	r1, .L143
  1726 0074 4869     		ldr	r0, [r1, #20]
  1727              	.LVL201:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 52
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 52
 
 
  1728 0076 1B4A     		ldr	r2, .L143+12
@@ -3118,7 +3118,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1771              		.loc 1 219 0
  1772 00b0 BDF80620 		ldrh	r2, [sp, #6]
  1773 00b4 1204     		lsls	r2, r2, #16
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 53
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 53
 
 
  1774 00b6 0121     		movs	r1, #1
@@ -3178,7 +3178,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1825              	IsCardProgramming:
  1826              	.LFB90:
 1054:drivers/bsp_f1xx_sdio.c **** 
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 54
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 54
 
 
 1055:drivers/bsp_f1xx_sdio.c **** //SDIO使能宽总线模式
@@ -3238,7 +3238,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1850 0014 0D20     		movs	r0, #13
  1851              	.LVL211:
  1852 0016 FFF7FEFF 		bl	SDIO_Send_Cmd
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 55
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 55
 
 
  1853              	.LVL212:
@@ -3298,7 +3298,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1891 0054 019B     		ldr	r3, [sp, #4]
  1892 0056 C3F34323 		ubfx	r3, r3, #9, #4
  1893 005a 2370     		strb	r3, [r4]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 56
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 56
 
 
 1102:drivers/bsp_f1xx_sdio.c **** 	return SD_OK;
@@ -3358,7 +3358,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1942              		.thumb_func
  1943              		.fpu softvfp
  1945              	SD_SendStatus:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 57
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 57
 
 
  1946              	.LFB91:
@@ -3418,7 +3418,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  1982              		.loc 1 1120 0
  1983 0024 1846     		mov	r0, r3
  1984              	.LVL218:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 58
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 58
 
 
  1985 0026 10BD     		pop	{r4, pc}
@@ -3478,7 +3478,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2033              	.LVL221:
  2034 0010 28B9     		cbnz	r0, .L168
 1128:drivers/bsp_f1xx_sdio.c **** 	else return (SDCardState) ((resp1 >> 9) & 0x0F);
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 59
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 59
 
 
  2035              		.loc 1 1128 0
@@ -3538,7 +3538,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
 1137:drivers/bsp_f1xx_sdio.c **** 	u32 index = 0;
 1138:drivers/bsp_f1xx_sdio.c **** 	SD_Error errorstatus = SD_OK;
 1139:drivers/bsp_f1xx_sdio.c **** 	u32 tempscr[2] = {0, 0};
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 60
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 60
 
 
  2082              		.loc 1 1139 0
@@ -3598,7 +3598,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
 1173:drivers/bsp_f1xx_sdio.c **** 		SDIO->ICR |= 1 << 9;        //清除标记
 1174:drivers/bsp_f1xx_sdio.c **** 		return SD_START_BIT_ERR;
 1175:drivers/bsp_f1xx_sdio.c **** 	}
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 61
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 61
 
 
 1176:drivers/bsp_f1xx_sdio.c **** 	SDIO->ICR = 0X5FF;            //清除标记
@@ -3658,7 +3658,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
 1148:drivers/bsp_f1xx_sdio.c **** 	if (errorstatus != SD_OK)return errorstatus;
  2144              		.loc 1 1148 0
  2145 0056 3320     		movs	r0, #51
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 62
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 62
 
 
  2146 0058 FFF7FEFF 		bl	CmdResp1Error
@@ -3718,7 +3718,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
 1171:drivers/bsp_f1xx_sdio.c **** 	{
  2191              		.loc 1 1171 0
  2192 00a6 204A     		ldr	r2, .L186
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 63
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 63
 
 
  2193 00a8 526B     		ldr	r2, [r2, #52]
@@ -3778,7 +3778,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2234 00ee 0E4A     		ldr	r2, .L186
  2235 00f0 936B     		ldr	r3, [r2, #56]
  2236 00f2 43F00803 		orr	r3, r3, #8
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 64
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 64
 
 
  2237 00f6 9363     		str	r3, [r2, #56]
@@ -3838,7 +3838,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2285              		.loc 1 1059 0
  2286              		.cfi_startproc
  2287              		@ args = 0, pretend = 0, frame = 8
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 65
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 65
 
 
  2288              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -3898,7 +3898,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2335              	.LVL247:
  2336 003a FFF7FEFF 		bl	SDIO_Send_Cmd
  2337              	.LVL248:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 66
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 66
 
 
 1071:drivers/bsp_f1xx_sdio.c **** 		if (errorstatus != SD_OK)return errorstatus;
@@ -3958,7 +3958,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2384 0068 00800140 		.word	1073840128
  2385 006c 00000000 		.word	.LANCHOR1
  2386              		.cfi_endproc
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 67
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 67
 
 
  2387              	.LFE89:
@@ -4018,7 +4018,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2435 0024 5168     		ldr	r1, [r2, #4]
  2436 0026 21F4C051 		bic	r1, r1, #6144
  2437 002a 5160     		str	r1, [r2, #4]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 68
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 68
 
 
  375:drivers/bsp_f1xx_sdio.c **** 				SDIO->CLKCR |= 0 << 14;            //不开启硬件流控制
@@ -4078,7 +4078,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2488              	.LFB66:
   19:drivers/bsp_f1xx_sdio.c **** 	u8 clkdiv = 0;
  2489              		.loc 1 19 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 69
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 69
 
 
  2490              		.cfi_startproc
@@ -4138,7 +4138,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
   34:drivers/bsp_f1xx_sdio.c **** 	SDIO->CLKCR = 0x00000000;
  2536              		.loc 1 34 0
  2537 0048 03F5D843 		add	r3, r3, #27648
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 70
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 70
 
 
  2538 004c 0021     		movs	r1, #0
@@ -4198,7 +4198,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2578 0078 1BB3     		cbz	r3, .L221
  2579              	.L212:
   49:drivers/bsp_f1xx_sdio.c **** 		if (SDCardInfo.CardType == SDIO_STD_CAPACITY_SD_CARD_V1_1 ||
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 71
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 71
 
 
  2580              		.loc 1 49 0
@@ -4258,7 +4258,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2626 00b0 E1E7     		b	.L210
  2627              	.L220:
   47:drivers/bsp_f1xx_sdio.c **** 	if (errorstatus == SD_OK)errorstatus = SD_EnableWideBusOperation(1);    //4位宽度,如果是MMC�
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 72
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 72
 
 
  2628              		.loc 1 47 0 discriminator 1
@@ -4318,7 +4318,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2676              		@ args = 0, pretend = 0, frame = 0
  2677              		@ frame_needed = 0, uses_anonymous_args = 0
  2678              		@ link register save eliminated.
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 73
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 73
 
 
  2679              	.LVL284:
@@ -4378,7 +4378,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2720              	.LVL290:
  2721 0000 10B4     		push	{r4}
  2722              	.LCFI35:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 74
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 74
 
 
  2723              		.cfi_def_cfa_offset 4
@@ -4438,7 +4438,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
 1214:drivers/bsp_f1xx_sdio.c **** 	DMA2_Channel4->CNDTR = bufsize / 4;    //DMA2,传输数据量
  2767              		.loc 1 1214 0
  2768 0052 8908     		lsrs	r1, r1, #2
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 75
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 75
 
 
  2769              	.LVL292:
@@ -4498,7 +4498,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2820              		.cfi_offset 14, -4
  2821 0004 BDF82040 		ldrh	r4, [sp, #32]
  2822              	.LVL294:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 76
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 76
 
 
  413:drivers/bsp_f1xx_sdio.c **** 	SDIO->DCTRL = 0x0;    //数据控制寄存器清零(关DMA)
@@ -4558,7 +4558,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  424:drivers/bsp_f1xx_sdio.c **** 		errorstatus = CmdResp1Error(SD_CMD_SET_BLOCKLEN);    //等待R1响应
  2869              		.loc 1 424 0
  2870 0056 2246     		mov	r2, r4
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 77
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 77
 
 
  2871 0058 0121     		movs	r1, #1
@@ -4618,7 +4618,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2916              	.LVL308:
  2917 00a6 FFF7FEFF 		bl	SD_DMA_Config
  2918              	.LVL309:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 78
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 78
 
 
  477:drivers/bsp_f1xx_sdio.c **** 		StopCondition = 0;            //单块读,不需要发送停止传输指令
@@ -4678,7 +4678,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  2961              	.LVL314:
  2962              	.L239:
  441:drivers/bsp_f1xx_sdio.c **** 				}
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 79
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 79
 
 
  2963              		.loc 1 441 0 discriminator 3
@@ -4738,7 +4738,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3007 0120 324B     		ldr	r3, .L266
  3008              	.LVL321:
  3009 0122 5B6B     		ldr	r3, [r3, #52]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 80
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 80
 
 
  3010 0124 13F0080F 		tst	r3, #8
@@ -4798,7 +4798,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3054              		.loc 1 461 0
  3055 0172 1E4A     		ldr	r2, .L266
  3056 0174 936B     		ldr	r3, [r2, #56]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 81
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 81
 
 
  3057 0176 43F02003 		orr	r3, r3, #32
@@ -4858,7 +4858,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3101              		.loc 1 482 0 discriminator 3
  3102 01ba 002B     		cmp	r3, #0
  3103 01bc F1D1     		bne	.L249
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 82
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 82
 
 
  3104              	.L248:
@@ -4918,7 +4918,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3149 01e8 F4E7     		b	.L233
  3150              	.L267:
  3151 01ea 00BF     		.align	2
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 83
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 83
 
 
  3152              	.L266:
@@ -4978,7 +4978,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3204 001a 022A     		cmp	r2, #2
  3205 001c 65D0     		beq	.L298
  3206              	.LVL338:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 84
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 84
 
 
  3207              	.L269:
@@ -5038,7 +5038,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3252              		.loc 1 520 0
  3253 006e 079B     		ldr	r3, [sp, #28]
  3254 0070 012B     		cmp	r3, #1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 85
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 85
 
 
  3255 0072 40F2D680 		bls	.L270
@@ -5098,7 +5098,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  581:drivers/bsp_f1xx_sdio.c **** 			TransferEnd = 0;                //传输结束标置位，在中断服务置1
  3300              		.loc 1 581 0
  3301 00c4 624A     		ldr	r2, .L306+20
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 86
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 86
 
 
  3302 00c6 0121     		movs	r1, #1
@@ -5158,7 +5158,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3345 0106 D1F88010 		ldr	r1, [r1, #128]
  3346 010a 42F82310 		str	r1, [r2, r3, lsl #2]
  533:drivers/bsp_f1xx_sdio.c **** 					{
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 87
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 87
 
 
  3347              		.loc 1 533 0 discriminator 3
@@ -5218,7 +5218,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3392              	.LVL364:
  3393 0142 5B6B     		ldr	r3, [r3, #52]
  3394 0144 13F0080F 		tst	r3, #8
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 88
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 88
 
 
  3395 0148 15D1     		bne	.L302
@@ -5278,7 +5278,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3439 0192 2B4A     		ldr	r2, .L306+4
  3440 0194 936B     		ldr	r3, [r2, #56]
  3441 0196 43F02003 		orr	r3, r3, #32
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 89
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 89
 
 
  3442 019a 9363     		str	r3, [r2, #56]
@@ -5338,7 +5338,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3487 01de 0121     		movs	r1, #1
  3488 01e0 0C20     		movs	r0, #12
  3489 01e2 FFF7FEFF 		bl	SDIO_Send_Cmd
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 90
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 90
 
 
  3490              	.LVL368:
@@ -5398,7 +5398,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3534 021a 1C78     		ldrb	r4, [r3]	@ zero_extendqisi2
  3535 021c E4B2     		uxtb	r4, r4
  3536              	.LVL373:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 91
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 91
 
 
  3537 021e 00E0     		b	.L270
@@ -5458,7 +5458,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3585              		.cfi_endproc
  3586              	.LFE78:
  3588              		.section	.text.SD_WriteBlock,"ax",%progbits
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 92
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 92
 
 
  3589              		.align	1
@@ -5518,7 +5518,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3639 002a FFF7FEFF 		bl	SDIO_Send_Data_Cfg
  3640              	.LVL389:
  610:drivers/bsp_f1xx_sdio.c **** 	if (CardType == SDIO_HIGH_CAPACITY_SD_CARD)    //大容量卡
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 93
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 93
 
 
  3641              		.loc 1 610 0
@@ -5578,7 +5578,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3687 007e 0D20     		movs	r0, #13
  3688              	.LVL395:
  3689 0080 FFF7FEFF 		bl	SDIO_Send_Cmd
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 94
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 94
 
 
  3690              	.LVL396:
@@ -5638,7 +5638,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3733              		.loc 1 633 0
  3734 00c0 7E4B     		ldr	r3, .L358
  3735 00c2 5B69     		ldr	r3, [r3, #20]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 95
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 95
 
 
  3736              	.LVL405:
@@ -5698,7 +5698,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3781 0104 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
  3782 0106 5BB1     		cbz	r3, .L349
  688:drivers/bsp_f1xx_sdio.c **** 		SD_DMA_Config((u32 *) buf, blksize, 1);//SDIO DMA配置
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 96
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 96
 
 
  3783              		.loc 1 688 0
@@ -5758,7 +5758,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3826 0138 57F82310 		ldr	r1, [r7, r3, lsl #2]
  3827 013c 5F4A     		ldr	r2, .L358
  3828 013e C2F88010 		str	r1, [r2, #128]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 97
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 97
 
 
  657:drivers/bsp_f1xx_sdio.c **** 						SDIO->FIFO = *(tempbuff + count);
@@ -5818,7 +5818,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3872 017a EAD8     		bhi	.L343
  650:drivers/bsp_f1xx_sdio.c **** 							(tlen - bytestransferred) / 4 + 1);
  3873              		.loc 1 650 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 98
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 98
 
 
  3874 017c 12F0030F 		tst	r2, #3
@@ -5878,7 +5878,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3919 01c0 1BD1     		bne	.L356
  686:drivers/bsp_f1xx_sdio.c **** 		SDIO->ICR = 0X5FF;            //清除所有标记
  3920              		.loc 1 686 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 99
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 99
 
 
  3921 01c2 FFF7FEFF 		bl	INTX_ENABLE
@@ -5938,7 +5938,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  3966              	.L350:
  689:drivers/bsp_f1xx_sdio.c **** 		TransferError = SD_OK;
  3967              		.loc 1 689 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 100
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 100
 
 
  3968 0208 0122     		movs	r2, #1
@@ -5998,7 +5998,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  696:drivers/bsp_f1xx_sdio.c **** 			bsp_SD_Init();                        //重新初始化SD卡,可以解决写入死机的问题
  4012              		.loc 1 696 0 is_stmt 1
  4013 024c 53B1     		cbz	r3, .L357
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 101
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 101
 
 
  700:drivers/bsp_f1xx_sdio.c **** 		while ((TransferEnd == 0) && (TransferError == SD_OK) && timeout)timeout--;
@@ -6058,7 +6058,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4057 0280 0DF10700 		add	r0, sp, #7
  4058 0284 FFF7FEFF 		bl	IsCardProgramming
  4059              	.LVL446:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 102
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 102
 
 
  4060 0288 0346     		mov	r3, r0
@@ -6118,7 +6118,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4107              	.LVL454:
  4108              	.L344:
  665:drivers/bsp_f1xx_sdio.c **** 				timeout--;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 103
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 103
 
 
  4109              		.loc 1 665 0
@@ -6178,7 +6178,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4163 000c 0B9D     		ldr	r5, [sp, #44]
  4164              	.LVL458:
  722:drivers/bsp_f1xx_sdio.c **** 	u32 timeout = 0, bytestransferred = 0;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 104
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 104
 
 
  4165              		.loc 1 722 0
@@ -6238,7 +6238,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4210 0058 2046     		mov	r0, r4
  4211 005a FFF7FEFF 		bl	convert_from_bytes_to_power_of_two
  4212              	.LVL466:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 105
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 105
 
 
  4213 005e 8246     		mov	r10, r0
@@ -6298,7 +6298,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4258 00aa 40F00B81 		bne	.L361
  750:drivers/bsp_f1xx_sdio.c **** 			errorstatus = CmdResp1Error(SD_CMD_SET_BLOCK_COUNT);//等待R1响应
  4259              		.loc 1 750 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 106
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 106
 
 
  4260 00ae 2A46     		mov	r2, r5
@@ -6358,7 +6358,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4306              	.L363:
  834:drivers/bsp_f1xx_sdio.c **** 	errorstatus = IsCardProgramming(&cardstate);
  4307              		.loc 1 834 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 107
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 107
 
 
  4308 00f8 7A4B     		ldr	r3, .L409
@@ -6418,7 +6418,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4351 012e 6D49     		ldr	r1, .L409
  4352 0130 C1F88040 		str	r4, [r1, #128]
  769:drivers/bsp_f1xx_sdio.c **** 							SDIO->FIFO = *tempbuff;
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 108
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 108
 
 
  4353              		.loc 1 769 0 discriminator 3
@@ -6478,7 +6478,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4396              		.loc 1 783 0
  4397 0168 0139     		subs	r1, r1, #1
  4398              	.LVL498:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 109
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 109
 
 
  4399              	.L366:
@@ -6538,7 +6538,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4443 01b2 4C4B     		ldr	r3, .L409
  4444 01b4 5B6B     		ldr	r3, [r3, #52]
  4445 01b6 13F4007F 		tst	r3, #512
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 110
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 110
 
 
  4446 01ba 24D1     		bne	.L406
@@ -6598,7 +6598,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4491 0200 9363     		str	r3, [r2, #56]
  797:drivers/bsp_f1xx_sdio.c **** 			} else if (SDIO->STA & (1 << 9))    //接收起始位错误
  4492              		.loc 1 797 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 111
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 111
 
 
  4493 0202 0523     		movs	r3, #5
@@ -6658,7 +6658,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4538              		.loc 1 818 0
  4539 0242 2E4A     		ldr	r2, .L409+24
  4540 0244 1370     		strb	r3, [r2]
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 112
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 112
 
 
  819:drivers/bsp_f1xx_sdio.c **** 			SDIO->DCTRL |= 1 << 3;                                //SDIO DMA使能.
@@ -6718,7 +6718,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4584 0280 20E0     		b	.L361
  4585              	.LVL516:
  4586              	.L386:
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 113
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 113
 
 
  829:drivers/bsp_f1xx_sdio.c **** 			if (timeout == 0)return SD_DATA_TIMEOUT;            //超时
@@ -6778,7 +6778,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4631 02bc 012A     		cmp	r2, #1
  4632 02be F3D9     		bls	.L388
  4633 02c0 00E0     		b	.L361
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 114
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 114
 
 
  4634              	.LVL522:
@@ -6838,7 +6838,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4681              	.L409:
  4682 02e4 00800140 		.word	1073840128
  4683 02e8 00000000 		.word	.LANCHOR0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 115
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 115
 
 
  4684 02ec 00000000 		.word	.LANCHOR1
@@ -6898,7 +6898,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4728 000c 4E02     		lsls	r6, r1, #9
  4729              	.LVL532:
 1231:drivers/bsp_f1xx_sdio.c **** 	if ((u32) buf % 4 != 0) {
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 116
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 116
 
 
  4730              		.loc 1 1231 0
@@ -6958,7 +6958,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
 1232:drivers/bsp_f1xx_sdio.c **** 			sta = SD_ReadBlock(SDIO_DATA_BUFFER, lsector + 512 * n, 512);//单个sector的读操作
  4773              		.loc 1 1232 0 discriminator 3
  4774 0058 0134     		adds	r4, r4, #1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 117
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 117
 
 
  4775              	.LVL541:
@@ -7018,7 +7018,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4823              		.syntax unified
  4824              		.thumb
  4825              		.thumb_func
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 118
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 118
 
 
  4826              		.fpu softvfp
@@ -7078,7 +7078,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4861 001a 26D0     		beq	.L432
 1263:drivers/bsp_f1xx_sdio.c **** 		else sta = SD_WriteMultiBlocks(buf, lsector, 512, cnt);    //多个sector
  4862              		.loc 1 1263 0
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 119
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 119
 
 
  4863 001c 0192     		str	r2, [sp, #4]
@@ -7138,7 +7138,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4909              	.LCFI53:
  4910              		.cfi_remember_state
  4911              		.cfi_def_cfa_offset 32
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 120
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 120
 
 
  4912              		@ sp needed
@@ -7198,7 +7198,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  4962              		.set	.LANCHOR0,. + 0
  4965              	CardType:
  4966 0000 00       		.space	1
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 121
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 121
 
 
  4967              		.section	.bss.RCA,"aw",%nobits
@@ -7237,127 +7237,127 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 1
  5010              		.file 12 "tools/inc/tskmanager.h"
  5011              		.file 13 "drivers/inc/bsp_f1xx_sdio.h"
  5012              		.file 14 "<built-in>"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 122
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 122
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 bsp_f1xx_sdio.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:16     .text.SDIO_Clock_Set:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:23     .text.SDIO_Clock_Set:0000000000000000 SDIO_Clock_Set
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:49     .text.SDIO_Clock_Set:0000000000000010 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:54     .text.SDIO_Send_Cmd:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:61     .text.SDIO_Send_Cmd:0000000000000000 SDIO_Send_Cmd
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:106    .text.SDIO_Send_Cmd:0000000000000024 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:111    .text.SDIO_Send_Data_Cfg:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:118    .text.SDIO_Send_Data_Cfg:0000000000000000 SDIO_Send_Data_Cfg
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:166    .text.SDIO_Send_Data_Cfg:0000000000000028 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:171    .text.SD_PowerOFF:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:178    .text.SD_PowerOFF:0000000000000000 SD_PowerOFF
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:196    .text.SD_PowerOFF:0000000000000010 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:201    .text.SD_GetCardInfo:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:208    .text.SD_GetCardInfo:0000000000000000 SD_GetCardInfo
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:588    .text.SD_GetCardInfo:0000000000000234 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:596    .text.SD_SetDeviceMode:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:603    .text.SD_SetDeviceMode:0000000000000000 SD_SetDeviceMode
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:631    .text.SD_SetDeviceMode:0000000000000010 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:636    .text.CmdError:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:643    .text.CmdError:0000000000000000 CmdError
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:687    .text.CmdError:0000000000000028 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:692    .text.CmdResp7Error:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:699    .text.CmdResp7Error:0000000000000000 CmdResp7Error
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:762    .text.CmdResp7Error:0000000000000044 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:767    .text.CmdResp1Error:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:774    .text.CmdResp1Error:0000000000000000 CmdResp1Error
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:842    .text.CmdResp1Error:0000000000000044 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:847    .text.SD_SelectDeselect:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:854    .text.SD_SelectDeselect:0000000000000000 SD_SelectDeselect
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:883    .text.SD_ProcessIRQSrc:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:890    .text.SD_ProcessIRQSrc:0000000000000000 SD_ProcessIRQSrc
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1068   .text.SD_ProcessIRQSrc:0000000000000120 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1076   .text.SDIO_IRQHandler:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1083   .text.SDIO_IRQHandler:0000000000000000 SDIO_IRQHandler
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1103   .text.CmdResp3Error:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1110   .text.CmdResp3Error:0000000000000000 CmdResp3Error
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1151   .text.CmdResp3Error:000000000000002c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1156   .text.SD_PowerON:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1163   .text.SD_PowerON:0000000000000000 SD_PowerON
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1417   .text.SD_PowerON:000000000000012c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1424   .text.CmdResp2Error:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1431   .text.CmdResp2Error:0000000000000000 CmdResp2Error
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1501   .text.CmdResp2Error:000000000000004c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1506   .text.CmdResp6Error:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1513   .text.CmdResp6Error:0000000000000000 CmdResp6Error
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1626   .text.CmdResp6Error:0000000000000078 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1631   .text.SD_InitializeCards:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1638   .text.SD_InitializeCards:0000000000000000 SD_InitializeCards
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1809   .text.SD_InitializeCards:00000000000000d8 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1818   .text.IsCardProgramming:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1825   .text.IsCardProgramming:0000000000000000 IsCardProgramming
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1932   .text.IsCardProgramming:0000000000000084 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1938   .text.SD_SendStatus:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:1945   .text.SD_SendStatus:0000000000000000 SD_SendStatus
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2001   .text.SD_SendStatus:0000000000000030 $d
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 123
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:16     .text.SDIO_Clock_Set:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:23     .text.SDIO_Clock_Set:0000000000000000 SDIO_Clock_Set
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:49     .text.SDIO_Clock_Set:0000000000000010 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:54     .text.SDIO_Send_Cmd:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:61     .text.SDIO_Send_Cmd:0000000000000000 SDIO_Send_Cmd
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:106    .text.SDIO_Send_Cmd:0000000000000024 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:111    .text.SDIO_Send_Data_Cfg:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:118    .text.SDIO_Send_Data_Cfg:0000000000000000 SDIO_Send_Data_Cfg
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:166    .text.SDIO_Send_Data_Cfg:0000000000000028 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:171    .text.SD_PowerOFF:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:178    .text.SD_PowerOFF:0000000000000000 SD_PowerOFF
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:196    .text.SD_PowerOFF:0000000000000010 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:201    .text.SD_GetCardInfo:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:208    .text.SD_GetCardInfo:0000000000000000 SD_GetCardInfo
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:588    .text.SD_GetCardInfo:0000000000000234 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:596    .text.SD_SetDeviceMode:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:603    .text.SD_SetDeviceMode:0000000000000000 SD_SetDeviceMode
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:631    .text.SD_SetDeviceMode:0000000000000010 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:636    .text.CmdError:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:643    .text.CmdError:0000000000000000 CmdError
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:687    .text.CmdError:0000000000000028 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:692    .text.CmdResp7Error:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:699    .text.CmdResp7Error:0000000000000000 CmdResp7Error
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:762    .text.CmdResp7Error:0000000000000044 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:767    .text.CmdResp1Error:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:774    .text.CmdResp1Error:0000000000000000 CmdResp1Error
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:842    .text.CmdResp1Error:0000000000000044 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:847    .text.SD_SelectDeselect:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:854    .text.SD_SelectDeselect:0000000000000000 SD_SelectDeselect
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:883    .text.SD_ProcessIRQSrc:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:890    .text.SD_ProcessIRQSrc:0000000000000000 SD_ProcessIRQSrc
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1068   .text.SD_ProcessIRQSrc:0000000000000120 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1076   .text.SDIO_IRQHandler:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1083   .text.SDIO_IRQHandler:0000000000000000 SDIO_IRQHandler
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1103   .text.CmdResp3Error:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1110   .text.CmdResp3Error:0000000000000000 CmdResp3Error
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1151   .text.CmdResp3Error:000000000000002c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1156   .text.SD_PowerON:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1163   .text.SD_PowerON:0000000000000000 SD_PowerON
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1417   .text.SD_PowerON:000000000000012c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1424   .text.CmdResp2Error:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1431   .text.CmdResp2Error:0000000000000000 CmdResp2Error
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1501   .text.CmdResp2Error:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1506   .text.CmdResp6Error:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1513   .text.CmdResp6Error:0000000000000000 CmdResp6Error
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1626   .text.CmdResp6Error:0000000000000078 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1631   .text.SD_InitializeCards:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1638   .text.SD_InitializeCards:0000000000000000 SD_InitializeCards
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1809   .text.SD_InitializeCards:00000000000000d8 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1818   .text.IsCardProgramming:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1825   .text.IsCardProgramming:0000000000000000 IsCardProgramming
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1932   .text.IsCardProgramming:0000000000000084 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1938   .text.SD_SendStatus:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:1945   .text.SD_SendStatus:0000000000000000 SD_SendStatus
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2001   .text.SD_SendStatus:0000000000000030 $d
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 123
 
 
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2007   .text.SD_GetState:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2014   .text.SD_GetState:0000000000000000 SD_GetState
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2056   .text.FindSCR:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2063   .text.FindSCR:0000000000000000 FindSCR
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2271   .text.FindSCR:0000000000000128 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2276   .text.SDEnWideBus:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2283   .text.SDEnWideBus:0000000000000000 SDEnWideBus
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2384   .text.SDEnWideBus:0000000000000068 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2390   .text.SD_EnableWideBusOperation:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2397   .text.SD_EnableWideBusOperation:0000000000000000 SD_EnableWideBusOperation
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2473   .text.SD_EnableWideBusOperation:000000000000004c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2480   .text.bsp_SD_Init:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2487   .text.bsp_SD_Init:0000000000000000 bsp_SD_Init
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2654   .text.bsp_SD_Init:00000000000000d0 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2007   .text.SD_GetState:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2014   .text.SD_GetState:0000000000000000 SD_GetState
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2056   .text.FindSCR:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2063   .text.FindSCR:0000000000000000 FindSCR
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2271   .text.FindSCR:0000000000000128 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2276   .text.SDEnWideBus:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2283   .text.SDEnWideBus:0000000000000000 SDEnWideBus
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2384   .text.SDEnWideBus:0000000000000068 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2390   .text.SD_EnableWideBusOperation:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2397   .text.SD_EnableWideBusOperation:0000000000000000 SD_EnableWideBusOperation
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2473   .text.SD_EnableWideBusOperation:000000000000004c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2480   .text.bsp_SD_Init:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2487   .text.bsp_SD_Init:0000000000000000 bsp_SD_Init
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2654   .text.bsp_SD_Init:00000000000000d0 $d
                             *COM*:0000000000000058 SDCardInfo
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2665   .text.convert_from_bytes_to_power_of_two:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2672   .text.convert_from_bytes_to_power_of_two:0000000000000000 convert_from_bytes_to_power_of_two
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2706   .text.SD_DMA_Config:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2713   .text.SD_DMA_Config:0000000000000000 SD_DMA_Config
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2789   .text.SD_DMA_Config:0000000000000068 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2796   .text.SD_ReadBlock:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:2803   .text.SD_ReadBlock:0000000000000000 SD_ReadBlock
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:3153   .text.SD_ReadBlock:00000000000001ec $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:3165   .text.SD_ReadMultiBlocks:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:3172   .text.SD_ReadMultiBlocks:0000000000000000 SD_ReadMultiBlocks
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:3576   .text.SD_ReadMultiBlocks:000000000000023c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2665   .text.convert_from_bytes_to_power_of_two:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2672   .text.convert_from_bytes_to_power_of_two:0000000000000000 convert_from_bytes_to_power_of_two
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2706   .text.SD_DMA_Config:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2713   .text.SD_DMA_Config:0000000000000000 SD_DMA_Config
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2789   .text.SD_DMA_Config:0000000000000068 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2796   .text.SD_ReadBlock:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:2803   .text.SD_ReadBlock:0000000000000000 SD_ReadBlock
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:3153   .text.SD_ReadBlock:00000000000001ec $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:3165   .text.SD_ReadMultiBlocks:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:3172   .text.SD_ReadMultiBlocks:0000000000000000 SD_ReadMultiBlocks
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:3576   .text.SD_ReadMultiBlocks:000000000000023c $d
                             *COM*:0000000000000004 tempbuff
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:3589   .text.SD_WriteBlock:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:3596   .text.SD_WriteBlock:0000000000000000 SD_WriteBlock
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4121   .text.SD_WriteBlock:00000000000002bc $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4133   .text.SD_WriteMultiBlocks:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4140   .text.SD_WriteMultiBlocks:0000000000000000 SD_WriteMultiBlocks
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4682   .text.SD_WriteMultiBlocks:00000000000002e4 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4694   .text.SD_ReadDisk:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4701   .text.SD_ReadDisk:0000000000000000 SD_ReadDisk
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4816   .text.SD_ReadDisk:0000000000000080 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:3589   .text.SD_WriteBlock:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:3596   .text.SD_WriteBlock:0000000000000000 SD_WriteBlock
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4121   .text.SD_WriteBlock:00000000000002bc $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4133   .text.SD_WriteMultiBlocks:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4140   .text.SD_WriteMultiBlocks:0000000000000000 SD_WriteMultiBlocks
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4682   .text.SD_WriteMultiBlocks:00000000000002e4 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4694   .text.SD_ReadDisk:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4701   .text.SD_ReadDisk:0000000000000000 SD_ReadDisk
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4816   .text.SD_ReadDisk:0000000000000080 $d
                             *COM*:0000000000000200 SDIO_DATA_BUFFER
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4821   .text.SD_WriteDisk:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4828   .text.SD_WriteDisk:0000000000000000 SD_WriteDisk
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4938   .text.SD_WriteDisk:000000000000007c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4984   .bss.TransferEnd:0000000000000000 TransferEnd
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4990   .bss.TransferError:0000000000000000 TransferError
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4948   .bss.CID_Tab:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4952   .bss.CID_Tab:0000000000000000 CID_Tab
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4955   .bss.CSD_Tab:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4959   .bss.CSD_Tab:0000000000000000 CSD_Tab
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4965   .bss.CardType:0000000000000000 CardType
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4966   .bss.CardType:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4968   .bss.RCA:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4972   .bss.RCA:0000000000000000 RCA
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4978   .bss.StopCondition:0000000000000000 StopCondition
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4979   .bss.StopCondition:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4985   .bss.TransferEnd:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4991   .bss.TransferError:0000000000000000 $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s:4996   .data.DeviceMode:0000000000000000 DeviceMode
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4821   .text.SD_WriteDisk:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4828   .text.SD_WriteDisk:0000000000000000 SD_WriteDisk
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4938   .text.SD_WriteDisk:000000000000007c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4984   .bss.TransferEnd:0000000000000000 TransferEnd
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4990   .bss.TransferError:0000000000000000 TransferError
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4948   .bss.CID_Tab:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4952   .bss.CID_Tab:0000000000000000 CID_Tab
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4955   .bss.CSD_Tab:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4959   .bss.CSD_Tab:0000000000000000 CSD_Tab
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4965   .bss.CardType:0000000000000000 CardType
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4966   .bss.CardType:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4968   .bss.RCA:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4972   .bss.RCA:0000000000000000 RCA
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4978   .bss.StopCondition:0000000000000000 StopCondition
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4979   .bss.StopCondition:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4985   .bss.TransferEnd:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4991   .bss.TransferError:0000000000000000 $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s:4996   .data.DeviceMode:0000000000000000 DeviceMode
 
 UNDEFINED SYMBOLS
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccQ7tbjn.s 			page 124
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//ccrVrQ5O.s 			page 124
 
 
 MY_NVIC_Init

@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 1
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 1
    8:drivers/bsp_f1xx_io.c **** 	RCC->APB2ENR |= 1 << offset;
   49              		.loc 1 8 0
   50 0016 194D     		ldr	r5, .L3
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 2
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s 			page 2
 
 
   51 0018 AA69     		ldr	r2, [r5, #24]
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 1
  103              		.align	1
  104              		.global	bsp_IoSet
  105              		.syntax unified
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 3
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s 			page 3
 
 
  106              		.thumb
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 1
  153              		.cfi_endproc
  154              	.LFE68:
  156              		.section	.text.bsp_IoRead,"ax",%progbits
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 4
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s 			page 4
 
 
  157              		.align	1
@@ -225,19 +225,19 @@ ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 1
  195              		.file 11 "tools/inc/malloc.h"
  196              		.file 12 "tools/inc/tskmanager.h"
  197              		.file 13 "drivers/inc/bsp_f1xx_io.h"
-ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s 			page 5
+ARM GAS  /var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 bsp_f1xx_io.c
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:16     .text.bsp_IoInit:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:23     .text.bsp_IoInit:0000000000000000 bsp_IoInit
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:98     .text.bsp_IoInit:000000000000007c $d
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:103    .text.bsp_IoSet:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:110    .text.bsp_IoSet:0000000000000000 bsp_IoSet
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:130    .text.bsp_IoClr:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:137    .text.bsp_IoClr:0000000000000000 bsp_IoClr
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:157    .text.bsp_IoRead:0000000000000000 $t
-/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc8CpAME.s:164    .text.bsp_IoRead:0000000000000000 bsp_IoRead
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:16     .text.bsp_IoInit:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:23     .text.bsp_IoInit:0000000000000000 bsp_IoInit
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:98     .text.bsp_IoInit:000000000000007c $d
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:103    .text.bsp_IoSet:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:110    .text.bsp_IoSet:0000000000000000 bsp_IoSet
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:130    .text.bsp_IoClr:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:137    .text.bsp_IoClr:0000000000000000 bsp_IoClr
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:157    .text.bsp_IoRead:0000000000000000 $t
+/var/folders/vc/p32jbmgs3k17njj5gy_2_k3w0000gn/T//cc5Zt2ai.s:164    .text.bsp_IoRead:0000000000000000 bsp_IoRead
 
 NO UNDEFINED SYMBOLS

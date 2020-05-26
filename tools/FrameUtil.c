@@ -3,15 +3,14 @@
 //
 
 #include "FrameUtil.h"
-#include "CrcUtil.h"
+#include "crcutil.h"
 
-typedef void OnFrameRecv(u8 *buf,u8 len);
-OnFrameRecv *OnFrameRecved;
+static void (*OnFrameRecved)(u16 class,u8 *buf,u16 len);
 
 static u32 frameHead = 0x55333355;
-static u8 frameDat[512];
-static u8 temp[512];
-static u8 frame[512];
+static u8 frameDat[FRAMEBUFSIZE];
+static u8 temp[FRAMEBUFSIZE];
+static u8 frame[FRAMEBUFSIZE];
 static int frameLen = 0;
 static u16 recvLen = 0;
 static u8 headRecved = 0;
@@ -67,19 +66,18 @@ void OnFrameDataIn(u8 *dat, u16 len)
 	if (headRecved) {
 		for (; i < len; i++) {
 			frameDat[recvLen++] = dat[i];
-			if (recvLen >= 6)
-				frameLen = *(u16*)&frameDat[4];
+			if (recvLen >= 6) {
+				frameLen = *(u16 *) &frameDat[4];
 
-			if (recvLen == frameLen)
-			{
-				if (CrcUtil.CheckCrc(frameDat, frameLen))
-				{
-					memcpy(frame,&frameDat[6],frameLen-8);
-					OnFrameRecved(frame,frameLen-8);
+				if (recvLen == frameLen) {
+					if (CrcUtil.CheckCrc(frameDat, frameLen)) {
+						memcpy(frame, &frameDat[6], frameLen - 8);
+						OnFrameRecved(*(u16*)frame,&frame[2], frameLen - 10);
+					}
+					FrameReset();
+					i++;
+					break;
 				}
-				FrameReset();
-				i++;
-				break;
 			}
 		}
 
@@ -91,18 +89,20 @@ void OnFrameDataIn(u8 *dat, u16 len)
 	}
 }
 
-u16 MakeFrame(u8 *msg,u16 len)
+u16 MakeFrame(u16 class,u8 *msg,u16 len)
 {
 	u8 out[512];
 	*(u32*)out = 0x55333355;
-	*(u16*)&out[4] = (len+8);
-	memcpy(&out[6],msg,len);
-	CrcUtil.SetCrc(out,len+8);
-	memcpy(msg,out,len+8);
-	return len+8;
+	*(u16*)&out[4] = (len+10);
+	*(u16*)&out[6] = class;
+	if(len)
+		memcpy(&out[8],msg,len);
+	CrcUtil.SetCrc(out,len+10);
+	memcpy(msg,out,len+10);
+	return len+10;
 }
 
-void SetFrameRecver(void *recver(u8 *buf,u8 len))
+void SetFrameRecver(void (*recver)(u16 class,u8 *buf,u16 len))
 {
 	OnFrameRecved = recver;
 }
